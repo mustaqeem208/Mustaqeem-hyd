@@ -1,0 +1,150 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS News – YouTube Silver Button Award</title>
+<link rel="icon" href="https://mustaqeem-hyd-news.netlify.app/favicon.ico" type="image/x-icon">
+<style>
+  /* Root Colors */
+  :root {
+    --bg: #0f1724;
+    --card-bg: rgba(255,255,255,0.03);
+    --accent: #0f5bd8;
+    --gold: #d4af37;
+    --text-primary: #e6eef8;
+    --text-muted: #9aa4b2;
+  }
+
+  /* Reset & body */
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+  }
+
+  header {
+    padding: 24px;
+    text-align:center;
+    background: linear-gradient(90deg,var(--accent),var(--gold));
+    color:#071023;
+  }
+  header h1 {font-size:28px; margin-bottom:4px;}
+  header p {font-size:16px; color:#071023; font-weight:500;}
+
+  main {
+    flex:1;
+    padding:20px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .news-card {
+    background: var(--card-bg);
+    border-radius:16px;
+    max-width:800px;
+    width:100%;
+    padding:30px;
+    box-shadow:0 10px 35px rgba(2,6,23,0.7);
+    transition: transform 0.2s ease;
+  }
+  .news-card:hover {transform: translateY(-6px);}
+
+  .news-images {
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-bottom:20px;
+  }
+  .news-images img {width:48%; border-radius:12px;}
+
+  .news-title {font-size:22px; font-weight:700; color: var(--gold); margin-bottom:10px;}
+  .news-meta {font-size:14px; color: var(--text-muted); display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px;}
+  
+  .news-description {display:none; font-size:15px; line-height:1.6; margin-bottom:16px;}
+
+  .whatsapp-share {
+    display:inline-block;
+    padding:12px 20px;
+    border-radius:12px;
+    background: linear-gradient(90deg,var(--accent),var(--gold));
+    color:#071023;
+    font-weight:600;
+    text-decoration:none;
+    transition: transform 0.2s;
+  }
+  .whatsapp-share:hover {transform: scale(1.05);}
+
+  footer {
+    text-align:center;
+    padding:16px;
+    font-size:14px;
+    color: var(--text-muted);
+    border-top:1px solid rgba(255,255,255,0.05);
+  }
+
+  @media(max-width:860px){
+    .news-images img {width:100%;}
+    main {padding:10px;}
+    .news-card {padding:20px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>MS News – Mustaqeem Hyd</h1>
+  <p>YouTube Silver Button Award 🎉</p>
+</header>
+
+<main>
+  <div class="news-card" onclick="toggleDescription(this)">
+    <div class="news-images">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhN14_qfzbJD9PfC_biEegdoIh4okStRBeg-IE8Uyd6Xm_Rn3YeL8a0mO3XSveeqv8WyA3HUJf-pSU1SpAMF9NbC_aq5Hgpt8aHHoW10yGjy7lygk1agyrCAH1VwvAoGBXXJawYOVbAgfzZFQoigB0GioJnvP8_fCkAlsHQsS9i4HBfdGcr34mRy2IZz4w/s1600/1000484107.jpg" alt="YouTube Silver Award Front">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEo3xIdpnDIZMJgzXrh8W-muYQELRgT1lYmbjOQ4yf70k1ZcoHOvd40ku4MWiu-86IqJ-hk6T8bUyNd9EnTqq4Ph_MTSoT5vH9nH8s1P_TbcgXrZXzP38tvRnJBs-DBMKklKkkgLQUrH3cqWpS9F0ENR5Shj-GgsbCyIu8EChlVW_Mocdhy5GeYL2wQ1k/s1600/1000484101.jpg" alt="YouTube Silver Award Box">
+    </div>
+
+    <div class="news-title">🏆 YouTube Silver Button Mil Gaya – ᗰᑌᔕTᗩᑫEEᗰ Hyd</div>
+    <div class="news-meta">
+      <span>👁️ 14.2k Views</span>
+      <span>🕒 22/07/2025</span>
+      <span>📢 By ᗰᑌᔕTᗩᑫEEᗰ</span>
+    </div>
+
+    <div class="news-description">
+      <p><strong>🎉 Alhamdulillah! Khushi Ki Inteha:</strong> Finally, <strong>ᗰᑌᔕTᗩᑫEEᗰ Hyd</strong> ka YouTube Silver Play Button haathon me aa gaya! 💖</p>
+      <p>100K subscribers ke baad yeh award mila – ye sirf ek metal plate nahi, <em>ye mehnat, duaon aur viewers ke pyar ka nateeja hai</em> 🙏</p>
+      <p>💬 <em>"Aap logon ke bina yeh mumkin nahi tha – jazakAllah for all the support!"</em></p>
+
+      <hr>
+      <p><strong>📜 Urdu:</strong></p>
+      <p>الحمدللہ، یوٹیوب سلور پلے بٹن مل گیا ہے! یہ کامیابی آپ سب کی محبت اور سپورٹ کے بغیر ممکن نہ تھی۔ ان شاءاللہ گولڈن بٹن کا سفر بھی جاری رہے گا۔</p>
+
+      <hr>
+      <p><strong>📜 Roman English:</strong></p>
+      <p>Alhamdulillah! Silver Play Button haathon me hai. Ye moment sabse khaas hai. Dua karo next goal – <strong>Golden Button</strong> jald aaye InshaAllah 💛</p>
+    </div>
+
+    <a class="whatsapp-share" href="https://wa.me/?text=🏆 Mustaqeem Hyd got YouTube Silver Button! Dekho khushi ka pal: https://mustaqeem-hyd-news.netlify.app/" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</main>
+
+<footer>
+  © <span id="year"></span> MS News – By Mustaqeem Hyd
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  function toggleDescription(card){
+    const desc = card.querySelector('.news-description');
+    desc.style.display = (desc.style.display === "block") ? "none" : "block";
+  }
+</script>
+
+</body>
+</html>

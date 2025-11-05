@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hyderabad Today Namaz Timing</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #f7f9fc;
+      color: #222;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(90deg, #1abc9c, #16a085);
+      color: #fff;
+      padding: 12px 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      position: sticky;
+      top: 0;
+    }
+    .back-btn {
+      background: #fff;
+      color: #16a085;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .back-btn:hover { background: #f1f1f1; }
+    .time-box {
+      text-align: right;
+    }
+    .time {
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+    .date {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    .image-box { margin: 20px; text-align: center; }
+    .image-box img {
+      max-width: 95%;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .share-box {
+      text-align: center;
+      margin: 25px 0;
+    }
+    .share-btn {
+      background: linear-gradient(45deg, #ff416c, #ff4b2b);
+      color: #fff;
+      padding: 12px 30px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: 0.3s;
+    }
+    .share-btn:hover { opacity: 0.85; }
+    .ads {
+      margin: 20px auto;
+      max-width: 90%;
+      text-align: center;
+      border: 2px dashed #ccc;
+      padding: 15px;
+      border-radius: 10px;
+      background: #fff;
+    }
+    .footer {
+      background: linear-gradient(90deg, #16a085, #1abc9c);
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+    }
+    .footer marquee {
+      font-size: 15px;
+      font-weight: bold;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with updated back button -->
+  <div class="header">
+    <a href="https://mustaqeem-hyd-news.netlify.app/" class="back-btn">← Back</a>
+    <div class="time-box">
+      <div class="time" id="liveTime">00:00:00</div>
+      <div class="date" id="liveDate">DD/MM/YYYY</div>
+    </div>
+  </div>
+
+  <!-- Image -->
+  <div class="image-box">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjs9UhbM7PB5nOl530Kmc3XWh0ofWcDltRtrYi43Bja_3g1p_1chl1RRBm6HOnd7B1oXI3CCf3dFuq_ZjgwywyTKA47ZU3wYzV_Aa6aYwgQK8U2RyhCVCooT4s-aW3LgYSq2Amp6GtjZrU-QzsQK7BsOxoUWtRLBCT55qlCUtDh3nNf7m8yQ-oUXxs-zZ4/s1600/1000503742.jpg" alt="Namaz Timing Hyderabad">
+  </div>
+
+ 
+<!-- Share Button -->
+<div class="share-box" style="margin:20px;">
+  <a href="https://wa.me/?text=Hyderabad%20Today%20Namaz%20Timing%20here%20%3A%20https%3A%2F%2Fmustaqeem-hyd-news.netlify.app%2Fnamaz-timing"
+     class="share-btn"
+     style="display:inline-block; background:#00b894; color:white; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:16px;">
+     📤 Share Now
+  </a>
+</div>
+
+
+  <!-- Ads -->
+  <div class="ads">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-1874063367142441"
+         data-ad-slot="9145858043"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <marquee behavior="scroll" direction="left">✨ Premium Page | Created by Mustaqeem ✨</marquee>
+  </div>
+
+  <!-- JS: live time and date -->
+  <script>
+    function updateTimeDate() {
+      const now = new Date();
+      document.getElementById('liveTime').textContent = now.toLocaleTimeString('en-GB');
+      document.getElementById('liveDate').textContent = now.toLocaleDateString('en-GB');
+    }
+    setInterval(updateTimeDate, 1000);
+    updateTimeDate();
+  </script>
+
+</body>
+</html>

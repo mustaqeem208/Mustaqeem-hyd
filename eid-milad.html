@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Jashn-e Eid Milad-un-Nabi ﷺ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: radial-gradient(circle at top, #021f1a, #000);
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+    text-align: center;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 200%; height: 200%;
+    background: url("https://www.transparenttextures.com/patterns/stardust.png");
+    animation: moveStars 150s linear infinite;
+    z-index: -1;
+    opacity: 0.5;
+  }
+  @keyframes moveStars { from{transform:translate(0,0);} to{transform:translate(-800px,-800px);} }
+
+  .back-btn {
+    position: fixed;
+    top: 15px;  
+    left: 15px;
+    background: #fff;
+    color: #09392f;
+    font-weight: bold;
+    padding: 8px 18px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 16px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    transition: 0.3s;
+    z-index: 2000;
+  }
+  .back-btn:hover { background:#f2d98d; color:#000; }
+
+  .input-box { margin: 140px 0 10px 0; z-index:2; }
+  input {
+    padding:12px 20px;
+    border-radius:25px;
+    border:none;
+    outline:none;
+    font-size:18px;
+    text-align:center;
+    width:80%;
+    max-width:320px;
+    box-shadow:0 0 15px rgba(242,217,141,0.6);
+  }
+
+  .name {
+    font-size:36px;
+    font-weight:bold;
+    color:#f2d98d;
+    text-shadow:0 0 15px #f2d98d,0 0 30px #e6c674,0 0 60px #fff;
+    animation: glow 1.5s infinite alternate;
+    margin-top:15px;
+    letter-spacing:2px;
+  }
+  .celebration {
+    font-size:24px;
+    font-weight:bold;
+    color:#2fd29a;
+    text-shadow:0 0 20px #2fd29a,0 0 40px #1bbf85,0 0 60px #fff;
+    opacity:0;
+    animation: fadeIn 3s forwards 1s, bounce 2s infinite 3s;
+    margin-top:12px;
+  }
+  @keyframes glow { from { text-shadow:0 0 10px #f2d98d;} to { text-shadow:0 0 25px #e6c674,0 0 55px #f2d98d;} }
+  @keyframes fadeIn { to { opacity:1; } }
+  @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+
+  .mubarak-box {
+    margin-top:15px;
+    background: rgba(255,255,255,0.1);
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(242,217,141,0.6);
+    max-width:340px;
+    display:none;
+    animation: zoomIn 0.8s ease;
+  }
+  @keyframes zoomIn { from { transform: scale(0); } to { transform: scale(1); } }
+
+  .border-run {
+    margin-top:20px;
+    width:100%;
+    background: linear-gradient(90deg, #f2d98d,#2fd29a,#f2d98d);
+    color:#000;
+    font-weight:bold;
+    padding:8px 0;
+    font-size:14px;
+    white-space:nowrap;
+    overflow:hidden;
+  }
+  .border-run span {
+    display:inline-block;
+    padding-left:100%;
+    animation: marquee 15s linear infinite;
+  }
+  @keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-100%);} }
+
+  .firework { position:absolute; width:5px; height:5px; border-radius:50%; animation:explode 1.5s forwards; }
+  @keyframes explode { 0%{transform:scale(1); opacity:1;} 100%{transform:scale(20); opacity:0;} }
+
+  .popup {
+    display:none;
+    justify-content:center;
+    align-items:center;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.85);
+    z-index:2000;
+    animation: popupFade 0.8s forwards;
+  }
+  @keyframes popupFade { from {opacity:0;} to {opacity:1;} }
+  .popup.show { display:flex; }
+
+  .popup-box {
+    background:#fff;
+    padding:25px;
+    border-radius:18px;
+    max-width:400px;
+    width:85%;
+    text-align:center;
+    font-family:'Arial', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    font-weight:500;
+    color:#2d3436;
+    box-shadow:0 8px 30px rgba(0,0,0,0.4);
+    border:3px solid #00b894;
+    position:relative;
+    animation: zoomIn 0.6s ease;
+  }
+
+  .blink { animation: blinkEffect 1s infinite; font-weight:bold; color:#d63031; }
+  @keyframes blinkEffect { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+  .close-btn {
+    background:#ff4c4c;
+    border:none;
+    color:#fff;
+    border-radius:50%;
+    width:28px;
+    height:28px;
+    font-size:16px;
+    cursor:pointer;
+    position:absolute;
+    top:-10px;
+    right:-10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.3);
+  }
+
+  .share-btn {
+    margin-top:15px;
+    background:#2fd29a;
+    color:#fff;
+    padding:10px 20px;
+    border-radius:25px;
+    text-decoration:none;
+    font-weight:bold;
+    box-shadow:0 0 15px rgba(0,0,0,0.4);
+    transition:0.3s;
+    display:inline-block;
+  }
+  .share-btn:hover { background:#f2d98d; color:#000; }
+
+  /* Apps Promotion Section */
+  .apps-promo {
+    margin: 50px auto 80px auto;
+    max-width: 360px;
+    background: rgba(255,255,255,0.08);
+    padding: 18px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    text-align: center;
+  }
+  .apps-promo h3 {
+    color: #f2d98d;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+  .app-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+  }
+  .app-card img {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  }
+  .app-info h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #2fd29a;
+  }
+  .app-info a {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 6px 14px;
+    background: #2fd29a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .app-info a:hover { background:#f2d98d; color:#000; }
+
+  .footer {
+    background: linear-gradient(90deg, #16a085, #1abc9c);
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+  }
+  .footer marquee {
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+  }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<a href="https://mustaqeem-hyd-news.netlify.app/" class="back-btn">← Back</a>
+
+<div class="input-box">
+  <input type="text" id="userName" placeholder="Apna Naam Likhiye..." oninput="showName()">
+</div>
+<h1 class="name" id="displayName"></h1>
+<h2 class="celebration">✨ Jashn-e Eid Milad-un-Nabi ﷺ ✨</h2>
+
+<div class="mubarak-box" id="mubarakBox">
+  <h3 id="mubarakText"></h3>
+  <a href="#" class="share-btn" onclick="sharePage()">📤 WhatsApp Share</a>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popupMsg">
+  <div class="popup-box">
+    <span class="blink">
+      🕌 Asal Milad ye hai ke hum Nabi ﷺ ke bataye hue raste par chalein,<br>
+      na ke sirf 12 Rabi-ul-Awwal ko dhol aur DJ ke sath jashn manayein.<br>
+      Namaz aur sunnat par amal hi asal jashn hai ✨
+    </span>
+    <button class="close-btn" onclick="document.getElementById('popupMsg').classList.remove('show')">×</button>
+  </div>
+</div>
+
+<!-- Apps Promotion -->
+<div class="apps-promo">
+  <h3>📱 Mustaqeem Apps</h3>
+  <div class="app-card">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg7gBNEvlL37EmKmG-norMIZcVH6z_HGN-C2cp0an7DWG4LD4p2W_HwuBCbtV-XQUo9k5C76vwyHNmkTRVOacxPhyphenhyphenkWUUkFEjmLryT_dvl1qDxCPDJdIBHyhJjYsgTFIYh_Zntec3UiEphn_CE7RK52Dk1afK0aJkOB7mSH1CfhiqzMc1_H1-tvtEUqZRg/s2560/1000296940.png" alt="MS POST">
+    <div class="app-info">
+      <h4>MS POST</h4>
+      <a href="https://play.google.com/store/apps/details?id=com.nucleapp.na_c10605" target="_blank">
+        Install on Play Store
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <marquee behavior="scroll" direction="left">🌙 Eid Milad-un-Nabi ﷺ Mubarak Ho Sabhi Ko 🌙</marquee>
+</div>
+
+<script>
+  function showName() {
+    const name = document.getElementById("userName").value;
+    const display = document.getElementById("displayName");
+    const mubarak = document.getElementById("mubarakText");
+    const box = document.getElementById("mubarakBox");
+    display.textContent = name;
+    if(name){
+      mubarak.textContent = name + " ki taraf se sabhi ko Eid Milad-un-Nabi ﷺ Mubarak 🌙✨";
+      box.style.display="block";
+      createFireworks();
+    } else {
+      mubarak.textContent="";
+      box.style.display="none";
+    }
+  }
+
+  function createFireworks() {
+    for(let i=0;i<20;i++){
+      let f = document.createElement("div");
+      f.classList.add("firework");
+      f.style.left=(window.innerWidth/2)+"px";
+      f.style.top=(window.innerHeight/2)+"px";
+      f.style.background=randomColor();
+      document.body.appendChild(f);
+      setTimeout(()=>f.remove(),1500);
+    }
+  }
+  function randomColor(){
+    const colors=["#f2d98d","#2fd29a","#ff4c4c","#00c3ff","#ff00ff","#ffffff"];
+    return colors[Math.floor(Math.random()*colors.length)];
+  }
+  setTimeout(()=>{ document.getElementById("popupMsg").classList.add("show"); },10000);
+
+  function sharePage(){
+    const name=document.getElementById("userName").value||"Main";
+    const text="🌙✨ "+name+" ki taraf se Jashn-e Eid Milad-un-Nabi ﷺ Mubarak! ✨🌙\n"+window.location.href;
+    if(navigator.share){ navigator.share({title:"Eid Milad-un-Nabi",text,url:window.location.href}); }
+    else{ window.open("https://wa.me/?text="+encodeURIComponent(text)); }
+  }
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block; text-align:center;"
+     data-ad-layout="in-article"
+     data-ad-format="fluid"
+     data-ad-client="ca-pub-1874063367142441"
+     data-ad-slot="9145858043"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</body>
+</html>

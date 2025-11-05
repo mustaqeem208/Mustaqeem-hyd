@@ -1,0 +1,16 @@
+# Universal access
+User-agent: *
+Allow: /
+
+# Extra Google Bots Access
+User-agent: Googlebot-News
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: AdsBot-Google
+Allow: /
+
+# Sitemap
+Sitemap: https://mustaqeem-hyd-news.netlify.app/sitemap.xml

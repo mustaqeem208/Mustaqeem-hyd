@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Motivational Story - Kal Par Mat Chhodo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Almarai', sans-serif;
+      background: #f4f6f9;
+      color: #222;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0077cc;
+      color: #fff;
+      padding: 12px 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .topbar button {
+      background: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      color: #0077cc;
+      transition: 0.3s;
+    }
+    .topbar button:hover {
+      background: #e0e0e0;
+    }
+    .container {
+      max-width: 720px;
+      margin: 20px auto;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+    .hero-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .content {
+      padding: 25px 20px;
+    }
+    .headline {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #111;
+      background: linear-gradient(90deg, #ec4899, #6366f1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeIn 2s ease-in-out;
+      text-align: center;
+    }
+    .description {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #333;
+      text-align: justify;
+    }
+    footer {
+      text-align: center;
+      padding: 14px;
+      font-size: 14px;
+      color: #666;
+      background: #f1f1f1;
+      border-top: 1px solid #ddd;
+    }
+    footer span {
+      color: #0077cc;
+      font-weight: bold;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <button onclick="window.location.href='https://mustaqeem-hyd-news.netlify.app/'">⬅ Wapas Jayen</button>
+    <button onclick="shareNews()">📤 Share Karein</button>
+  </div>
+  <div class="container">
+    <img class="hero-image" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwVfm7cxPioU1DODOSww9WwU5QKmcBWrMYJg0FWDFOtsygcBOPmG38Y2Ctp6PT8JWVV6ElsfJd1TtlMIXqbLaaMjhqIW3DUVx103nQC9PzrroK5a2XA9mRsGQppLGiAx03KdHNPRtnLjGqoQK8-FCMNP24FXeQ0qjrm_zy7SKwmjBbkGNT-beI06n7rcOl/s1600/1000513804.jpg" alt="Motivational Story">
+    <div class="content">
+      <div class="headline">Motivational Story: Kal Par Mat Chhodo</div>
+      <div class="description">
+        <p>Ek baar ki baat hai. Ek chhote se gaon me <b>Ahmed</b> naam ka ladka rehta tha. Uske paas bahut bade sapne the – engineer banna, maa-baap ka naam roshan karna.</p>
+        <p>Lekin Ahmed ki ek buri aadat thi – har kaam <i>"Kal karunga"</i> bol kar tal deta.</p>
+        <ul>
+          <li>Padhai karni hai? <i>Kal se shuru karunga</i></li>
+          <li>Homework karna hai? <i>Kal kar lunga</i></li>
+          <li>Subah jaldi uthna hai? <i>Kal se uthunga</i></li>
+        </ul>
+        <p>Dheere-dheere "kal" uski zindagi ka hissa ban gaya.</p>
+        <p>Ek din uske teacher ne class me kaha:<br>
+        <b>"Jo kaam tum aaj kar sakte ho, agar use kal par chhod doge… to kal bhi wahi aaj ban jaayega."</b></p>
+        <p>Ye sunte hi Ahmed ko samajh aaya ki uska har <i>kal</i>, usse success se door le ja raha hai. Usne decide kiya ki ab har zaruri kaam "aaj" hi karega.</p>
+        <p>Kuch saalon baad wahi Ahmed apne college ka topper bana aur apni zindagi badal di.</p>
+        <h3>Moral of the Story</h3>
+        <p>Procrastination (kaam talne ki aadat) aapke <b>sapno aur success</b> ke beech ki sabse badi deewar hai. Agar aap apne "aaj" par focus kar loge, to aapka "kal" khud hi better ban jaayega.</p>
+        <p>👉 Yaad rakho: <b>"Kal kabhi nahi aata, jo karna hai aaj hi karo."</b></p>
+      </div>
+    </div>
+  </div>
+  <footer>
+    Created by <span>ᗰᑌᔕTᗩᑫEEᗰ</span>
+  </footer>
+  <script>
+    function shareNews() {
+      if (navigator.share) {
+        navigator.share({
+          title: "Motivational Story - Kal Par Mat Chhodo",
+          text: "Ek zabardast motivational story jo procrastination door karti hai!",
+          url: window.location.href
+        }).catch(err => console.log("Share failed:", err));
+      } else {
+        alert("Sharing not supported on this browser. Copy URL: " + window.location.href);
+      }
+    }
+  </script>
+</body>
+</html>

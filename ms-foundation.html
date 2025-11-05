@@ -1,0 +1,170 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mustaqeem Foundation - Majboor Ka Sahara</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f8;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #004080, #0066cc);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+        }
+        header h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        header h2 {
+            font-size: 1.5em;
+            margin: 10px 0 0 0;
+            font-weight: 400;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        /* QR Section */
+        .qr-section {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .qr-section img {
+            width: 220px;
+            height: 220px;
+            border-radius: 15px;
+            border: 2px solid #004080;
+        }
+        .qr-section p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        /* Live Donation */
+        .live-donation {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 30px 0;
+            color: #004080;
+            font-weight: 600;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #25D366;
+            color: white;
+            font-size: 1.2em;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .whatsapp-btn:hover {
+            background-color: #1ebe57;
+        }
+        .whatsapp-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        /* Screenshots Carousel */
+        .screenshots {
+            margin-top: 40px;
+        }
+        .screenshots h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #004080;
+        }
+        .carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 10px;
+        }
+        .carousel img {
+            width: 300px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            flex-shrink: 0;
+        }
+        .carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+        .carousel::-webkit-scrollbar-thumb {
+            background-color: #004080;
+            border-radius: 4px;
+        }
+
+        @media(max-width: 768px){
+            header h1 { font-size: 2.2em; }
+            header h2 { font-size: 1.2em; }
+            .carousel img { width: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Mustaqeem Foundation</h1>
+        <h2>Majboor Ka Sahara</h2>
+    </header>
+
+    <div class="container">
+        <!-- QR Code Section -->
+        <div class="qr-section">
+            <p>Scan the QR Code to Donate</p>
+            <img src="YOUR_QR_IMAGE_URL_HERE" alt="QR Code">
+        </div>
+
+        <!-- Live Donation Amount -->
+        <div class="live-donation">
+            Live Donation Amount: <span id="donationAmount">₹1lakh</span>
+        </div>
+
+        <!-- WhatsApp Button -->
+        <div class="whatsapp-container">
+            <a class="whatsapp-btn" href="https://wa.me/919381667208" target="_blank">
+                Help & Madad via WhatsApp
+            </a>
+        </div>
+
+        <!-- Screenshots Carousel -->
+        <div class="screenshots">
+            <h3>Donations Received</h3>
+            <div class="carousel">
+                <img src="SCREENSHOT1_URL_HERE" alt="Donation Screenshot">
+                <img src="SCREENSHOT2_URL_HERE" alt="Donation Screenshot">
+                <img src="SCREENSHOT3_URL_HERE" alt="Donation Screenshot">
+                <!-- Add more screenshots as needed -->
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,2506 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="https://ibb.co/9kNWc13J" />
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+  <meta name="google-site-verification" content="S0kjDUR5-WxOMFDk_cfMFJI1kkSPjSqEiSOhCdVFjDE" />
+  <meta name="robots" content="max-image-preview:large">
+  <meta name="description" content="MS News – Premium platform for Hyderabad Urdu news, Islamic updates, local masjid alerts, and emotional Shayari. Created by ᗰᑌᔕTᗩᑫEEᗰ.">
+  <meta name="keywords" content="MS News, Hyderabad news, Urdu news, Islamic news, Namaz timing, Shayari app, MS Post, Mustaqeem News, ᗰᑌᔕTᗩᑫEEᗰ, Mustaqeem Hyderabad">
+  <meta name="author" content="ᗰᑌᔕTᗩᑫEEᗰ" />
+  <title>MS News - By ᗰᑌᔕTᗩᑫEEᗰ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to bottom right, #dbe9f4, #f4f7fb);
+      color: #222;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 15px rgba(255, 0, 51, 0.3);
+    }
+
+    .menu-btn:hover {
+      box-shadow: 0 0 25px rgba(255, 0, 51, 0.6);
+      transform: scale(1.1);
+    }
+
+    .menu-btn span {
+      font-size: 26px;
+      color: #ff0033;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 220px;
+      height: 100%;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      transition: 0.4s ease;
+      z-index: 999;
+      padding-top: 70px;
+      box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 14px 25px;
+      font-size: 17px;
+      color: #fff;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar a:hover {
+      background: #ff0033;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+      padding: 80px 15px 20px;
+      margin: 0 auto;
+    }
+
+    .breaking-news {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      background: linear-gradient(to right, #ff0033, #ff6600);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: pulse 2s infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .search-container {
+      width: 100%;
+      max-width: 600px;
+      margin: 0 auto 20px auto;
+      display: flex;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 12px 20px;
+      border-radius: 25px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .search-container input:focus {
+      border-color: #ff0033;
+      box-shadow: 0 0 8px rgba(255,0,51,0.4);
+    }
+
+    .news-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      margin: 20px 0;
+      overflow: hidden;
+      border: 1px solid #ddd;
+      transition: 0.3s;
+    }
+
+    .news-card img {
+      width: 100%;
+      display: block;
+    }
+
+    .news-content {
+      padding: 14px;
+    }
+
+    .news-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .news-meta {
+      font-size: 12px;
+      color: #777;
+      margin-bottom: 8px;
+    }
+
+    .news-meta span {
+      margin-right: 10px;
+    }
+
+    .news-description {
+      font-size: 15px;
+      line-height: 1.5;
+      color: #333;
+      background: #f1f1f1;
+      padding: 12px;
+      border-radius: 10px;
+      display: none;
+      margin-top: 8px;
+    }
+
+    .whatsapp-share {
+      display: inline-block;
+      margin-top: 12px;
+      color: #25D366;
+      font-weight: 600;
+      font-size: 15px;
+      text-decoration: none;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 13px;
+      padding: 40px 10px 20px;
+      color: #888;
+    }
+
+    footer a {
+      color: #007BFF;
+      margin: 0 6px;
+      text-decoration: none;
+    }
+
+    @media (min-width: 768px) {
+      .news-title {
+        font-size: 22px;
+      }
+      .news-description {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Menu Button -->
+  <div class="menu-btn" onclick="toggleSidebar()">
+    <span>☰</span>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <a href="https://mustaqeem-hyd-news.netlify.app/">🏠 Home</a>
+    <a href="https://mustaqeem-news-about.netlify.app/">👤 About Us</a>
+    <a href="https://mustaqeem-news-contac.netlify.app/">📞 Contact</a>
+    <a href="https://mustaqeem-news-polciy.netlify.app/">📜 Privacy Policy</a>
+    <a href="https://mustaqeem-hyd-news.netlify.app/namaz-timing">✨ NAMAZ TIMING</a>
+  </div>
+
+  <div class="container">
+    <div class="breaking-news">🔴 MS NEWS - By ᗰᑌᔕTᗩᑫEEᗰ</div>
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input type="text" placeholder="Search news..." id="searchInput" onkeyup="filterNews()" />
+    </div>
+
+<a href="makafaat-e-amal-msnews.html" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
+              box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+              background: linear-gradient(135deg, #ffffff, #f0f7ff);
+              margin-bottom: 22px; transition: transform 0.3s, box-shadow 0.3s;"
+       onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 10px 25px rgba(0,0,0,0.2)'"
+       onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 20px rgba(0,0,0,0.15)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtrc1tj74y0NtkGe2Wk7XrSLnCNy_nNLC5VRS70XuuP6bjhonnOhXg2fbEac5ov6I_UUD5zkn_2QX2hyphenhyphenODCZgTn_wkGpd5nUc4fWV9jfQRKvxSQ8EFOJunhZyPsVYWUSYw-Iqd3wRVVr8jOgx4JQDNbgCG7ZfXZDECK47K77ioBHpPWu22uTXyp7gxziY/s1600/1000578613.jpg" 
+         alt="Makafaat-e-Amal | Mustaqeem HYD News"
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #0072c6;">
+        🕊️ Makafaat-e-Amal — Nazar ki Hifazat ka Paighaam
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #444;">
+        Shayad isi liye Shariat sikhati hai ke apni nazar aurat ki chadar par bhi na daalo — 
+        kyunke nazar shahwat ka beej hoti hai. Jo boogay wohi kaatogay.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777;">
+        <span>👁️ 21.3k Views</span>
+        <span>🕒 04/11/2025</span>
+        <span>✍️ By ᗰᑌᔕTᗩᑫEEᗰ HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+<a href="misr-shadi-msnews.html" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
+              box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+              background: linear-gradient(135deg, #ffffff, #f8fafc);
+              margin-bottom: 20px; transition: transform 0.3s;"
+       onmouseover="this.style.transform='scale(1.03)'"
+       onmouseout="this.style.transform='scale(1)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi4Zg7ImpShXfNdYeTv5WLPljE9UtbZCjmi6BblHan_m5QeFG6jUx7_Km4eFuuZFytRUiwQv5l4a5OnQqgZXJnKMvKYHU4iqZTHBQumP4k1XEqHNdIDn3LHoe-5491gg71db94-cFp1e2GZI-5kkJE2MI-jNGrqYOhwCyxe1Yf7tDCtI17sm6pKdUFQ7TQ/s1600/1000578512.jpg" 
+         alt="Misr Wedding Simple Nikah - Mustaqeem HYD News"
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #b30000;">
+        💍 Misr Me Shadiyan Kaisay Hoti Hain
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #444;">
+        Egypt (Misr) me shadiyan bohot simple aur sunnat ke mutabiq hoti hain —  
+        Na zevar ka dikhawa, na fazool kharchi. Full report by Mustaqeem HYD.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777;">
+        <span>👁️ 18.7k Views</span>
+        <span>🕒 04/11/2025</span>
+        <span>✍️ By ᗰᑌᔕTᗩᑫEEᗰ HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<a href="sudan-war-msnews.html" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+              box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+              background: linear-gradient(135deg, #ffffff, #f8fafc); 
+              margin-bottom: 20px; transition: transform 0.3s;" 
+       onmouseover="this.style.transform='scale(1.03)'" 
+       onmouseout="this.style.transform='scale(1)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhVUiTBxfR8ISdCEpwbtIuTEXldeskumSBv3xcWzNe1HFh4gJLISdUb4SLCDu5KS1VLMFH360YXXZMzV7Pn_8LhJ6H7zfGE3F2E1CjckSs4fw1x1or7AnW5fCURQlIbuKkYOHSzCQnY3Jakde63XlDZ4IuhmX48mKMAeBJUaV0awQR7noOMq8GotCHX9aw/s1600/1000578120.jpg" 
+         alt="Sudan War Conflict - Mustaqeem HYD News" 
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #b30000;">
+        ⚔️ Sudan Me Ladai — Army vs RSF
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #444;">
+        Sudan me Army aur RSF ke beech khatarnak jang chal rahi hai 💥  
+        Dono power ke liye lad rahe hain, aur bechare aam log pis rahe hain — full report by Mustaqeem HYD.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777;">   
+        <span>👁️ 22.4k Views</span>
+        <span>🕒 03/11/2025</span>
+        <span>✍️ By ᗰᑌᔕTᗩᑫEEᗰ HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<a href="msfinx-app-launch" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+              box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+              background: linear-gradient(135deg, #ffffff, #f8fafc); 
+              margin-bottom: 20px; transition: transform 0.3s;" 
+       onmouseover="this.style.transform='scale(1.03)'" 
+       onmouseout="this.style.transform='scale(1)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh4PY_KHzUj1KV4hebjVmTu49bEyY8idkj_EdzvC1DeuYSYZVO1eBGiA1fUs55zRhie7wTyMY_HZEHb7NvvxnG_0WEdtGU4kK2kzp4TbwKq4Ydflg2rdj-bZBrZP3OScfiXSLN6bCAJCbMn-ACbg2V7SoCJWy-lI6FT4WaaHknR6wqDi0TpxmHxLgHxRzY/s1600/1000574367.jpg" 
+         alt="MS FinX EMI & Converter App" 
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #0b3d91;">
+        📱 MS FinX App — Ab Google Play Par Live
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #444;">
+        Alhamdulillah! MS FinX EMI & Converter app ab Play Store par live hai — 
+        accurate EMI calculator, fast currency converter aur clean Islamic finance-based design ke sath.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777;">   
+        <span>👁️ 18.3k Views</span>
+        <span>🕒 29/10/2025</span>
+        <span>✍️ By ᗰᑌᔕTᗩᑫEEᗰ HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<a href="kurnool-bus-accident.html" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+              box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+              background: linear-gradient(135deg, #fff, #f8fafc); 
+              margin-bottom: 20px; transition: transform 0.3s;" 
+       onmouseover="this.style.transform='scale(1.03)'" 
+       onmouseout="this.style.transform='scale(1)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj4yd6t_6CKrcOGb9aBJcqxLiLqdk-2zUesIEvlE1MRqSvm2a4Es3XYyb9fVA_2cckEymne-988JJvkHcm8G8FBhia4xpM3ozYNsZvXkIDsmVjEeiOi1Ji_OvQzL5KA9ue4VYSpjWKZwxPwWSC3hE_TqviwvoE-Vxof32LcjZRaLkJWJhEqn6mu9tvJAPyY/s1600/1000573462.jpg" 
+         alt="Kurnool Bus Accident" 
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #b91c1c;">
+        🔥 Kurnool Bus Accident: 20 Log Zinda Jal Gaye
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #444;">
+        Andhra Pradesh ke Kurnool me ek bus me aag lagne se 20 log zinda jal kar halaak ho gaye.
+        Tehqeeqat ke mutabiq, mobile battery phatne se ye dhamaka hua — ek afsosnak haadsa.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777;">   
+        <span>👁️ 25.6k Views</span>
+        <span>🕒 27/10/2025</span>
+        <span>✍️ By MUSTAQEEM HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<a href="mashhoor-cheeni-ki-baat.html" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+              box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+              background: linear-gradient(135deg, #ffffff, #f5faff); 
+              margin-bottom: 20px; transition: transform 0.3s;" 
+       onmouseover="this.style.transform='scale(1.03)'" 
+       onmouseout="this.style.transform='scale(1)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjxutsoCXkevPj7qJdgiJe-lwaR2q_9TATnmPLHGm3bjtmTU4klSCAX1GhNDj1elL8GfdmH5NfVYhanJym5v8X7Td4Ey94qomrn9uqHZQp0KTK9ebgQI6cPbQADZ7gjduTHyFdDz9BuVqFj4mp9R1mgamkGc5PGeXffzNpz0cSLpE1Mt8idAbOLzUvn9WM/s1600/1000567128.jpg" 
+         alt="Mashhoor Cheeni Ki Baat" 
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #b91c1c;">
+        🧠 Mashhoor Cheeni Ki Baat
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #444;">
+        “Agar tum tezi se chalna chahte ho to akela chalo,  
+        lekin agar door tak jana chahte ho to sab ke sath chalo.”  
+        — Ek mashhoor Cheeni aqwal jo zindagi badal deta hai.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #777;">   
+        <span>👁️ 18.8k Views</span>
+        <span>🕒 18/10/2025</span>
+        <span>✍️ By MUSTAQEEM HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<a href="charminar-history.html" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+              box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+              background: linear-gradient(135deg, #ffffff, #f0f8ff); 
+              margin-bottom: 20px; transition: transform 0.2s;" 
+       onmouseover="this.style.transform='scale(1.03)'" 
+       onmouseout="this.style.transform='scale(1)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9tq3E_ZueSTKmNFK6r-wmpyilsU7cCpy3oG1dQ4lVSKvQbtJ4t4j4XEJAH46wneTWrr6wsVint1tKQorapJLrudNZ975crMgmGQsSU2wVQlORLPmMeNI0RIoakYyoxdIKldzePHWgumkSgsY41Ag1Os9GNDWAlvk2EU3nb7nUeX7hUz4pNFP7tOxmACu0/s1600/1000566219.jpg" 
+         alt="Charminar Hyderabad" 
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #0f52ba;">
+        🕌 Charminar Ki History
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+        Pehle masjid aur madarsa tha — dua se bani Hyderabad ki shaan!  
+        Sultan Muhammad Quli Qutub Shah ki ek kahani jo dil ko choo jaati hai.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+        <span>👁️ 6.2k Views</span>
+        <span>🕒 16/10/2025</span>
+        <span>✍️ By MUSTAQEEM HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<a href="earning-proof-525.html" style="text-decoration:none;">
+  <div style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+              box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+              background: linear-gradient(135deg, #ffffff, #f0f8ff); 
+              margin-bottom: 20px; transition: transform 0.2s;" 
+       onmouseover="this.style.transform='scale(1.03)'" 
+       onmouseout="this.style.transform='scale(1)'">
+
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjWUB7yc-6MoBLvnLl6He_6-rZSu0wI-dHzSeKwdUMa5bG8CYHy39EBXgMBEYqWEG6D5RyqMccPGjt1KtCxpASNkMo3SguXyS8QO-bF6OdXHziAohXEBgMrY_4Nu3fhWn543yONZcwaCkKiQfweNrnn4Mi88iEOuolFL3VCLWUPr4ECOCtf7R_o6EEJ9QfC/s1600/1000566113.jpg" 
+         alt="$525 Payment Screenshot" 
+         style="width: 100%; height: auto; display: block;">
+
+    <div style="padding: 16px;">
+      <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #0f52ba;">
+        💵 $525 Earning Proof
+      </h3>
+      <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+        Mustaqeem HYD ka latest <strong style="color: #e63946;">$525.01</strong> earning screenshot. 
+        Transparent proof, aap bhi step by step seekh sakte ho.
+      </p>
+      <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+        <span>👁️ 8k Views</span>
+        <span>🕒 16/10/2025</span>
+        <span>✍️ By MUSTAQEEM HYD</span>
+      </div>
+    </div>
+  </div>
+</a>
+
+<!-- Home Card: Mustaqeem HYD Achievements -->
+<div onclick="location.href='mustaqeem-hyd-achievements.html'" 
+     style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+            background: linear-gradient(135deg, #ffffff, #f0f8ff); 
+            margin-bottom: 20px; transition: transform 0.2s;" 
+     onmouseover="this.style.transform='scale(1.03)'" 
+     onmouseout="this.style.transform='scale(1)'">
+
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEireDgpIcRVUdi9eDgepLeHXxb2pmcHx58uDpSfwXxklZlR8_KBQWMJRyvPOFIyYtIxsjA9nnhyphenhyphenqIizv3kHbOXUb0CKFfKQH-u8WdV7rJFBWmJ887tNAjg7FcPYe6L7jFfMlgmushERanATnqczCjsTbzxrFNL_kx2tHp0tzd0fhCp8fIyriVmWSixET_A/s1600/1000566094.jpg" 
+       alt="Mustaqeem HYD Banner" 
+       style="width: 100%; height: auto; display: block;">
+
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #0f52ba;">
+      💰 Mustaqeem HYD Achievements
+    </h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Alhamdulillah, <strong style="color: #e63946;">Mustaqeem HYD</strong> ne apne online platforms se 
+      <strong style="color: #e63946;">$4700</strong> kamaye. YouTube, website, aur app ke zariye yeh mumkin hua.
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+      <span>👁️ 12k Views</span>
+      <span>🕒 16/10/2025</span>
+      <span>✍️ By MUSTAQEEM HYD</span>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Replace the URL below with your direct image link -->
+<div style="width: 100%; overflow: hidden; margin-top: 30px;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhdB879c4UtQ0WQ6O6XtiKZmZHaDIh7xg7vzhVo0WfxONNFK9cdSN0g0TGJNqSLsUOQXq-HJTS3BotKo0IxscSR1Fs5h2roL7ExaegSadFjZ1M5s7KP1FkMwWZOo8ude2IMiZpDuYDJ6o5x98I9qPSD2PaWmWl_lOA2oN029WCeCaV66uVSMdkC8buusiyW/s1600/1000555792.jpg" alt="Ms Reshte Banner" style="width: 100%; height: auto; display: block;" />
+    </div>
+   </div>
+</div>
+
+
+
+<!-- Home Card: Car EMI Fraud Complaint -->
+<div onclick="location.href='emi-fraud.html'" 
+     style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15); 
+            background: linear-gradient(135deg, #ffffff, #fef5f5); 
+            margin-bottom: 20px; transition: transform 0.2s;" 
+     onmouseover="this.style.transform='scale(1.03)'" 
+     onmouseout="this.style.transform='scale(1)'">
+
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh3z2uX3JZEs7eXB3AD1yRgONCv-JcOYaEb_PdF4aAPSppCbz9-vPW1Bm0IJmrDIYDwd0glf2SgsAp7dFV6XDLl_lsCybfVJnuveNOZYj_b9gEh4xg0wlwLF-JfY0uxxnzmrbKCHpS-X9WlDyUX5yJdG0UL65HLnJ-oT2QZ1Q5PwAWeDsjds8zTBSErLtmb/s1600/1000555229.jpg" 
+       alt="Car EMI Scam Banner" 
+       style="width: 100%; height: auto; display: block;">
+
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #d32f2f;">
+      🚗 Car EMI Fraud & Recovery Agent Scam
+    </h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Mere IDFC EMI record me fraud update hua hai. <strong style="color: #e60000;">
+      Recovery agent ne galat cash collection dikhaya</strong> jabke maine ek rupiya bhi nahi diya. Complaint officially file ki gayi hai.
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+      <span>👁️ 50k Views</span>
+      <span>🕒 29/09/2025</span>
+      <span>✍️ By MUSTAQEEM HYD</span>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Home Card: Powerful Night Dua -->
+<div onclick="location.href='powerful-night-dua.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f9f9ff); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjrREERWFYZwtScjRyEQ_4IFEFVStOag9_K170SVqxFaAtOwZc3TsPnK47jgAhrHJ_BWDTiaJqHKvcKgQUIyD7T-PAFeYtsB5zqnuHDxN42P6B4Tc-zduqIYbHc1KkdXP4iPf1zFlacKHp8pRY2WSA28XxFeWepdyQU2t4tHLoENoFrwGfcU-bv9CRkl9VV/s1600/1000519383.jpg" alt="Powerful Night Dua" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">🌙 Powerful Night Dua</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Har raat ek ghari aisi hoti hai jisme Musalman ki dua qabool hoti hai. Yeh hadees Sahih Muslim (1770) se li gayi hai. Dua ka waqt miss mat karein!
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+      <span>👁️ 47k Views</span>
+      <span>🕒 20/09/2025</span>
+      <span>✍️ By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+<!-- Home Card: Mumbai Local Train Kahani -->
+<div onclick="location.href='mumbai-local-train-kahani.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f9f9ff); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgU2_iSnJAbQf6g79yCRX1e0Y4aFUi7jblZJlQns9UNfF36z2hZHwvA9mcGZcBPsMGqjR_kTbJgYInQZF-lHGvL2kzjWifgfTdQ8I6jJxE5dLHTsk9_5FfJVGOVvJAMwNK3gKEknigTfC3iSgYkQXkqHmRk8Fn0Y7xCQ8KV0RwshRXKbPcMC7bVbGHdMPyS/s1600/1000518077.jpg" alt="Mumbai Local Train Kahani" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">🚉 Mumbai Local Train Kahani</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Ek Muslim family aur ek musafir ke darmiyan Mumbai local train me ek aisa waqiya hua jo sab logon ko hairan kar gaya. Kahani jo aapko sochne pe majboor karegi. 
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+      <span>👁️ 12.7k Views</span>
+      <span>🕒 18/09/2025</span>
+      <span>✍️ By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+<!-- Home Card: Motivational Story -->
+<div onclick="location.href='10-09-25motivational-story.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f9f9ff); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjwVfm7cxPioU1DODOSww9WwU5QKmcBWrMYJg0FWDFOtsygcBOPmG38Y2Ctp6PT8JWVV6ElsfJd1TtlMIXqbLaaMjhqIW3DUVx103nQC9PzrroK5a2XA9mRsGQppLGiAx03KdHNPRtnLjGqoQK8-FCMNP24FXeQ0qjrm_zy7SKwmjBbkGNT-beI06n7rcOl/s1600/1000513804.jpg" alt="Motivational Story - Kal Par Mat Chhodo" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">💡 Motivational Story: Kal Par Mat Chhodo</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Ek chhoti si kahani Ahemad ki jo har kaam "kal" pe talta tha, lekin ek din usne decide kiya ke ab sab kuch "aaj" hi karega. Isne uski zindagi badal di. 
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+      <span>👁️ 8.4k Views</span>
+      <span>🕒 10/09/2025</span>
+      <span>✍️ By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+<!-- Mus12 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1874063367142441"
+     data-ad-slot="3714240410"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<!-- Home Card: Zyada Tar Bachon Ki Paidaish -->
+<div onclick="location.href='01-09-25paidaish-operation.html'" 
+     style="cursor: pointer; border-radius: 16px; overflow: hidden; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); 
+            background: linear-gradient(135deg, #ffffff, #fef9f7); 
+            margin-bottom: 20px; transition: transform 0.2s;">
+  
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgyRYQ4arhrm4V4z-GhRPPOmQqVkstMq9aOPaHNKaB2ixhBpWfrjS3abnNsY0SeEnWBfsh9a0V_lCCZLF3kbz9bM3iiLTDvKg9BxDLWAJSEF9culMsOkDsTXGI9n30XoCUcRjMGT9QQ0GRkJG6B33r68MZBhlTqSaK2adVw0PE2nl9hp1327ShAGUxXFsEb/s1600/1000514193.jpg" 
+       alt="Zyada Tar Bachon Ki Paidaish" 
+       style="width: 100%; height: auto; display: block;">
+  
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">
+      👶 Zyada Tar Bachon Ki Paidaish Operation Se Kyun? (زیادہ تر بچوں کی پیدائش آپریشن سے کیوں؟)
+    </h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Europe aur hamare mulk ke delivery systems ka comparison. Kaise normal delivery aur operations me farq hota hai, aur kis liye zyada cases operation me convert hote hain.
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+      <span>👁️ 12.4k Views</span>
+      <span>🕒 01/09/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- Home Card: Hyderabad Barish Update -->
+<div onclick="location.href='31-08-25mausam-hyderabad.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f0f8ff); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhw8wz7Fq7OSCOAkujbFCXxHStYdGh9nmAaFroAuaa6tHEt1BG8pXklgHkUsY_EVZmbNChQ8RqpR_mgYv14ic8P8Oiksjbo9Irw580EDXJtiBI6L-GJJJPctPKOp03hPzWhChaIkWfYKSahbXEwK5Nf9sFk-8ahWZg141GIBDphYoAprBeWpGeI55UQJ7-p/s1600/1000506285.jpg" alt="Hyderabad Barish Update" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">☔ Hyderabad Barish Update (حیدرآباد بارش کی تازہ خبر)</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Hyderabad me aaj se lekar agle 3 din tak halka se moderate barish aur thunder ke chances hain. IMD ne Yellow Alert jari kiya hai, travel me savdhani baratna zaruri hai.
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">   
+      <span>👁️ 19.6k Views</span>
+      <span>🕒 31/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- Home Card: Afghan Dress Story -->
+<div onclick="location.href='afghan-dress-story.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f8f9fa); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhu1JbamSmmsfhmvuiHMe3Q7I4PRn_YXgdwFGm_5yyOjzJvKbystRlSNAgK1rx2_kDtSS7iPeCP1TBBZAYXDkMhJt5rlqWLoQ7glcsLzHwLna8j_M9GA0eSD9CbpYmQzpb8Wll0xsO5R8duk1vaeV83l-wcfTpdHOBfSxqC9eA7HrTW7pjhA2B3g-QF2e-U/s1600/1000505585.jpg" alt="Afghan Dress Story" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">👕 Afghan Dress Story (افغان لباس کہانی)</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Afghanistan me wahi libaas jo officers aur celebrities fakhr se pehente hain, chowkidaars ko pehna kar unki asal jagah par khada kiya gaya. 
+      Ye waqiye ne itihas ka ek purana mazak yaad dila diya jo Tipu Sultan ki fauj ki uniform se hua tha...
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;"> 
+      <span>👁️ 7.8k Views</span>
+      <span>🕒 29/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+<!-- Home Card: Widow Help Story -->
+<div onclick="location.href='widow-help-story.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f8f9fa); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiK8quQ66ySC5nPnT-mX5HpsQOHuuvmClB22S0bpXxOLrvsCoVFT9K5cIeXi6y49UqSNwnpCNhHEKugwrevvvUVXF2BTNDzUXpprbwyE1qGltQgpSLY1fyYDc8vUNSczMQWD0eEnXp7UyqUa09lm5iIv8wBaa85deWYsj5z9WqMQQYhdn5vQJvvAumCrmlp/s1600/1000505512.jpg" alt="Widow Help Story" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">🤲 Biwa ki Madad Karne par Duniya me hi Ajr (بیوہ کی مدد کرنے پر دنیا میں ہی اجر)</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Ye kahani Shaam me pesh aayi, jisme ek darzi ke malik ne ek biwa aur uske yateem bachon ki madad ki.  
+      Allah ne us neki ke badle uske karkhane ko jang se mehfooz rakha...
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;"> 
+      <span>👁️ 9.4k Views</span>
+      <span>🕒 29/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Home Card: Rahul Gandhi & Tejashwi in Munger -->
+<div onclick="location.href='rahul-tejashwi-munger.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f8f9fa); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8pw2J7Au4VgH08hT-hbJOxUE3sE00ju_XDNT7jKoIAmz9ZwIzPDl2gdQ2fkZioZWwSt8NtiQLbt_oT2YRjHhkWB0u1QzcWo4pVkdZ3z0Vt2yp_iInyDlAFMJm2YxPutnb31KSm_5qAX2-3Pgudcq0DvuXWwmmZEO7NCtgq08PV7sO_Jrfcf9t0k4Q-w8/s1600/1000501699.jpg" alt="Rahul Gandhi & Tejashwi at Rahmani Khanqah" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">📍 راہل گاندھی و تیجسوی یادو کی رحمانی خانقاہ حاضری</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      1985 میں راجیو گاندھی خانقاہ رحمانی پہنچے تھے۔  
+      اب 40 سال بعد، 2025 میں راہل گاندھی و تیجسوی یادو نے بھی یہی قدم دہرایا۔
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;"> 
+      <span>👁️ 12.3k Views</span>
+      <span>🕒 22/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Home Card: MS RESHTE App -->
+<div onclick="location.href='ms-reshte-app.html'" style="cursor: pointer; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, #ffffff, #f8f9fa); margin-bottom: 20px; transition: transform 0.2s;">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgqkvvNZUhrqfQ4wf0WNFqURac77Lt0TvnzQBobuNf35_OBdY3Ck4508JKQewl6eAwXcFCLObMQ-OEcB2y4xS4urWx7Q4noIGCdLhsKJCMZ3G0Nk1TT4gQZRtBiLkYIE9Xc8j_dZqVP55PcZ7344fJGlba1queiFonXEjFTmMOGejBkGI49vl73KQVYfpw/s1600/1000500478.jpg" alt="MS RESHTE App" style="width: 100%; height: auto; display: block;">
+  <div style="padding: 16px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold; color: #111;">💍 MS RESHTE – Perfect Joda aapke liye!</h3>
+    <p style="margin: 0 0 12px; font-size: 14px; color: #555;">
+      Shadi ke liye behtareen rishta dhoondhna ab aasan!  
+      Verified profiles, privacy aur Islamic safe platform.  
+      MS RESHTE App ke saath paayein apna mustakbil ka humsafar.
+    </p>
+    <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;"> 
+      <span>👁️ 8.5k Views</span>
+      <span>🕒 20/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+<!-- Mus11 -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1874063367142441"
+     data-ad-slot="6946908410"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjb4F_57kLqRzB_Lv5EicK7kIN8Pla1PVv30PeQMI2G5dkkGQBaBDYECp2pgvnxPliYtQ6R1eH5peJt3I3DDzsi-it_yZ5_eLvPWKeHP8p6mok7FynnhLv1f4N9v5Yf9CSM1Ukkf5WYIF7nUGt5UMTsaLcRyvaMkDZMu3gmBmcPmKCAdY9kpUmiVZcC8pE/s1600/1000498272.jpg" alt="News Image">
+
+  <div class="news-content">
+    <div class="news-title">🇮🇳 Darul Uloom Deoband Jhanda Kushai</div>
+    <div class="news-meta">
+      <span>👁️ 10.2k Views</span>
+      <span>🕒 15/08/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+
+    <div class="news-description">
+      <!-- Roman English -->
+      <div style="font-family: 'Poppins', sans-serif; font-size: 15px; line-height: 1.6;">
+        <p><strong>📖 Roman English:</strong></p>
+        <p>Darul Uloom Deoband mein Azmi Manzil ke samne tareeqi parcham kushai ka in’aqad hua. 
+        Muhtamim wa Muhaddis Darul Uloom Deoband Mufti Abul Qasim Nomani daamat barakatuhum ke haathon tiranga lehraya gaya. 
+        Neeche tasveer mein Mufti Abul Qasim Nomani madzillahu al-ali aur Naib Muhtamim Maulana Abdul Khaliq Madrasi madzillahu al-ali dekhe ja sakte hain.</p>
+      </div>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <!-- Urdu -->
+      <div style="font-family: 'Noto Nastaliq Urdu', serif; font-size: 16px; direction: rtl; text-align: right;">
+        <p><strong>📜 اردو:</strong></p>
+        <p>دارالعلوم دیوبند میں اعظمی منزل کے سامنے تقریب پرچم کشائی کا انعقاد۔ 
+        مہتمم و محدث دارالعلوم دیوبند مفتی ابوالقاسم نعمانی دامت برکاتہم کے ہاتھوں ترنگا لہرایا گیا۔ 
+        زیر نظر تصویر میں مفتی ابوالقاسم نعمانی مدظلہ العالی اور نائب مہتمم مولانا عبدالخالق مدراسی مدظلہ العالی دیکھے جاسکتے ہیں۔</p>
+      </div>
+    </div>
+
+    <!-- WhatsApp Share -->
+    <a class="whatsapp-share"
+       href="https://wa.me/?text=🇮🇳 Darul Uloom Deoband Jhanda Kushai%0A%0ARoman English:%0ADarul Uloom Deoband mein Azmi Manzil ke samne tareeqi parcham kushai ka in’aqad hua.%0AMuhtamim wa Muhaddis Darul Uloom Deoband Mufti Abul Qasim Nomani daamat barakatuhum ke haathon tiranga lehraya gaya.%0ANeeche tasveer mein Mufti Abul Qasim Nomani madzillahu al-ali aur Naib Muhtamim Maulana Abdul Khaliq Madrasi madzillahu al-ali dekhe ja sakte hain.%0A%0AUrdu:%0Aدارالعلوم دیوبند میں اعظمی منزل کے سامنے تقریب پرچم کشائی کا انعقاد۔ مہتمم و محدث دارالعلوم دیوبند مفتی ابوالقاسم نعمانی دامت برکاتہم کے ہاتھوں ترنگا لہرایا گیا۔ زیر نظر تصویر میں مفتی ابوالقاسم نعمانی مدظلہ العالی اور نائب مہتمم مولانا عبدالخالق مدراسی مدظلہ العالی دیکھے جاسکتے ہیں۔%0A%0A👇 Read Full Post:%0Ahttps://mustaqeem-hyd-news.netlify.app/"
+       target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+<!-- Mus2 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-1874063367142441"
+     data-ad-slot="7947508205"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+
+<!-- News Card -->
+<!-- Card: Hyderabad Mein Musladhar Barish -->
+<div style="cursor: pointer; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: #fff; margin-bottom: 20px;" onclick="location.href='hyderabad-rain-news.html'">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg0Zl_qNLMsVKFP9_rP-hkx8bHzAV6ZcaznWIRMCLr54XEnkZ9uyrwFlKhSX0K6oSTlVJnVRV5bOlsCP1yZ9kc81QzTshtIkjAgJhiwgwTxMdwVtg336Dmm57Ww7qZyogD9E2SxsgWWfl-Cs0LjZq2dhOgyujzyUPByYlm3DQy-bPG87zgvS1cKUyJRycA/s1600/1000493783.jpg" alt="Hyderabad Rain News" style="width: 100%; height: auto;">
+  
+  <div style="padding: 12px;">
+    <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">🌧️ Hyderabad Mein Musladhar Barish – Sheher Bhar Mein Alert</h3>
+    <p style="margin: 0 0 8px; font-size: 13px; color: #555;">Hyderabad mein lagatar barish se kai ilaakon mein paani bhar gaya hai. Municipal teams alert par hain. Nagar Nigam ne logon se gharon mein rehne ki salah di hai.</p>
+    
+    <div style="display: flex; gap: 10px; font-size: 12px; color: #666; flex-wrap: wrap;">
+      <span>👁️ 12.8k Views</span>
+      <span>🕒 07/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+<div style="border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.2); background: #fff; margin-bottom: 20px; padding: 15px;">
+  <h3 style="margin-bottom: 10px;">🔴 کونڈاپور میں سیلاب جیسا منظر</h3>
+
+  <!-- Google Drive Video Embed via iframe -->
+  <iframe src="https://drive.google.com/file/d/1Sc4Xmue7qdxLPsJGSBT34343u73vzpYd/preview" width="100%" height="300" allow="autoplay" style="border-radius: 10px; border: none;"></iframe>
+
+  <!-- Urdu Description -->
+  <p style="font-family: 'Noto Nastaliq Urdu', 'Arial', sans-serif; font-size: 16px; margin-top: 12px;">
+    صرف تیس منٹ کی بارش کے بعد حیدرآباد کے سب سے بلند و بالا عمارتوں والا علاقہ کونڈاپور میں سیلاب جیسی صورتحال۔ سڑکوں پر تالاب کا منظر ہے تو فلائی اوور ندی بن گیا۔
+  </p>
+
+  <!-- Roman Urdu Description -->
+  <p style="font-size: 14px; color: #444;">
+    Sirf 30 minute ki barish ke baad Hyderabad ke sabse buland-o-bala imaraton wala ilaqa Kondapur mein sailaab jaisi surat-e-haal. Sadkon par talaab ka manzar hai to flyover nadi ban gaya.
+  </p>
+</div>
+
+<!-- News Card -->
+<!-- Card: MS Post App Ka Kamaal -->
+<div style="cursor: pointer; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: #fff; margin-bottom: 20px;" onclick="location.href='ms-post-app.html'">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjhCM-2grLGTTtvpakY4mjdE4VBmr16adASxYu2ZVLwjZpE2UkQwUBOCqv9L_6R9lx2SCAqYWYwC2k03hVfbOI48aH1lT0eRFmwpXI0FkM9q1rmLX7HV3J1c3wiO2XZ_KfTVOiBwEnEB9wtiaZS3kdJLoc9bLEvCumtTeeN1oUlOWaJgaciYk-EV_1ci5k/s1600/1000492245.jpg" alt="MS Post App" style="width: 100%; height: auto;">
+  
+  <div style="padding: 12px;">
+    <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">📱 MS Post App – Har Roz Ki Khaas Khabrein Aur Status</h3>
+    <p style="margin: 0 0 8px; font-size: 13px; color: #555;">Ek premium app jahan aapko milti hai latest news, viral stories aur dil ko chu lene wale status – sab kuch ek jagah.</p>
+    
+    <div style="display: flex; gap: 10px; font-size: 12px; color: #666; flex-wrap: wrap;">
+      <span>👁️ 9k Views</span>
+      <span>🕒 05/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- Card: Reshwat Ka Injam -->
+<div style="cursor: pointer; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: #fff; margin-bottom: 20px;" onclick="location.href='reshwat-ka-injam.html'">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjK55LS7WkAKCR7vPYE0m7Atxhd4NyHR-sCm7WRcPQa2VohGZc1hDLphYLIPLzSGYiNImBydPWlmjR-gXEyqlTEl15WVIQAAii4extwJarALuFEElPuodm8ASnnb6Pi5lp4qgOkqDecqu1oc9paWTKf1YUKdYX7M6J8-MBZkCyl94XBz7B3BpoSAkrO2tc/s1600/1000492061.jpg" alt="Reshwat Ka Injam" style="width: 100%; height: auto;">
+  
+  <div style="padding: 12px;">
+    <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">💰 Reshwat Ka Injam – Ek Ebarat Naak Kahani</h3>
+    <p style="margin: 0 0 8px; font-size: 13px; color: #555;">Ek aadmi ne traffic police ko ₹500 de kar challan cancel karwaya... lekin usi rishwat ne uska anjam tay kar diya.</p>
+    
+    <div style="display: flex; gap: 10px; font-size: 12px; color: #666; flex-wrap: wrap;">
+      <span>👁️ 12k Views</span>
+      <span>🕒 05/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- Card: Dil Se Nikli Baat -->
+<div style="cursor: pointer; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: #fff; margin-bottom: 20px;" onclick="location.href='dil-se-nikli-baat.html'">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhfenlqJ16kgKhFKGK4dEqO6ZnlUbADUznQPWq_aBULYtcseg1tVFGCWNYvLczMIOBCQUJbid_eXXn9_nKKpgEiyXGBu92xOO76EWjaXbZBYV56KBTaySStgU95rbGFjPXXli1BjWhDY2I9-gtlLT5PmGYTjst3NYoTRMcMwMax0vSo8bqQZTn1Ji77pFRW/s1600/1000492028.png" alt="Dil Se Nikli Baat" style="width: 100%; height: auto;">
+  
+  <div style="padding: 12px;">
+    <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">🕋 Dil Se Nikli Baat – Ek Talakh Haqeeqat</h3>
+    <p style="margin: 0 0 8px; font-size: 13px; color: #555;">Masjidein roshan, lekin Imam ke ghar andhera. Madaris bade, lekin ustad ki jeb khaali...</p>
+    
+    <div style="display: flex; gap: 10px; font-size: 12px; color: #666; flex-wrap: wrap;">
+      <span>👁️ 25k Views</span>
+      <span>🕒 05/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Card: Hyderabad Rain Update -->
+<div style="cursor: pointer; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: #fff; margin-bottom: 20px;" onclick="location.href='hyderabad-rain-update.html'">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjezc_HNnqT6dWQvtEHizgd3tCh6SSaD30yWjXh9SXc_vPebv0WJGm3ynRQkuf6DiplTKqSBZi2XcIOGJRi_E0Ep7hIx7YtQ1bGWIZLus3QPCeDrhq_tio4YJlBplGyLlchQ_lY3UTVtqgZqQMMuRQ9jKCBGixP8UA8stA2bIIlXNIFHuzlty8RCvTeU7Y/s1600/1000492005.jpg" alt="Hyderabad Rain Update" style="width: 100%; height: auto;">
+  
+  <div style="padding: 12px;">
+    <h3 style="margin: 0 0 8px; font-size: 16px; font-weight: 600;">🌧️ Hyderabad Rain Update – 5 August 2025</h3>
+    <p style="margin: 0 0 8px; font-size: 13px; color: #555;">Heavy baarish se roads flooded, IMD ne alert jaari kiya. Gajularamaram mein 151mm tak record...</p>
+    
+    <div style="display: flex; gap: 10px; font-size: 12px; color: #666; flex-wrap: wrap;">
+      <span>👁️ 20k Views</span>
+      <span>🕒 05/08/2025</span>
+      <span>📢 By MUSTAQEEM</span>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Card: Masoom Ki Baddua -->
+<div style="cursor: pointer; border-radius: 15px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.1); background: #fff; margin-bottom: 20px;" onclick="location.href='masoom-ki-baddua.html'">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh0Jxh0Rt-TNFA5LN_JaXTIR5YHPRZ58B9cW_ass4-PyMeGqxpyred7_oL9HCXdMq14CIhNWPCKHjCYqfstiOIKv2bdUXBnmn4jkbca9UpRybEqrjOfmqg0lkD5TzUgKzEfJtHevbiDwGmhESO2wJkrVjJxosrbcZ0DgTQQLdFLR8XXhephO-jnCH0rds8/s1600/1000491033.jpg" alt="Masoom ki Bad-Dua" style="width: 100%; height: auto;">
+  
+  <div style="padding: 15px;">
+    <h3 style="margin: 0 0 10px; font-size: 18px; font-weight: bold;">💔 Masoom Ki Bad-Dua – Zalim Ko Le Dubi</h3>
+    <p style="margin: 0 0 10px; font-size: 14px; color: #555;">Jab masoom ki aankhon se aansu nikalte hain, to arsh hilta hai...</p>
+    
+    <div style="display: flex; gap: 12px; font-size: 13px; color: #666; flex-wrap: wrap;">
+      <span>👁️ 49k Views</span>
+      <span>🕒 04/08/2025</span>
+      <span>📢 By ᗰᑌᔕTᗩᑫEEᗰ</span>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgt16_SvnBFZEYD7oa9pIcM_V_EGezqEfRdEDBbwI8-WL7KJ7gYBVlpKr4pwDJGV2vCH-PNH00umONj9ag8bN8mSNirZi8Lu54VGHvGLiNZcopePHXYiDMS6kwDRn7riKZ26GUeMiTEvLjiFaclndcAYiiFrWb-r5u7q0T5PE4MOcMc51SUhg953OL3Dls/s1600/1000491324.jpg" alt="News Image">
+
+  <div class="news-content">
+    <div class="news-title">✒️ Salam Na Karna, Nafrat Nahin -- Shaoor Hai</div>
+    <div class="news-meta">
+      <span>👁️ 26.8k Views</span>
+      <span>🕒 03/08/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+
+    <div class="news-description">
+      <!-- Urdu -->
+      <div style="font-family: 'Noto Nastaliq Urdu', serif; font-size: 16px; direction: rtl; text-align: right;">
+        <p><strong>📜 اردو:</strong></p>
+        <p>اسلام میں سلام محبت، امن اور خیرسگالی کی علامت ہے۔ لیکن جب یہ الفاظ صرف رسمی بن جائیں، اور دل و نیت اس کے خلاف چلیں -- تو خاموشی بہتر ہوتی ہے، ریا سے بھرے ہوئے سلام سے۔</p>
+        <p>میں ہر کسی کو سلام نہیں کرتا۔ کیونکہ سلام وہی مستحق ہے، جو دل سے اخلاص رکھے۔ جو بظاہر مسکراہٹ لائے مگر دل میں سازش پالے -- ایسے لوگوں کو میری زبان سے سلام نہیں، صرف دل کی دعا ملتی ہے: "اللہ تجھے ہدایت دے، اور ہمیں دور رکھے تیرے شر سے۔"</p>
+        <p>📜 تاریخی مثال: حضرت عمر رضی اللہ عنہ کا رویہ<br>ایک شخص نے حضرت عمرؓ سے کہا: "میں آپ کا بھائی ہوں!"<br>حضرت عمرؓ نے فرمایا: "نہ تُو میرا بھائی ہے، نہ دوست -- کیونکہ تو اللہ کی نافرمانی پر قائم ہے۔"</p>
+        <p>حضرت عمرؓ نے ایسے افراد سے نہ صرف دوری اختیار کی، بلکہ ان سے سلام تک ترک کر دیا -- تاکہ امت کو یہ سبق ملے کہ ریاکاروں سے بے نیازی اختیار کرنا بھی دین کی غیرت ہے۔</p>
+        <p>❌ سلام کن کو نہیں؟<br>ان کو جو کمزوروں پر ظلم کرتے ہیں<br>جو مسجدوں میں عہدوں کے پیچھے دین کو روندتے ہیں<br>جو حق بولنے والوں کو "فتنہ پرور" اور ظالموں کو "محترم" کہتے ہیں<br>اور ان کو بھی، جو خاموش تماشائی بن کر ظلم کو جواز عطا کرتے ہیں</p>
+        <p>💬 میرا موقف:<br>میری خاموشی کو غرور نہ سمجھا جائے، یہ ادب ہے اُس سچ کے لیے جو میرے دل میں زندہ ہے۔ اگر میری باتوں سے کسی کو دکھ پہنچا ہو -- تو میں اپنا نیت صاف کر چکا ہوں، لیکن جھوٹ کو برداشت کرنا میرے لیے ممکن نہیں۔</p>
+        <p>میں وہ Mustaqeem ہوں، جو منصب کا خواہش مند نہیں، بلکہ صرف حق کا طالب ہے۔</p>
+        <p>🕊️ آخر میں:<br>"سلام ہر مسلمان کا حق ہے، لیکن جو مسلمان صرف نام سے ہو -- اُسے میری خاموشی ہی کافی ہے!"<br>"میری دعا اب بھی باقی ہے، لیکن میرا سلام صرف اس کے لیے ہے جو اخلاص اور انصاف کے ساتھ جیتا ہے۔"</p>
+      </div>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <!-- Roman English -->
+      <div style="font-family: 'Poppins', sans-serif; font-size: 15px; line-height: 1.6;">
+        <p><strong>📖 Roman English:</strong></p>
+        <p>In Islam, Salam is a sign of love, peace, and goodwill. But when it becomes a mere formality -- and hearts don't align with it -- then silence is better than a hypocritical greeting.</p>
+        <p>I don't greet everyone. Salam is only for those who are sincere at heart. Those who smile outwardly but plot internally -- I remain silent before them, though my heart still prays: "May Allah guide you and protect us from your evil."</p>
+        <p>📜 Historic Example:<br>One man once said to Hazrat Umar (RA), "I'm your brother."<br>He replied, "You're neither my brother nor my friend -- because you disobey Allah."<br>This shows that Hazrat Umar (RA) avoided such people and even stopped greeting them, teaching the ummah that ignoring hypocrites is a form of religious honor.</p>
+        <p>❌ Who I don't greet:<br>-- Those who oppress the weak<br>-- Those who destroy faith for the sake of status in mosques<br>-- Those who call the truth "fitna" and honor the oppressors<br>-- And those silent spectators who justify injustice</p>
+        <p>💬 My Stand:<br>Don't mistake my silence as arrogance -- it is respect for the truth alive in my heart. If my words hurt anyone, know that my intentions are clear. But I cannot accept falsehood silently.</p>
+        <p>I am that Mustaqeem -- not chasing positions or fame, only the truth and dignity.</p>
+        <p>🕊️ In the End:<br>"Salam is every Muslim's right, but if someone is Muslim only by name -- my silence is enough."<br>"My prayer remains, but my Salam is only for those who live with sincerity and justice."</p>
+      </div>
+    </div>
+
+    <!-- WhatsApp Share -->
+    <a class="whatsapp-share"
+       href="https://wa.me/?text=✒️ Salam Na Karna, Nafrat Nahin -- Shaoor Hai%0A%0AIn Islam, Salam is a symbol of peace and sincerity. But when hearts are fake and justice is crushed, silence is dignity.%0A%0AI am Mustaqeem -- I stay silent not out of ego, but out of awareness.%0A%0A👇 Read Full Post:%0Ahttps://mustaqeem-hyd-news.netlify.app/"
+       target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh1GKJv8RKm0PV2XCqLQxIiMCCmB4ffyCyjYrBhjP1GwatARzDB4IAwg2FLHlV3rrfu3VKT2_1mfalEIznYOfCGmy04qha0RSjF1JlGTrak0vGPMKwgdXVHvM8kjOelz7lUMkgLx9LYe_flV2YQ3Icll9Y2sEGtO6Nii7cbIg7pIzGuZrTEjV5hK7m87Kw/s1600/1000491130.jpg" alt="News Image">
+
+  <div class="news-content">
+    <div class="news-title">💔 Kamzor Ka Khuda Zinda Hai</div>
+    <div class="news-meta">
+      <span>👁️ 26.8k Views</span>
+      <span>🕒 03/08/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+
+    <div class="news-description">
+      <!-- Roman English -->
+      <div style="font-family: 'Poppins', sans-serif; font-size: 15px; line-height: 1.6;">
+        <p><strong>📖 Roman English:</strong></p>
+        <p>Ibadat ki asal rooh insaaf, ikhlaaq aur huqooq-ul-ibaad ki paasdaari mein chhupi hai. Jo log sirf sajdon ka dikhawa karte hain lekin doosron ke huqooq ko paamaal karte hain -- unki ibadat riya ka hissa ban jaati hai, jo Allah ke nazdeek maqbool nahi hoti.</p>
+        <p>Makkah ya Madinah mein marne se bhi aise fareb se paak nahi hua ja sakta. Munafiq aur unke pairukar hamesha deen ka libaada oodhkay fitna phailaate hain -- lekin Allah ki pakar se koi nahi bach sakta.</p>
+        <p>Deen sirf namaz ka nahi, balke insaaf aur khalis niyyat ka bhi naam hai.</p>
+      </div>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <!-- Urdu -->
+      <div style="font-family: 'Noto Nastaliq Urdu', serif; font-size: 16px; direction: rtl; text-align: right;">
+        <p><strong>📜 اردو:</strong></p>
+        <p>عبادت کی اصل روح انصاف، اخلاق اور حقوق العباد کی پاسداری میں پوشیدہ ہے۔ جو لوگ سجدوں کا دکھاوا کرتے ہیں مگر دوسروں کے حقوق پامال کرتے ہیں، ان کی عبادت ریاکاری کا حصہ بن جاتی ہے -- اور اللہ کے نزدیک ہرگز مقبول نہیں ہوتی۔</p>
+        <p>مکہ یا مدینہ میں مرنے سے بھی ایسا فریب پاک نہیں ہوتا۔ منافق اور ان کے پیروکار ہمیشہ دین کا لبادہ اوڑھ کر فتنہ پھیلاتے ہیں، مگر اللہ کی پکڑ سے کوئی بچ نہیں سکتا۔</p>
+        <p>دین صرف نماز کا نہیں، بلکہ انصاف اور خلوص کا بھی نام ہے۔</p>
+      </div>
+    </div>
+
+    <!-- WhatsApp Share -->
+    <a class="whatsapp-share"
+       href="https://wa.me/?text=💔 Kamzor Ka Khuda Zinda Hai%0A%0AIbadat ki asal rooh insaaf, ikhlaaq aur huqooq-ul-ibaad ki paasdaari mein chhupi hai.%0AJo log sirf sajdon ka dikhawa karte hain lekin doosron ke huqooq ko paamaal karte hain -- unki ibadat riya ka hissa ban jaati hai, jo Allah ke nazdeek maqbool nahi hoti.%0A%0AMakkah ya Madinah mein marne se bhi aise fareb se paak nahi hua ja sakta.%0A%0AMunafiq aur unke pairukar hamesha deen ka libaada oodhkay fitna phailaate hain -- lekin Allah ki pakar se koi nahi bach sakta.%0A%0ADeen sirf namaz ka nahi, balke insaaf aur khalis niyyat ka bhi naam hai.%0A%0A👇 Read Full Post:%0Ahttps://mustaqeem-hyd-news.netlify.app/"
+       target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhC73Ft08SA4_hTepFelT3D60O16bJK_fy82Z-z6aBm6g4hxpgFKJ4T0PHOSlIJLSbCQt6lssOJPbdv_276ZTy0OjANnNv4KpGdlrzKN1EmoKB-v0x0joK6r5DleOSjEGcxelnZP4SCZoah-WpHvvvGNRVARrFp9F7r4W6r_AygdDxjI63LEcMYPoZw5ks/s1600/1000491024.jpg" alt="News Image">
+
+  <div class="news-content">
+    <div class="news-title">⚖️ Kamzor Pe Zulm Ka Anjaam</div>
+    <div class="news-meta">
+      <span>👁️ 26.8k Views</span>
+      <span>🕒 03/08/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+
+    <div class="news-description">
+      <!-- Roman English -->
+      <div style="font-family: 'Poppins', sans-serif; font-size: 15px; line-height: 1.6;">
+        <p><strong>📖 Roman English:</strong></p>
+        <p>Jab tak logon ka nuksan hota hai, woh chillate hain... Lekin jab kisi kamzor ka haq maara jata hai, to sab khamosh ho jaate hain.</p>
+        <p>Jo kamzor pe zulm karta hai, woh samjhta hai ke uska koi kuch nahi bigaadega... lekin woh bhool jata hai ke Allah kamzor ka saath deta hai.</p>
+        <p>Qayamat ke din sabse pehle zulm ka faisla hoga. Jisne kamzor, masoom, aur be-gunah par zulm kiya -- uska hisaab sabse pehle liya jaayega.</p>
+        <p><strong>Hadees:</strong> "Zulm se bacho, zulm qayamat ke din andheron ka sabab banega." (Bukhari)</p>
+        <p>Aaj agar aap ke paas taqat hai, to uska istemal madad ke liye karo, musibat ban ne ke liye nahi.</p>
+      </div>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <!-- Urdu -->
+      <div style="font-family: 'Noto Nastaliq Urdu', serif; font-size: 16px; direction: rtl; text-align: right;">
+        <p><strong>📜 اردو:</strong></p>
+        <p>جب تک لوگوں کا نقصان ہوتا ہے، وہ چیختے ہیں... لیکن جب کسی کمزور پر ظلم ہوتا ہے، تو سب خاموش ہو جاتے ہیں۔</p>
+        <p>جو کمزور پر ظلم کرتا ہے، وہ سمجھتا ہے کہ کوئی اس کا کچھ نہیں بگاڑ سکتا... لیکن وہ بھول جاتا ہے کہ اللہ کمزور کے ساتھ ہوتا ہے۔</p>
+        <p>قیامت کے دن سب سے پہلے ظلم کا حساب ہوگا۔ جس نے کسی کمزور، معصوم یا بےگناہ پر ظلم کیا -- اُس کا حساب سب سے پہلے ہوگا۔</p>
+        <p><strong>حدیث:</strong> "ظلم سے بچو، قیامت کے دن ظلم اندھیروں کا سبب بنے گا۔" (بخاری)</p>
+        <p>اگر آج تمہارے پاس طاقت ہے، تو اس کا استعمال مدد کرنے میں کرو، مصیبت بننے میں نہیں۔</p>
+      </div>
+    </div>
+
+    <!-- WhatsApp Share -->
+    <a class="whatsapp-share"
+       href="https://wa.me/?text=⚖️ Kamzor Pe Zulm Ka Anjaam %0A%0AKamzor par zulm karne wale samajhte hain unka kuch nahi bigadega...%0ALekin Allah unka hisaab zarur lega.%0A%0ARead Roman Urdu & Urdu 👇%0Ahttps://mustaqeem-hyd-news.netlify.app/"
+       target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+
+
+
+
+     <div class="news-card" onclick="toggleDescription(this)">
+  <div class="news-images" style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh7AZ8n-1Nbz3aTaVDu0bmZSgQEZcZVRf9nn40VasqGtJu0YJV4hqos84m2vhIP1hxngYd8P3FVMyuCNMqAP16NmeVJB-4O1Cxf2-QvV4SfTfIiRLF2SZQ7vdVRhgkovGSnmMzOvtB_8i2mQruaU-A3ChmHx5oy__x2uwZ2f1fc_lQgC0byKAEPAPQflHk/s1600/1000490406.jpg"
+         alt="Mustaqeem App Banner"
+         style="width: 100%; border-radius: 12px;" />
+  </div>
+
+  <div class="news-content">
+    <div class="news-title">🚀 ᗰᑌᔕTᗩᑫEEᗰ brand ke 4 app live ho chuke - Alhamdulillah</div>
+    <div class="news-meta">
+      <span>👁️ 1.1k Views</span>
+      <span>🕒 02/08/2025</span>
+      <span>👤 By Mustaqeem</span>
+    </div>
+
+    <div class="news-description" style="display: none;">
+      <!-- Roman English -->
+      <p><strong>📱 MS Post:</strong> Ek all-in-one Hyderabad app jisme Shayari, Daily News aur Namaz timing update hota hai.  
+      <a href="https://play.google.com/store/apps/details?id=com.nucleapp.na_c10605" target="_blank">👉 Download</a></p>
+
+      <p><strong>🎮 MS Blaster:</strong> Ek zabardast action game jisme blast maarne ka maza alag hi level ka hai. Hyderabadi touch ke sath!  
+      <a href="https://play.google.com/store/apps/details?id=com.msblastar.hyd" target="_blank">👉 Download</a></p>
+
+      <p><strong>💞 MS Reshte:</strong> Hyderabad ke rishton ka trusted platform – verified profiles aur secure experience.  
+      <a href="https://play.google.com/store/apps/details?id=com.msreshtehyd" target="_blank">👉 Download</a></p>
+
+      <p><strong>🎓 Free Sekho:</strong> Sikho AI video banana, paise kamao aur naye skills lo -- wo bhi bilkul free!  
+      <a href="https://play.google.com/store/apps/details?id=com.freesekho208" target="_blank">👉 Download</a></p>
+
+      <hr style="margin: 20px 0;" />
+
+      <!-- Urdu -->
+      <div dir="rtl" style="text-align: right;">
+        <p><strong>📱 MS Post:</strong> شاعری، نیوز، اور نماز کے اوقات ایک ہی ایپ میں – خاص حیدرآباد والوں کے لیے۔  
+        <a href="https://play.google.com/store/apps/details?id=com.nucleapp.na_c10605" target="_blank">ڈاؤن لوڈ کریں</a></p>
+
+        <p><strong>🎮 MS Blaster:</strong> ایک دھماکے دار گیم – ایکشن اور مزے کا حسین امتزاج، خالص حیدرآبادی انداز میں۔  
+        <a href="https://play.google.com/store/apps/details?id=com.msblastar.hyd" target="_blank">ڈاؤن لوڈ کریں</a></p>
+
+        <p><strong>💞 MS Reshte:</strong> رشتوں کا ایک محفوظ اور معیاری پلیٹ فارم – صرف حیدرآباد کے لیے۔  
+        <a href="https://play.google.com/store/apps/details?id=com.msreshtehyd" target="_blank">ڈاؤن لوڈ کریں</a></p>
+
+        <p><strong>🎓 Free Sekho:</strong> مفت میں سیکھیں: اے آئی ویڈیو بنانا، پیسے کمانا اور نئے ہنر حاصل کرنا۔  
+        <a href="https://play.google.com/store/apps/details?id=com.freesekho208" target="_blank">ڈاؤن لوڈ کریں</a></p>
+      </div>
+
+      <hr style="margin: 20px 0;" />
+      <p><strong>🌐 Official Website:</strong> <a href="https://mustaqeem-hyd-news.netlify.app" target="_blank">mustaqeem-hyd-news.netlify.app</a></p>
+    </div>
+
+    <a class="whatsapp-share" href="https://wa.me/?text=📢 Mustaqeem ke 4 apps ab Google Play pe live hain! Dekhiye: https://mustaqeem-hyd-news.netlify.app" target="_blank">📤 WhatsApp pe share karo</a>
+  </div>
+</div>
+
+
+<div class="news-card" onclick="toggleDescription(this)">
+  <div class="news-images" style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgcmPTKR4rGQULo3e4ZlqXyeqrDDm6ymXewD6kb805GvpXhDn3CgD7lHRPlIGd5QgRmSa3k0wVdyGO0thxWWM9dKha8oQmaxCx6v-QzQl5GlGwnRXKNajt-rbEfi7_nSFtkdoUyYT4N9n1IsuJbRI2AnT5ComyeirBtndRF846uTbuZoc1jHsBCBCpb1k8/s1600/1000484996.jpg" alt="Masjid Free Salan" style="width: 100%; border-radius: 12px;" />
+  </div>
+
+  <div class="news-content" lang="ur">
+    <div class="news-title">📢 Masjid se Anokha Elan – Free Salan Fi Sabeelillah</div>
+    <div class="news-meta">
+      <span>👁️ 9.7k views</span>
+      <span>🕒 22/07/2025</span>
+      <span>🕌 By MS POST</span>
+    </div>
+
+    <div class="news-description" style="display: none;">
+
+      <!-- ROMAN ENGLISH SECTION -->
+      <p>Masjid ke paas ek rehri lagti hai jahan mukhtalif hotels ka bacha hua salan Fi Sabeelillah diya jaata hai. Jo log afford nahi kar sakte, wo sirf bartaan le aayen, salan le jaayen.</p>
+
+      <p>Main khud dekhne gaya – log line me bartaan le kar kharay thay. Teen bartan thay – ek me daal, doosre me qorma, teesre me sabzi. Kuch hi der me sab khatam ho gaya.</p>
+
+      <p>Jab maine salan baantne wale se poocha to usne kaha:</p>
+
+      <blockquote>
+        Ek din hotel me khana khaya, aadha salan bacha. Mujhe laga waste ho jayega. Maine waiter se kaha, isay ek gareeb ko de do. Raat chain ki neend ayi. Tab se roz hotel se bacha salan le aata hoon. Aaj 5 hotel roz dete hain. Sab kuch Fi Sabeelillah.
+      </blockquote>
+
+      <p>Usne koi bada kaam nahi kiya – sirf ek niyyat badli. Allah ne uski zindagi badal di.</p>
+
+      <p>Aap bhi roz koi ek chhoti nek amal shuru kijiye – shaayad wahi aapko jannat tak le jaye.</p>
+
+      <p>Allah chaahe to ye silsila har shehar tak pahunchega. Ameen!</p>
+
+      <hr style="margin: 20px 0;" />
+
+      <!-- URDU SECTION -->
+      <p><strong>مسجد کے پاس ایک ریہڑی لگتی ہے جہاں مختلف ہوٹلز کا بچا ہوا سالن فی سبیل اللہ دیا جاتا ہے۔ جو لوگ خریدنے کی استطاعت نہیں رکھتے، وہ صرف برتن لے آئیں، سالن لے جائیں۔</strong></p>
+
+      <p><strong>میں خود دیکھنے گیا – لوگ لائن میں برتن لے کر کھڑے تھے۔ تین برتن تھے – ایک میں دال، دوسرے میں قورمہ، تیسرے میں سبزی۔ تھوڑی ہی دیر میں سب ختم ہو گیا۔</strong></p>
+
+      <p><strong>جب میں نے سالن بانٹنے والے سے پوچھا تو اُس نے کہا:</strong></p>
+
+      <blockquote><strong>
+        ایک دن ہوٹل میں کھانا کھایا، آدھا سالن بچ گیا۔ مجھے لگا یہ ضائع ہو جائے گا۔ ویٹر سے کہا، اسے کسی غریب کو دے دو۔ اُس رات پہلی بار بغیر دوا کے سکون کی نیند آئی۔ تب سے روز ہوٹل سے بچا ہوا سالن لے آتا ہوں۔ آج پانچ ہوٹلز روز دیتے ہیں۔ سب کچھ فی سبیل اللہ۔
+      </strong></blockquote>
+
+      <p><strong>اُس نے کوئی بڑا کام نہیں کیا – صرف نیت بدلی۔ اللہ نے اُس کی زندگی بدل دی۔</strong></p>
+
+      <p><strong>آپ بھی روز کوئی چھوٹا نیک عمل شروع کیجیے – شاید وہی آپ کو جنت تک لے جائے۔</strong></p>
+
+      <p><strong>اللہ چاہے تو یہ سلسلہ ہر شہر تک پہنچے گا۔ آمین!</strong></p>
+
+    </div>
+
+    <a class="whatsapp-share" href="https://wa.me/?text=📢 Masjid ka Anokha Elan! Free Salan Fi Sabeelillah -- Dekhiye: https://mustaqeem-hyd-news.netlify.app/" target="_blank">📤 WhatsApp pe share karo</a>
+
+  </div>
+</div>
+
+
+   <!-- Google AdSense Ad - Mus 1 (336x280) -->
+<div style="text-align:center; margin: 20px 0;">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+  <!-- Mus 1 -->
+  <ins class="adsbygoogle"
+       style="display:inline-block;width:336px;height:280px"
+       data-ad-client="ca-pub-1874063367142441"
+       data-ad-slot="3862927574"></ins>
+  <script>
+       (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+
+
+<!-- YouTube Silver Button Received News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <div class="news-images" style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhN14_qfzbJD9PfC_biEegdoIh4okStRBeg-IE8Uyd6Xm_Rn3YeL8a0mO3XSveeqv8WyA3HUJf-pSU1SpAMF9NbC_aq5Hgpt8aHHoW10yGjy7lygk1agyrCAH1VwvAoGBXXJawYOVbAgfzZFQoigB0GioJnvP8_fCkAlsHQsS9i4HBfdGcr34mRy2IZz4w/s1600/1000484107.jpg" alt="YouTube Silver Award Front" style="width: 48%; border-radius: 12px;" />
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgEo3xIdpnDIZMJgzXrh8W-muYQELRgT1lYmbjOQ4yf70k1ZcoHOvd40ku4MWiu-86IqJ-hk6T8bUyNd9EnTqq4Ph_MTSoT5vH9nH8s1P_TbcgXrZXzP38tvRnJBs-DBMKklKkkgLQUrH3cqWpS9F0ENR5Shj-GgsbCyIu8EChlVW_Mocdhy5GeYL2wQ1k/s1600/1000484101.jpg" alt="YouTube Silver Award Box" style="width: 48%; border-radius: 12px;" />
+  </div>
+
+  <div class="news-content">
+    <div class="news-title">🏆 YouTube Silver Button Mil Gaya – ᗰᑌᔕTᗩᑫEEᗰ Hyd</div>
+    <div class="news-meta">
+      <span>👁️ 14.2k Views</span>
+      <span>🕒 22/07/2025</span>
+      <span>📢 By ᗰᑌᔕTᗩᑫEEᗰ</span>
+    </div>
+
+    <div class="news-description" style="display: none;">
+      <p><strong>🎉 Alhamdulillah! Khushi Ki Inteha:</strong> Finally, <strong>ᗰᑌᔕTᗩᑫEEᗰ Hyd</strong> ka YouTube Silver Play Button haathon me aa gaya! 💖</p>
+
+      <p>100K subscribers ke baad yeh award mila – ye sirf ek metal plate nahi, *ye mehnat, duaon aur viewers ke pyar ka nateeja hai* 🙏</p>
+
+      <p>💬 <em>"Aap logon ke bina yeh mumkin nahi tha – jazakAllah for all the support!"</em></p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 Urdu:</strong></p>
+      <p>الحمدللہ، یوٹیوب سلور پلے بٹن مل گیا ہے! یہ کامیابی آپ سب کی محبت اور سپورٹ کے بغیر ممکن نہ تھی۔ ان شاءاللہ گولڈن بٹن کا سفر بھی جاری رہے گا۔</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 Roman English:</strong></p>
+      <p>Alhamdulillah! Silver Play Button haathon me hai. Ye moment sabse khaas hai. Dua karo next goal – **Golden Button** jald aaye InshaAllah 💛</p>
+    </div>
+
+    <a class="whatsapp-share" href="https://wa.me/?text=🏆 Mustaqeem Hyd got YouTube Silver Button! Dekho khushi ka pal: https://mustaqeem-hyd-news.netlify.app/" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<iframe 
+  width="100%" 
+  height="315" 
+  src="https://www.youtube.com/embed/5OInMsOaWCY" 
+  title="YouTube video player" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+  allowfullscreen>
+</iframe>
+
+
+<!-- Namaz Reminder News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <div class="news-images" style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTPt-fivWtj6PeGq2oHl1m1SFS6NiPWqvYuCJca_sqYk93t82_8StipP0VW2g-WA7nAa-qDSyY1iwDFdfNfrYovYs990mWNnGJ2jg7bqh-a4rFQwhY_nolxyjJwC1B52i3KpZbV9XuMpgO8qvVKzHwUpkGILwAZ2DQSMBRLat78y50RG7OpvDSmVr8U_w/s1600/1000480950.jpg" alt="Namaz Reminder" style="width: 100%; border-radius: 12px;" />
+  </div>
+
+  <div class="news-content">
+    <div class="news-title">🕌 Kyun Log Namaz Nahi Padhtay? - Sochne Wali Kahani</div>
+    <div class="news-meta">
+      <span>👁️ 6.2k Views</span>
+      <span>🕒 16/07/2025</span>
+      <span>📢 By MS RESHTE</span>
+    </div>
+
+    <div class="news-description" style="display: none;">
+      <p><strong>💭 Ek class me ustad ne poocha:</strong> "Aapke hisaab se kon log namaz nahi padhtay?"</p>
+      <ul>
+        <li>1st student: "Jo mar chuke hain"</li>
+        <li>2nd: "Jo nahi jaante kaise padhtay"</li>
+        <li>3rd: "Jo Muslim nahi hain"</li>
+        <li>4th: "Jo kafir hain"</li>
+        <li>5th: "Jo Allah se nahi darray"</li>
+      </ul>
+      <p>Phir main sochne laga... main inme se to nahi hoon, phir bhi namaz kyun nahi padhta?</p>
+      <p><strong>❗ Tab meri aankh khul gayi...</strong><br>
+      Agar main zinda hoon, Muslim hoon, namaz aati hai, Allah se darta hoon, to <strong>phir kya wajah hai?</strong></p>
+
+      <p><strong>☝️ Us din se maine pakka irada kiya:</strong> "Namaz kabhi nahi chhodunga."</p>
+
+      <p>Sirf ek niyyat ki der hoti hai -- aap bhi aaj hi niyyat karein.</p>
+      
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+      <p><strong>📜 Urdu:</strong></p>
+      <p>ایک دن کلاس میں استاد نے پوچھا: "آپ کی نظر میں کون لوگ نماز نہیں پڑھتے؟" بچوں کے جوابات نے مجھے سوچنے پر مجبور کیا۔ میں مسلمان ہوں، زندہ ہوں، اللہ سے ڈرتا ہوں، نماز بھی آتی ہے -- پھر کیوں نہیں پڑھتا؟ اُس دن عہد کیا کہ اب نماز کبھی نہیں چھوڑوں گا۔</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 Roman English:</strong></p>
+      <p>Agar aap bhi zinda ho, namaz aati hai, aur Allah se darte ho to socho -- kya wajah hai ke aaj bhi namaz miss hoti hai? Bas aik sachcha irada kaafi hai. Aaj se namaz chhodna band karo.</p>
+    </div>
+
+    <a class="whatsapp-share" href="https://wa.me/?text=🕌 Sochne Wali Kahani: 'Kyun Log Namaz Nahi Padhtay?' Zaroor padhiye: https://mustaqeem-hyd-news.netlify.app/" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+<!-- YouTube Award Shipment News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <div class="news-images" style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjuuo6YykA9sInSKAAoNcouV91yGrSJtds97tgC7xRPTiaXsUpUfqk1NSL0ybd8Fz4W63By0Dzl_WNON-2dHcNKO2bRgDBkHHfSLl52hldcz3F46Rg1xvHTbiMguyrp3EbIuHS-OffEubPe4vlt3htnN5B1Sbep63gtyPg-uyqksLwL3AKnNeXOtsG0Ils/s1600/1000479914.jpg" alt="YouTube Box" style="width: 48%; border-radius: 12px;" />
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjBLXacLBthuGGWDLmbKZcJsvtePNNXYDKZGP-6bskB452kZ44kT4bj7hfeJsNHv6fG0kM2mJpNWVgUAM29NQX1ipCsStJaVRiwwaLOXRjHXxr7DCAsU0e561ZO7Zzkr-933u3d_JIsCoMQMdsKvmu6OVdvURlB8czgBihzsn0AuHJkat5aXnK_Mu-WT0w/s1600/1000479919.jpg" alt="Tracking Screenshot" style="width: 48%; border-radius: 12px;" />
+  </div>
+
+  <div class="news-content">
+    <div class="news-title">🎁 YouTube Silver Button Ka Safar – ᗰᑌᔕTᗩᑫEEᗰ Hyd</div>
+    <div class="news-meta">
+      <span>👁️ 11.4k Views</span>
+      <span>🕒 15/07/2025</span>
+      <span>📢 By ᗰᑌᔕTᗩᑫEEᗰ</span>
+    </div>
+
+    <div class="news-description" style="display: none;">
+      <p><strong>🎉 Khushi Ki Khabar:</strong> Allah ka shukar! Aakhirkar <strong>ᗰᑌᔕTᗩᑫEEᗰ Hyd</strong> ka YouTube Silver Play Button shipment pe nikal chuka hai! 100K subscribers ke baad yeh award ek naya manzil hai ❤️</p>
+
+      <p><strong>📦 UPS Tracking:</strong></p>
+      <ul>
+        <li>14 July – Vinita, OK → UPS ne package receive kiya</li>
+        <li>15 July – Oklahoma City → Package aur aage move ho chuka hai</li>
+      </ul>
+
+      <p>💬 "Ye sirf ek button nahi... ye meri mehnat, duaon aur aap sabke pyar ka silah hai."</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 Urdu:</strong></p>
+      <p>الحمدللہ، یوٹیوب نے ᗰᑌᔕTᗩᑫEEᗰ Hyd کا سلور پلے بٹن شپنگ پر روانہ کر دیا ہے۔ یہ اعزاز ۱۰۰۰۰۰ سبسکرائبرز مکمل کرنے پر ملتا ہے۔ UPS کے ذریعے ٹریکنگ جاری ہے، ان شاءاللہ جلد ہاتھوں میں ہوگا۔</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 Roman English:</strong></p>
+      <p>Alhamdulillah! YouTube ne Mustaqeem Hyd ka Silver Button ship kar diya. 100K subscribers ke baad yeh ek naya journey hai. UPS tracking active hai -- award jald haathon me hoga InshaAllah.</p>
+    </div>
+
+    <a class="whatsapp-share" href="https://wa.me/?text=🎁 YouTube Silver Play Button Shipment Update! Dekhiye: https://mustaqeem-hyd-news.netlify.app/" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjNbX-3okKvGtTS06gHu9pV7DhK4ZfPoYE5OBNyk4ot9Rl5ecx_NlHgNzWydp6KoKpixO39kZSPR7cgpHzks69m0y4LBjGaPF0qsxgIaH1DlG848EXGvsGCW04KnvoAb3jeSF0X9JcZHrhQpUsByILV_o453TzkoUpUqipf28w20haUW9lYZB-CNglszjs/s1600/1000479845.jpg" alt="Proof" style="width: 48%; border-radius: 10px;">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgOh5bWIktzVi2dVW_il-LtRDw24LKrL54HAF2RpK2q0Ibs-oX7lK-QTbtzszr-go-hRfonpbf8_O-ZW69YlVN9oYzQGM4_cysKVLVWZCEXdoGmDjUl4BiUcXn5jGknr9rhcXZnozzwIN8bHZPeBWjH8oDUAWEJpjxXPSKhxZuSmSpApwnnkkm45F54n2M/s1600/1000479862.jpg" alt="Chat" style="width: 48%; border-radius: 10px;">
+  </div>
+  <div class="news-content">
+    <div class="news-title">⚠️ Kotak Bank WhatsApp Dhamki – SCAM Alert</div>
+    <div class="news-meta">
+      <span>👁️ 12.4k Views</span>
+      <span>🕒 15/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description" style="display: none;">
+      <p><strong>🛑 Roman English Warning:</strong></p>
+      <p>WhatsApp pe ek number se mujhe bola gaya: "Pay minimum amount, warna legal action le lenge!"</p>
+      <p>Lekin main samajh gaya ke ye illegal pressure hai. Bank ka official process hota hai -- WhatsApp pe dhamki nahi.</p>
+      <p>⚖️ Legal notice sirf email/post se aata hai. WhatsApp pe payment demand illegal hai.</p>
+      <p><strong>✅ Public Awareness:</strong> Agar aapko bhi aisa message aaye -- turant ignore karo aur Cyber Crime pe report karo.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+      
+      <p><strong>📜 اردو میں خبردار:</strong></p>
+      <p>مجھے واٹس ایپ پر ایک میسج آیا کہ: "کم از کم رقم ابھی دو ورنہ قانونی کارروائی ہوگی!"</p>
+      <p>لیکن بینک کا یہ طریقہ نہیں ہوتا۔ یہ غیر قانونی دھمکی ہے۔</p>
+      <p>قانونی نوٹس صرف سرکاری طریقے سے آتا ہے، واٹس ایپ پر نہیں۔</p>
+      <p>📣 اگر آپ کو بھی ایسا میسج ملے تو فوراً نظر انداز کریں اور سائبر کرائم میں رپورٹ کریں۔</p>
+
+      <p><strong>🔒 ہمیشہ یاد رکھو:</strong> "Don't let fear trap you -- demand proper legal process!"</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Scam Alert! Fake WhatsApp Legal Threat from Recovery Agent. Read this post: https://mustaqeem-hyd-news.netlify.app/" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj5Udzypu-rFFCTAqRvTZZ_cViwD_iq44ljVfwmwksPLz6VFDNxU0la1d55XpoE5yY13ysT8kwB3-ZZFS5-SbW224gaaul-DxVZ42U9I_xex5NU1kkRbA9XoMqRw-TI3HkWHyJZ4E2PjBrncOShtELTTU3v2v68J32IhuN-FQTIXwkeIgdsVcbDkf_zmlA/s1600/1000479762.jpg" alt="Dil Kamzor News">
+  <div class="news-content">
+    <div class="news-title">💔 DIL KAMZOR HO RAHA HAI...</div>
+    <div class="news-meta">
+      <span>👁️ 12.7k Views</span>
+      <span>🕒 15/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description" style="display: none;">
+      <p><strong>📜 Roman English Version:</strong></p>
+      <p>Dil kamzor ho raha hai, aur hum mazaak samajh rahe hain...</p>
+      <p>Pehle heart attack 60 saal ke baad hota tha,</p>
+      <p>Aaj 20–25 saal ke jawaan bhi dil thaam ke gir rahe hain.</p>
+      <p><strong>❓ Kyun?</strong></p>
+      <ul>
+        <li>Neend poori nahi</li>
+        <li>Zehreeli ghiza</li>
+        <li>Stress, nasha, fast food</li>
+        <li>Mobile addiction</li>
+        <li>Allah se doori</li>
+      </ul>
+      <p>🕋 "Alaa bizikrillahi tatmainnal quloob" -- Dilon ko sukoon sirf Allah ke zikr se milta hai.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو ترجمہ:</strong></p>
+      <p>❝ دل کمزور ہو رہا ہے، اور ہم مذاق سمجھ رہے ہیں... ❞</p>
+      <p>پہلے ہارٹ اٹیک 60 سال کی بیماری تھی،</p>
+      <p>آج 20-25 سال کے نوجوان بھی دل تھام کے گر رہے ہیں۔</p>
+      <p><strong>❓ کیوں؟</strong></p>
+      <ul>
+        <li>نیند پوری نہیں</li>
+        <li>غذا زہریلی</li>
+        <li>ذہنی دباؤ</li>
+        <li>نشہ اور موبائل کا نشہ</li>
+        <li>اور سب سے بڑا… اللہ سے دوری!</li>
+      </ul>
+      <p>🕋 "ألا بذكر الله تطمئن القلوب" -- دلوں کو سکون صرف اللہ کے ذکر سے ملتا ہے۔</p>
+    </div>
+
+    <!-- ✅ WhatsApp Share with full dual-language message -->
+    <a class="whatsapp-share"
+       href="https://wa.me/?text=💔 Dil Kamzor Ho Raha Hai...%0A%0A❝ Dil kamzor ho raha hai, aur hum mazaak samajh rahe hain... ❞%0APehle heart attack 60 saal ke baad hota tha,%0AAaj 20–25 saal ke jawaan bhi dil thaam ke gir rahe hain.%0A%0A❓ Kyun?%0A- Neend poori nahi%0A- Zehreeli ghiza%0A- Stress, nasha, fast food%0A- Allah se doori%0A🕋 "Alaa bizikrillahi tatmainnal quloob"%0ADilon ko sukoon sirf Allah ke zikr se milta hai.%0A%0A📜 اردو ترجمہ:%0Aدل کمزور ہو رہا ہے، اور ہم مذاق سمجھ رہے ہیں...%0Aپہلے ہارٹ اٹیک 60 سال کی بیماری تھی،%0Aآج 20-25 سال کے نوجوان بھی دل تھام کے گر رہے ہیں۔%0A❓ کیوں؟%0A- نیند پوری نہیں%0A- غذا زہریلی%0A- ذہنی دباؤ%0A- اور سب سے بڑا… اللہ سے دوری!%0A🕋 "ألا بذكر الله تطمئن القلوب"%0A%0A👇 Read full: https://mustaqeem-hyd-news.netlify.app/"
+       target="_blank">
+       📤 Share on WhatsApp
+    </a>
+  </div>
+</div>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="autorelaxed"
+     data-ad-client="ca-pub-1874063367142441"
+     data-ad-slot="9232805765"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+    <!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNGImM8P6ufGkd5tHvznBxjwATw6OJOjO5U4xXYReBWdGEFaivRG8UoE83D73xQvcHFpUoyOTZA0hjR83zR4WMOi-ghrBqHU75srpq5BXuxsebNEWS849qt5NneiJMfabkQhWBFQQit6neImk_2JHjWW2b4zDtxolU2w7yLVRZXDzmy7kKEpJDo0aIlHIf/s1600/1000478405.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">💧 Jab Tak Khair Nikalti Rahegi...</div>
+    <div class="news-meta">
+      <span>👁️ 45.1k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Jab tak aapke haath se *khair* nikalti rahegi, aap kabhi zaleel nahi ho sakte. Khair ka matlab sirf paisa nahi hota...</p>
+      <p>Khair matlab: sukhay podon ko paani dena, shajar kari karna, ek plate khana baantna, thode paisey, kisi gham mein tasalli dena, kisi ki khushi mein bina hasad mubarak dena, parindon ko daana daalna, chhoti chhoti nekiyaan jo kisi ke chehre pe muskaan laa sakti hoon.</p>
+      <p>Jab tak yeh khair aapke haathon se nikalti rahegi... Allah ki rehmat aap par barasti rahegi. 🌿</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>جب تک آپ کے ہاتھ سے *خیر* نکلتا رہے گا، آپ پر *زوال* نہیں آسکتا۔</p>
+      <p>خیر کا مطلب صرف پیسے نہیں بلکہ: خشک پودوں کو پانی دینا، شجرکاری کرنا، ایک پلیٹ کھانا کسی بھوکے کو دینا، تھوڑے پیسے دینا، کسی غمزدہ کو تسلی دینا، خوشی میں حسد کے بغیر مبارکباد دینا، پرندوں کو دانہ ڈالنا، اور ایسی چھوٹی چھوٹی نیکیاں جن سے دوسروں کے چہروں پر مسکراہٹ آ جائے۔</p>
+      <p>یاد رکھیں: خیر کبھی ضائع نہیں ہوتی -- اور اللہ خیر والوں کو تنہا نہیں چھوڑتا۔ 🤲</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Ek Pyara Paighaam – https://mustaqeemnewshyd.netlify.app/" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+    
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgnaH970fB7hRkDAD0xsxwkJG5tlqYRu2Uf49_SI_OURrJpeJKojHgwkxzYlaS1yhuoslndNBNWjU_hIJWV1TnO10qy64m7F_DcBTJXEPoSjP22LMILKgOXw9a0dYHcif3xehxWz3vjKc3Jth-gk5R7Mnk3SROzzwFlUwOiHeZEaE-unPL0m-hihGkGPreU/s1600/1000478340.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">✈️ AI171 Plane Crash Ki Report</div>
+    <div class="news-meta">
+      <span>👁️ 38.4k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Urdu:</strong></p>
+      <p>ائیر انڈیا فلائٹ AI171 کے حادثے کو ایک مہینہ گزر چکا ہے، اور آج ابتدائی تحقیقاتی رپورٹ سامنے آئی ہے۔</p>
+
+      <p>رپورٹ کے مطابق، جیسے ہی طیارہ احمد آباد سے ٹیک آف کر رہا تھا، دونوں انجن اچانک بند ہو گئے اور طیارہ ایک کالج کی عمارت سے ٹکرا گیا۔ 241 مسافر شہید ہوئے، اور 30 سے زائد زمین پر موجود افراد بھی جان کی بازی ہار گئے۔</p>
+
+      <p>رپورٹ میں بتایا گیا ہے کہ فیول کنٹرول کے سوئچز "کٹ آف" پوزیشن میں چلے گئے تھے۔ کاک پٹ آڈیو میں ایک پائلٹ پوچھتا ہے: "تم نے فیول کیوں بند کیا؟" دوسرا کہتا ہے: "میں نے نہیں کیا!"</p>
+
+      <p>فی الحال کسی تخریب کاری کا ثبوت نہیں ملا۔ FAA کی پرانی وارننگ کا ذکر بھی ہے، جس میں کہا گیا تھا کہ بعض اوقات فیول سوئچ خود بھی حرکت کر سکتے ہیں۔</p>
+
+      <p>حتمی رپورٹ کا انتظار ہے، مگر یہ واقعہ ظاہر کرتا ہے کہ انسانی غلطی کے بجائے شاید تکنیکی خرابی تھی۔</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Air India Flight AI171 ke haadse ko ek mahina ho chuka hai, aur aaj uski pehli tahqiqat report saamne aayi hai.</p>
+
+      <p>Report ke mutabiq, jese hi plane Ahmedabad se take-off kar raha tha, dono engine band ho gaye aur plane ek college ki building se takra gaya. 241 passengers shaheed hue aur 30 se zyada log zameen par bhi jaan se gaye.</p>
+
+      <p>Cockpit audio mein pilot poochta hai: "Tumne fuel kyun band kiya?" Dusra kehta hai: "Maine nahi kiya!"</p>
+
+      <p>Report ke mutabiq sabotage ka koi saboot nahi mila. FAA ki ek purani safety warning ka bhi zikr hai ke kuch cases mein fuel switches khud bhi move ho jaate hain.</p>
+
+      <p>Final report abhi aani baaqi hai, lekin yeh dikhata hai ke yeh sirf insan ki ghalti nahi, balki ek technical issue bhi ho sakta hai.</p>
+
+      <p>In reports se future mein air travel zyada safe banaya ja sakta hai.</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Read about AI171 Crash: https://mustaqeemnewshyd.netlify.app/" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgm9eR_dmg8DCljd1b7ZC0zri3TJape4kX0hSaEhQv_ClomI4wZ4QYY4hIhJ47LTcVqsrRgi1aCVmvL5LFdJtFIx6dv98yls6OB47esALwkoH3S1n85_Nb6Dur1i2BH2bE9BweqejDI3Xxaw6BiQZ53owXkgMEVqaak3DFOko1SPejnhz76WN8Eq6Wh9dCh/s1600/1000478326.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🕊️ Sadaqat Aur Inquilab Ki Ghazal</div>
+    <div class="news-meta">
+      <span>👁️ 41.3k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Urdu:</strong></p>
+      <p>کتاب سادہ رہے گی کب تک، کبھی تو آغازِ باب ہو گا  
+جنہوں نے بستی اجاڑ ڈالی، کبھی تو ان کا حساب ہو گا</p>
+
+      <p>وہ دن گئے جب کہ ہر ستم کو ادائے محبوب کہہ کے چپ تھے  
+اٹھی جو اب ہم پہ اینٹ کوئی تو اس کا پتھر جواب ہو گا</p>
+
+      <p>سحر کی خوشیاں منانے والو، سحر کے تیور بتا رہے ہیں  
+ابھی تو اتنی گھٹن بڑھے گی کہ سانس لینا محال ہو گا</p>
+
+      <p>سکوتِ صحرا میں بسنے والو، ذرا رُتوں کا مزاج سمجھو  
+جو آج کا دن سکوں سے گزرا تو کل کا موسم خراب ہو گا</p>
+
+      <p>نہیں کہ یہ صرف شاعری ہے، غزل میں تاریخِ بے حسی ہے  
+جو آج شعروں میں کہہ دیا ہے، وہ کل شریکِ نصاب ہو گا</p>
+
+      <p><strong>نصرمن اللہ وفتح قریب</strong></p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Kitaab saadah rahegi kab tak, kabhi to aaghaz-e-baab hoga  
+Jinhon ne basti ujaad daali, kabhi to unka hisaab hoga</p>
+
+      <p>Woh din gaye jab ke har sitam ko adaaye mehboob keh kar chup the  
+Uthi jo ab hum pe eent koi, to uska patthar jawab hoga</p>
+
+      <p>Sahar ki khushiyan manane walo, sahar ke tewar bata rahe hain  
+Abhi to itni guthan badhegi ke saans lena mahaal hoga</p>
+
+      <p>Sukoot-e-sehra mein basne walo, zara ruton ka mizaaj samjho  
+Jo aaj ka din sukoon se guzra, to kal ka mausam kharaab hoga</p>
+
+      <p>Nahi ke yeh sirf shayari hai, ghazal mein tareekh-e-behisi hai  
+Jo aaj she'ron mein keh diya hai, woh kal shareek-e-nisaab hoga</p>
+
+      <p><strong>Nasrum minallah wa fathun qareeb</strong></p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Read this Ghazal: https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgu5I7mrHEyL_As6LV-kURj9Xs8i0a6zs9aJpUj5WqYC06W5PRGD7tYW66AyB2tIn9EzlDTM_WPavowyKvdrTkeXIOjmxp2HQQaNEOo29RXj2dpxMxQIYhrG9D3JjHZ6LGlqRyAEEOR8lifE8UUCI8wqbKAkGs18m7nQ9iCOwcPv1PfV3j8sS79UKJQ8yvV/s1600/1000478448.jpg" alt="Gurbat Aur Jawani Ka Dukh">
+  <div class="news-content">
+    <div class="news-title">🌑 غربت اور جوانی کا المیہ 🌑</div>
+    <div class="news-meta">
+      <span>👁️ 41.8k Views</span>
+      <span>🕒 13/07/3025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Gurbat ki wajah se hum jaise log apni jawani ka behtareen hissa depression mein guzar dete hain.</p>
+      <p>Jawani insan ki zindagi ka sabse khoobsurat aur umeed se bhara waqt hota hai -- jab khwab sajte hain aur dil asmaan ko chhoone chaahta hai.</p>
+      <p>Lekin jab gurbat dastak deti hai, to ye khwab toot jaate hain, aur zindagi ke rang udas ho jaate hain.</p>
+      <p>Aise hazaroon naujawan hain jo sirf rozi roti ke liye apne sapne, neend aur muskurahat tak qurban kar dete hain.</p>
+      <p>Kitaben chorhkar mazdoori, aur kalam ki jagah hathoda uthana padta hai. Gurbat sirf paison ki kami nahi -- ek zehni qaid hai.</p>
+      <p>Chaliye, hum mil kar aisi jawaniyon ka sahara banain, unko batayein ke woh akele nahi hain.</p>
+      <p>✅ Kisi ke khwabon ka sahara dena sabse badi nek kaam hai. Dua hai ke har naujawan apne sapne jee sake. Ameen!</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو (Stylish Font):</strong></p>
+      <div style="font-family: 'Noto Nastaliq Urdu', serif; font-size: 20px; line-height: 2; direction: rtl;">
+        غربت کی وجہ سے ہم جیسے لوگ اپنی جوانی کا بہترین حصہ ڈیپریشن میں گزار دیتے ہیں۔<br><br>
+
+        🌑 غربت اور جوانی کا المیہ 🌑<br><br>
+
+        جوانی انسان کی زندگی کا سب سے خوبصورت، پُرعزم اور توانائی سے بھرپور وقت ہوتا ہے۔ یہ وہ وقت ہے جب خواب پروان چڑھتے ہیں، امیدیں جَھلملاتی ہیں اور دل آسمان کو چھونے کی خواہش رکھتا ہے۔<br>
+        مگر جب غربت زندگی کے دروازے پر دستک دیتی ہے، تو خواب ٹوٹنے لگتے ہیں، خواہشیں دب جاتی ہیں اور دل کا حوصلہ چُور چُور ہو جاتا ہے۔<br><br>
+
+        ایسے ہزاروں نوجوان ہیں جو صرف پیٹ کی آگ بجھانے کے لیے اپنی نیندیں، اپنی خوشیاں اور اپنی خواہشیں قربان کر دیتے ہیں۔<br>
+        جن کے کندھوں پر تعلیم حاصل کرنے کی بجائے گھر کا بوجھ ڈال دیا جاتا ہے۔<br>
+        جو کبھی کتابوں میں کھو جانے کے خواب دیکھتے تھے، آج وہ بازاروں میں مزدوری کرتے دکھائی دیتے ہیں۔<br><br>
+
+        غربت صرف مالی کمی نہیں، یہ احساسِ کمتری، ذہنی دباؤ اور لاچاری کی وہ زنجیر ہے جو انسان کو اندر سے توڑ دیتی ہے۔<br><br>
+
+        آئیے! ہم سب مل کر اس نظام کو بدلنے کی کوشش کریں جہاں جوانیاں غربت کی چکی میں پس کر دم توڑ دیتی ہیں۔<br>
+        ایسے نوجوانوں کا سہارا بنیں، ان کی ہمت بڑھائیں، انہیں احساس دلائیں کہ وہ اکیلے نہیں ہیں۔<br><br>
+
+        کسی کے خوابوں کو سہارا دینا، سب سے بڑی نیکی ہے۔<br>
+        🙏 دعا ہے کہ ہر نوجوان کو اپنے خواب جینے کا حق ملے۔ آمین
+      </div>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Gurbat aur Jawani ka Dard - Read now – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjXQV96XLbq4QUNE_hbwdsR50ed4vqvkhyLMrdHLy75P1KHL0DLYpfKn-YDtyIjDypCnFovXJVOR9p9WcDpXQaqiZ-NvO6mH2x9BbkLkp3GCOyMbukNrfr0WMlDEGZ8eKB5v9NBrmaootkk_ZzTkizg7F1Uy-bqjvObYSuZwNkVF867ttGxNtV45giQTelL/s1600/1000478317.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">⚠️ Sultana Parveen Ki Kahani</div>
+    <div class="news-meta">
+      <span>👁️ 52.1k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Urdu:</strong></p>
+      <p>تصویر میں دکھ رہی لڑکی کا نام سلطانہ پروین ہے۔ اس نے اپنے گھر والوں کی مرضی کے خلاف بھاگ کر ایک ہندو لڑکے سے شادی کر لی تھی۔</p>
+      <p>لیکن کچھ ہی مہینے بعد، جب لڑکا اور اس کے گھر والوں نے اسے مارنا پیٹنا شروع کیا تو اس نے اپنے گھر فون کیا اور کہا کہ مجھے بچا لو۔</p>
+      <p>جب لڑکی کا باپ ملنے گیا تو لڑکے والوں نے ان سے مارپیٹ کی اور لڑکی سے ملنے نہیں دیا۔</p>
+      <p>اور پھر ان لوگوں نے لڑکی کو مار کر پنکھے سے لٹکا دیا اور کہا کہ لڑکی نے خودکشی کر لی ہے۔</p>
+      <p>جو لڑکیاں سمجھتی ہیں کہ "میرا رامو سب سے الگ ہے" ان کے منہ پر یہ ایک زوردار طمانچہ ہے۔</p>
+      <p>محبت اندھی نہیں ہونی چاہیے کہ سچائی دیکھنا بھی چھوڑ دیں۔ اگر اب بھی ہوش نہ آیا، تو انجام بھی سوچ کر خود چن لیجیے۔</p>
+      <p><strong>اللہ حفاظت فرمائیں🤲</strong></p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Tasveer mein jo ladki nazar aa rahi hai, uska naam Sultana Parveen hai. Usne apne ghar walon ki marzi ke khilaf bhaag kar ek Hindu ladke se shaadi ki thi.</p>
+      <p>Kuch mahino baad, us ladke aur uske ghar walon ne use maarna-peetna shuru kar diya. Tab usne ghar phone karke kaha: "Mujhe bacha lo."</p>
+      <p>Jab uska baap milne gaya to ladke walon ne use maara aur ladki se milne nahi diya.</p>
+      <p>Phir us ladki ko maar kar pankhe se latka diya aur keh diya ke usne suicide kiya.</p>
+      <p>Jo ladkiyaan sochti hain ke "mera Ramu sabse alag hai", ye unke liye ek zabardast tamacha hai.</p>
+      <p>Mohabbat andhi nahi honi chahiye ke insaan sach dekhna bhi bhool jaye. Agar ab bhi hosh na aaya, to anjaam ke liye taiyar raho.</p>
+      <p><strong>Allah hifazat farmaaye 🤲</strong></p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Read this truth: Sultana Parveen's story – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgz84NTQ3Kp1MkJ1125hm6pSNrAJUQ2ruhbTdHvm9EiX7r3Kb1fzEwezHciBZK9yiHK2aA-GPvA6uvJuhKe0rxI0IjeATme2e647UXFxTVEKPqfL35X5B67HGPko801M85juf446m0Rpv2-hW3lEqk084Cksv2Wu958zt8iqVc8FAjdWnlCWz847gKv_gma/s1600/1000478307.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🏆 Haqeeqat-e-Zindagi</div>
+    <div class="news-meta">
+      <span>👁️ 8.2k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Roman English:</strong></p>
+      <p>Yeh duniya kirdaar se nahi, haalaat se izzat deti hai...</p>
+      <p>Faqeer agar baadshah ban jaye, to sab rishtedaar nikal aate hain.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو اقتباس:</strong></p>
+      <p>یہ دنیا کردار سے نہیں، حالات سے عزت دیتی ہے...</p>
+      <p>فقیر بادشاہ بن جائے تو سب رشتہ دار نکل آتے ہیں۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=🏆 Haqeeqat-e-Zindagi – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj2D7Nz5nGeKoals47z0mnba6rnn492DwpH3Sf3fMVOL89CSvr_tQJMvlwScm_9KwB8A8_8Mr8oC2WhGTItM1_D6ZezDhd74dWAMBWg6pM547x3dtLTlO9u0Ao2AELECuUtBRpFHyhcYpPKU6VHgGBOYBlgtyqxBoXgVm0FmJ6UyVdURLIIyDHBeh7AT8Ws/s1600/1000478314.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🕊️ Maulana Dawood Amini Ka Intiqal</div>
+    <div class="news-meta">
+      <span>👁️ 12.3k Views</span>
+      <span>🕒 11/07/2025</span>
+      <span>📢 By Sabir Qasmi</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Roman English:</strong></p>
+      <p>Nayi Dilli, 11 July 2025:</p>
+      <p>Madarsa Bab-ul-Uloom Jafrabad Dilli ke Muhtamim aur Jamiat Ulama-e-Delhi ke sabiq naib sadar Maulana Dawood Amini ka aaj Pant Hospital me inteqal ho gaya.</p>
+      <p>Wo pichhle 5 dinon se pneumonia ki shiddat ki wajah se ilaaj mein the. <strong>Inna Lillahi wa Inna Ilaihi Raji'un</strong></p>
+      <p>Wo Dini Taaleemi Board Jamiat Delhi ke sadar aur Rabita Madaris Islamia Deoband ke bhi sadar rahe.</p>
+      <p>Wo apne walid Maulana Mufti Zafaruddin (rah) ke waris the jo Mevat ki mashhoor shakhsiyat rahe.</p>
+      <p>Unki wafat par Jamiat Ulama-e-Hind ke sadar Maulana Mahmood Madani ne afsos ka izhar kiya, aur dua ki ke Allah unhein Jannat-ul-Firdaus ata farmaye.</p>
+      <p>Tadfeen unke abai gaon Mehon Mevat mein hogi.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو میں:</strong></p>
+      <p>نئی دہلی ۱۱ جولائی ۲۰۲۵ء :</p>
+      <p>مدرسہ باب العلوم جعفرآباد دہلی کے مہتمم اور جمعیۃ علماء دہلی کے سابق نائب صدر مولانا داؤد امینی کا آج انتقال ہوگیا۔</p>
+      <p>وہ پچھلے پانچ دنوں سے نمونیہ کے باعث پنت اسپتال میں زیر علاج تھے۔ <strong>انا للہ و انا الیہ راجعون</strong></p>
+      <p>موصوف رابطہ مدارس اسلامیہ دارالعلوم دیوبند کے بھی صدر تھے اور ایک عظیم عالم دین کے وارث تھے۔</p>
+      <p>ان کی وفات پر مختلف علما و اکابرین نے رنج و غم کا اظہار کیا ہے۔</p>
+      <p>تدفین ان کے آبائی گاؤں مہوں (میوات) میں ہوگی۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Maulana Dawood Amini Ka Intiqal – Read More: https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh6qowO4qICcCXaKEkrwOyzoY6MOCuhwa7eLRlzAFgpFaPAKD6lXPca5325UcxDcDadcoBDTWaY-5zajJl-nvZLH4w19VIyWyPH8moCzfhw4pehPs_vgkGQ4BWaq--CtGt_i1zazWEGsyCZQsnoQJWN8jU6PBNfXbpnLx12zgO6HvRETV58ei7o5_ItuU2p/s1600/1000478299.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🚘 Baarish Mein Ihtiyat</div>
+    <div class="news-meta">
+      <span>👁️ 12.4k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📢 Roman English Message:</strong></p>
+      <p>Aapki zara si be-ihtiyaati kisi ka mood, kapde aur poora din kharab kar sakti hai.</p>
+      <p><strong>🌧️ Rainy Season Advice:</strong> Gaadi chalate waqt pedestrians aur bikers ka khayal rakhein.</p>
+      <p>Unki izzat-e-nafs ka lihaz karein, kyunki woh band car mein nahi balki khuli hawa mein hote hain.</p>
+      <p>Agar raste mein paani jama ho toh slow chalayen, taake na unka libaas bheege, na aapka kirdaar.</p>
+      <p><strong>🫱 Asaani ka sabab bano, takleef ka nahi.</strong></p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو پیغام:</strong></p>
+      <p>آپ کی ذرا سی بے احتیاطی کسی کا لباس، مزاج اور پورا دن خراب کر سکتی ہے۔</p>
+      <p><strong>🌧️ بارش کے موسم میں:</strong> گاڑی چلاتے وقت پیدل چلنے والوں اور موٹر سائیکل سواروں کا خاص خیال رکھیں۔</p>
+      <p>جو آپ کی طرح بند گاڑی میں نہیں بیٹھے، ان کی عزتِ نفس کو مدنظر رکھیں۔</p>
+      <p>اگر راستے میں پانی جمع ہو تو گاڑی آہستہ چلائیں تاکہ نہ ان کے کپڑے خراب ہوں اور نہ آپ کا کردار داغدار ہو۔</p>
+      <p><strong>🫱 دوسروں کے لیے آسانی کا سبب بنیں، تکلیف کا نہیں۔</strong></p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=🚘 Baarish Mein Ihtiyat – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+   
+   <!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjh8BTGvNuoUgv4AqBB-_BTr1-1Wia4w_SdGyEPOlSrMdYsZpE4gAv4jPZhp0iCw01GLD8sJFtwwjW7BO4tE-iloCD6L61-QeMI4j_DNuvZd8rA9mpLY-T6J4x1P9M5c5OSnfX2jtmpweA-fotKAEEaEU1OxK8u3r0IXz6D7zg5hMubbGxdDMFGYpQUmYJY/s1600/1000478414.jpg" alt="Plot Construction Satire">
+  <div class="news-content">
+    <div class="news-title">🏗️ Gali Chhoti, Dil Bada?</div>
+    <div class="news-meta">
+      <span>👁️ 48.7k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Woh chahta toh saamne padosi ke plot tak bhi apni seedhi kheench sakta tha 🧱➡️🏠</p>
+      <p>Halaanke... pura plot bilkul khaali pada tha 🏞️😅</p>
+      <p>Phir bhi usne dil par "patthar" rakh kar 🪨😢 sirf aadhi gali tak hi occupy kiya 😌</p>
+      <p>Aur ek bike guzarna mushkil se sahi, lekin chhod diya thoda raasta 🚶‍♂️🛵</p>
+      <p>Yeh hoti hai insaniyat! 🤷‍♂️❤️</p>
+      <p><b>Post share karo 📲</b> Taake "nek logon" ko motivation mile 😇🤣</p>
+      <p><b>⚠️ Khuda ra aise kaamon se bacho 🙏🏻</b></p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>وہ چاہتا تو سامنے پڑوسی کے پلاٹ تک بھی اپنی سیڑھی کھینچ سکتا تھا 🧱➡️🏠</p>
+      <p>حالانکہ... پُورا پلاٹ بالکل خالی پڑا تھا 🏞️😅</p>
+      <p>پھر بھی اُس نے دل پر "پتھر" رکھ کر 🪨😢 محض گلی کے نصف سے کُچھ زائد حصے پر ہی "اکتفا" کیا 😌</p>
+      <p>اور راہگیروں کے لیے تھوڑی بہت "گنجائش" بھی چھوڑ دی 🚶‍♂️🛵</p>
+      <p>آخر انسانیت بھی تو کوئی چیز ہوتی ھے نا...!! 🤷‍♂️❤️</p>
+      <p><b>پوسٹ شیئر کردیں 📲</b> تاکہ ایسے "نیک لوگوں" کی حوصلہ افزائی ہو 🥇👏</p>
+      <p><b>*خدا را ایسے کاموں سے بچو 🙏🏻*</b></p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Yeh dekho: Gali chhoti, dil bada 😅 https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+   
+
+
+   <!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgSkatlw1H7ZUVW7J4LgPnpWcm6BjPK84O6aDuJNADKY2N9SGoydTfp3CMYLxzhbgsbLJzm8EoUx0agXPaXVwVCeQ11Hhjx-pykuBNMaBi4M0LDp7XUZGEYKBUnwFS_rnhioQ5p6OoxLShz7YZfF9j_RQFxh0FHoiRAzdf0oZp2FKM04uIVuPXx5ljf_Dg_/s1600/1000478277.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">💔 انتہائی دردناک خبر</div>
+    <div class="news-meta">
+      <span>👁️ 8.1k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📢 افسوسناک اطلاع:</strong></p>
+      <p>بروز بدھ، رات 1 بجے ایک انتہائی المناک حادثہ پیش آیا۔ ایک طالب علم <strong>محمد مؤمن ابن سراج الدین</strong> (عمر تقریباً 20 سال) گاؤں <strong>مٹھےپور، میوات</strong> کے رہائشی اور <strong>مدرسہ اشرفیہ دیوبند</strong> کے طالب علم تھے۔</p>
+      <p>وہ <strong>ریل کی پٹری</strong> پر کسی حادثہ کا شکار ہو گئے، جس میں موقع پر ہی ان کا انتقال ہو گیا۔</p>
+      <p>اللہ تعالیٰ مرحوم کی مغفرت فرمائے، ان کے درجات بلند فرمائے، اور انہیں جنت الفردوس میں اعلیٰ مقام عطا فرمائے۔</p>
+      <p>اہل خانہ کو صبر جمیل کی توفیق دے۔ آمین 🤲</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>🔁 Dua aur Share karein:</strong> Taake zyada log dua mein shamil ho saken.</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=انتہائی دردناک خبر: محمد مؤمن کا انتقال – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiJw28ucZmBzU2pKHHmszpjbxSxoSVHdAWnHlzEhAKB4ZKr4Q2J4Q1nyelbFSfYxr1VNKfr5066y16wQSDBWvmJs0droX5zXdkXDinZ30F3ooTcEXaouQuT6eZDTAYhnc0ss3QD-AvxWO9c_wB7YZPXZV0cM8FpCunu3yZIDJytpaaB0GHCbxHxCfs0w-HU/s1600/1000478442.jpg" alt="پرندوں کی زندگی سے سبق">
+  <div class="news-content">
+    <div class="news-title">🕊️ پرندوں کی زندگی کے 6 سبق</div>
+    <div class="news-meta">
+      <span>👁️ 35.1k Views</span>
+      <span>🕒 13/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Roman English:</strong></p>
+      <p>1️⃣ Ye kabhi bheek nahi maangte, mehnat aur lagan se apna aur bachon ka pet palte hain.</p>
+      <p>2️⃣ Waqt ke bohot paband hote hain. Subah jaldi uthte hain, waqt par rizq ki talaash mein nikalte hain, waqt par laut jaate hain.</p>
+      <p>3️⃣ In mein ittihad aur discipline paaya jaata hai -- akelay safar nahi karte.</p>
+      <p>4️⃣ Kabhi kisi parinda ko zakheera andozi karte nahi dekha -- yeh hirs se door rehte hain.</p>
+      <p>5️⃣ Ye sabr aur tawakkul karne wali makhlooq hain.</p>
+      <p>6️⃣ Yeh kisi ek jagah ke qaid nahi bante -- jahan rizq ho, wahi basera bana lete hain.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📖 اردو:</strong></p>
+      <p>1️⃣ یہ کبھی بھیک نہیں مانگتے، محنت اور مسلسل جدوجہد سے اپنا اور بچوں کا پیٹ پالتے ہیں۔</p>
+      <p>2️⃣ وقت کے بہت پابند ہوتے ہیں، ہم سے پہلے اُٹھتے ہیں، وقت پر رزق کی تلاش میں نکلتے ہیں اور وقت پر واپس آ جاتے ہیں۔</p>
+      <p>3️⃣ پرندوں میں اتحاد اور نظم و ضبط کا جذبہ پایا جاتا ہے، اکیلے سفر نہیں کرتے۔</p>
+      <p>4️⃣ ہمیں کوئی پرندہ ذخیرہ اندوزی کرتے نہیں دکھائی دیتا کیونکہ یہ حریص نہیں ہوتے۔</p>
+      <p>5️⃣ سب سے بڑھ کر یہ صابر اور توکل کرنے والی مخلوق ہیں۔</p>
+      <p>6️⃣ یہ مستقل ایک جگہ کے قیدی ہو کر نہیں رہتے، جہاں رزق اور سازگار ماحول مل جائے، وہیں دیر ڈالتے ہیں۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Parindon se seekhne wale 6 sabak – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgsB4A7XtUiclJkhJ2Oj-KyJx5Ycwa_n9McXMY0j7Xun0kzgXYOxdlCWr2f1l0VlHXZ2pXrV0SDWG-rP7MXgoJS2kgOpN225fuRXHe3C-34PM-U7sdq3W8bwXrHm66l2TGQLa1JBERUOVnVkh6M0c7O227H0vhJvnRoMSuNnL5e7YA1zjR0ja9576aBMn13/s1600/1000478446.jpg" alt="Sach Ke Gawah - Hikayat">
+  <div class="news-content">
+    <div class="news-title">💑 مشہور عربی حکایت: "سچ کے گواہ"</div>
+    <div class="news-meta">
+      <span>👁️ 35.6k Views</span>
+      <span>🕒 12/07/3025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Kahte hain ek basti thi jo jhoot bolne aur jhooti gawahi dene mein mashhoor thi.</p>
+      <p>Wahin ek mard-o-aurat ne chhup kar lekin sharai tor par nikah kar liya. Qazi, gawah, sab kuch tha. Kuch din baad dono mein ladai hui aur mard ne apni biwi ko na sirf ghar se nikala balki uska haq bhi cheen liya.</p>
+      <p>Aurat ne Qazi ke paas jaa kar insaaf mangi. Qazi ne poocha: "Kya tumhara nikah huwa tha?"</p>
+      <p>Aurat ne kaha: "Ji, pura sharai nikah tha, gawah aur qazi bhi thay."</p>
+      <p>Qazi ne mard aur gawahon ko bulaya. Teenon ne jhoot bol diya: "Na humein yeh aurat pata hai, na humne kuch dekha."</p>
+      <p>Qazi ne phir poocha: "Kya tumhare shohar ke paas kutte hain?"</p>
+      <p>"Ji haan," aurat ne jawab diya.</p>
+      <p>Qazi ne hukm diya: "Agar kutte is aurat ko pehchanein to woh sach bol rahi hai."</p>
+      <p>Yeh sunkar sab ke chehre pe rang udd gaya. Qazi ne pukara:</p>
+      <p><strong>"فَجَلِّدُوهُمْ، فَإِنَّهُمْ يَكْذِبُونَ!"</strong></p>
+      <p>"In jhooton ko koṛe maro!"</p>
+      <p>Phir kaha: "Kitni badnaseeb hai woh basti jahan ke kutte, insano se zyada sachay hon!"</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو (Stylish):</strong></p>
+      <div style="font-family: 'Noto Nastaliq Urdu', serif; font-size: 20px; line-height: 2; direction: rtl;">
+        💑 مشہور عربی حکایت: "سچ کے گواہ"<br><br>
+        کہتے ہیں ایک بستی ایسی تھی جو جھوٹ بولنے اور جھوٹی گواہی دینے میں مشہور تھی۔<br>
+        اسی بستی میں ایک مرد و عورت نے خفیہ طور پر، مگر مکمل شرعی طریقے سے نکاح کر لیا۔ قاضی، گواہان، اور شرعی تقاضے سب پورے تھے۔ کچھ عرصے بعد دونوں میں ناچاقی ہو گئی۔ شوہر نے بیوی کو گھر سے نکال دیا اور اسے تمام شرعی حقوق سے بھی محروم کر دیا۔<br>
+        مظلوم خاتون قاضی کے پاس پہنچی اور شکایت کی کہ شوہر نے نہ صرف نکال دیا ہے بلکہ میرا حق بھی چھین لیا ہے۔<br>
+        قاضی نے پوچھا: "کیا واقعی تمہارا نکاح ہوا تھا؟"<br>
+        خاتون نے جواب دیا: "جی، مکمل شرعی نکاح ہوا تھا۔ قاضی اور دو گواہوں کی موجودگی میں۔"<br>
+        قاضی نے شوہر اور گواہوں کو عدالت میں طلب کیا۔ لیکن تینوں نے عدالت میں صاف انکار کر دیا۔<br>
+        سب نے کہا: "ہم نے نہ اس عورت کو کبھی دیکھا ہے اور نہ کوئی نکاح ہوا۔"<br>
+        قاضی صاحب نے عورت سے پوچھا: "کیا تمہارے شوہر کے پاس کتے ہیں؟"<br>
+        خاتون نے کہا: "جی ہاں۔"<br>
+        قاضی نے فرمایا: "کیا تم ان کتوں کی گواہی اور فیصلہ قبول کرو گی؟"<br>
+        خاتون نے کہا: "جی ہاں، میں ان کی گواہی قبول کرتی ہوں۔"<br>
+        قاضی نے حکم دیا: "اس عورت کو اس کے شوہر کے گھر لے جایا جائے۔ اگر کتے اسے دیکھ کر بھونکیں، اجنبی سمجھ کر رد عمل دیں تو وہ جھوٹی ہے۔ لیکن اگر وہ اسے دیکھ کر خوش ہوں، پہچانیں اور استقبال کریں، تو وہ عورت سچی ہے، اور شوہر اور گواہ جھوٹے۔"<br><br>
+        یہ سن کر شوہر اور گواہوں کے چہروں کا رنگ فق ہو گیا، جسم کانپنے لگے--جھوٹ اب بے نقاب ہونے کو تھا۔<br>
+        قاضی نے بلند آواز میں کہا:<br><br>
+        <strong>"فَجَلِّدُوهُمْ، فَإِنَّهُمْ يَكْذِبُونَ!"</strong><br>
+        "ان جھوٹوں کو گرفتار کر کے کوڑے مارو، یہی جھوٹے ہیں۔"<br><br>
+        پھر قاضی نے کہا:<br>
+        <strong>"بِئْسَ القُرَى الَّتِي كِلَابُهَا أَصْدَقُ مِنْ أَهْلِهَا!"</strong><br>
+        "کتنی بدنصیب ہے وہ بستی جس کے کتے، انسانوں سے زیادہ سچے ہوں۔"<br>
+        <span style="float: left;">-- منقول</span>
+      </div>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Sach ke Gawah - Read this eye-opening Arabic story – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgvhnemsyzCpc1ml1T8bZL5jZkJKwIwXZRFBVgGZ7gHQAfrSHIJ8goZUPCWDxLCcmldZhhOGMU-hKB34IuInuhFkgLkQ5gPv5cAJRRT07i8zjHcKcqz_qJzQByuRFFpPhxQQctEmXLjAH32428zIu4BY5bGZtMHV7yqajN7ZND3D1nyzODAF471lRbqIeN_/s1600/1000478444.jpg" alt="Golden Parenting Rule">
+  <div class="news-content">
+    <div class="news-title">👨‍👩‍👧 والدین کے لیے سنہری اصول</div>
+    <div class="news-meta">
+      <span>👁️ 28.4k Views</span>
+      <span>🕒 12/07/3025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Roman English:</strong></p>
+      <p>❤️ Walidain ke liye Sunehri Usul: "Apne bachay se kabhi bhi badtameezi bardasht na karo!"</p>
+      <p>Parents hona mohabbat hai, lekin iska matlab yeh nahi ke badtameezi bardasht ki jaye. Agar bacha aap ya kisi aur se badtameezi kare, to use naram magar mazboot alfaaz mein samjhao:</p>
+      <p>❗ "Beta/Beti! Main tumse mohabbat karta hoon, lekin badtameezi har haal mein na-qabil-e-bardasht hai."</p>
+      <p>👨‍👩‍👧 Aik bache ki shakhsiyat tab nikhar ti hai jab usse hudood ka ilm ho.</p>
+      <p>🚫 Badtameezi ko nazar andaz karna, mustaqbil mein bade masail paida kar sakta hai.</p>
+      <p>💡 Izzat dena aur lena bachpan se sikhana chahiye.</p>
+      <p>🎯 Positive tarbiyat ka aghaaz aap ki mazbooti se hota hai!</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📖 اردو:</strong></p>
+      <p>❤️ والدین کے لیے سنہری اصول: "اپنے بچے سے کبھی بھی بدتمیزی برداشت نہ کریں!"</p>
+      <p>والدین ہونا محبت ہے، لیکن اس کا مطلب ہرگز یہ نہیں کہ آپ بے ادبی یا بدتمیزی برداشت کریں۔ اگر بچہ آپ یا کسی اور سے بدتمیزی کرے یا تکلیف دہ الفاظ کہے، تو اسے نرمی مگر مضبوطی سے سمجھائیں:</p>
+      <p>❗ "بیٹا/بیٹی! میں تم سے محبت کرتا ہوں، لیکن بدتمیزی ہرگز برداشت نہیں کی جائے گی۔"</p>
+      <p>👨‍👩‍👧 ایک بچے کی شخصیت تب ہی نکھرتی ہے جب اسے حدود کا علم ہو۔</p>
+      <p>🚫 بدتمیزی کو نظر انداز کرنا، مستقبل میں بڑے مسائل کو جنم دے سکتا ہے۔</p>
+      <p>💡 عزت دینا اور لینا بچپن سے سکھائیں۔</p>
+      <p>🎯 مثبت تربیت کا آغاز آپ کی مضبوطی سے ہوتا ہے!</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Golden Rule for Parents: Never tolerate disrespect from your child – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgrBeagvzZH-L35HBlf7O6KodUuGHiH1QMbuYnSl30BT7kdhjQVKWxSKjZzH8D-lOdxP9frNq3F4hlo4JT54MueH3PvKCfSvIyMMH9Jp-5qFguD1jasJUiKIeEq4SAqdK4eQ-ZBC0n2H5Rn7LZIf3Evt_kG7jsFaHV0rcgRuWcM01-aae1gMAPSDo4jCNQz/s1600/1000478432.jpg" alt="Dard aur Haqeeqat">
+  <div class="news-content">
+    <div class="news-title">💭 اپنی مشکلات بیان نہ کرو...</div>
+    <div class="news-meta">
+      <span>👁️ 48.7k Views</span>
+      <span>🕒 10/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Apni mushkilat kisi se bayan mat karo...</p>
+      <p>Kyun ke 20% logon ko parwaah hi nahi hoti,</p>
+      <p>Aur baaki 80% khushi mehsoos karte hain tumhari takleef se!</p>
+
+      <p>Yeh... sirf ek khwab tha jisme humne socha ke koi samjhega,</p>
+      <p>Lekin haqeeqat uske baraks nikli.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>اپنی مشکلات کسی سے بیان نہ کرو...</p>
+      <p>کیونکہ</p>
+      <p>20٪ لوگ پرواہ ہی نہیں کرتے</p>
+      <p>اور</p>
+      <p>باقی 80٪ خوش ہوتے ہیں تمھاری تکلیف سن کر</p>
+
+      <p>یہ... صرف ایک خواب تھا</p>
+      <p>جس میں شاید ہم نے سوچا تھا کہ کوئی سمجھے گا</p>
+      <p>پر حقیقت اس کے برعکس نکلی</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Kya sach mein log dard mein khushi mehsoos karte hain? – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi9tVoTUEI9KAuI5Z__ff8o_YB2lT9NDUmcHlAnoq4NLiHfPtyw0RjNPBZxQZDELmJUzARTIJvK7qTlYUnbQvrRthl5_ElxzCDfr6nxtoqYeVaEnwFxCCNZoPbbmf49pl8EAx7U4nOz9NXK5Wo1qPekvQbgrNN-eJnIGplUdAWsEd2743WsWLD1hgrqcFKV/s1600/1000478430.jpg" alt="Shirk Awareness Image">
+  <div class="news-content">
+    <div class="news-title">💔 قرآن بند، تعویذ کھلے؟</div>
+    <div class="news-meta">
+      <span>👁️ 45.6k Views</span>
+      <span>🕒 09/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>😭 Dil dukhta hai jab dekhte hain:</p>
+      <p>Qur'an band hai, aur taweez khule hue.</p>
+      <p>Namaz chhod di, magar chaadrein chadh rahi hain...</p>
+      <p>Allah se umeed chhod di, lekin "miyan sahab" se lagi hui hai!</p>
+
+      <p>💔 Shirk sirf sajda nahi hota... jab tu samajhta hai ke koi aur teri taqdeer, rizq, ya zarurat par ikhtiyar rakhta hai -- shirk wahi se shuru hota hai!</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>😭 دل دکھتا ہے جب دیکھتے ہیں:</p>
+      <p>قرآن بند، اور تعویذ کھلے…</p>
+      <p>نماز چھوڑ دی، مگر چادریں چڑھ رہی ہیں…</p>
+      <p>اللہ سے امید ٹوٹ گئی، مگر "میاں صاحب" سے لگی ہوئی ہے…</p>
+
+      <p>💔 شرک صرف سجدہ نہیں ہوتا --</p>
+      <p>جب تُو سمجھتا ہے کہ کوئی اور تیری تقدیر، رزق، یا حاجت پر اختیار رکھتا ہے…</p>
+      <p>بس وہیں سے شرک کی لکیر شروع ہو جاتی ہے۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Shirk ki lakeer kahan se shuru hoti hai? Sochiye – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjnkCFUwaNLlpA48iDHtHDVYNGSlIANNDkrYoKU0iO6Ca6E-l61xpH6SUAcSfLq2cxCsqi3Cqv3xccw_b4Lj8Ml3txl5_nwtBXibUAjSe9ixk2CmKyVbh7rbIZJV8oKNixw_UJmtlQd4SFB45OHiWpeh1bk1SefkwPe6fXnCffKU0fc6zZUvhhSzIzmls3Q/s1600/1000478428.jpg" alt="Mobile and Family Time">
+  <div class="news-content">
+    <div class="news-title">📱 اپنوں سے دور، موبائل کے قریب؟</div>
+    <div class="news-meta">
+      <span>👁️ 58.4k Views</span>
+      <span>🕒 08/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Insaan ki sabse takleef deh aadaton me se ek yeh hai ke woh apne partner ya bachon ke sath hone ke bawajood mobile me ghum rehta hai.</p>
+      <p>Yeh laaparwahi dilon me doori, khamoshi aur berukhi peda karti hai.</p>
+      <p>Qeemti lamhe sirf is liye chhoot jaate hain ke humne screen ko zyada ahmiyat di.</p>
+      <p>Waqt guzar jaata hai... lekin jab tak hum palto'n ki taraf lautte hain, kabhi kabhi wo pal bhi nahi rehte.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>انسان کی سب سے تکلیف دہ عادتوں میں سے ایک یہ ہے کہ وہ اپنے شریکِ حیات یا بچوں کے ساتھ ہوتے ہوئے بھی موبائل میں گم رہتا ہے۔</p>
+      <p>یہ معمولی سی غفلت آہستہ آہستہ دلوں میں دوری، خاموشی اور بےرُخی پیدا کر دیتی ہے۔</p>
+      <p>ایسے لمحے جو زندگی بھر کے لیے قیمتی ہو سکتے ہیں، صرف اس لیے ضائع ہو جاتے ہیں کیونکہ ہم نے ایک اسکرین کو اپنوں پر ترجیح دی۔</p>
+      <p>یاد رکھیں: اصل زندگی وہ ہے جو آپ کے آس پاس ہے، نہ کہ موبائل کی اسکرین پر چمکنے والے فریمز۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Apno se baat karo, screen se nahi – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj21TudOR4RdgEzWlCzMpc-eEvi3E87EEkFus9Wm7ogDnBFnP63MJqd0HEz-W2NJVsnzRoTrYLyddUXOs-J_0hlCpp1aR9G_icatoGzVfTtNifIyHmf3bnu062EA-SWlrkKQp3S5o4P_Uqz5c-KOjELWxlVRPbwlpkOa8_oY5XXKo7zBg98sd2I6fgs5xuo/s1600/1000478426.jpg" alt="Munh Tor Jawab">
+  <div class="news-content">
+    <div class="news-title">💬 منہ توڑ جواب – علمِ دین کی عظمت</div>
+    <div class="news-meta">
+      <span>👁️ 39.8k Views</span>
+      <span>🕒 08/06/3025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Ek shakhs ne ek dars-e-dini student se kaha: "Maghrib wale chaand par pahunch gaye aur tum abhi bhi madrasa me ho?"</p>
+      <p>Talib-e-ilm ne jawab diya: "Woh makhlooq tak pahuche, hum khaliq tak. Tum to beech ke ho -- na udhar ke na idhar ke." 💯</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>ایک شخص نے دینی طالب علم کو طعنہ دیا کہ مغرب والے چاند پر پہنچ چکے ہیں اور تم ابھی بھی درسِ نظامی پڑھ رہے ہو؟</p>
+      <p>طالب علم نے کہا: "وہ مخلوق تک پہنچے، ہم خالق تک۔ حیرت اس پر ہے کہ تم ان میں بھی شامل نہ ہو سکے اور ہم میں بھی نہیں۔"</p>
+      <p>تم نہ دنیا کما سکے نہ دین -- مفلس بھی، نکمے بھی! 💯</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Zabardast Munh Tor Jawab! – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgX1sLhr0tl998mqW0cSm7mLMVMRQ_87HdkbaCS5bEAoQzETEXDQ6R7Bg7PiitQ0fYaYkr7fiuOYTq-UVuqNR3xUFJUwKWUwERTdVWQQ79ft9FMRU9QpYfT-OKnCmxXHj_q92A9xXbDDqGbSNnBNU8smN5xEsrEoV7iMAaXJypWh0UMPunD-sP2JDscFXpb/s1600/1000478412.jpg" alt="Smiling face, less brain, deep meaning">
+  <div class="news-content">
+    <div class="news-title">🧠 Muskurahat Zyada, Soch Kum?</div>
+    <div class="news-meta">
+      <span>👁️ 60.2k Views</span>
+      <span>🕒 06/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>🌑 Aqal ki kami, muskurahat ki zyadaatī?</p>
+      <p>Yeh tasveer ek funkaar ka cartoon hi nahi -- ek geheri soch ka nishan hai. Jese jese dimagh chhota hota hai, muskurahat barhti hai.</p>
+      <p>Log keh dete hain "kam sochoge to zyada khush rahoge" – lekin kya yeh asal mein khushi hai?</p>
+
+      <p>🔍 Asal sawal: Kya kam sochna, kam samajhna, aur kam jaan-na insaan ko asal mein khushi deta hai?</p>
+
+      <p>💡 Muskurahat us waqt khoobsurat lagti hai jab wo danayi, mohabbat aur ilm ke saath ho -- na ke jahalat, ghaflat aur bewakoofi ke saath.</p>
+
+      <p>🎯 Aao, socheñ, samjheñ, aur seekheñ -- aur waqi muskurayeñ!</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>🌑 عقل کی کمی، مسکراہٹ کی زیادتی؟</p>
+      <p>یہ ایک فنکار کا خاکہ نہیں، بلکہ گہری حقیقت کی جھلک ہے۔ دماغ جتنا چھوٹا، چہرہ اتنا ہی خوش۔ کیا یہ واقعی خوشی ہے؟ یا جہالت کا پردہ؟</p>
+
+      <p>🔍 اصل سوال یہ ہے: کیا کم جاننے اور سوچنے سے انسان زیادہ خوش ہوتا ہے؟ یا یہ خوشی صرف غفلت کا پردہ ہے؟</p>
+
+      <p>💡 حقیقی مسکراہٹ وہی ہے جو شعور، محبت اور علم سے پیدا ہو۔</p>
+
+      <p>🎯 آئیے سوچنے، سیکھنے اور سوال کرنے کا عمل شروع کریں... تاکہ خوشی بھی شعور والی ہو، خاموشی بھی معنی خیز ہو۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Smiling with less brain? Think again! – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpBz_VfXjWUyfXpCEggaSe0tDG94EmyR8GkHW_rXS3g5nJHGEdxrSSDnoGTaY1bbedSdR6ft7NEtwjQeAmHMaNo9wFMGme_-54OXHG-gNQeL9OKBtzCNUwaBd0d271kKg_fQKVxV3q_Z4QkChOow8MjjauprNPFqvMQmWhSPxs4_KHpv6-8d1PIsK6j_-W/s1600/1000478408.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🔥 Jahannam Se Hifazat Ki Sunnat Dua</div>
+    <div class="news-meta">
+      <span>👁️ 51.6k Views</span>
+      <span>🕒 05/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p><em>"Allahumma ajirni min an-naar."</em></p>
+      <p>Subah Fajr aur Shaam Maghrib ki namaz ke baad kisi se baat kiye baghair 7 martaba yeh dua padho:</p>
+      <p><strong>Allahumma ajirni min an-naar</strong> -- "Ae Allah! Mujhe dozakh se bacha le."</p>
+      <p>Rasool Allah ﷺ ne farmaya: "Jo shakhs Fajr ya Maghrib ke baad yeh dua 7 martaba padhta hai aur agar usi din ya raat uski maut aa jaye, to Allah usse dozakh se nijaat zarur dega."</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p><strong>اللّٰهُمَّ اَجِرْنِیْ مِنَ النَّارِ</strong></p>
+      <p>نماز فجر اور مغرب کے بعد کسی سے بات کیے بغیر سات مرتبہ یہ دعا پڑھیں:</p>
+      <p><strong>اے اللہ! مجھے دوزخ سے محفوظ فرما۔</strong></p>
+      <p>رسول اللہ ﷺ نے فرمایا: "جو شخص فجر یا مغرب کے بعد سات مرتبہ یہ دعا پڑھ لے، اور اگر وہ اسی دن یا رات فوت ہو جائے، تو اللہ تعالیٰ اسے دوزخ سے نجات عطا فرماتا ہے۔"</p>
+
+      <p>☀️ یہ عمل روزانہ کا معمول بنا لیجیے، چھوٹا عمل ہے مگر اثر بہت بڑا ہے۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Important Dua for Jahannam Se Nijaat – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh-9zMJ0-mDMVzagcivFBqpMLiyWQ63ufHSIYq-BDzQ6YowrldGyYsljk70XiMV701KqqF0AQmMdciFVBIr6l49rSuJjO1dAA-wZIv_VZ03NNPpaG5iSPYzZ9tP4ISV2D0ofYGr77SXimxQQ4uZHZ_25sqFXYBpx1IZKQ_9hsd9sJ6G8OtVK38cf7yUscqp/s1600/1000478396.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">👴🏼 Baap aur Beta – Ek Seekh</div>
+    <div class="news-meta">
+      <span>👁️ 72.3k Views</span>
+      <span>🕒 05/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Ek beta apne buzurg baap ko dinner pe le gaya. Unka baap kaafi budha tha aur khana khate waqt thoda khana unke kapdon pe gir raha tha.</p>
+      <p>Dusre log unhe nafrat bhari nazron se dekh rahe the, lekin beta bilkul aaraam se unka khayal rakh raha tha.</p>
+      <p>Khane ke baad, beta apne baap ko washroom le gaya -- unka chehra saaf kiya, kapde saaf kiye, unke baalon me kanghi ki, aur unki chashma theek ki.</p>
+      <p>Jab dono bahar aaye, restaurant mein sannata cha gaya. Ek buzurg shakhs ne beta se kaha: "Tum kuch chhod kar ja rahe ho."</p>
+      <p>Beta bola: "Nahi, kuch nahi." To buzurg ne kaha: "Haan, tum ne chhoda hai – har beta ke liye ek seekh, aur har baap ke liye ek umeed!"</p>
+      <p>Jo log humein paal posh ke bada karte hain, unka khayal rakhna sabse bada samman hai. 💞</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>ایک بیٹے نے اپنے والد کو ایک مزیدار عشائیہ سے لطف اندوز ہونے کے لیے ریستوران میں مدعو کیا۔ والد کافی بوڑھے اور کمزور ہو چکے تھے۔ کھانا کھاتے ہوئے کچھ کھانا کبھی کبھار ان کی قمیض اور پتلون پر گر جاتا تھا۔</p>
+      <p>دوسرے گاہک اس بزرگ شخص کو ناگواری سے دیکھ رہے تھے، لیکن ان کا بیٹا بالکل پرسکون رہا۔</p>
+      <p>جب وہ کھانا ختم کر چکے تو بیٹے نے ذرا بھی شرمندگی محسوس کیے بغیر اپنے والد کی صفائی کی، محبت سے ان کا چہرہ، کپڑے، بال، اور عینک درست کی۔</p>
+      <p>جب وہ باہر آئے تو ریستوران میں سکوت چھا گیا۔ ایک بزرگ شخص نے کہا: "آپ کچھ چھوڑ گئے ہیں!" بیٹے نے کہا: "نہیں، کچھ نہیں!" بزرگ بولے: "آپ نے ہر بیٹے کے لیے ایک سبق اور ہر باپ کے لیے ایک امید چھوڑی ہے!"</p>
+      <p>واقعی! ہمارے والدین نے جب ہمیں پالا، کوئی شرمندہ نہیں ہوئے -- اب ہماری باری ہے! 🙏🏼</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Ek Dil Ko Chhoo Lene Wali Kahani – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjc1TrjINihbWSWz3pn5IbkYbO_n5mLXltyERDqFichVYVM-8mPaUlWSYteAmi_MT7Ccqf3pcL4a0dKSBLYSiUpgZHWSHROZ_74gMfpjxabVSxcRnTfsxIryMVFxcJJHrgLJwvkp5bn4t56Do-XTF8au1E_01XzTIDLpFsB5KHq2sDsnGqt9OmKlp51Y841/s1600/1000478367.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">💍 Anokhi Shaadi – By Mazhar Siddiqi</div>
+    <div class="news-meta">
+      <span>👁️ 51.2k Views</span>
+      <span>🕒 05/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Aaj mere paas ek ladki naukri ke liye aayi. Umer 30 se zyada thi, parhayi nahi ki thi. Uske walid andhe hain aur walida kisi ghar mein kaam karti hain. Pehle patang banati thi, lekin ab woh kaam bhi band ho gaya.</p>
+      <p>Hamare office mein ek maali Majid kaam karta hai. Uske maa baap guzar chuke hain. Usay hamesha shikwa rehta ke uski shaadi ka kabhi kisi ne socha nahi.</p>
+      <p>Maine ladki se kaha ke waliden ko le aao. Kuch der baad woh maa baap ke saath aayi. Maine Majid ko bhi bulaya aur ladki ke waliden se kaha ke hum rishta chahte hain. Majid ne turant haan kar di. Ladki ne chup reh kar maan liya.</p>
+      <p>Maine kaha agar aap chahein to abhi nikah ho sakta hai. Maa boli: "Bhai jaan jese aap samjho."</p>
+      <p>Nikah hua. 7000 rupay haq mahar aur 1 marla ghar uske naam likh diya gaya. Khana hua. Office wale khush. Majid ki zindagi badal gayi.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>آج ایک لڑکی نوکری کے لیے میرے پاس آئی۔ عمر 30 سے کچھ زائد، پڑھی لکھی نہیں۔ والد نابینا، والدہ گھروں میں کام کرتی ہیں۔ پہلے پتنگیں بناتی تھی، اب وہ کام بھی ختم ہو گیا۔</p>
+      <p>ہمارے ادارے میں ایک مالی مجید ہے، والدین فوت ہو چکے۔ کبھی کسی نے اس کی شادی کی فکر نہ کی۔</p>
+      <p>میں نے لڑکی سے کہا اپنے والدین کو لے آئے۔ ایک گھنٹے بعد وہ نابینا والد اور والدہ کے ساتھ آئی۔ میں نے مجید کو بھی بلایا اور کہا ہم آپ کی بیٹی کا رشتہ مانگتے ہیں۔</p>
+      <p>مجید نے فوراً ہاں کہہ دی، لڑکی نے خاموشی اختیار کی۔ والدہ نے کہا بھائی جان جیسے آپ بہتر سمجھیں۔</p>
+      <p>فوراً نکاح پڑھوایا گیا۔ 7000 روپے حق مہر اور ایک مرلہ مکان لڑکی کے نام۔ کھانے کا انتظام ہوا، سب خوش ہوئے۔ یہ میری زندگی کا یادگار دن تھا۔</p>
+      <p><strong>✍️ تحریر: مظہر صدیقی</strong></p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Read this inspiring story – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtRxix1kIabfvF2qG_n5Nqi5XTCRDFkkdZDlW5wWqugJacN8JZ5GcvyZIAvKmS-Yzny1W_vXphbOUlYAM4-ARSmOwUicKfJ2cwqkj6yw5VNw7jtmld9odqi1wn5xmbdXUOhzZ3CmCPnHZBd8XnfTDKliliipjLOaEjqDwqKSaxYAZJYrfsAEv3EgUX0O6M/s1600/1000478365.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">💔 Waqia Shahadat-e-Umar RA</div>
+    <div class="news-meta">
+      <span>👁️ 42.3k Views</span>
+      <span>🕒 04/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Urdu:</strong></p>
+      <p>جب حضرت عمرؓ پر حملہ ہوا اور دودھ پینے پر وہ زخم سے بہنے لگا تو طبیب نے کہا: "وصیت فرما دیں، وقت تھوڑا ہے۔"</p>
+      <p>حضرت عمرؓ نے حضرت حذیفہ بن الیمانؓ کو بلوایا اور پوچھا: "کیا نبی ﷺ نے میرا نام منافقین میں لیا تھا؟" حذیفہؓ رو پڑے اور کہا: "نہیں، آپ کا نام فہرست میں نہیں ہے۔"</p>
+      <p>پھر حضرت عمرؓ نے وصیت کی: "مجھے عائشہؓ سے اجازت دلواؤ کہ میں رسول اللہ ﷺ کے پہلو میں دفن ہو سکوں۔"</p>
+      <p>عائشہؓ نے فرمایا: "میں نے یہ جگہ اپنے لیے رکھی تھی، مگر عمرؓ کو دے دی۔"</p>
+      <p>حضرت عمرؓ نے فرمایا: "میرے بیٹے! جنازہ لے کر جانا، اگر اجازت ملے تو دفن کرنا، ورنہ عام قبرستان میں دفن کر دینا۔"</p>
+      <p>پھر وہ روضہ رسول ﷺ کے در پر پہنچے اور اجازت مانگی: "Ya Ummul Momineen, aap ka beta Umar...!"</p>
+      <p>عائشہؓ نے فرمایا: "Marhaba ya Umar! Mubarak ho, aap apne doston ke paas dafan honge."</p>
+      <p><strong>اللہ ہم سب کو ایسا ایمان، خوفِ خدا اور عاجزی عطا فرمائے۔</strong></p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Jab Hazrat Umar (RA) par hamla hua, to unhone doodh peena chaha -- lekin woh zakhm se nikal gaya. Tab doctor ne kaha: "Ameer-ul-Momineen, ab waqt kam hai. Wasiat farma dijiye."</p>
+      <p>Umar (RA) ne apne bete Abdullah ko kaha: "Huzayfa bin Yamaan ko lao." Unse pucha: "Kya mera naam Nabi ﷺ ne munafiqon mein liya tha?" Huzayfa (RA) ne roya aur kaha: "Nahi Umar! Aap ka naam us list mein nahi tha."</p>
+      <p>Umar (RA) ne kaha: "Bas ek tamanna hai -- main Rasool Allah ﷺ ke qadamoun mein dafan hona chahta hoon."</p>
+      <p>Aisha (RA) ne apni jagah Umar (RA) ke liye chhod di. Jab jism Roza-e-Rasool ﷺ ke dar par laaya gaya, unse ijazat dobara maangi gayi.</p>
+      <p>Ummul Momineen ne kaha: "Marhaba ya Umar! Mubarak ho, aap Rasool ﷺ aur Abu Bakr ke saath dafan ho rahe ho."</p>
+      <p><strong>Allah humein bhi aise dar aur imaan ata farmaye. Ameen.</strong></p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Read Waqia Shahadat-e-Umar RA – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjoGY9p28II_4LcGNdQl2yPVPf3ts6cknwVAW_4Ltg7ja7AlpJwKYiK8TMjYP4eg0Csh-oxnF8JlrdFrQM4P7UlKkGoUekiItyFm4gxAcgI4uZdL9wCJqedygeDnb3fF22dMMR19q2GcWvt58xiA5UZhm6eSJZOVrv_y15FPG3IGuNZ_sdqkyrfkeDjAADM/s1600/1000478342.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🕋 Ghusal-e-Kaaba Ki Roohani Taqreeb</div>
+    <div class="news-meta">
+      <span>👁️ 22.1k Views</span>
+      <span>🕒 03/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📜 Urdu:</strong></p>
+      <p>غسلِ کعبہ کی باوقار تقریب کا آغاز ہو چکا ہے، جو ہر سال دو بار انجام دی جاتی ہے۔ اس موقع پر بیت اللہ کو خوشبوؤں اور زمزم سے دھویا جاتا ہے۔</p>
+      <ul>
+        <li>🔹 40 لیٹر زمزم کا پانی (چاندی کے برتنوں میں)</li>
+        <li>🔹 540ml طائف کے عرقِ گلاب کے ساتھ ملا کر</li>
+        <li>🔹 24ml اعلیٰ معیار کا عرقِ گلاب کا تیل</li>
+        <li>🔹 24ml مخصوص عود (Oud) کا تیل</li>
+        <li>🔹 3ml کستوری (Musk)</li>
+      </ul>
+      <p>یہ تمام اشیاء خاص اہتمام اور ادب کے ساتھ استعمال کی جاتی ہیں تاکہ بیت اللہ کی عظمت کا تجدید ہو سکے۔</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Ghusl-e-Kaaba ki ba-waqar aur roohani taqreeb ka aaghaz ho chuka hai. Yeh amal har saal 2 martaba hota hai.</p>
+      <ul>
+        <li>🔹 40 liter zamzam ka paani (chandi ke bartano mein)</li>
+        <li>🔹 540ml Taif ka rose water mix</li>
+        <li>🔹 24ml high quality rose oil</li>
+        <li>🔹 24ml oud oil (Haramain)</li>
+        <li>🔹 3ml kastoori (musk)</li>
+      </ul>
+      <p>Yeh tamam cheezein bohat izzat aur adab ke sath istemal ki jati hain taake Baitullah ki paakiza rangat aur taazgi barqarar rahe.</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Read about Ghusl-e-Kaaba 2025: https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjLGqT3Vghm_f0enyxmMFp-0-zFcLa5T7y0g_MsjnN0eETljStxOgetUlritZVlofvv-MzhqYYoyys2wNACSAsfq-gb42zE6kt9PWSxGVLqqENZxvMu32yqqRWqGiRdSNYGDybKGTFaEkinkTXYFaEYLVd3ASywjdRcHKG_jQ-Wsioi-kPW4mupDX98uOKM/s1600/1000478379.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">💔 Dardnaak Haadsa – Safety Advice</div>
+    <div class="news-meta">
+      <span>👁️ 64.7k Views</span>
+      <span>🕒 30/06/2025</span>
+      <span>📢 By Samiullah Khan</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Kis qadar dardnaak haadsa hai yeh! 😢</p>
+      <p>Main ek baat zarur kehna chahta hoon: sahih baat agar waqt par keh di jaye to asar karti hai. Pahaadi waadiyon, saahil aur aabsharon ka mujhe bohot tajurba hai. Aksar haadsa unhi logon ke sath hota hai jo be-had ghair zimmedarana tourism karte hain.</p>
+      <p>Camera 📷 sab ke paas hota hai -- aur woh selfie lene ke chakkar mein jaan jokhim mein daal dete hain. Thodi si hawa ka jhonka, aur zindagi khatam. Allah ke liye apni jaanon ki keemat samjho!</p>
+      <p>Jo log humare mehmaan hote hain, unko bhi hum aise spots pe nahi le jaate jahan khatra ho. Aur agar le bhi jaayein, to pehle wada karwa lete hain: jahan mana kiya wahan photo nahi, jahan kaha wahan hi qadam rakhna.</p>
+      <p>Allah Pakistan ke dariyai haadse mein doobne walon ki maghfirat farmaye. Ameen.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>کس قدر دردناک حادثہ ہے یہ  ! اُف 💔</p>
+      <p>میں ایک بات ضرور کہنا چاہوں گا کیونکہ صحیح بات بروقت ہی اثر کرتی ہے، پہاڑی وادیوں، ساحلوں اور آبشاروں کا میں نے بہت تجربہ کیا ہے۔ اکثر حادثات کے شکار ہونے والے بے حد غیر محتاط ہوتے ہیں، یا خودکشی جیسے خطرناک پوائنٹس کو تفریح سمجھ لیتے ہیں۔</p>
+      <p>سیلفی لینے کے جنون میں لوگ ایسے مقامات کا انتخاب کرتے ہیں جہاں ہوا کا ایک جھونکا بھی جان لیوا ہو سکتا ہے۔</p>
+      <p>اللہ کے واسطے اپنی جانوں کی قدر کریں، اور سوچیں کہ اگر آپ کو کچھ ہو گیا تو آپ کے پیچھے آپ کے گھر والوں پر کیسی قیامت گزرے گی؟</p>
+      <p>ایسے خطرناک مناظر کو adventure مت سمجھیں۔ عافیت والی سیر کو ہی سیر سمجھیں۔ اور اگر کہیں جانا پڑے، تو وعدہ کریں کہ جہاں منع ہو وہاں تصویر نہیں لیں گے۔</p>
+      <p>اللہ تعالیٰ پاکستان کے دریائی حادثہ میں غرق ہونے والوں کی مغفرت فرمائے۔ آمین۔</p>
+      <p><strong>✍️ تحریر: سمیع اللہ خان</strong></p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Important Safety Note – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiXoEzSLHVjXAh0FOwNkUZkewjmDhYMWnZ-q09_wlxYWurdzOoh78qqWu9urw5ck4hmIJuVDTe3m5posyqIiE4K7uiIzYMp09UUsCbWp5RDFN_A267X8kZhq8U4PGPc6ldXIkMRhAy7QGt4Pd0l716VjbYxWHd0M3lO23GeyHcsH2EpxRA0VMKO9ToGCtPU/s1600/1000478424.jpg" alt="Mumbai Local Incident">
+  <div class="news-content">
+    <div class="news-title">🚉 ممبئی لوکل کا ایک سبق آموز واقعہ</div>
+    <div class="news-meta">
+      <span>👁️ 48.7k Views</span>
+      <span>🕒 27/06/3025</span>
+      <span>📢 By Samiullah Khan</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>#Mumbai_Local – Agar apne bachchon ko Mumbai bhej rahe ho to bina rehbar ya host ke na bhejein.</p>
+      <p>Char jawan Muslim boys ne local train me bohot be-tarteeb safar kiya, darwaze pe latakna, seats gher lena, aur na samajhdari ka muzahira. Kya hota agar kisi ne tok diya hota? Ya koi haadsa ho jata?</p>
+      <p>Train ka safar sirf maza nahi, zimmedari bhi hai. Apne sheher ke aadaab samajhna zaroori hai.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>#ممبئی_لوکل کا واقعہ ہم سب کے لیے ایک سبق ہے۔</p>
+      <p>چار نوجوان لڑکے مسلم لباس میں ٹرین کے دروازے پر خطرناک طریقے سے لٹکتے رہے، مسافروں کو سیٹوں پر بیٹھنے سے روکتے رہے، غیر ذمہ دارانہ گفتگو کرتے رہے۔</p>
+      <p>ان کے ساتھ کوئی مقامی رہبر نہیں تھا، اور نہ ہی ٹرین سفر کے آداب معلوم تھے۔ کلیان اسٹیشن پر مسافروں نے ان کا سامان نیچے پھینک دیا اور غصے کا اظہار کیا۔</p>
+      <p>یہ واقعہ بتاتا ہے کہ کسی بھی بڑے شہر میں، خاص طور پر ممبئی جیسی جگہ پر، بچوں کو بغیر رہبر کے نہیں بھیجنا چاہیے۔ صرف انٹرنیٹ نہیں، زمینی حقیقت بھی سمجھنی ہوگی۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Mumbai Local Train Incident – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgpKF7Zm9-66uXRlkvkXaz66Cd_-yIAPA-iRecuPBdhe4FFgxog8aXu4gyYa3nTh7O0tvMgj9hrsSj1LZxJTD-6L5EpUmNeUQ9G3VvouTxWGEqVav30t8Ma_wIE2Poe4MqTWewCSlTfSqv6_nTwpg_OPZNf3xJjvT1gMIpeOhQ9vhTUWQufvEkobikiMFzj/s1600/1000478416.jpg" alt="Mosque Loudspeaker Maharashtra">
+  <div class="news-content">
+    <div class="news-title">📢 مہاراشٹرا میں مساجد سے لاؤڈ اسپیکر ہٹائے جا رہے ہیں</div>
+    <div class="news-meta">
+      <span>👁️ 35.4k Views</span>
+      <span>🕒 27/06/3025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Roman English:</strong></p>
+      <p>Maharashtra me kai masajid se loudspeaker uthaye ja rahe hain. Muslim tanzeemon ne ilzam lagaya ke police bina kisi pehle se notice ya awaaz naapne ke seedha action le rahi hai.</p>
+      <p>Unka kehna hai ke High Court ne 45 se 56 decibel tak ki limit rakhi hai, lekin bina measurement ke loudspeaker hata diye ja rahe hain.</p>
+      
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو:</strong></p>
+      <p>مہاراشٹرا میں مساجد سے لاؤڈ اسپیکر اتارے جا رہے ہیں، مسلم تنظیموں نے پولیس پر الزامات عائد کر دیے۔</p>
+      <p>مسلم تنظیموں نے الزام لگایا ہے کہ حالیہ دنوں میں پولیس زبردستی مساجد پر نصب لاؤڈ اسپیکر ہٹا رہی ہے۔</p>
+      <p>ان کا کہنا ہے کہ ہائی کورٹ نے آواز کی سطح کے لیے 45 سے 56 ڈیسیبل کی حد مقرر کی ہے، لیکن پولیس نہ تو کوئی پیمائش کر رہی ہے اور نہ ہی کوئی پیشگی اطلاع دی جا رہی ہے، بلکہ براہ راست اسپیکر اتارنے کی کارروائی کی جا رہی ہے۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Maharashtra Masjid Loudspeaker News – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiNHgOzL2h6redDudoYmciNkhjMJ0A6zg5G-sABuOIB3ObhTfdwO-kEzLa3m9RF7PhLkMg99UszvPbVhhak37uVtigK04lxodzZezzDW8xIcCXH54wnJ_LNIJ6BRiFvTo_LF1gHH_5byWAsQycTQyD7PoQX8-PaA6lleEsLbLkEOCDj6s6UkNTdX-bt6vA/s1080/1000398223.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🦚 Sharafat Ka Libada</div>
+    <div class="news-meta">
+      <span>👁️ 49k Views</span>
+      <span>🕒 18/05/2025</span>
+      <span>📢 By NISAR</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Hindi Kahani:</strong></p>
+      <p>Ek chidiya aur chida darakht par baithkar khushi se baat kar rahe the. Tabhi chidiya ne ek aadmi ko door se aate dekha. Chidiya dar gayi, par chida bola: "Uske libaas se to sharafat jhalakti hai."</p>
+      <p>Woh aadmi qareeb aakar chide ko maar gaya. Chidiya gham se roti rahi aur sher ke darbar me insaaf maangne gayi.</p>
+      <p>Chidiya ne kaha: "Us shikari ko saza do ke wo sharafat ka libada odh kar kisi ko dhokha na de!"</p>
+      <p><strong>Sabaq:</strong> Hamesha zahiri libaas se nahi, asal kirdaar se insaan ko pehchano.</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو کہانی:</strong></p>
+      <p>چڑیا اور چڑا ایک درخت پر خوشی سے بیٹھے تھے، اچانک ایک انسان آتا دکھا۔ چڑیا ڈر گئی، مگر چڑے نے کہا: "دیکھو اس کے لباس میں کتنی شرافت ہے۔"</p>
+      <p>انسان قریب آکر تیر سے چڑے کو مار ڈالتا ہے۔ چڑیا فریاد لے کر بادشاہ کے پاس جاتی ہے اور کہتی ہے:</p>
+      <p>"اسے سزا دو، مگر بس اتنا کہ وہ آئندہ اپنی حقیقت کو نہ چھپائے!"</p>
+      <p><strong>سبق:</strong> ظاہری شرافت نہیں، اصل نیت اور کردار کو دیکھو۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Read now: Sharafat Ka Libada – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+
+
+    <!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgrd10kPEsWMmM_g-eiHS2W2f0PupuHpsOER5VhjfKZdXUzo5hkf_9jx0kMQqEjY2NuRuORsKE19KNmxQcBUveuhe1f_a4vnF6lBnmk3pUrJ0LyRZTWiUjxBv02Qg9z8jKXQZEtvNvV-VNqdnoEOpbmvY4sSmZOQnrPGL4xYsiYCsUvtdI4Y1np6_3BR5c/s1080/1000398225.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🧠 Professor, Kisaan Aur Zahant Ka Khel</div>
+    <div class="news-meta">
+      <span>👁️ 16k Views</span>
+      <span>🕒 05/07/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>💬 Hindi Summary:</strong></p>
+      <p>Train mein ek professor ne kisaan se zehni khel khela – swaal jawab ka. Professor har sahi jawab na dene pe ₹500 dene ko tayyar tha, jabki kisaan sirf ₹100.</p>
+      <p>Kisaan ne aisa tricky swaal poocha jo khud usko bhi nahi pata tha, aur jab professor haara – toh 500 mil gaye.</p>
+      <p>Fir jab professor ne jawaab maanga, kisaan ne 100 wapas de diye – "Mujhe bhi nahi pata!"</p>
+      <p><strong>Moral:</strong> Simple log kabhi kabhi bade intelligent sabit hote hain!</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📜 اردو خلاصہ:</strong></p>
+      <p>ٹرین میں سفر کے دوران پروفیسر نے کسان کے ساتھ دماغی کھیل کھیلا۔ کسان نے ایک ایسا سوال کیا جس کا جواب خود اسے بھی نہ معلوم تھا۔</p>
+      <p>پروفیسر نے جواب نہ دے کر 500 روپے دیے، اور جب کسان سے پوچھا گیا کہ جواب کیا ہے، اس نے ہنستے ہوئے کہا – "مجھے بھی نہیں پتا!"</p>
+      <p><strong>سبق:</strong> دیہاتی بھی ذہین ہو سکتے ہیں!</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Zaroor padho: Professor, Kisaan Aur Zehant Ka Khel - https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+
+
+    <!-- News Card -->
+    <div class="news-card" onclick="toggleDescription(this)">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjeQrIHnMuIDam3nDvWCM6tSJOL8jcjXXx5p8zE4DP-QT2O7lUQ3C8ZBPdgMOEQ1r0amdZ7-TKaLiqWJujdVnITDqzwEbqK7eIFz4x5ZiVJdHevlPQyecrKZrNbXkV10CttTY1v0RHDtoEn_QhPvjvfEqi42gt0vljSTg0KZRBb4E1jmj8OiYzgOWLHOU8/s1600/1000469778.png" alt="News Image">
+      <div class="news-content">
+        <div class="news-title">📢 Aaj Ki Telangana News</div>
+        <div class="news-meta">
+          <span>👁️ 3.2k Views</span>
+          <span>🕒 01/07/2025</span>
+          <span>📢 By Mustaqeem</span>
+        </div>
+        <div class="news-description">
+          <p><strong>1. Factory Blast:</strong> Sangareddy me chemical factory me dhamaka, 36–39 logon ki maut.</p>
+          <p><strong>2. CM Action:</strong> Har victim ke liye ₹1 crore muawza, ghayalon ke liye ₹10 lakh.</p>
+          <p><strong>3. Heavy Rain Alert:</strong> Telangana ke kuch regions me IMD red alert.</p>
+          <p><strong>4. ACB Report:</strong> ₹27 crore se zyada illegal assets pakde gaye.</p>
+          <p><strong>5. Indiramma Yojna:</strong> 20 lakh ghar, 15 August tak 8.6 lakh land issues solve.</p>
+        </div>
+        <a class="whatsapp-share" href="https://wa.me/?text=Check this out: Aaj ki Telangana News - https://example.com" target="_blank">📤 Share on WhatsApp</a>
+      </div>
+      </div>
+<!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh66A5ZZfjHvvlRLbgDkfxfZYBs0WrDQd9DYezGgyLIJ3a6fsQnzBalriZzUTujRP2Gt6-pZC8jpBED-hbuM1DaslRtgEsLVVYlEnf-OgC2c48rLeXFIikzUYM6J5cK6GdWlv0cUKoFpWM2dxaFqPhx8mkY8bECcTK-27kz5zm-50BKYA2cxpnCBh0Vb5o/s1600/1000452799.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🕌 قربانی تو شہر عزیمت والوں کی ہے!</div>
+    <div class="news-meta">
+      <span>👁️ 14.7k Views</span>
+      <span>🕒 06/06/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description">
+      <p><strong>📖 Urdu Article:</strong></p>
+      <p>قربانی تو شہر عزیمت والوں کی ہے! اس شہر میں اس سال بھی جانوروں کی قربانی ممکن نہ ہو سکی۔</p>
+      <p>وجہ؟ ان کے پاس جانور ہی نہیں بچے۔ دشمن کے حملے میں ان کے جانور بھی شہید ہو چکے ہیں۔</p>
+      <p>پچھلے سال کی طرح، اس سال بھی ان لوگوں نے صرف انسانی جانوں کی قربانی دی ہے۔</p>
+      <p>آج بھی ان کے بچے، عورتیں، بزرگ شہید ہو رہے ہیں۔</p>
+      <p>آج بھی وہ محیای ومماتی للہ رب العالمین کی عملی تصویر بنے ہوئے ہیں۔</p>
+      <p>آج بھی وہ ابراہیمی صبر، استقامت، اور استقلال کا پیکر ہیں۔</p>
+      <p>کائنات کا ذرّہ ذرّہ ان کی قربانی، ایمان اور حوصلے کی گواہی دے رہا ہے۔</p>
+      <p><strong>تحریر:</strong> ابوالاعلی سید سبحانی</p>
+
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+
+      <p><strong>📌 سبق:</strong></p>
+      <p>ہمیں اپنی قربانیوں کو دوسروں کی حقیقت سے جوڑ کر دیکھنا چاہیے۔ عید صرف گوشت کی خوشی نہیں، بلکہ سچے ایمان، صبر اور عزیمت کا پیغام ہے۔</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=Qurbani to Sheher Azmat Walon ki hai! – https://example.com" target="_blank">📤 Share on WhatsApp</a>
+  </div>
+</div>
+      
+      <!-- News Card -->
+<div class="news-card" onclick="toggleDescription(this)">
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifd8BgdMn1ZVUBJpBLPrvjNBoAFia3dE-dTpNlMM-e6HIn0U2V-AEWI6hd_IKiKcoXgGtwheYGNROt6ULmQemDYIEGGzeNc2XPKDg6d7FHFueaZSFtfNDMfVhefn0EzfcsbeXd_mV6lvKChGhQzeTuuM0xuxRBjF3sdmrmgIyVGfMyDU6misly8Ib2bvM/s1080/1000398199.jpg" alt="News Image">
+  <div class="news-content">
+    <div class="news-title">🧠 NADANI KA ANJAM</div>
+    <div class="news-meta">
+      <span>👁️ 19.5k Views</span>
+      <span>🕒 15/05/2025</span>
+      <span>📢 By Mustaqeem</span>
+    </div>
+    <div class="news-description" style="display: none;">
+      <p><strong>🧠 Moral Story:</strong> When the monkeys heard that the landlord who grew the corn 🌽 had died, they celebrated, thinking there would be no one left to stop them from eating freely.</p>
+      <p>But the next year, when no corn was grown… they realized it wasn't a time to celebrate -- it was a time to mourn.</p>
+      <p>Today, the farmer is struggling. Don't rejoice in his hardship. Raise your voice for him. Stand by him.</p>
+      <p><strong>🌾 Farming and farmers are our pride and backbone.</strong></p>
+      <p>Stay happy, stay prosperous, keep smiling. 😊</p>
+      <hr style="margin: 20px 0; border: none; border-top: 1px solid #ccc;" />
+      <p><strong>📜 اردو ترجمہ:</strong></p>
+      <p>بندروں کو جب پتہ چلا کہ جس زمیندار کی وہ مکئی 🌽 کھاتے ہیں، وہ مر گیا ہے --</p>
+      <p>تو انہوں نے خوب جشن منایا کہ اب ہمیں مکئی کھانے سے کوئی روک ٹوک نہیں ہوگی۔</p>
+      <p>مگر اگلے سال جب مکئی لگانے والا ہی نہ رہا --</p>
+      <p>تو انہیں احساس ہوا کہ یہ وقت جشن کا نہیں بلکہ ماتم کا تھا۔</p>
+      <p>کسان بے چارہ اس وقت شدید تکلیف میں ہے۔</p>
+      <p>اس کے مرنے کی خوشی نہ منائیں، بلکہ آواز اٹھائیں۔</p>
+      <p><strong>زراعت اور کسان ہماری آن اور شان ہیں۔</strong></p>
+      <p>خوش رہیں، آباد رہیں، مسکراتے رہیں۔ 😊</p>
+    </div>
+    <a class="whatsapp-share" href="https://wa.me/?text=NADANI KA ANJAM - Check this out: https://example.com" target="_blank">📤 Share on WhatsApp</a>
+ 
+</div>
+  </div>
+</div>
+
+     <footer>
+      © 2025 MS News <br>
+      Design by ᗰᑌᔕTᗩᑫEEᗰ
+    </footer>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
+    }
+
+    function toggleDescription(card) {
+      const desc = card.querySelector(".news-description");
+      desc.style.display = (desc.style.display === "block") ? "none" : "block";
+    }
+
+    // Filter news cards based on search input
+    function filterNews() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.news-card');
+      cards.forEach(card => {
+        const title = card.querySelector('.news-title').innerText.toLowerCase();
+        if(title.includes(input)) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
