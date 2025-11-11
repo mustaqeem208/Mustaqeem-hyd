@@ -1,127 +1,205 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO Meta Tags -->
-  <title>Delhi Red Fort ke qareeb dhmaaka -- Hyderabad on High Alert | Mustaqeem HYD News</title>
+  <!-- SEO -->
+  <title>Delhi Red Fort Blast -- Hyderabad High Alert | Mustaqeem HYD News</title>
   <meta name="description" content="Kal shaam Delhi ke Red Fort Metro ke qareeb ek gaari mein zabardast dhmaaka hua. Hyderabad mein security high alert par hai. Police aur hukoomat se updates ka intezar karein.">
   <meta name="keywords" content="Delhi Red Fort Blast, Hyderabad High Alert, India Breaking News, Mustaqeem HYD News, Dilli Dhmaaka, Red Fort Metro Blast, Hyderabad Police Security">
   <meta name="author" content="Mustaqeem HYD News">
 
+  <!-- Fonts & Style -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; }
     body {
-      font-family: 'Poppins', Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-      color: #333;
-      line-height: 1.6;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #0a0a0a 0%, #000 100%);
+      color: #eee;
+      background-attachment: fixed;
     }
-    .topbar {
-      background: #222;
+
+    /* 🔴 Live Breaking Banner */
+    .breaking-banner {
+      background: linear-gradient(90deg, #ff0000, #ff5500, #ff0000);
       color: white;
-      padding: 12px;
+      font-weight: bold;
+      padding: 10px 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255,0,0,0.4);
+    }
+    .breaking-banner span {
+      position: absolute;
+      width: 100%;
+      white-space: nowrap;
+      animation: ticker 18s linear infinite;
+    }
+    @keyframes ticker {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    /* 🔝 Topbar */
+    .topbar {
+      backdrop-filter: blur(12px);
+      background: rgba(20, 20, 20, 0.6);
+      color: white;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 14px 20px;
+      box-shadow: 0 4px 20px rgba(255,0,0,0.15);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .topbar a {
-      color: white;
+      color: #ff4040;
       text-decoration: none;
-      font-weight: bold;
-      margin: 0 8px;
+      font-weight: 600;
+      transition: 0.3s;
     }
+    .topbar a:hover {
+      color: #fff;
+    }
+
+    /* Main Container */
     .container {
-      max-width: 800px;
-      margin: 20px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 25px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border-radius: 16px;
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.1);
+      animation: fadeIn 1.5s ease;
     }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
     h1 {
       text-align: center;
-      color: #c00;
-      font-size: 26px;
-      line-height: 1.4;
+      font-size: 28px;
+      background: linear-gradient(90deg, #ff4040, #ffb347);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 25px;
+      text-shadow: 0 0 20px rgba(255,0,0,0.3);
     }
+
     .hero img {
       width: 100%;
       border-radius: 12px;
-      margin-bottom: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+      margin-bottom: 25px;
     }
-    .ads-box {
-      border: 2px dashed #aaa;
-      padding: 12px;
-      text-align: center;
-      margin: 20px 0;
-      border-radius: 8px;
-      background: #fdfdfd;
-    }
+
     .story {
       font-size: 16px;
-      margin-top: 15px;
-      color: #333;
+      line-height: 1.8;
+      color: #ddd;
     }
+
     .urdu {
       direction: rtl;
-      font-family: "Noto Nastaliq Urdu", "Jameel Noori Nastaleeq", serif;
+      font-family: "Noto Nastaliq Urdu", serif;
+      background: rgba(255,255,255,0.06);
+      border-left: 4px solid #ff4040;
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 25px;
       font-size: 18px;
+      color: #f1f1f1;
       line-height: 2;
-      margin-top: 30px;
-      color: #222;
     }
+
     .disclaimer {
-      background: #fff3cd;
+      margin-top: 25px;
+      background: rgba(255, 187, 0, 0.1);
       padding: 15px;
-      border-left: 6px solid #ff9900;
-      margin: 25px 0;
-      border-radius: 8px;
-      color: #333;
+      border-left: 6px solid #ffbb00;
+      border-radius: 10px;
+      color: #fff;
     }
+
     .alert {
       text-align: center;
-      font-size: 22px;
-      color: red;
+      margin-top: 30px;
+      font-size: 20px;
+      color: #ff4040;
       font-weight: bold;
-      margin: 25px 0;
+      text-shadow: 0 0 10px #ff4040;
     }
+
+    /* 🟢 Share Button */
+    .share-btn {
+      display: block;
+      margin: 25px auto;
+      text-align: center;
+      background: linear-gradient(90deg, #25d366, #128c7e);
+      color: white;
+      padding: 12px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(18,140,126,0.4);
+      transition: all 0.3s ease;
+      width: fit-content;
+    }
+    .share-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(18,140,126,0.6);
+    }
+
     footer {
       text-align: center;
-      margin: 30px 0 10px;
-      color: #777;
+      margin-top: 50px;
+      padding: 20px;
       font-size: 14px;
+      color: #888;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
     footer span {
-      color: #000;
-      font-weight: bold;
+      color: #ff4040;
+      font-weight: 600;
+      letter-spacing: 1px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
-  <div class="topbar">
-    <a href="index.html">🏠 Home</a>
-    <a href="https://api.whatsapp.com/send?text=🚨 Delhi Red Fort ke qareeb dhmaaka! Hyderabad mein security high alert. Full story: https://mustaqeem-hyd-news.netlify.app/delhi-redfort-blast" target="_blank">🔗 Share</a>
+  <!-- 🔴 Breaking News Banner -->
+  <div class="breaking-banner">
+    <span>🚨 BREAKING NEWS: Delhi Red Fort ke qareeb zabardast dhmaaka -- Hyderabad mein security high alert! Official sources ke updates ka intezar karein. 🚨</span>
   </div>
 
-  <!-- Main Container -->
+  <!-- 🔝 Top Bar -->
+  <div class="topbar">
+    <a href="index.html">🏠 Home</a>
+    <a href="https://wa.me/?text=🚨%20Delhi%20Red%20Fort%20Blast!%20Hyderabad%20on%20High%20Alert.%20Read%20Full%20Story:%20https://mustaqeem-hyd-news.netlify.app/delhi-redfort-blast" target="_blank">📤 Share</a>
+  </div>
+
+  <!-- Main Content -->
   <div class="container">
     <h1>Delhi Red Fort ke qareeb dhmaaka -- Hyderabad mein security on high alert</h1>
 
     <div class="hero">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEin0_kp1cf7O0NSE1odBDCpZpg9uNwTJ7pLfo-03HDcSCQvzUguwo4G_8w0g_rQV4OiNFU7NHmr9p-3b4jmpzYels6j0bpGe0iw-0-44uBjluUR3x5iu7-ACfazlO_sUan2FSwbShfweldzGzFZpMLUyQWThZ5XKr9PjyYI9tEMY5w0f7AaXtfNoypi_DM/s1600/1000583060.jpg" 
-           alt="Delhi Red Fort Blast Breaking News">
+      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEin0_kp1cf7O0NSE1odBDCpZpg9uNwTJ7pLfo-03HDcSCQvzUguwo4G_8w0g_rQV4OiNFU7NHmr9p-3b4jmpzYels6j0bpGe0iw-0-44uBjluUR3x5iu7-ACfazlO_sUan2FSwbShfweldzGzFZpMLUyQWThZ5XKr9PjyYI9tEMY5w0f7AaXtfNoypi_DM/s1600/1000583060.jpg" alt="Delhi Red Fort Blast Breaking News">
     </div>
 
     <p class="story">
-      Kal shaam Delhi ke <strong>Red Fort Metro station</strong> ke qareeb ek gaari mein zabardast 
+      Kal shaam <strong>Delhi ke Red Fort Metro station</strong> ke qareeb ek gaari mein zabardast 
       <strong>dhmaaka</strong> hua. Ibtidai reports ke mutabiq kai log hayat se haazir na rahe aur kai 
-      zakhmi huein. 
+      zakhmi huein.  
       <br><br>
       Duniya bhar ki tarah <strong>Hyderabad</strong> mein bhi police ne security checks barha diye hain. 
       Har entry point, metro aur public area par checking zoron par hai. 
@@ -130,21 +208,14 @@
       <em>ghalat khabron par yakin na karein.</em>
     </p>
 
-    <!-- Ads Box -->
-    <div class="ads-box">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
-       crossorigin="anonymous"></script>
-      <!-- Mus11 -->
-      <ins class="adsbygoogle"
-           style="display:block"
-           data-ad-client="ca-pub-1874063367142441"
-           data-ad-slot="6946908410"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
+
+    <a class="share-btn" href="https://wa.me/?text=🚨%20Delhi%20Red%20Fort%20Blast!%20Hyderabad%20on%20High%20Alert.%20Read%20Full%20Story:%20https://mustaqeem-hyd-news.netlify.app/delhi-redfort-blast" target="_blank">📱 WhatsApp pe Share karein</a>
+ <div class="disclaimer">
+      ⚠️ <strong>Disclaimer:</strong> Yeh report sirf informational purpose ke liye hai. 
+      Mustaqeem HYD News kisi bhi afwaah, rumor, ya unofficial claim ki tasdeeq nahi karta. 
+      Updates ke liye official sources ka intezar karein.
     </div>
+
 
     <div class="urdu">
       کل شام دہلی کے ریڈ فورٹ میٹرو اسٹیشن کے قریب ایک گاڑی میں زبردست دھماکہ ہوا۔ ابتدائی رپورٹس کے 
@@ -152,16 +223,11 @@
       چیکس بڑھا دیے ہیں۔ حکومت اور پولیس سے باضابطہ اپڈیٹس کا انتظار کریں اور غلط خبروں پر یقین نہ کریں۔
     </div>
 
-    <div class="disclaimer">
-      <strong>Disclaimer:</strong> Yeh report sirf informational purpose ke liye hai. 
-      Mustaqeem HYD News kisi bhi afwaah, rumor, ya unofficial claim ki tasdeeq nahi karta. 
-      Updates ke liye official sources ka intezar karein.
-    </div>
+   
 
     <div class="alert">🚨 Hyderabad mein Security High Alert 🚨</div>
   </div>
 
-  <!-- Footer -->
   <footer>
     Created by <span>ᗰᑌᔕTᗩᑫEEᗰ</span> | © Mustaqeem HYD News
   </footer>
