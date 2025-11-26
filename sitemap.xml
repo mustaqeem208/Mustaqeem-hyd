@@ -260,6 +260,12 @@
   <priority>0.8</priority>
 </url>
   
-
+  
+<url>
+  <loc>https://mustaqeem-hyd-news.netlify.app/bank-loan-notice-mustaqeem</loc>
+  <lastmod>2025-11-06</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.8</priority>
+</url>
 
 </urlset>
