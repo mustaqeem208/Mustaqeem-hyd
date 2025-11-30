@@ -1,0 +1,276 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Careers @ MS Pvt Ltd</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary: #0f2027; /* Dark Premium Blue */
+            --secondary: #203a43;
+            --accent: #00b4db; /* Cyan Blue */
+            --gold: #d4af37;
+            --bg: #f3f4f6;
+            --white: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: #333;
+        }
+
+        /* Hero Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), #2c5364);
+            color: var(--white);
+            padding: 40px 20px 60px;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            opacity: 0.8;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            margin-top: 10px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .container {
+            max-width: 600px;
+            margin: -40px auto 30px;
+            padding: 0 20px;
+        }
+
+        /* Main Card */
+        .main-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            position: relative;
+        }
+
+        .salary-highlight {
+            background: #e0f7fa;
+            color: #006064;
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--secondary);
+            font-size: 22px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        p.desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Job Positions Grid */
+        .job-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .job-tag {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            flex: 1 0 40%; /* 2 items per row */
+        }
+        
+        .job-tag::before {
+            content: "•";
+            color: var(--accent);
+            font-size: 20px;
+            line-height: 0;
+            margin-right: 8px;
+        }
+
+        /* Form Styling */
+        .form-section {
+            margin-top: 30px;
+            border-top: 1px dashed #ddd;
+            padding-top: 25px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #777;
+            display: block;
+            margin-bottom: 5px;
+            margin-left: 5px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 14px;
+            background: #f9f9f9;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: inherit;
+            color: #333;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            background: #fff;
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 4px 15px rgba(0, 180, 219, 0.1);
+        }
+
+        /* Submit Button */
+        .btn-submit {
+            background: linear-gradient(90deg, #00b4db, #0083b0);
+            color: white;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0, 180, 219, 0.3);
+            transition: transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* Note Box */
+        .note-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="verified-badge">✓ Official Portal</div>
+        <h1>MS Pvt Ltd</h1>
+        <p>Hyderabad's Premier Recruitment Drive</p>
+    </header>
+
+    <div class="container">
+        <div class="main-card">
+            <span class="salary-highlight">💰 Salary: Up to ₹40,000/Month</span>
+            
+            <h2>We Are Hiring!</h2>
+            <p class="desc">MS Pvt Ltd is looking for energetic freshers and experienced candidates for our Hyderabad branch. Join a growing team with great benefits.</p>
+
+            <div class="note-box">
+                <strong>📢 Notice:</strong> Direct joining process. No hidden charges. Apply Free below.
+            </div>
+
+            <h3>Open Positions</h3>
+            <div class="job-grid">
+                <div class="job-tag">Staff Executive</div>
+                <div class="job-tag">Office Manager</div>
+                <div class="job-tag">Customer Support</div>
+                <div class="job-tag">Field Assistant</div>
+            </div>
+
+            <div class="form-section" id="apply">
+                <h3>Quick Application</h3>
+                
+                <form>
+                    <div class="input-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your full name" required />
+                    </div>
+
+                    <div class="input-group">
+                        <label>Mobile Number</label>
+                        <input type="tel" placeholder="+91 XXXXX XXXXX" required />
+                    </div>
+
+                    <div class="input-group">
+                        <label>Current City</label>
+                        <input type="text" placeholder="e.g. Hyderabad" required />
+                    </div>
+
+                    <div class="input-group">
+                        <label>Applying For</label>
+                        <select required>
+                            <option value="">Select Position...</option>
+                            <option>Staff Executive</option>
+                            <option>Office Manager</option>
+                            <option>Customer Support</option>
+                            <option>Field Assistant</option>
+                        </select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Experience (Optional)</label>
+                        <textarea rows="3" placeholder="Tell us about your past work..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Submit Application 🚀</button>
+                </form>
+            </div>
+        </div>
+        
+        <p style="text-align: center; color: #999; font-size: 12px; margin-top: 20px;">
+            &copy; 2025 MS Pvt Ltd. All Rights Reserved.
+        </p>
+    </div>
+
+</body>
+</html>
