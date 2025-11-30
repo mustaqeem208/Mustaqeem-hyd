@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -8,12 +8,12 @@
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
         :root {
-            --primary: #0f2027; /* Dark Premium Blue */
+            --primary: #0f2027; 
             --secondary: #203a43;
-            --accent: #00b4db; /* Cyan Blue */
-            --gold: #d4af37;
+            --accent: #00b4db; 
             --bg: #f3f4f6;
             --white: #ffffff;
+            --green: #2ecc71;
         }
 
         body {
@@ -33,7 +33,6 @@
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-            position: relative;
         }
 
         header h1 {
@@ -72,6 +71,7 @@
             border-radius: 20px;
             padding: 25px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+            min-height: 400px; /* Height fix taaki jump na kare */
             position: relative;
         }
 
@@ -86,18 +86,8 @@
             margin-bottom: 15px;
         }
 
-        h2 {
-            color: var(--secondary);
-            font-size: 22px;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        p.desc {
-            color: #666;
-            font-size: 14px;
-            line-height: 1.6;
-        }
+        h2 { color: var(--secondary); font-size: 22px; margin: 10px 0; }
+        p.desc { color: #666; font-size: 14px; line-height: 1.6; }
 
         /* Job Positions Grid */
         .job-grid {
@@ -115,9 +105,9 @@
             font-size: 13px;
             font-weight: 500;
             color: #495057;
+            flex: 1 0 40%;
             display: flex;
             align-items: center;
-            flex: 1 0 40%; /* 2 items per row */
         }
         
         .job-tag::before {
@@ -144,9 +134,7 @@
             margin-left: 5px;
         }
 
-        .input-group {
-            margin-bottom: 15px;
-        }
+        .input-group { margin-bottom: 15px; }
 
         input, select, textarea {
             width: 100%;
@@ -157,18 +145,16 @@
             font-size: 15px;
             font-family: inherit;
             color: #333;
+            box-sizing: border-box; 
             transition: 0.3s;
-            box-sizing: border-box;
         }
 
         input:focus, select:focus, textarea:focus {
             background: #fff;
             border-color: var(--accent);
             outline: none;
-            box-shadow: 0 4px 15px rgba(0, 180, 219, 0.1);
         }
 
-        /* Submit Button */
         .btn-submit {
             background: linear-gradient(90deg, #00b4db, #0083b0);
             color: white;
@@ -180,24 +166,81 @@
             font-weight: 700;
             cursor: pointer;
             box-shadow: 0 10px 20px rgba(0, 180, 219, 0.3);
-            transition: transform 0.2s;
             margin-top: 10px;
+            transition: 0.2s;
+        }
+        .btn-submit:active { transform: scale(0.98); }
+
+        /* --- MS BRAND LOADER --- */
+        .loader-wrapper {
+            display: none; /* Hidden Default */
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 300px;
         }
 
-        .btn-submit:active {
-            transform: scale(0.98);
+        .ms-loader {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* Note Box */
-        .note-box {
-            background: #fff8e1;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: #856404;
+        .ms-text {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--secondary);
+            z-index: 2;
         }
+
+        .spinner-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top-color: var(--accent); /* Blue Color */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 600;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; } 100% { opacity: 0.5; } }
+
+        /* --- SUCCESS MESSAGE --- */
+        .success-message {
+            display: none; 
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s;
+        }
+
+        .check-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--green);
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
     </style>
 </head>
 <body>
@@ -210,67 +253,101 @@
 
     <div class="container">
         <div class="main-card">
-            <span class="salary-highlight">💰 Salary: Up to ₹40,000/Month</span>
             
-            <h2>We Are Hiring!</h2>
-            <p class="desc">MS Pvt Ltd is looking for energetic freshers and experienced candidates for our Hyderabad branch. Join a growing team with great benefits.</p>
-
-            <div class="note-box">
-                <strong>📢 Notice:</strong> Direct joining process. No hidden charges. Apply Free below.
-            </div>
-
-            <h3>Open Positions</h3>
-            <div class="job-grid">
-                <div class="job-tag">Staff Executive</div>
-                <div class="job-tag">Office Manager</div>
-                <div class="job-tag">Customer Support</div>
-                <div class="job-tag">Field Assistant</div>
-            </div>
-
-            <div class="form-section" id="apply">
-                <h3>Quick Application</h3>
+            <div id="formView">
+                <span class="salary-highlight">💰 Salary: Up to ₹40,000/Month</span>
                 
-                <form>
-                    <div class="input-group">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Enter your full name" required />
-                    </div>
+                <h2>We Are Hiring!</h2>
+                <p class="desc">MS Pvt Ltd is looking for energetic freshers. Apply directly below.</p>
 
-                    <div class="input-group">
-                        <label>Mobile Number</label>
-                        <input type="tel" placeholder="+91 XXXXX XXXXX" required />
-                    </div>
+                <h3>Open Positions</h3>
+                <div class="job-grid">
+                    <div class="job-tag">Staff Executive</div>
+                    <div class="job-tag">Office Manager</div>
+                    <div class="job-tag">Customer Support</div>
+                    <div class="job-tag">Field Assistant</div>
+                </div>
 
-                    <div class="input-group">
-                        <label>Current City</label>
-                        <input type="text" placeholder="e.g. Hyderabad" required />
-                    </div>
-
-                    <div class="input-group">
-                        <label>Applying For</label>
-                        <select required>
-                            <option value="">Select Position...</option>
-                            <option>Staff Executive</option>
-                            <option>Office Manager</option>
-                            <option>Customer Support</option>
-                            <option>Field Assistant</option>
-                        </select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Experience (Optional)</label>
-                        <textarea rows="3" placeholder="Tell us about your past work..."></textarea>
-                    </div>
-
-                    <button type="submit" class="btn-submit">Submit Application 🚀</button>
-                </form>
+                <div class="form-section">
+                    <h3>Quick Application</h3>
+                    <form onsubmit="submitForm(event)">
+                        <div class="input-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter full name" required />
+                        </div>
+                        <div class="input-group">
+                            <label>Mobile Number</label>
+                            <input type="tel" placeholder="+91 XXXXX XXXXX" required />
+                        </div>
+                        <div class="input-group">
+                            <label>Current City</label>
+                            <input type="text" placeholder="e.g. Hyderabad" required />
+                        </div>
+                        <div class="input-group">
+                            <label>Applying For</label>
+                            <select required>
+                                <option value="">Select Position...</option>
+                                <option>Staff Executive</option>
+                                <option>Office Manager</option>
+                                <option>Customer Support</option>
+                                <option>Field Assistant</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-submit">Submit Application 🚀</button>
+                    </form>
+                </div>
             </div>
+
+            <div id="loaderView" class="loader-wrapper">
+                <div class="ms-loader">
+                    <div class="ms-text">MS</div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <div class="loading-text">Processing Application...</div>
+            </div>
+
+            <div id="successView" class="success-message">
+                <div class="check-icon">✓</div>
+                <h2 style="color: #2ecc71; margin-bottom: 10px;">Submitted Successfully!</h2>
+                <p style="font-size: 16px; color: #555; line-height: 1.6;">
+                    Shukriya apply karne ke liye. <br>
+                    <strong>Hum aapse bahut jaldi contact karenge.</strong>
+                </p>
+                <div style="margin-top: 30px; font-size: 13px; color: #999;">
+                    Ref ID: #MS-REC-2025
+                </div>
+            </div>
+
         </div>
         
         <p style="text-align: center; color: #999; font-size: 12px; margin-top: 20px;">
             &copy; 2025 MS Pvt Ltd. All Rights Reserved.
         </p>
     </div>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault(); // Reload rokna
+
+            // 1. Form Chupao
+            document.getElementById('formView').style.display = 'none';
+
+            // 2. MS Loader Dikhao
+            document.getElementById('loaderView').style.display = 'flex';
+
+            // 3. 3 Seconds (3000ms) Wait Karo
+            setTimeout(() => {
+                // Loader Hatao
+                document.getElementById('loaderView').style.display = 'none';
+                
+                // Success Message Dikhao
+                document.getElementById('successView').style.display = 'block';
+                
+                // Upar Scroll Karo
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 3000); 
+        }
+    </script>
 
 </body>
 </html>
