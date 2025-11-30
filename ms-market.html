@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MS Premium Store</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* --- DESIGN SETTINGS --- */
@@ -15,69 +18,112 @@
         }
         body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding: 0; }
         
-        /* HEADER */
+        /* HEADER LAYOUT */
         header {
-            background: #fff; padding: 15px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 100;
-            flex-wrap: wrap; gap: 10px;
+            background: #fff;
+            padding: 10px 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
-        .logo { font-size: 26px; font-weight: 900; color: var(--primary); text-transform: uppercase; }
-        
-        /* SEARCH BAR Styling */
+
+        /* Top Row: Logo Left, Back Button Right */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo { 
+            font-size: 24px; 
+            font-weight: 900; 
+            color: var(--primary); 
+            text-transform: uppercase; 
+        }
+
+        .home-btn {
+            text-decoration: none;
+            background-color: var(--primary);
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 8px 15px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.3s;
+        }
+        .home-btn:hover { background-color: #004d55; }
+
+        /* Bottom Row: Search & Sell */
+        .header-bottom {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        /* SEARCH BAR */
         .search-container {
-            display: flex; flex-grow: 1; margin: 0 20px;
-            border: 2px solid var(--primary); border-radius: 5px; overflow: hidden;
-            max-width: 500px;
+            display: flex; 
+            flex-grow: 1; 
+            border: 2px solid var(--primary); 
+            border-radius: 5px; 
+            overflow: hidden;
         }
         .search-container input {
             width: 100%; border: none; padding: 10px; font-size: 16px; outline: none;
         }
         .search-container button {
-            background: var(--primary); color: white; border: none; padding: 0 20px; 
-            cursor: pointer; font-size: 18px;
+            background: var(--primary); color: white; border: none; padding: 0 15px; 
+            cursor: pointer; font-size: 16px;
         }
-        .search-container button:hover { background: #004d55; }
 
         /* SELL BUTTON */
         .sell-btn {
             background: var(--gold); color: var(--primary); font-weight: bold;
-            padding: 10px 25px; border-radius: 30px; text-decoration: none;
+            padding: 10px 15px; border-radius: 30px; text-decoration: none;
             border: 2px solid var(--primary); text-transform: uppercase;
-            box-shadow: 3px 3px 0px var(--primary); transition: 0.2s; cursor: pointer;
-            display: flex; align-items: center; gap: 5px;
+            box-shadow: 2px 2px 0px var(--primary); transition: 0.2s; cursor: pointer;
+            display: flex; align-items: center; gap: 5px; font-size: 14px; white-space: nowrap;
         }
         .sell-btn:active { transform: translate(2px, 2px); box-shadow: none; }
 
-        /* GRID */
-        .container { max-width: 1200px; margin: 20px auto; padding: 10px; }
+        /* ADSENSE BANNER */
+        .ad-banner {
+            text-align: center;
+            background: #fff;
+            margin: 10px auto;
+            padding: 10px 0;
+            max-width: 100%;
+            overflow: hidden;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* GRID & CARDS */
+        .container { max-width: 1200px; margin: 0 auto; padding: 10px; }
         .grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 15px;
         }
         
-        /* CARD DESIGN */
         .card {
             background: white; border: 1px solid #ddd; border-radius: 8px; overflow: hidden;
             transition: 0.3s; position: relative; display: flex; flex-direction: column;
         }
         .card:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        
         .card img { width: 100%; height: 180px; object-fit: cover; cursor: pointer; }
-        
         .card-details { padding: 12px; flex-grow: 1; cursor: pointer; }
         .price { font-size: 22px; font-weight: bold; color: #002f34; }
         .title { font-size: 15px; margin: 5px 0; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        /* NEW: Footer inside card for Location and Views */
         .card-footer {
             display: flex; justify-content: space-between; align-items: center;
             margin-top: 10px; font-size: 12px; color: #888;
         }
-        .views {
-            display: flex; align-items: center; gap: 4px; color: #555; font-weight: 500;
-        }
+        .views { display: flex; align-items: center; gap: 4px; color: #555; font-weight: 500; }
 
-        /* VIEW ICON STRIP */
         .view-strip {
             background: #f1f3f6; padding: 10px; text-align: center;
             border-top: 1px solid #eee; cursor: pointer;
@@ -89,13 +135,10 @@
         /* MODAL */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center; }
         .modal-content { background: white; width: 95%; max-width: 800px; display: flex; border-radius: 8px; overflow: hidden; position: relative; max-height: 90vh; }
-        
         .m-left { width: 50%; background: #000; display: flex; align-items: center; justify-content: center; }
         .m-left img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        
         .m-right { width: 50%; padding: 25px; overflow-y: auto; }
         .close { position: absolute; right: 15px; top: 10px; font-size: 30px; cursor: pointer; color: #333; z-index: 10; }
-        
         .btn-wa { background: #25D366; color: white; display: block; text-align: center; padding: 12px; text-decoration: none; margin-top: 15px; border-radius: 4px; font-weight: bold; font-size: 16px; }
         .btn-call { background: var(--primary); color: white; display: block; text-align: center; padding: 12px; text-decoration: none; margin-top: 10px; border-radius: 4px; font-weight: bold; font-size: 16px; }
 
@@ -103,9 +146,6 @@
         footer { text-align: center; padding: 20px; background: #002f34; color: white; margin-top: 30px; font-size: 14px; letter-spacing: 1px;}
         
         @media(max-width: 768px) {
-            header { flex-direction: column; align-items: stretch; }
-            .search-container { margin: 10px 0; max-width: 100%; }
-            .sell-btn { justify-content: center; }
             .modal-content { flex-direction: column; }
             .m-left, .m-right { width: 100%; }
             .m-left { height: 250px; }
@@ -115,23 +155,41 @@
 <body>
 
 <header>
-    <div class="logo">MS MARKET</div>
-    
-    <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search Car, Mobile, Bike...">
-        <button onclick="searchFunction()"><i class="fas fa-search"></i></button>
+    <div class="header-top">
+        <div class="logo">MS MARKET</div>
+        
+        <a href="https://mustaqeem-hyd-news.netlify.app" class="home-btn">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
     </div>
 
-    <div class="sell-btn" onclick="startSelling()">
-        <i class="fas fa-camera"></i> + SELL (only ₹15)
+    <div class="header-bottom">
+        <div class="search-container">
+            <input type="text" id="searchInput" onkeyup="searchFunction()" placeholder="Search items...">
+            <button onclick="searchFunction()"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="sell-btn" onclick="startSelling()">
+            <i class="fas fa-camera"></i> + SELL
+        </div>
     </div>
 </header>
+
+<div class="ad-banner">
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:728px;height:90px"
+         data-ad-client="ca-pub-1874063367142441"
+         data-ad-slot="9832164119"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
 
 <div class="container">
     <h3>Latest Products</h3>
     <div class="grid" id="productGrid">
 
-        <div class="card" onclick="openModal('Tata Tiago NRG', '₹2,99,999', 'Diesel Variant, 2018 Model, Good Condition', 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=500')">
+        <div class="card" onclick="openModal('Tata Tiago NRG', '₹2,99,999', 'Diesel Variant, 2018 Model, Good Condition', 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifn_2_zKsp7Sjn_-98dVhfFFsJK1UABCx0fP-Kanyi8uUDcz7ZQ96Hsj-_hDRHtpd91MutimvCaGnc_21qeUcq_-8ytF_QncDaoAHqHyM3l5CuGYmKhtUzlgjcn6YJ44ZI648AE9sNTg58dAuCSDjPIPLhBh7MzyioN3J3ZaNL7_6Cb3xeJjV-2GRBD3w/s9216/IMG_20251103_115555.jpg')">
             <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEifn_2_zKsp7Sjn_-98dVhfFFsJK1UABCx0fP-Kanyi8uUDcz7ZQ96Hsj-_hDRHtpd91MutimvCaGnc_21qeUcq_-8ytF_QncDaoAHqHyM3l5CuGYmKhtUzlgjcn6YJ44ZI648AE9sNTg58dAuCSDjPIPLhBh7MzyioN3J3ZaNL7_6Cb3xeJjV-2GRBD3w/s9216/IMG_20251103_115555.jpg">
             <div class="card-details">
                 <div class="price">₹2,99,999</div>
@@ -141,9 +199,7 @@
                     <span class="views"><i class="fas fa-eye"></i> 18k Views</span>
                 </div>
             </div>
-            <div class="view-strip">
-                <i class="fas fa-eye"></i> View Details
-            </div>
+            <div class="view-strip"><i class="fas fa-eye"></i> View Details</div>
         </div>
 
         <div class="card" onclick="openModal('iPhone 14 Pro', '₹80,000', 'Deep Purple, 128GB, Full Kit', 'https://images.unsplash.com/photo-1678685888221-cda773a3dcd9?w=500')">
@@ -171,7 +227,7 @@
             </div>
             <div class="view-strip"><i class="fas fa-eye"></i> View Details</div>
         </div>
-        
+
     </div>
 </div>
 
@@ -211,7 +267,6 @@
         var filter = input.value.toUpperCase();
         var grid = document.getElementById("productGrid");
         var cards = grid.getElementsByClassName("card");
-
         for (var i = 0; i < cards.length; i++) {
             var title = cards[i].querySelector(".title");
             if (title) {
@@ -225,24 +280,16 @@
         }
     }
 
-    // --- 2. SELL BUTTON & PAYMENT LOGIC ---
+    // --- 2. SELL BUTTON LOGIC ---
     function startSelling() {
-        // Step 1: Confirm Fee
         let confirmFee = confirm("Ad post karne ki fee ₹15 hai. Kya aap pay karna chahte hain?");
-        
         if (confirmFee) {
-            // User Data
             let upiID = "9381667208-2@ybl";
             let name = "Mustaqeem";
             let amount = "15";
-            let myNumber = "919381667208"; // Your WhatsApp Number
-
-            // Step 2: Open UPI App (PhonePe/GPay)
+            let myNumber = "919381667208";
             let upiLink = "upi://pay?pa=" + upiID + "&pn=" + name + "&am=" + amount + "&cu=INR";
-            
             window.location.href = upiLink;
-
-            // Step 3: Redirect to WhatsApp after 5 seconds
             setTimeout(function() {
                 let waLink = "https://wa.me/" + myNumber + "?text=Hi Mustaqeem, maine ₹15 pay kar diye hain. Ye raha screenshot aur mere saman ki details.";
                 window.location.href = waLink;
@@ -252,21 +299,16 @@
 
     // --- 3. MODAL LOGIC ---
     var modal = document.getElementById("itemModal");
-    var sellerPhone = "919381667208"; // BUYER CALL NUMBER
+    var sellerPhone = "919381667208"; 
 
     function openModal(title, price, desc, img) {
         document.getElementById("mTitle").innerText = title;
         document.getElementById("mPrice").innerText = price;
         document.getElementById("mDesc").innerText = desc;
         document.getElementById("mImg").src = img;
-        
-        // WhatsApp Msg for Buyer
         var msg = "Hi, kya ye available hai? " + title + " (" + price + ")";
         document.getElementById("waLink").href = "https://wa.me/" + sellerPhone + "?text=" + encodeURIComponent(msg);
-        
-        // Call Link
         document.getElementById("callLink").href = "tel:+" + sellerPhone;
-
         modal.style.display = "flex";
     }
 
