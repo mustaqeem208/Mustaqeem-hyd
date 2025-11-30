@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -68,6 +68,15 @@
         .price { font-size: 22px; font-weight: bold; color: #002f34; }
         .title { font-size: 15px; margin: 5px 0; color: #444; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
+        /* NEW: Footer inside card for Location and Views */
+        .card-footer {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 10px; font-size: 12px; color: #888;
+        }
+        .views {
+            display: flex; align-items: center; gap: 4px; color: #555; font-weight: 500;
+        }
+
         /* VIEW ICON STRIP */
         .view-strip {
             background: #f1f3f6; padding: 10px; text-align: center;
@@ -127,7 +136,10 @@
             <div class="card-details">
                 <div class="price">₹5,50,000</div>
                 <div class="title">Tata Tiago NRG Diesel</div>
-                <div style="font-size:12px; color:#888;">Hyderabad</div>
+                <div class="card-footer">
+                    <span>Hyderabad</span>
+                    <span class="views"><i class="fas fa-eye"></i> 1.2k Views</span>
+                </div>
             </div>
             <div class="view-strip">
                 <i class="fas fa-eye"></i> View Details
@@ -139,7 +151,10 @@
             <div class="card-details">
                 <div class="price">₹80,000</div>
                 <div class="title">iPhone 14 Pro Max</div>
-                <div style="font-size:12px; color:#888;">Banjara Hills</div>
+                <div class="card-footer">
+                    <span>Banjara Hills</span>
+                    <span class="views"><i class="fas fa-eye"></i> 850 Views</span>
+                </div>
             </div>
             <div class="view-strip"><i class="fas fa-eye"></i> View Details</div>
         </div>
@@ -149,12 +164,15 @@
             <div class="card-details">
                 <div class="price">₹35,000</div>
                 <div class="title">Full Gaming Setup</div>
-                <div style="font-size:12px; color:#888;">Secunderabad</div>
+                <div class="card-footer">
+                    <span>Secunderabad</span>
+                    <span class="views"><i class="fas fa-eye"></i> 2.4k Views</span>
+                </div>
             </div>
             <div class="view-strip"><i class="fas fa-eye"></i> View Details</div>
         </div>
         
-        </div>
+    </div>
 </div>
 
 <div id="itemModal" class="modal" onclick="closeModal(event)">
@@ -220,17 +238,15 @@
             let myNumber = "919381667208"; // Your WhatsApp Number
 
             // Step 2: Open UPI App (PhonePe/GPay)
-            // Note: This link only works on Mobile Phones
             let upiLink = "upi://pay?pa=" + upiID + "&pn=" + name + "&am=" + amount + "&cu=INR";
             
             window.location.href = upiLink;
 
             // Step 3: Redirect to WhatsApp after 5 seconds
-            // (Hum assume kar rahe hain user pay karke wapas ayega)
             setTimeout(function() {
                 let waLink = "https://wa.me/" + myNumber + "?text=Hi Mustaqeem, maine ₹15 pay kar diye hain. Ye raha screenshot aur mere saman ki details.";
                 window.location.href = waLink;
-            }, 5000); // 5000 ms = 5 Seconds delay
+            }, 5000);
         }
     }
 
