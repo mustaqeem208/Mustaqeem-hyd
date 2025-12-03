@@ -4,21 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Premium Islamic Story</title>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --primary-color: #0f2027; /* Deep Royal Blue/Black */
-    --accent-color: #c9a063; /* Premium Gold */
-    --bg-color: #f4f7f6;
+    --primary-color: #1a2a3a; /* Deeper Royal Blue */
+    --accent-color: #d4af37; /* Richer Gold */
+    --bg-color: #ecf0f3;
     --white: #ffffff;
     --text-dark: #2c3e50;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.05);
+    --shadow-deep: 0 15px 40px rgba(0, 0, 0, 0.12);
   }
 
-  * {
-    box-sizing: border-box;
-  }
+  * { box-sizing: border-box; }
 
   body {
     margin: 0;
@@ -29,14 +32,14 @@
 
   /* --- Top Navigation Bar --- */
   .top-nav {
-    background: var(--white);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     padding: 15px 20px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    position: sticky; /* Sticks to top */
+    box-shadow: var(--shadow-soft);
+    position: sticky;
     top: 0;
     z-index: 1000;
-    display: flex;
-    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
   }
 
   .back-home {
@@ -44,61 +47,53 @@
     color: var(--primary-color);
     font-weight: 600;
     font-size: 16px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     transition: color 0.3s;
   }
   
-  .back-home i {
-    margin-right: 8px;
-    font-size: 18px;
-  }
-
-  .back-home:hover {
-    color: var(--accent-color);
-  }
+  .back-home i { margin-right: 8px; }
+  .back-home:hover { color: var(--accent-color); }
 
   /* --- Main Container --- */
   .container {
     max-width: 800px;
     margin: 30px auto;
     background-color: var(--white);
-    border-radius: 20px;
+    border-radius: 25px;
     overflow: hidden;
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(0,0,0,0.02);
+    box-shadow: var(--shadow-deep);
   }
 
-  /* --- Hero Section --- */
+  /* --- Hero Section (Updated Image) --- */
   .hero {
     width: 100%;
-    height: 280px;
-    background-image: linear-gradient(rgba(15, 32, 39, 0.4), rgba(15, 32, 39, 0.4)), url('https://images.unsplash.com/photo-1542816417-0983c9c9ad53?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); /* Islamic Architecture/Abstract Image */
+    height: 350px; /* Increased height for premium feel */
+    /* New Image with darker overlay for better text contrast */
+    background-image: linear-gradient(to bottom, rgba(26, 42, 58, 0.6), rgba(26, 42, 58, 0.8)), url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgc49jl4CL_vNzlkQFF_1EaborTU9nUu8e2ehLplNil1PkENz8OgkX0HuXZP75vGLoVQl3O1mj_xcjptSc5jr1GySC3DrrB3sYdjhq8gJqSYLbNgbc810q_UCHo10oNcNs5kfdkD6OyEEJ2Keen-h_Rj-VlP2qRKiewimUeO4TqUj-2Xb7UBWNxoDI3yZM/s1600/1000595120.jpg');
     background-size: cover;
     background-position: center;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
 
   .hero h1 {
     color: var(--white);
     font-family: 'Amiri', serif;
-    font-size: 3rem;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    font-size: 3.5rem;
+    text-shadow: 0 3px 6px rgba(0,0,0,0.5);
     margin: 0;
-    letter-spacing: 1px;
-    border-bottom: 2px solid var(--accent-color);
-    padding-bottom: 10px;
+    border-bottom: 3px solid var(--accent-color);
+    padding-bottom: 15px;
+    letter-spacing: 2px;
   }
 
   /* --- Content Area --- */
-  .content {
-    padding: 40px;
-  }
+  .content { padding: 40px; }
 
-  /* --- Controls (Buttons) --- */
+  /* --- Controls --- */
   .controls {
     display: flex;
     gap: 15px;
@@ -109,59 +104,59 @@
 
   .btn {
     border: none;
-    padding: 12px 30px;
+    padding: 14px 35px;
     border-radius: 50px;
     font-size: 15px;
     cursor: pointer;
     font-weight: 600;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    letter-spacing: 0.5px;
   }
 
   .toggle-btn {
-    background: var(--primary-color);
+    background: linear-gradient(135deg, var(--primary-color), #2c5270);
     color: var(--white);
-    border: 1px solid var(--primary-color);
   }
-
-  .toggle-btn:hover {
-    background: transparent;
-    color: var(--primary-color);
-    transform: translateY(-2px);
-  }
+  .toggle-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(26, 42, 58, 0.3); }
 
   .whatsapp-btn {
-    background: #25D366;
+    background: linear-gradient(135deg, #25D366, #128C7E);
     color: var(--white);
   }
+  .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3); }
 
-  .whatsapp-btn:hover {
-    background: #1ebe57;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  /* --- Ad Container --- */
+  .ad-container {
+      margin: 30px 0;
+      padding: 20px 0;
+      border-top: 1px solid #eee;
+      border-bottom: 1px solid #eee;
+      text-align: center;
+      background: #fafafa;
   }
 
-  /* --- Story Text Styling --- */
+  /* --- Story Text --- */
   .story {
-    font-size: 18px;
-    line-height: 2;
+    font-size: 19px;
+    line-height: 2.1;
     color: #444;
-    background: #fdfdfd;
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 4px solid var(--accent-color);
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    border-left: 5px solid var(--accent-color);
+    box-shadow: var(--shadow-soft);
   }
 
-  /* Specific Styles for Urdu vs Roman */
   .story.urdu-mode {
-    font-family: 'Noto Nastaliq Urdu', serif; /* Premium Urdu Font */
+    font-family: 'Noto Nastaliq Urdu', serif;
     direction: rtl;
     text-align: justify;
-    font-size: 20px;
-    line-height: 2.4;
+    font-size: 21px;
+    line-height: 2.6;
   }
 
   .story.roman-mode {
@@ -170,32 +165,26 @@
     text-align: left;
   }
 
-  .story strong {
-    color: var(--primary-color);
-    font-size: 1.1em;
-  }
+  .story strong { color: var(--primary-color); font-weight: 700; }
 
   /* --- Footer --- */
   .footer {
     text-align: center;
-    padding: 20px;
-    font-size: 13px;
+    padding: 25px;
+    font-size: 14px;
     color: #888;
-    background-color: #fafafa;
+    background-color: #fcfcfc;
     border-top: 1px solid #eee;
     letter-spacing: 1px;
-    text-transform: uppercase;
   }
-
-  .footer span {
-    color: var(--accent-color);
-    font-weight: bold;
-  }
+  .footer span { color: var(--accent-color); font-weight: bold; }
 
   @media(max-width:600px){
-    .hero h1 { font-size: 2rem; }
-    .content { padding: 25px 20px; }
-    .btn { width: 100%; justify-content: center; }
+    .hero { height: 280px; }
+    .hero h1 { font-size: 2.5rem; }
+    .content { padding: 30px 20px; }
+    .btn { width: 100%; justify-content: center; padding: 12px 20px;}
+    .story { padding: 15px; }
   }
 </style>
 </head>
@@ -209,10 +198,10 @@
 
 <div class="container">
   <div class="hero">
-    <h1>حکایات</h1> </div>
+    <h1>حکایات</h1>
+  </div>
 
   <div class="content">
-    
     <div class="controls">
       <button class="btn toggle-btn" onclick="toggleLanguage()">
         <span id="lang-icon">Aa</span> <span id="btn-text">Show Roman English</span>
@@ -222,20 +211,19 @@
       </button>
     </div>
 
-    <div class="story urdu-mode" id="story">
-      <p>
-        <strong>زندگی کے دو پہلو:</strong><br><br>
-        ایک شخص نے سالوں کی محنت سے پیسہ پیسہ جوڑ کر 'اپنی حلال کی کمائی اور زور بازو پر بھروسہ کرتے ہوئے' اپنے بیوی بچوں کے لیے ایک خوبصورت نیا گھر تعمیر کروایا، جب گھر مکمل ہوا تو یہ فیصلہ کیا کہ 3 دن بعد اپنے اہل خانہ کے ساتھ نئے گھر میں شفٹ ہو جائیں گے، لیکن شفٹنگ سے ایک دن پہلے رات کو زلزلہ آیا اور پورے علاقے سمیت اس کا نیا 'خوابوں جیسا گھر' زمیں بوس ہو گیا، اگلی صبح جب محلے والے اور عزیز و اقارب گھروں کے ملبوں پر افسوس کے لیے کھڑے تھے تو اچانک گھر کا مالک ہاتھ میں مٹھائی کا ڈبہ لِیے وہاں پہنچا اور سب میں مٹھائی بانٹنے لگا، لوگ حیران رہ گئے۔ ایک صاحب نے اس سے پوچھا اور کہا:  
-        کیا تمھارا دماغ خراب ہو گیا ہے؟ یہاں اتنا بڑا نقصان ہو گیا اور تم مٹھائی بانٹ رہے ہو؟؟ گھر کے مالک نے مسکرا کر جواب دیا: نہیں؛ میں تو اپنے رب کا شکر ادا کر رہا ہوں کہ زلزلہ ایک رات پہلے آیا۔ اگر میں اس رات اپنی فیملی کے ساتھ گھر میں ہوتا تو آج مٹھائی نہیں بانٹ رہا ہوتا بلکہ ملبے کے نیچے دفن ہوتا۔
-      </p>
-      <p>
-        زندگی میں دو پہلو ہوتے ہیں۔۔۔<br>
-        ایک شکایت کا <br>
-        دوسرا شکر کا <br><br>
-        ہم کیا چنتے ہیں۔۔۔<br>
-        یہی ہماری سوچ اور ایمان کی پہچان ہے۔
-      </p>
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block; text-align:center;"
+             data-ad-layout="in-article"
+             data-ad-format="fluid"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="6619050098"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
+    <div class="story urdu-mode" id="story">
+      </div>
   </div>
 
   <div class="footer">
@@ -244,6 +232,7 @@
 </div>
 
 <script>
+// --- Kahani Data ---
 const storyUrdu = `
 <p>
 <strong>زندگی کے دو پہلو:</strong><br><br>
@@ -274,34 +263,43 @@ Yehi hamari soch aur imaan ki pehchaan hai.
 </p>
 `;
 
+// Initial Load
 let urdu = true;
+document.getElementById('story').innerHTML = storyUrdu;
 
 function toggleLanguage() {
   const storyDiv = document.getElementById('story');
   const btnText = document.getElementById('btn-text');
   
   if (urdu) {
-    // Switch to Roman
     storyDiv.innerHTML = storyRoman;
-    storyDiv.classList.remove('urdu-mode'); // Remove Urdu font style
-    storyDiv.classList.add('roman-mode');   // Add English font style
+    storyDiv.classList.remove('urdu-mode');
+    storyDiv.classList.add('roman-mode');
     btnText.innerText = "Show Urdu";
     urdu = false;
   } else {
-    // Switch to Urdu
     storyDiv.innerHTML = storyUrdu;
-    storyDiv.classList.remove('roman-mode'); // Remove English font style
-    storyDiv.classList.add('urdu-mode');     // Add Urdu font style
+    storyDiv.classList.remove('roman-mode');
+    storyDiv.classList.add('urdu-mode');
     btnText.innerText = "Show Roman English";
     urdu = true;
   }
 }
 
+// --- UPDATED WHATSAPP FUNCTION ---
 function shareWhatsApp() {
+  const title = urdu ? "زندگی کے دو پہلو" : "Zindagi ke do pehlu";
   const storyText = urdu ? storyUrdu.replace(/<[^>]+>/g, '') : storyRoman.replace(/<[^>]+>/g, '');
-  const url = encodeURIComponent(window.location.href);
-  const message = encodeURIComponent(storyText.trim() + "\n\nRead more: " + url);
-  window.open(`https://api.whatsapp.com/send?text=${message}`, '_blank');
+  const footerMessage = urdu 
+    ? "پوری کہانی پڑھنے کے لیے نیچے لنک پر کلک کریں:" 
+    : "Puri kahani padhne ke liye neeche link par click karein:";
+  
+  // Your Netlify URL
+  const url = "https://mustaqeem-hyd-news.netlify.app/Zindagi-ke-do-pehlu.html";
+  
+  const finalMessage = `*${title}*\n\n${storyText.trim()}\n\n👇 ${footerMessage}\n${url}`;
+  
+  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(finalMessage)}`, '_blank');
 }
 </script>
 
