@@ -9,7 +9,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:wght@300;400;700&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap');
 
     * {
-        box-sizing: border-box; /* Zaroori hai layout totne se bachane ke liye */
+        box-sizing: border-box;
     }
 
     body {
@@ -20,22 +20,21 @@
         min-height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: flex-start; /* Mobile pe upar chipka rahega */
+        align-items: flex-start;
     }
 
     .document-container {
         background: #ffffff;
         width: 100%;
-        max-width: 600px; /* Mobile pe full, PC pe 600px */
+        max-width: 600px;
         margin: 0;
         box-shadow: none;
-        overflow: hidden; /* Ad ko bahar nikalne se rokega */
+        overflow: hidden;
     }
 
-    /* PC View ke liye thoda design alag */
     @media (min-width: 601px) {
         body {
-            align-items: center; /* PC pe center */
+            align-items: center;
             padding: 20px;
         }
         .document-container {
@@ -68,18 +67,18 @@
         white-space: nowrap;
     }
 
-    /* Tabs (Scrollable on Mobile) */
+    /* Tabs */
     .tabs-container {
         padding: 0;
         background: #fff;
         border-bottom: 1px solid #e5e7eb;
         display: flex;
-        overflow-x: auto; /* Side scroll allow kiya */
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
     
     .tab-btn {
-        flex: 1; /* Button barabar failenge */
+        flex: 1;
         padding: 12px 10px;
         background: #f8fafc;
         border: none;
@@ -88,7 +87,7 @@
         font-weight: 600;
         color: #475569;
         cursor: pointer;
-        white-space: nowrap; /* Text tutega nahi */
+        white-space: nowrap;
     }
 
     .tab-btn.active {
@@ -159,13 +158,13 @@
         text-align: right;
     }
 
-    /* Ad Section - Crucial Fix */
+    /* Ad Section - BOX REMOVED (Updated) */
     .ad-section {
         margin: 10px 0 20px 0;
-        background: #f1f5f9;
+        background: transparent; /* Grey color hata diya */
         text-align: center;
-        overflow: hidden; /* Ad ko bahar nahi jane dega */
-        min-height: 100px; /* Space reserve karega taaki layout na hile */
+        overflow: hidden;
+        min-height: 100px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -229,7 +228,7 @@
             data-ad-format="auto"
             data-full-width-responsive="true"></ins>
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-        </div>
+    </div>
 
     <div class="footer">
         <div class="signature">Yours Sincerely,<br>Mohammad Mustaqeem</div>
@@ -332,7 +331,6 @@ const contentData = {
                 میں بھاگ نہیں رہا، صرف وقت مانگ رہا ہوں۔
             </div>
         </div>
-
     `
 };
 
@@ -344,7 +342,6 @@ function setLang(lang) {
 
 setLang('eng');
 </script>
-
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
      crossorigin="anonymous"></script>
@@ -359,7 +356,5 @@ setLang('eng');
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
-
-    
 </body>
 </html>
