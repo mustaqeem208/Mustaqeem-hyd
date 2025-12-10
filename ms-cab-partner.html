@@ -62,7 +62,7 @@
 </head>
 <body>
 
-      <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
+    <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
 
     <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
 
@@ -173,7 +173,7 @@
                 try {
                     window.speechSynthesis.cancel();
                     const ut = new SpeechSynthesisUtterance(text);
-                    ut.lang = 'en-IN';
+                    ut.lang = 'en-US'; // <-- Use English voice
                     ut.rate = 1.0;
                     ut.pitch = 1.0;
                     window.speechSynthesis.speak(ut);
@@ -258,7 +258,7 @@
                     let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
                     if(dist <= 2.0) {
                         try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
-                        speak("Naya request aaya. Price " + data.price + " rupaye. Pickup " + dist + " km.");
+                        speak("A new request has arrived. The fare is " + data.price + " rupees. Pickup distance " + dist + " kilometers.");
                         showRequest(data, snap.key, dist);
                     }
                 }
@@ -295,25 +295,26 @@
             drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         }
 
-        // === Modified verifyOtp: Roman English prompts driver to ask customer for drop location ===
+        // === verifyOtp replaced with English instructions to ask passenger for drop location ===
         function verifyOtp() {
             const entered = document.getElementById('otpIn').value;
             if (!currentReqData) { alert("No request data."); speak("No request data."); return; }
 
-            if(entered == currentReqData.otp) {
-                // Roman English voice + on-screen confirm in Roman English
-                const voiceText = "OTP sahi hai. Customer se drop location pucho, phir OK dabao.";
+            // Compare entered OTP with the one stored in the request
+            if (entered == currentReqData.otp) {
+                // English voice + on-screen confirmation in English
+                const voiceText = "OTP verified. Ask the passenger for the drop location. Once the passenger tells you the drop location, press OK to start the trip. If the passenger cannot share coordinates, follow the passenger until they tell you where to get off.";
                 speak(voiceText);
 
-                const proceed = confirm("OTP sahi hai.\n\nCustomer se drop location pucho.\n\nJab customer ne drop batadi to OK dabao to trip start hoga.");
+                const proceed = confirm("OTP verified.\n\nAsk the passenger for the drop location now.\n\nWhen the passenger tells the drop location, press OK to start the trip.");
 
                 if (!proceed) {
-                    speak("Trip start nahi hua. Customer se drop pucho aur phir START dabao.");
+                    speak("Trip did not start. Ask the passenger for the drop location and then press Start.");
                     return;
                 }
 
                 // Driver confirmed — start trip
-                speak("Trip ab start kar raha hu. Drive safely.");
+                speak("Starting the trip now. Drive safely.");
                 try { db.ref('requests/' + currentReqKey).update({ status: "started" }); } catch(e) { console.warn("DB update failed:", e); }
 
                 document.getElementById('pickupCard').style.display = 'none';
@@ -324,11 +325,11 @@
                     var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
                     L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
                 } else {
-                    speak("Drop location request mein nahi diya gaya. Manual navigate karo ya customer se coordinates le lo.");
-                    alert("Drop coordinates nahi mile. Customer se location le lo aur manually navigate karo.");
+                    speak("Drop location was not provided in the request. Please ask the passenger for the drop location and navigate manually.");
+                    alert("Drop coordinates not available. Ask passenger for drop location and navigate manually.");
                 }
             } else {
-                speak("OTP galat hai.");
+                speak("Incorrect OTP.");
                 alert("❌ Wrong OTP!");
             }
         }
@@ -338,13 +339,13 @@
             document.getElementById('dropCard').style.display = 'none';
             document.getElementById('billModal').style.display = 'flex';
             document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
-            speak("Trip complete. Cash le lo aur next par jao.");
+            speak("Trip complete. Cash collect and move to next ride.");
         }
 
-        function skipRide() { try{ document.getElementById('ringtone').pause(); }catch(e){} document.getElementById('reqPopup').style.display = 'none'; speak("Request skip kar diya."); }
+        function skipRide() { try{ document.getElementById('ringtone').pause(); }catch(e){} document.getElementById('reqPopup').style.display = 'none'; speak("Request skipped."); }
         function cancelRide() { if(confirm("Cancel?")) { db.ref('requests/' + currentReqKey).update({ status: "cancelled" }); location.reload(); } }
-        function openHelp() { document.getElementById('helpModal').style.display = 'flex'; speak("Help khol diya."); }
-        function closeHelp() { document.getElementById('helpModal').style.display = 'none'; speak("Help band."); }
+        function openHelp() { document.getElementById('helpModal').style.display = 'flex'; speak("Help opened."); }
+        function closeHelp() { document.getElementById('helpModal').style.display = 'none'; speak("Help closed."); }
 
         function drawRoute(lat1, lng1, lat2, lng2, color) {
             if(routeLine) map.removeLayer(routeLine);
