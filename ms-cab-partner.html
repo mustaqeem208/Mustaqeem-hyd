@@ -1,0 +1,225 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MS Partner - Live</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body { margin:0; font-family: sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
+
+        /* LOGIN */
+        #dLoginScreen { position:fixed; inset:0; background:#111; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
+        .logo { font-size: 2rem; color: #d4af37; font-weight: bold; margin-bottom: 20px; }
+        .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#222; color:#fff; text-align:center; margin-bottom:15px; font-size:1.1rem; }
+        .d-btn { width:80%; padding:15px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; }
+
+        /* GPS LOADER */
+        #gpsLoader { position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:5000; display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:20px; }
+        .spinner { border: 5px solid #333; border-top: 5px solid #d4af37; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom:20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .retry-btn { margin-top:20px; background:red; color:white; border:none; padding:10px 20px; font-weight:bold; cursor:pointer; border-radius:5px; display:none; }
+
+        /* MAIN APP */
+        #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
+        #map { height:100%; width:100%; }
+
+        /* REQUEST CARD */
+        .card { position: absolute; left:10px; right:10px; bottom:20px; background: #222; border-radius:15px; padding:20px; z-index:1001; border:2px solid #d4af37; display:none; }
+        .fare-big { font-size: 2.5rem; font-weight: bold; color: #ffd36b; margin-bottom: 5px; }
+        .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#111; padding:10px; border-radius:8px; }
+        .info-col { text-align:center; width:48%; }
+        .lbl { font-size:0.8rem; color:#aaa; }
+        .val { font-size:1.1rem; font-weight:bold; color:white; }
+        .contact-btn { display:block; background:green; color:white; text-align:center; padding:15px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px; font-size:1.2rem; }
+    </style>
+</head>
+<body>
+
+    <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
+
+    <div id="dLoginScreen">
+        <div class="logo">MS PARTNER</div>
+        <input id="dPhone" class="d-inp" type="tel" placeholder="Mobile Number">
+        <button class="d-btn" onclick="checkLogin()">START DUTY</button>
+    </div>
+
+    <div id="gpsLoader">
+        <div class="spinner"></div>
+        <h3 style="color:#d4af37; margin-top:20px;">Turning On GPS...</h3>
+        <p id="gpsMsg" style="color:#aaa;">Waiting for Satellite...</p>
+        <button class="retry-btn" id="retryBtn" onclick="location.reload()">RETRY</button>
+    </div>
+
+    <div id="dApp">
+        <div id="map"></div>
+
+        <div id="reqPopup" class="card">
+            <div style="color:#d4af37; font-weight:bold; margin-bottom:5px;">NEW REQUEST 🔔</div>
+            <div class="fare-big">₹<span id="fareDisplay">0</span></div>
+            <div class="info-row">
+                <div class="info-col"><div class="lbl">PICKUP</div><div class="val" id="pickupDist">...</div></div>
+                <div class="info-col"><div class="lbl">TRIP</div><div class="val" id="tripDist">...</div></div>
+            </div>
+            <button class="d-btn" style="width:100%" onclick="acceptRide()">ACCEPT</button>
+        </div>
+
+        <div id="activeCard" class="card" style="border-color:green;">
+            <h2 style="color:green; margin:0;">ACCEPTED ✅</h2>
+            <p>Customer: <b id="custPhone">...</b></p>
+            <a id="callBtn" href="#" class="contact-btn">📞 CALL CUSTOMER</a>
+            <button onclick="location.reload()" style="background:#333; color:white; border:none; padding:10px; width:100%; margin-top:10px;">COMPLETE</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
+            authDomain: "hyd-texi.firebaseapp.com",
+            projectId: "hyd-texi",
+            storageBucket: "hyd-texi.firebasestorage.app",
+            messagingSenderId: "807048727786",
+            appId: "1:807048727786:web:7ef03573876c70b76e1b93",
+            databaseURL: "https://hyd-texi-default-rtdb.firebaseio.com"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        let map, driverMarker, driverLat, driverLng, driverMobile;
+        let currentReqKey, currentReqData;
+
+        // 1. LOGIN
+        window.onload = function() {
+            if(localStorage.getItem('msDriverLogin')) {
+                document.getElementById('dLoginScreen').style.display = 'none';
+                startGPS();
+            }
+        };
+
+        function checkLogin() {
+            const num = document.getElementById('dPhone').value;
+            if(num.length < 10) return alert("Valid Number Dalo!");
+            localStorage.setItem('msDriverLogin', num);
+            driverMobile = num;
+            document.getElementById('dLoginScreen').style.display = 'none';
+            startGPS();
+        }
+
+        // 2. POWERFUL GPS START
+        function startGPS() {
+            document.getElementById('gpsLoader').style.display = 'flex';
+            
+            if (!navigator.geolocation) {
+                return onPositionError({message: "GPS Hardware Missing"});
+            }
+
+            // High Power GPS Request
+            navigator.geolocation.watchPosition(onPositionFound, onPositionError, {
+                enableHighAccuracy: true, // Asli GPS use karega
+                timeout: 30000,           // 30 Second tak try karega
+                maximumAge: 0             // Purani location nahi lega
+            });
+        }
+
+        function onPositionFound(pos) {
+            driverLat = pos.coords.latitude;
+            driverLng = pos.coords.longitude;
+
+            // Loader Hide
+            document.getElementById('gpsLoader').style.display = 'none';
+            document.getElementById('dApp').style.display = 'flex';
+
+            if(!map) {
+                map = L.map('map').setView([driverLat, driverLng], 16);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+                
+                var carIcon = L.icon({
+                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/3202/3202926.png',
+                    iconSize: [40, 40]
+                });
+                
+                driverMarker = L.marker([driverLat, driverLng], {icon: carIcon}).addTo(map).bindPopup("MY LOCATION").openPopup();
+                startListening();
+            } else {
+                driverMarker.setLatLng([driverLat, driverLng]);
+                map.setView([driverLat, driverLng]);
+            }
+        }
+
+        function onPositionError(err) {
+            // Error Handling
+            let msg = "GPS FAILED: ";
+            if(err.code == 1) msg += "Permission Denied. Please ALLOW location in Settings.";
+            else if(err.code == 2) msg += "Signal Weak. Go outside.";
+            else if(err.code == 3) msg += "Timeout. GPS too slow.";
+            else msg += err.message;
+
+            // Agar ye file:// hai to warning dega
+            if(window.location.protocol === 'file:') {
+                msg = "ERROR: You are opening file directly. Please Upload to Netlify/Internet.";
+            }
+
+            document.getElementById('gpsMsg').innerText = msg;
+            document.getElementById('gpsMsg').style.color = "red";
+            document.querySelector('.spinner').style.borderTopColor = "red";
+            document.getElementById('retryBtn').style.display = "block";
+        }
+
+        // 3. REQUEST LISTENER
+        function startListening() {
+            db.ref('requests').limitToLast(1).on('child_added', snap => {
+                const data = snap.val();
+                if(data.status === "pending") {
+                    
+                    let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
+                    
+                    // 2KM Real Filter
+                    if(dist <= 2.0) {
+                        document.getElementById('ringtone').play().catch(e=>{});
+                        showRequest(data, snap.key, dist);
+                    }
+                }
+            });
+        }
+
+        function showRequest(data, key, dist) {
+            currentReqKey = key;
+            currentReqData = data;
+
+            document.getElementById('reqPopup').style.display = 'block';
+            document.getElementById('fareDisplay').innerText = data.price;
+            document.getElementById('pickupDist').innerText = dist + " KM";
+            document.getElementById('tripDist').innerText = data.distance;
+
+            L.marker([data.pickupLat, data.pickupLng]).addTo(map).bindPopup("PICKUP").openPopup();
+        }
+
+        function acceptRide() {
+            document.getElementById('ringtone').pause();
+            
+            // Big Alert
+            alert("RIDE ACCEPTED! CALL CUSTOMER: " + currentReqData.customerMobile);
+
+            db.ref('requests/' + currentReqKey).update({ status: "accepted", driverMobile: driverMobile });
+
+            document.getElementById('reqPopup').style.display = 'none';
+            document.getElementById('activeCard').style.display = 'block';
+            document.getElementById('custPhone').innerText = currentReqData.customerMobile;
+            document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
+
+            var route = [[driverLat, driverLng], [currentReqData.pickupLat, currentReqData.pickupLng]];
+            L.polyline(route, {color: 'green', weight: 5}).addTo(map);
+        }
+
+        function getDist(lat1,lon1,lat2,lon2) {
+            var R = 6371; var dLat = (lat2-lat1)*(Math.PI/180); var dLon = (lon2-lon1)*(Math.PI/180); 
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2); 
+            return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))); 
+        }
+    </script>
+</body>
+</html>
