@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Partner - Fixed</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MS Partner - Premium Car Emoji</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { margin:0; font-family: 'Segoe UI', sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
+        body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
 
         /* LOGIN */
         #dLoginScreen { position:fixed; inset:0; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
@@ -17,6 +17,25 @@
         /* MAP */
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
         #map { height:100%; width:100%; background: #ffffff; } /* MAP BACKGROUND: White */
+
+        /* Car emoji marker styling (premium look) */
+        .car-emoji {
+            width:56px; height:56px; display:flex; align-items:center; justify-content:center;
+            border-radius:14px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 -6px 10px rgba(0,0,0,0.08);
+            font-size:28px;
+            transform: translateY(-6px);
+            border: 2px solid rgba(0,0,0,0.6);
+            background: linear-gradient(180deg, #FFF4B0 0%, #FFC843 60%);
+        }
+        /* slight crown badge overlay */
+        .car-emoji:after{
+            content: "";
+            position: absolute;
+            width:14px; height:8px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 8"><path d="M1 7 L3 3 L4.5 6 L6 3 L7.5 6 L9 3 L11 7 Z" fill="%23FFD700" stroke="%23000" stroke-width="0.2"/></svg>') no-repeat center;
+            right: -2px; top: -6px;
+        }
 
         /* RECENTER BUTTON */
         .recenter-btn {
@@ -148,6 +167,7 @@
             <button class="accept-btn" onclick="location.reload()">COMPLETE & NEXT</button>
         </div>
     </div>
+
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -167,54 +187,52 @@
         let map, driverMarker, driverLat, driverLng, driverMobile;
         let currentReqKey, currentReqData, routeLine;
         let followDriver = true;
-        let gpsWatchId = null; 
+        let gpsWatchId = null;
 
-        // --- PREMIUM VOICE + APK BRIDGE FALLBACK ---
+        // ---------- ROBUST VOICE (APK bridge -> speechSynthesis -> beep) ----------
         function speak(text) {
-            // 1) If running inside an Android WebView with a speak method exposed, prefer that (for APK TTS).
+            // 1) Android WebView bridge (preferred for APK):
             try {
                 if (window.Android && typeof window.Android.speak === 'function') {
                     window.Android.speak(text);
                     return;
                 }
-                // Some Android WebViews expose methods as strings too
+                // some webviews expose as object with postMessage or other; try common patterns
                 if (window.Android && typeof window.Android.speak === 'string') {
-                    // rarely used, but attempt
                     window.Android.speak(text);
                     return;
                 }
-            } catch (e) {
-                console.warn("Android bridge speak failed:", e);
-            }
+            } catch(e){ console.warn("Android bridge failed:", e); }
 
-            // 2) Browser TTS
+            // 2) Browser speechSynthesis
             if ('speechSynthesis' in window) {
                 try {
-                    window.speechSynthesis.cancel(); // stop previous
-                    const s = new SpeechSynthesisUtterance(text);
-                    s.lang = 'en-IN'; // indian english preferred
-                    s.rate = 1.0;
-                    s.pitch = 1.0;
-                    window.speechSynthesis.speak(s);
+                    window.speechSynthesis.cancel();
+                    const ut = new SpeechSynthesisUtterance(text);
+                    ut.lang = 'en-IN'; // indian english — change if you want hi-IN
+                    ut.rate = 1.0;
+                    ut.pitch = 1.0;
+                    // Some browsers require a user gesture before TTS; attempt anyway
+                    window.speechSynthesis.speak(ut);
                     return;
-                } catch (e) {
-                    console.warn("speechSynthesis error:", e);
+                } catch(err) {
+                    console.warn("speechSynthesis error:", err);
                 }
             }
 
-            // 3) Fallback: play short beep ringtone as notification
+            // 3) Fallback beep short notification
             try {
                 const r = document.getElementById('ringtone');
                 if (r) {
                     r.play().catch(()=>{});
-                    // stop after 1.5s
-                    setTimeout(()=>{ try{ r.pause(); r.currentTime=0; }catch(e){} }, 1500);
+                    setTimeout(()=>{ try{ r.pause(); r.currentTime=0; } catch(e){} }, 1400);
                 }
             } catch(e){
-                console.warn("final fallback failed:", e);
+                console.warn("beep fallback failed:", e);
             }
         }
 
+        // ---------- Initialize map with car emoji DivIcon ----------
         function startDuty() {
             const num = document.getElementById('dPhone').value;
             if(num.length < 10) return alert("Valid Number Dalo!");
@@ -222,158 +240,126 @@
             driverMobile = num;
             document.getElementById('dLoginScreen').style.display = 'none';
             
-            // * Instant Open: तुरन्त मैप खोलें और डिफ़ॉल्ट लोकेशन पर इनिशियलाइज़ करें
             document.getElementById('dApp').style.display = 'flex';
             document.getElementById('helpBtn').style.display = 'block';
             initializeMap([17.3850, 78.4867], 13); // Default Hyderabad
             
-            // GPS चेक शुरू करें (यह बैकग्राउंड में चलता रहेगा)
             startGPSCheck();
             startListening();
+            speak("Service started. Welcome partner.");
         }
 
         function initializeMap(initialLatlng, initialZoom) {
-            if (map) return; 
-            
-            // --- PREMIUM GOLD CAR ICON (SVG data URL) ---
-            // Luxury look: metallic gradient + chrome stroke + small crown badge
-            const premiumCarSvg = "data:image/svg+xml;utf8," +
-                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96' width='64' height='64'>" +
-                "<defs>" +
-                  "<linearGradient id='g1' x1='0' x2='1' y1='0' y2='1'>" +
-                    "<stop offset='0' stop-color='%23FFE680'/>" +
-                    "<stop offset='1' stop-color='%23FFB400'/>" +
-                  "</linearGradient>" +
-                "</defs>" +
-                "<rect x='8' y='34' width='80' height='24' rx='6' fill='url(%23g1)' stroke='%230b0b0b' stroke-width='2'/>" +
-                "<rect x='22' y='18' width='52' height='28' rx='6' fill='url(%23g1)' stroke='%230b0b0b' stroke-width='2'/>" +
-                "<circle cx='30' cy='64' r='6' fill='%23000000'/>" +
-                "<circle cx='66' cy='64' r='6' fill='%23000000'/>" +
-                // small crown badge on roof (premium)
-                "<g transform='translate(58,6) scale(0.7)'>" +
-                  "<path d='M4 14 L6 8 L8 14 L12 8 L14 14 L10 14 L10 20 L8 20 L8 14 Z' fill='%23FFD700' stroke='%23000000' stroke-width='0.5'/>" +
-                "</g>" +
-                "</svg>";
+            if (map) return;
 
-            const yellowIcon = new L.Icon({
-                iconUrl: premiumCarSvg,
-                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [64, 64],
-                iconAnchor: [32, 58],
-                popupAnchor: [1, -34],
-                shadowSize: [50, 50]
+            // create emoji HTML (car) inside premium styled wrapper
+            const carHtml = "<div class='car-emoji' style='position:relative'>🚗</div>";
+            const carDivIcon = L.divIcon({
+                html: carHtml,
+                className: '', // leave blank so our styles apply
+                iconSize: [56,56],
+                iconAnchor: [28,56], // center-bottom anchor
+                popupAnchor: [0,-40]
             });
 
             map = L.map('map', {zoomControl: false}).setView(initialLatlng, initialZoom);
-            
-            // Map Tile Layer (Light/White background)
+
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             }).addTo(map);
-            
-            // Marker is ALWAYS draggable, for manual location setting
-            driverMarker = L.marker(initialLatlng, {icon: yellowIcon, draggable: true}).addTo(map).bindPopup("Your Premium Cab");
-            
-            // Update location when driver drags the marker (just like customer app)
+
+            // add draggable driver marker using the emoji icon
+            driverMarker = L.marker(initialLatlng, {icon: carDivIcon, draggable: true}).addTo(map).bindPopup("Your Cab 🚗");
+
             driverMarker.on('dragend', (e) => {
                 const newLoc = driverMarker.getLatLng();
                 driverLat = newLoc.lat;
                 driverLng = newLoc.lng;
-                followDriver = false; // Stop auto-follow if manually dragged
-                speak("Location set by drag.");
+                followDriver = false;
+                speak("Location set.");
             });
 
             map.on('dragstart', () => { followDriver = false; });
-            
-            // Set initial driver location (before GPS response)
-            driverLat = initialLatlng[0]; 
+
+            // set initial coords
+            driverLat = initialLatlng[0];
             driverLng = initialLatlng[1];
         }
 
+        // ---------- GPS handling ----------
         function startGPSCheck() {
             if (!navigator.geolocation) {
-                alert("GPS Not Supported"); 
-                speak("GPS is not supported. Please drag your cab marker to set your current location.");
+                alert("GPS Not Supported");
+                speak("GPS not supported. Please drag the car icon to set location.");
                 return;
             }
-            
-            // First attempt to get current location (for quick update)
+
             navigator.geolocation.getCurrentPosition(
-                // Success: GPS Location Found
                 (pos) => {
                     const lat = pos.coords.latitude;
                     const lng = pos.coords.longitude;
-                    
-                    // Update marker and map to actual location
-                    driverLat = lat;
-                    driverLng = lng;
-                    driverMarker.setLatLng([lat, lng]);
-                    map.setView([lat, lng], 16);
-                    
-                    // Start continuous watching for real-time updates
+                    driverLat = lat; driverLng = lng;
+                    if(driverMarker) driverMarker.setLatLng([lat,lng]);
+                    if(map) map.setView([lat,lng], 16);
                     if (!gpsWatchId) {
-                        gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy: true});
+                        gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy:true});
                     }
                 },
-                // Error: GPS Not Enabled or denied
                 (err) => {
-                    console.error("GPS Initial Error:", err);
-                    // Voice Prompt for dragging location
-                    speak("GPS is not enabled. Please drag your cab marker to set your current location.");
-                    alert("GPS Enable nahi hai! Kripya map par cab marker ko drag karke apni location set karen.");
+                    console.warn("GPS initial error:", err);
+                    speak("GPS disabled. Drag the car to set location.");
+                    alert("GPS Enable nahi hai! Map par car icon drag karke location set karo.");
                 },
-                {enableHighAccuracy: true, timeout: 5000} 
+                {enableHighAccuracy:true, timeout:5000}
             );
         }
-        
+
         function onPositionUpdate(pos) {
             driverLat = pos.coords.latitude;
             driverLng = pos.coords.longitude;
-            driverMarker.setLatLng([driverLat, driverLng]);
-            // Only follow if the driver hasn't manually dragged the map away
-            if(followDriver) map.panTo([driverLat, driverLng]);
+            if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
+            if(followDriver && map) map.panTo([driverLat, driverLng]);
         }
 
         function onGPSError(err) {
-             console.error("GPS Watch Error:", err);
-             followDriver = false; 
-             // Stop watching, so we rely only on the manually set location
-             if (gpsWatchId) {
-                 navigator.geolocation.clearWatch(gpsWatchId);
-                 gpsWatchId = null;
-             }
-             alert("GPS Signal Lost! Relying on manual location. Check your settings.");
+            console.error("GPS watch error:", err);
+            followDriver = false;
+            if (gpsWatchId) {
+                navigator.geolocation.clearWatch(gpsWatchId);
+                gpsWatchId = null;
+            }
+            alert("GPS Signal Lost! Relying on manual location.");
+            speak("GPS signal lost. Using manual location.");
         }
 
-
+        // ---------- Map controls ----------
         function recenterMap() {
             followDriver = true;
-            if(driverLat) {
-                // Recenter to the last known GPS location or manually dragged location
-                map.setView([driverLat, driverLng], map.getZoom() < 14 ? 16 : map.getZoom());
-                speak("Recenter to current location.");
+            if(driverLat && driverLng) {
+                const newZoom = map.getZoom() < 14 ? 16 : map.getZoom();
+                map.setView([driverLat, driverLng], newZoom);
+                speak("Centered on your location.");
             } else {
-                // Fallback: Set marker to the current map center
                 const center = map.getCenter();
-                driverLat = center.lat;
-                driverLng = center.lng;
-                driverMarker.setLatLng([driverLat, driverLng]);
+                driverLat = center.lat; driverLng = center.lng;
+                if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
                 map.setView([driverLat, driverLng], map.getZoom());
-                speak("Your location has been set to the center of the map.");
+                speak("Location set to map center.");
             }
         }
 
+        // ---------- Requests listening and flow ----------
         function startListening() {
             db.ref('requests').limitToLast(1).on('child_added', snap => {
                 const data = snap.val();
+                if(!data) return;
                 if(data.status === "pending") {
-                    if (!driverLat || !driverLng) return console.log("Waiting for initial location set."); 
-                    
+                    if (!driverLat || !driverLng) return console.log("Waiting for location.");
                     let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
                     if(dist <= 2.0) {
-                        // Request Tune
-                        document.getElementById('ringtone').play().catch(e=>{});
-                        speak("New Ride Request");
+                        // ring + speak
+                        try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
+                        speak(`New ride request ${data.price} rupees. Pickup ${dist} kilometer.`);
                         showRequest(data, snap.key, dist);
                     }
                 }
@@ -388,6 +374,7 @@
             document.getElementById('pickupDist').innerText = pKM + " KM";
             document.getElementById('tripDist').innerText = data.distance;
 
+            // pickup marker (person)
             var personIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize: [35, 35], iconAnchor: [17, 35] });
             L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("PICKUP").openPopup();
         }
@@ -395,17 +382,17 @@
         function tryAcceptRide() {
             document.getElementById('ringtone').pause();
             db.ref('requests/' + currentReqKey).transaction(function(curr) {
-                if (curr === null) return curr; 
+                if (curr === null) return curr;
                 if (curr.status === 'pending') {
                     return { ...curr, status: 'accepted', driverMobile: driverMobile };
-                } else { return; } 
+                } else { return; }
             }, function(error, committed, snapshot) {
                 if (!committed) {
-                    speak("Booking missed");
+                    speak("Booking missed.");
                     alert('⚠️ BOOKING MISSED!');
                     document.getElementById('reqPopup').style.display = 'none';
                 } else {
-                    speak("Booking Accepted");
+                    speak("Booking accepted. Proceed to pickup.");
                     rideSecured();
                 }
             });
@@ -416,23 +403,24 @@
             document.getElementById('pickupCard').style.display = 'block';
             document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
             document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
-            
+
             drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         }
 
         function verifyOtp() {
             if(document.getElementById('otpIn').value == currentReqData.otp) {
-                // Voice Prompt 2
-                speak("Dear partner, please ask the passenger for the drop location."); 
-                
+                speak("OTP verified. Trip started. Drive safely.");
                 db.ref('requests/' + currentReqKey).update({ status: "started" });
                 document.getElementById('pickupCard').style.display = 'none';
                 document.getElementById('dropCard').style.display = 'block';
                 drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
-                
+
                 var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
                 L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
-            } else { alert("❌ Wrong OTP!"); }
+            } else { 
+                speak("Wrong OTP.");
+                alert("❌ Wrong OTP!");
+            }
         }
 
         function completeRide() {
@@ -440,11 +428,13 @@
             document.getElementById('dropCard').style.display = 'none';
             document.getElementById('billModal').style.display = 'flex';
             document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
+            speak("Trip completed. Collect cash and mark complete.");
         }
 
         function skipRide() {
-            document.getElementById('ringtone').pause();
+            try { document.getElementById('ringtone').pause(); } catch(e){}
             document.getElementById('reqPopup').style.display = 'none';
+            speak("Request skipped.");
         }
 
         function cancelRide() {
@@ -454,20 +444,20 @@
             }
         }
 
-        function openHelp() { document.getElementById('helpModal').style.display = 'flex'; }
-        function closeHelp() { document.getElementById('helpModal').style.display = 'none'; }
+        function openHelp() { document.getElementById('helpModal').style.display = 'flex'; speak("Help opened."); }
+        function closeHelp() { document.getElementById('helpModal').style.display = 'none'; speak("Help closed."); }
 
         function drawRoute(lat1, lng1, lat2, lng2, color) {
             if(routeLine) map.removeLayer(routeLine);
             var latlngs = [[lat1, lng1], [lat2, lng2]];
             routeLine = L.polyline(latlngs, {color: color, weight: 5}).addTo(map);
-            map.fitBounds(routeLine.getBounds());
+            map.fitBounds(routeLine.getBounds(), {padding:[40,40]});
         }
 
         function getDist(lat1,lon1,lat2,lon2) {
-            var R = 6371; var dLat = (lat2-lat1)*(Math.PI/180); var dLon = (lon2-lon1)*(Math.PI/180); 
-            var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2); 
-            return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))); 
+            var R = 6371; var dLat = (lat2-lat1)*(Math.PI/180); var dLon = (lon2-lon1)*(Math.PI/180);
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+            return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
         }
     </script>
 </body>
