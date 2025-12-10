@@ -355,17 +355,15 @@
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
     }
 
-    // verifyOtp uses custom confirm dialog (no origin shown)
+    // ======= Short verifyOtp (as requested) =======
     function verifyOtp() {
         const entered = document.getElementById('otpIn').value;
         if (!currentReqData) { showCustomAlert('Error', 'No request data.'); speak("No request data."); return; }
 
         if (entered == currentReqData.otp) {
-            const message = "OTP verified. Ask the passenger for the drop location. Once the passenger tells the drop location, press OK to start the trip. If the passenger cannot share coordinates, follow the passenger until they tell you where to get off.";
-            speak("OTP verified. Ask the passenger for the drop location and then press OK to start the trip.");
+            const message = "OTP verified. Ask the passenger for the drop location. Press OK to start.";
+            speak("OTP verified. Ask the passenger for the drop location, then press OK.");
             showCustomConfirm('OTP verified', message, function onOk() {
-                // OK pressed
-                speak("Starting the trip now. Drive safely.");
                 try { db.ref('requests/' + currentReqKey).update({ status: "started" }); } catch(e) { console.warn("DB update failed:", e); }
                 document.getElementById('pickupCard').style.display = 'none';
                 document.getElementById('dropCard').style.display = 'block';
@@ -374,11 +372,10 @@
                     var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
                     L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
                 } else {
-                    speak("Drop location was not provided. Ask passenger for drop location and navigate manually.");
                     showCustomAlert('Drop Missing', 'Drop coordinates not available. Ask passenger for drop location and navigate manually.');
+                    speak("Drop location not provided. Ask passenger and navigate manually.");
                 }
             }, function onCancel() {
-                // Cancel pressed
                 speak("Trip start cancelled. Ask passenger for drop location and then start.");
             });
         } else {
@@ -416,6 +413,8 @@
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
         return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
     }
-            </script> 
+</script>
+</body>
+</html>
 </body>
 </html>
