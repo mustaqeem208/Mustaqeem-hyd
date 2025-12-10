@@ -169,7 +169,7 @@
         let map, driverMarker, driverLat, driverLng, driverMobile;
         let currentReqKey, currentReqData, routeLine;
         let followDriver = true;
-        let isGpsWorking = true; // New flag to track GPS status
+        let gpsWatchId = null; 
 
         function speak(text) {
             const s = new SpeechSynthesisUtterance(text);
@@ -183,40 +183,19 @@
             localStorage.setItem('msDriverPremium', num);
             driverMobile = num;
             document.getElementById('dLoginScreen').style.display = 'none';
-            startGPS();
-        }
-
-        // Error handler for continuous GPS watching
-        function onGPSError(err) {
-             console.error("GPS Watch Error:", err);
-             // If GPS fails while watching, set the flag and alert
-             if(isGpsWorking) {
-                 isGpsWorking = false;
-                 // Stop following driver and allow manual drag
-                 followDriver = false; 
-                 alert("GPS Signal Lost! Please check your location settings and drag the map to set your current location manually.");
-             }
-        }
-        
-        function onPositionFound(pos) {
-            isGpsWorking = true; // GPS is working
-            driverLat = pos.coords.latitude;
-            driverLng = pos.coords.longitude;
+            
+            // * 1. Instant Open: तुरन्त मैप खोलें और डिफ़ॉल्ट लोकेशन पर इनिशियलाइज़ करें
             document.getElementById('dApp').style.display = 'flex';
             document.getElementById('helpBtn').style.display = 'block';
-
-            if(!map) {
-                initializeMap([driverLat, driverLng], 16);
-                startListening();
-            } else {
-                driverMarker.setLatLng([driverLat, driverLng]);
-                if(followDriver) map.panTo([driverLat, driverLng]);
-            }
+            initializeMap([17.3850, 78.4867], 13); // Default Hyderabad
+            
+            // 2. GPS चेक शुरू करें (यह बैकग्राउंड में चलता रहेगा)
+            startGPSCheck();
+            startListening();
         }
 
-        // Function to initialize the map
         function initializeMap(initialLatlng, initialZoom) {
-            if (map) return; // Prevent re-initialization
+            if (map) return; 
 
             map = L.map('map', {zoomControl: false}).setView(initialLatlng, initialZoom);
             
@@ -227,65 +206,95 @@
                 iconSize: [45, 45], iconAnchor: [22, 22]
             });
             
-            driverMarker = L.marker(initialLatlng, {icon: carIcon}).addTo(map).bindPopup("Your Cab");
+            // Marker is ALWAYS draggable, for manual location setting
+            driverMarker = L.marker(initialLatlng, {icon: carIcon, draggable: true}).addTo(map).bindPopup("Your Cab");
             
+            // Update location when driver drags the marker (just like customer app)
+            driverMarker.on('dragend', (e) => {
+                const newLoc = driverMarker.getLatLng();
+                driverLat = newLoc.lat;
+                driverLng = newLoc.lng;
+                followDriver = false; // Stop auto-follow if manually dragged
+                speak("Location set by drag.");
+            });
+
             map.on('dragstart', () => { followDriver = false; });
             
-            if(!isGpsWorking) {
-                 // If GPS is not working initially, set the driver's default location to the initial map view
-                 driverLat = initialLatlng[0]; 
-                 driverLng = initialLatlng[1];
-                 startListening();
-            }
+            // Set initial driver location (before GPS response)
+            driverLat = initialLatlng[0]; 
+            driverLng = initialLatlng[1];
         }
 
-        function startGPS() {
-            document.getElementById('dApp').style.display = 'flex';
-            document.getElementById('helpBtn').style.display = 'block';
-
-            if (navigator.geolocation) {
-                // Try to get current position once (with timeout)
-                navigator.geolocation.getCurrentPosition(
-                    // Success: GPS Location Found - Start watching
-                    (pos) => {
-                        isGpsWorking = true;
-                        navigator.geolocation.watchPosition(onPositionFound, onGPSError, {enableHighAccuracy: true});
-                    },
-                    // Error: GPS Not Enabled or denied - Use manual mode
-                    (err) => {
-                        isGpsWorking = false;
-                        console.error("GPS Initial Error:", err);
-                        // 1. Voice Prompt for dragging location
-                        speak("GPS is not enabled. Please drag the map to set your current location.");
-                        // Fallback to default location and set up map for manual drag
-                        initializeMap([17.3850, 78.4867], 13); // Default Hyderabad
-                        alert("GPS Enable nahi hai! Kripya map ko drag karke apni location set karen aur '🎯' button dabayein.");
-                        startListening(); // Start listening even without GPS
-                    },
-                    {enableHighAccuracy: true, timeout: 5000} 
-                );
-            } else { 
+        function startGPSCheck() {
+            if (!navigator.geolocation) {
                 alert("GPS Not Supported"); 
-                isGpsWorking = false;
-                initializeMap([17.3850, 78.4867], 13);
-                startListening();
+                speak("GPS is not supported. Please drag your cab marker to set your current location.");
+                return;
             }
+            
+            // First attempt to get current location (for quick update)
+            navigator.geolocation.getCurrentPosition(
+                // Success: GPS Location Found
+                (pos) => {
+                    const lat = pos.coords.latitude;
+                    const lng = pos.coords.longitude;
+                    
+                    // Update marker and map to actual location
+                    driverLat = lat;
+                    driverLng = lng;
+                    driverMarker.setLatLng([lat, lng]);
+                    map.setView([lat, lng], 16);
+                    
+                    // Start continuous watching for real-time updates
+                    if (!gpsWatchId) {
+                        gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy: true});
+                    }
+                },
+                // Error: GPS Not Enabled or denied
+                (err) => {
+                    console.error("GPS Initial Error:", err);
+                    // Voice Prompt for dragging location
+                    speak("GPS is not enabled. Please drag your cab marker to set your current location.");
+                    alert("GPS Enable nahi hai! Kripya map par cab marker ko drag karke apni location set karen.");
+                },
+                {enableHighAccuracy: true, timeout: 5000} 
+            );
+        }
+        
+        function onPositionUpdate(pos) {
+            driverLat = pos.coords.latitude;
+            driverLng = pos.coords.longitude;
+            driverMarker.setLatLng([driverLat, driverLng]);
+            // Only follow if the driver hasn't manually dragged the map away
+            if(followDriver) map.panTo([driverLat, driverLng]);
+        }
+
+        function onGPSError(err) {
+             console.error("GPS Watch Error:", err);
+             followDriver = false; 
+             // Stop watching, so we rely only on the manually set location
+             if (gpsWatchId) {
+                 navigator.geolocation.clearWatch(gpsWatchId);
+                 gpsWatchId = null;
+             }
+             alert("GPS Signal Lost! Relying on manual location. Check your settings.");
         }
 
 
         function recenterMap() {
             followDriver = true;
-            if(isGpsWorking && driverLat) {
-                // If GPS is working, recenter on the GPS reported location
-                map.setView([driverLat, driverLng], 16);
+            if(driverLat) {
+                // Recenter to the last known GPS location or manually dragged location
+                map.setView([driverLat, driverLng], map.getZoom() < 14 ? 16 : map.getZoom());
+                speak("Recenter to current location.");
             } else {
-                // If GPS is NOT working, recenter sets the driver marker to the map center
+                // Fallback: Set marker to the current map center
                 const center = map.getCenter();
                 driverLat = center.lat;
                 driverLng = center.lng;
                 driverMarker.setLatLng([driverLat, driverLng]);
                 map.setView([driverLat, driverLng], map.getZoom());
-                speak("Your current location has been set to the center of the map.");
+                speak("Your location has been set to the center of the map.");
             }
         }
 
@@ -293,7 +302,6 @@
             db.ref('requests').limitToLast(1).on('child_added', snap => {
                 const data = snap.val();
                 if(data.status === "pending") {
-                    // Use last known/manually set location for distance check
                     let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
                     if(dist <= 2.0) {
                         document.getElementById('ringtone').play().catch(e=>{});
@@ -346,7 +354,7 @@
 
         function verifyOtp() {
             if(document.getElementById('otpIn').value == currentReqData.otp) {
-                // 2. OTP के बाद इंग्लिश वॉइस प्रॉम्प्ट
+                // Voice Prompt 2
                 speak("Dear partner, please ask the passenger for the drop location."); 
                 
                 db.ref('requests/' + currentReqKey).update({ status: "started" });
