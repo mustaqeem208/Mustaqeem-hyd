@@ -151,8 +151,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-        <script>
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
             authDomain: "hyd-texi.firebaseapp.com",
@@ -201,12 +200,20 @@
         function initializeMap(initialLatlng, initialZoom) {
             if (map) return; 
             
-            // --- Simple Yellow Icon (Yellow Pin) ---
+            // --- Simple Yellow Car Icon (kept only this change) ---
+            const yellowCarSvg = "data:image/svg+xml;utf8," +
+                "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' width='48' height='48'>" +
+                "<rect x='6' y='22' width='52' height='16' rx='4' fill='%23FFD400' stroke='%23000' stroke-width='2'/>" +
+                "<rect x='14' y='12' width='36' height='18' rx='4' fill='%23FFD400' stroke='%23000' stroke-width='2'/>" +
+                "<circle cx='20' cy='46' r='5' fill='%23000'/>" +
+                "<circle cx='44' cy='46' r='5' fill='%23000'/>" +
+                "</svg>";
+
             const yellowIcon = new L.Icon({
-                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+                iconUrl: yellowCarSvg,
                 shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-                iconSize: [25, 41],
-                iconAnchor: [12, 41],
+                iconSize: [48, 48],
+                iconAnchor: [24, 44],
                 popupAnchor: [1, -34],
                 shadowSize: [41, 41]
             });
