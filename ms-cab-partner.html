@@ -151,6 +151,7 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
         <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
@@ -177,7 +178,6 @@
                 window.speechSynthesis.speak(s);
             } else {
                 console.log("SPEAKING (Voice attempt failed): " + text);
-                // APK में, अगर स्पीच नहीं चली, तो हम इसे चुपचाप रहने देते हैं।
             }
         }
 
@@ -201,11 +201,14 @@
         function initializeMap(initialLatlng, initialZoom) {
             if (map) return; 
             
-            // --- Yellow Cab Icon (Base64) ---
-            const yellowCarIcon = L.icon({
-                // This is a Base64 image of a simple yellow car icon.
-                iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABHklEQVR4nO2ZwU3DQBBFj934tQf53dKAUQGaIGCAYQfBBhAFsYJ/p0hW04oM+k57Vp733Xv3wM+ZfP0/t8898144R7gP3F5N620j9p4Q26k1/zVwHTh4577bUf9OaG0jdlP9GgN5gN2l2H/d00J83a7Ffp2hS3C6rUjT67xGg80W3hN7X3hY642TzG6f/8C5Y6JdK4gH5jRj6QhV42jFvK/80T0oX23hD9K0kM+bYm0jtlO76+FwTzDb0b/bA9/0jT63p+s8RocK/u0hB/XQnzdrkR+naEFsYpYxawihhVXC9M/48vBf4u1Q+i/P4Q/S1M9T+qI3n7i51b6pP4YwR/kC5/0FwA635J/2k08AAAAAElFTkSuQmCC',
-                iconSize: [45, 45], iconAnchor: [22, 22]
+            // --- Simple Yellow Icon (Yellow Pin) ---
+            const yellowIcon = new L.Icon({
+                iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-gold.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
             });
 
             map = L.map('map', {zoomControl: false}).setView(initialLatlng, initialZoom);
@@ -216,7 +219,7 @@
             }).addTo(map);
             
             // Marker is ALWAYS draggable, for manual location setting
-            driverMarker = L.marker(initialLatlng, {icon: yellowCarIcon, draggable: true}).addTo(map).bindPopup("Your Cab");
+            driverMarker = L.marker(initialLatlng, {icon: yellowIcon, draggable: true}).addTo(map).bindPopup("Your Cab");
             
             // Update location when driver drags the marker (just like customer app)
             driverMarker.on('dragend', (e) => {
