@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Partner - Help Added</title>
+    <title>MS Partner - Auto Follow</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body { margin:0; font-family: 'Segoe UI', sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
@@ -17,20 +17,6 @@
         /* MAP */
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
         #map { height:100%; width:100%; background: #222; }
-
-        /* HELP BUTTON */
-        .help-btn { 
-            position: absolute; top: 20px; right: 20px; 
-            background: red; color: white; font-weight: bold; 
-            padding: 8px 15px; border-radius: 50px; 
-            z-index: 2000; border: 2px solid white; cursor: pointer; 
-            box-shadow: 0 0 15px red; display: none;
-        }
-
-        /* HELP MODAL */
-        #helpModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; flex-direction: column; justify-content: center; align-items: center; }
-        .help-box { background: #222; padding: 25px; border-radius: 15px; width: 80%; text-align: center; border: 1px solid #d4af37; }
-        .call-opt { display: block; background: #333; color: white; padding: 15px; margin: 10px 0; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 1px solid #555; }
 
         /* CARDS */
         .card { 
@@ -59,6 +45,14 @@
         .otp-row { display: flex; gap: 10px; margin-top: 5px; }
         .otp-inp { flex: 1; padding: 10px; text-align: center; font-size: 1.3rem; letter-spacing: 5px; background: #000; border: 1px solid #d4af37; color: white; border-radius: 5px; }
         .go-btn { padding: 0 20px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+
+        /* HELP BUTTON */
+        .help-btn { position: absolute; top: 20px; right: 20px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; border: 2px solid white; cursor: pointer; display: none; }
+
+        /* HELP MODAL */
+        #helpModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; flex-direction: column; justify-content: center; align-items: center; }
+        .help-box { background: #222; padding: 25px; border-radius: 15px; width: 80%; text-align: center; border: 1px solid #d4af37; }
+        .call-opt { display: block; background: #333; color: white; padding: 15px; margin: 10px 0; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 1px solid #555; }
 
         /* BILL MODAL */
         #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
@@ -181,7 +175,12 @@
 
         function startGPS() {
             if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(onPositionFound, err => alert("Enable GPS!"), {enableHighAccuracy: true});
+                // High Accuracy + Watch Position
+                navigator.geolocation.watchPosition(onPositionFound, err => alert("Enable GPS!"), {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                });
             } else { alert("GPS Not Supported"); }
         }
 
@@ -204,7 +203,8 @@
                 startListening();
             } else {
                 driverMarker.setLatLng([driverLat, driverLng]);
-                map.setView([driverLat, driverLng]);
+                // 🔥 FIX: Auto Pan Map to follow driver
+                map.panTo([driverLat, driverLng]);
             }
         }
 
@@ -273,7 +273,6 @@
             const entered = document.getElementById('otpIn').value;
             if(entered == currentReqData.otp) {
                 
-                // VOICE ALERT
                 speak("OTP Verified. Ask customer for drop location.");
 
                 db.ref('requests/' + currentReqKey).update({ status: "started" });
@@ -311,7 +310,6 @@
             }
         }
 
-        // HELP LOGIC
         function openHelp() { document.getElementById('helpModal').style.display = 'flex'; }
         function closeHelp() { document.getElementById('helpModal').style.display = 'none'; }
 
