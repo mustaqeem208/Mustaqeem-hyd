@@ -3,46 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Partner - Premium</title>
+    <title>MS Partner - Race Logic</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        body { margin:0; font-family: 'Segoe UI', sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
-
-        /* LOGIN SCREEN */
-        #dLoginScreen { position:fixed; inset:0; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
-        .logo { font-size: 2rem; color: #d4af37; font-weight: bold; margin-bottom: 10px; letter-spacing: 2px; text-transform: uppercase; }
-        .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; text-align:center; margin-bottom:15px; font-size:1.1rem; }
-        .d-btn { width:85%; padding:15px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; text-transform: uppercase; }
-
-        /* MAP & UI */
-        #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
-        #map { height:100%; width:100%; background: #222; }
-
-        /* CARDS (Glass Effect) */
-        .card { 
-            position: absolute; left:10px; right:10px; bottom:20px; 
-            background: rgba(20, 20, 20, 0.95); /* Dark Glass */
-            border-radius:15px; padding:20px; z-index:1001; 
-            border:1px solid #333; display:none; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-        }
+        body { margin:0; font-family: sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
         
-        /* TEXT STYLES */
-        .fare-txt { font-size: 2.8rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
-        .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#000; padding:10px; border-radius:8px; border:1px solid #333; }
-        .info-col { text-align:center; width:48%; }
-        .lbl { font-size:0.7rem; color:#888; letter-spacing: 1px; }
-        .val { font-size:1.1rem; font-weight:bold; color:white; }
+        /* LOGIN */
+        #dLoginScreen { position:fixed; inset:0; background:#111; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
+        .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#222; color:#fff; text-align:center; margin-bottom:15px; font-size:1.1rem; }
+        .d-btn { width:80%; padding:15px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; }
 
-        /* BUTTONS */
-        .accept-btn { width:100%; padding:15px; background: #d4af37; color:black; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:1.1rem; }
-        .skip-btn { width:100%; margin-top:10px; background: #333; color:#aaa; font-weight:bold; border:1px solid #555; padding:12px; border-radius:8px; cursor:pointer; }
+        /* APP */
+        #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
+        #map { height:100%; width:100%; }
+
+        /* CARDS */
+        .card { position: absolute; left:10px; right:10px; bottom:20px; background: #222; border-radius:15px; padding:20px; z-index:1001; border:2px solid #d4af37; display:none; box-shadow: 0 10px 50px rgba(0,0,0,0.9); }
+        .fare-txt { font-size: 2.5rem; font-weight: bold; color: #ffd36b; margin-bottom: 5px; }
+        
+        .btn-row { display: flex; gap: 10px; margin-top: 15px; }
+        .accept-btn { flex: 1; padding: 15px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 8px; font-size: 1.1rem; }
+        .skip-btn { flex: 1; padding: 15px; background: #333; color: #aaa; font-weight: bold; border: 1px solid #555; border-radius: 8px; font-size: 1.1rem; }
+
+        /* ACTIVE JOB */
+        #activeCard { position:absolute; left:0; right:0; bottom:0; background:#111; padding:20px; z-index:1002; border-top:3px solid green; display:none; }
         .contact-btn { display:block; background:green; color:white; text-align:center; padding:15px; border-radius:8px; text-decoration:none; font-weight:bold; margin-top:10px; font-size:1.2rem; }
-
-        /* Active Job Border */
-        #activeCard { border-top: 4px solid #d4af37; }
-
     </style>
 </head>
 <body>
@@ -50,44 +35,30 @@
     <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
 
     <div id="dLoginScreen">
-        <div class="logo">MS PREMIUM</div>
-        <p style="color:#666; margin-bottom: 30px;">Partner App</p>
-        <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number">
-        <button class="d-btn" onclick="startDuty()">GO ONLINE</button>
+        <h2 style="color:#d4af37;">MS DRIVER</h2>
+        <input id="dPhone" class="d-inp" type="tel" placeholder="Mobile Number">
+        <button class="d-btn" onclick="startDuty()">START DUTY</button>
     </div>
 
     <div id="dApp">
         <div id="map"></div>
 
         <div id="reqPopup" class="card">
-            <div style="color:#fff; font-weight:bold; margin-bottom:5px; display:flex; justify-content:space-between;">
-                <span>NEW REQUEST 🔔</span>
-                <span style="color:#d4af37;">PREMIUM</span>
-            </div>
+            <div style="color:#d4af37; font-weight:bold;">NEW RIDE REQUEST 🔔</div>
             <div class="fare-txt">₹<span id="fareDisplay">0</span></div>
+            <div>Pickup: <span id="pickupDist">...</span> KM</div>
             
-            <div class="info-row">
-                <div class="info-col"><div class="lbl">PICKUP IN</div><div class="val" id="pickupDist">...</div></div>
-                <div class="info-col"><div class="lbl">TRIP DIST</div><div class="val" id="tripDist">...</div></div>
+            <div class="btn-row">
+                <button class="skip-btn" onclick="skipRide()">SKIP ✕</button>
+                <button class="accept-btn" onclick="tryAcceptRide()">ACCEPT ✓</button>
             </div>
-            
-            <button class="accept-btn" onclick="tryAcceptRide()">ACCEPT RIDE</button>
-            <button class="skip-btn" onclick="skipRide()">SKIP / REJECT</button>
         </div>
 
-        <div id="activeCard" class="card">
-            <h2 style="color:#d4af37; margin:0;">ACCEPTED ✅</h2>
-            <p style="color:#aaa; font-size:0.9rem; margin-top:5px;">Customer is waiting.</p>
-            
-            <div style="background:#111; padding:10px; border-radius:5px; margin:10px 0;">
-                <div style="color:#aaa; font-size:0.8rem;">CUSTOMER MOBILE</div>
-                <div id="custMobDisp" style="font-size:1.4rem; font-weight:bold; color:white;">...</div>
-            </div>
-            
-            <p style="font-size:0.9rem; color:#d4af37;">Navigate to Pickup Location.</p>
-            
+        <div id="activeCard">
+            <h2 style="color:green; margin:0;">RIDE SECURED ✅</h2>
+            <p style="color:#aaa;">Customer: <b id="custPhone">...</b></p>
             <a id="callBtn" href="#" class="contact-btn">📞 CALL CUSTOMER</a>
-            <button onclick="location.reload()" class="skip-btn" style="background:#222; color:white; border-color:red;">COMPLETE / CANCEL</button>
+            <button onclick="location.reload()" style="background:#333; color:#aaa; border:none; padding:10px; width:100%; margin-top:10px;">End / Cancel</button>
         </div>
     </div>
 
@@ -96,7 +67,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
     <script>
-        // ✅ YOUR API KEY
         const firebaseConfig = {
             apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
             authDomain: "hyd-texi.firebaseapp.com",
@@ -112,133 +82,115 @@
         let map, driverMarker, driverLat, driverLng, driverMobile;
         let currentReqKey, currentReqData;
 
-        // 1. LOGIN
-        window.onload = function() {
-            if(localStorage.getItem('msDriverPremium')) {
-                document.getElementById('dLoginScreen').style.display = 'none';
-                startGPS();
-            }
+        // VOICE
+        function speak(text) {
+            const s = new SpeechSynthesisUtterance(text);
+            s.lang = 'en-US';
+            window.speechSynthesis.speak(s);
         }
 
         function startDuty() {
             const num = document.getElementById('dPhone').value;
-            if(num.length < 10) return alert("Valid Number Dalo!");
-            localStorage.setItem('msDriverPremium', num);
+            if (num.length < 10) return alert("Valid Number Dalo!");
             driverMobile = num;
             document.getElementById('dLoginScreen').style.display = 'none';
-            startGPS();
-        }
-
-        // 2. GPS & MAP
-        function startGPS() {
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(onPositionFound, err => alert("GPS Error"), {enableHighAccuracy: true});
-            } else { alert("GPS Not Supported"); }
-        }
-
-        function onPositionFound(pos) {
-            driverLat = pos.coords.latitude;
-            driverLng = pos.coords.longitude;
             document.getElementById('dApp').style.display = 'flex';
+            initMap();
+        }
 
-            if(!map) {
-                // PREMIUM DARK MAP
-                map = L.map('map').setView([driverLat, driverLng], 15);
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-                    attribution: '&copy; OpenStreetMap &copy; CARTO',
-                    subdomains: 'abcd',
-                    maxZoom: 20
-                }).addTo(map);
-                
-                // 🚖 CAR ICON
-                var carIcon = L.icon({
-                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/3202/3202926.png', // Yellow Premium Car
-                    iconSize: [40, 40],
-                    iconAnchor: [20, 20]
-                });
-                
-                driverMarker = L.marker([driverLat, driverLng], {icon: carIcon}).addTo(map).bindPopup("YOUR CAB").openPopup();
-                startListening();
-            } else {
-                driverMarker.setLatLng([driverLat, driverLng]);
-                map.setView([driverLat, driverLng]);
+        function initMap() {
+            map = L.map('map').setView([17.3850, 78.4867], 13);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+            if(navigator.geolocation) {
+                navigator.geolocation.watchPosition(pos => {
+                    driverLat = pos.coords.latitude;
+                    driverLng = pos.coords.longitude;
+                    
+                    if(!driverMarker) {
+                        var carIcon = new L.Icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/3202/3202926.png', iconSize: [40, 40] });
+                        driverMarker = L.marker([driverLat, driverLng], {icon: carIcon}).addTo(map).bindPopup("YOUR CAB").openPopup();
+                        map.setView([driverLat, driverLng], 14);
+                        startListening();
+                    } else {
+                        driverMarker.setLatLng([driverLat, driverLng]);
+                    }
+                }, err => { alert("Enable GPS!"); }, {enableHighAccuracy: true});
             }
         }
 
-        // 3. LISTEN REQUESTS
         function startListening() {
             db.ref('requests').limitToLast(1).on('child_added', snap => {
                 const data = snap.val();
                 if(data.status === "pending") {
-                    let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
                     
-                    // 2KM Filter
-                    if(dist <= 2.0) {
+                    let pickupKM = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng);
+                    
+                    // 2KM FILTER
+                    if(pickupKM <= 2.0) {
                         document.getElementById('ringtone').play().catch(e=>{});
-                        showRequest(data, snap.key, dist);
+                        speak("New Ride Request");
+                        showRequest(data, snap.key, pickupKM.toFixed(1));
                     }
                 }
             });
         }
 
-        function showRequest(data, key, dist) {
+        function showRequest(data, key, pKM) {
             currentReqKey = key;
             currentReqData = data;
 
             document.getElementById('reqPopup').style.display = 'block';
             document.getElementById('fareDisplay').innerText = data.price;
-            document.getElementById('pickupDist').innerText = dist + " KM";
-            document.getElementById('tripDist').innerText = data.distance;
+            document.getElementById('pickupDist').innerText = pKM;
 
-            // Show Pickup
             L.marker([data.pickupLat, data.pickupLng]).addTo(map).bindPopup("PICKUP").openPopup();
         }
 
-        // 4. FIRST COME FIRST SERVE LOGIC
+        // --- RACE LOGIC (First Come First Serve) ---
         function tryAcceptRide() {
             document.getElementById('ringtone').pause();
 
-            // Transaction: Checks if status is still 'pending'
-            db.ref('requests/' + currentReqKey).transaction(function(currentData) {
-                if (currentData === null) return currentData; // Data deleted
-                
-                if (currentData.status === 'pending') {
-                    // Agar pending hai, to book kar lo
-                    return { ...currentData, status: 'accepted', driverMobile: driverMobile };
+            // Transaction: Check if still pending
+            db.ref('requests/' + currentReqKey).transaction(function(curr) {
+                if (curr === null) return curr; 
+                if (curr.status === 'pending') {
+                    // Agar pending hai, to le lo
+                    return { ...curr, status: 'accepted', driverMobile: driverMobile };
                 } else {
-                    // Agar kisi aur ne le liya, to abort karo
+                    // Agar kisi aur ne le liya, abort karo
                     return; 
                 }
             }, function(error, committed, snapshot) {
                 if (error) {
-                    alert('Error accepting ride.');
+                    alert('Error!');
                 } else if (!committed) {
-                    // Kisi aur ne le liya
-                    alert('⚠️ BOOKING TAKEN! Someone else accepted it faster. Wait for next.');
+                    // Booking Chali Gayi
+                    speak("Sorry, booking taken by another driver.");
+                    alert('⚠️ BOOKING MISSED! Taken by another partner.');
                     document.getElementById('reqPopup').style.display = 'none';
                 } else {
-                    // Hame mil gayi!
+                    // Booking Mil Gayi
+                    speak("Booking Accepted");
                     rideSecured();
                 }
             });
         }
 
         function rideSecured() {
-            alert("RIDE SECURED! ✅\nCall Customer Now.");
             document.getElementById('reqPopup').style.display = 'none';
             document.getElementById('activeCard').style.display = 'block';
-            
-            document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
+            document.getElementById('custPhone').innerText = currentReqData.customerMobile;
             document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
 
             var route = [[driverLat, driverLng], [currentReqData.pickupLat, currentReqData.pickupLng]];
-            L.polyline(route, {color: '#d4af37', weight: 5}).addTo(map);
+            L.polyline(route, {color: 'green', weight: 5}).addTo(map);
         }
 
         function skipRide() {
             document.getElementById('ringtone').pause();
             document.getElementById('reqPopup').style.display = 'none';
-            // Locally hide kiya, DB se delete nahi kiya taaki dusre driver ko dikhe
+            // Sirf chhupa diya, delete nahi kiya taaki dusre driver le sake
         }
 
         function getDist(lat1,lon1,lat2,lon2) {
