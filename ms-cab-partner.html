@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Partner - Auto Follow</title>
+    <title>MS Partner - Stable Map</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body { margin:0; font-family: 'Segoe UI', sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
@@ -14,9 +14,19 @@
         .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; text-align:center; margin-bottom:15px; font-size:1.1rem; }
         .d-btn { width:85%; padding:15px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; }
 
-        /* MAP */
-        #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
+        /* MAP & LAYOUT */
+        #dApp { display:none; height:100vh; width:100%; flex-direction:column; position: relative; }
         #map { height:100%; width:100%; background: #222; }
+
+        /* RECENTER BUTTON (Target Icon) */
+        .recenter-btn {
+            position: absolute; bottom: 240px; right: 20px;
+            background: white; color: black;
+            width: 50px; height: 50px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; cursor: pointer; z-index: 999;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5); border: 2px solid #d4af37;
+        }
 
         /* CARDS */
         .card { 
@@ -84,6 +94,8 @@
 
     <div id="dApp">
         <div id="map"></div>
+
+        <div class="recenter-btn" onclick="recenterMap()">🎯</div>
 
         <div id="reqPopup" class="card">
             <div style="color:#fff; font-weight:bold; margin-bottom:5px;">NEW RIDE REQUEST 🔔</div>
@@ -155,6 +167,7 @@
 
         let map, driverMarker, driverLat, driverLng, driverMobile;
         let currentReqKey, currentReqData, routeLine;
+        let followDriver = true; // Auto follow toggle
 
         // VOICE
         function speak(text) {
@@ -175,12 +188,7 @@
 
         function startGPS() {
             if (navigator.geolocation) {
-                // High Accuracy + Watch Position
-                navigator.geolocation.watchPosition(onPositionFound, err => alert("Enable GPS!"), {
-                    enableHighAccuracy: true,
-                    timeout: 10000,
-                    maximumAge: 0
-                });
+                navigator.geolocation.watchPosition(onPositionFound, err => alert("Enable GPS!"), {enableHighAccuracy: true});
             } else { alert("GPS Not Supported"); }
         }
 
@@ -191,21 +199,35 @@
             document.getElementById('helpBtn').style.display = 'block';
 
             if(!map) {
-                map = L.map('map').setView([driverLat, driverLng], 15);
+                map = L.map('map').setView([driverLat, driverLng], 16);
                 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
                 
+                // DRIVER ICON (Taxi)
                 var carIcon = L.icon({
-                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/3202/3202926.png',
-                    iconSize: [40, 40], iconAnchor: [20, 20]
+                    iconUrl: 'https://cdn-icons-png.flaticon.com/512/75/75702.png', // Yellow Taxi Icon
+                    iconSize: [45, 45], iconAnchor: [22, 22]
                 });
                 
-                driverMarker = L.marker([driverLat, driverLng], {icon: carIcon}).addTo(map).bindPopup("YOUR CAB").openPopup();
+                driverMarker = L.marker([driverLat, driverLng], {icon: carIcon}).addTo(map).bindPopup("Your Cab");
+                
+                // STOP FOLLOWING IF USER DRAGS MAP
+                map.on('dragstart', () => { followDriver = false; });
+
                 startListening();
             } else {
                 driverMarker.setLatLng([driverLat, driverLng]);
-                // 🔥 FIX: Auto Pan Map to follow driver
-                map.panTo([driverLat, driverLng]);
+                
+                // ONLY MOVE MAP IF FOLLOW IS ON
+                if(followDriver) {
+                    map.panTo([driverLat, driverLng]);
+                }
             }
+        }
+
+        // RECENTER BUTTON LOGIC
+        function recenterMap() {
+            followDriver = true;
+            map.setView([driverLat, driverLng], 16);
         }
 
         // LISTEN FOR REQUESTS
@@ -215,7 +237,6 @@
                 if(data.status === "pending") {
                     let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
                     
-                    // 2KM FILTER
                     if(dist <= 2.0) {
                         document.getElementById('ringtone').play().catch(e=>{});
                         speak("New Ride Request");
@@ -234,10 +255,15 @@
             document.getElementById('pickupDist').innerText = pKM + " KM";
             document.getElementById('tripDist').innerText = data.distance;
 
-            L.marker([data.pickupLat, data.pickupLng]).addTo(map).bindPopup("PICKUP").openPopup();
+            // CUSTOMER ICON (Man)
+            var personIcon = L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', // Man Icon
+                iconSize: [35, 35], iconAnchor: [17, 35]
+            });
+
+            L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("PICKUP").openPopup();
         }
 
-        // RACE CONDITION (FIRST COME)
         function tryAcceptRide() {
             document.getElementById('ringtone').pause();
 
@@ -248,8 +274,8 @@
                 } else { return; } 
             }, function(error, committed, snapshot) {
                 if (!committed) {
-                    speak("Sorry, booking taken by another driver.");
-                    alert('⚠️ BOOKING MISSED! Taken by another partner.');
+                    speak("Booking missed");
+                    alert('⚠️ BOOKING MISSED!');
                     document.getElementById('reqPopup').style.display = 'none';
                 } else {
                     speak("Booking Accepted");
@@ -264,35 +290,28 @@
             document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
             document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
 
-            // Route: Driver -> Pickup
             drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         }
 
-        // OTP LOGIC
         function verifyOtp() {
             const entered = document.getElementById('otpIn').value;
             if(entered == currentReqData.otp) {
-                
                 speak("OTP Verified. Ask customer for drop location.");
-
                 db.ref('requests/' + currentReqKey).update({ status: "started" });
 
                 document.getElementById('pickupCard').style.display = 'none';
                 document.getElementById('dropCard').style.display = 'block';
 
-                // Route: Pickup -> Drop
                 drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
                 
-                var redIcon = new L.Icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41], iconAnchor: [12, 41] });
-                L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: redIcon}).addTo(map).bindPopup("DROP").openPopup();
+                var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
+                L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
 
             } else { alert("❌ Wrong OTP!"); }
         }
 
-        // BILL LOGIC
         function completeRide() {
             db.ref('requests/' + currentReqKey).update({ status: "completed" });
-            
             document.getElementById('dropCard').style.display = 'none';
             document.getElementById('billModal').style.display = 'flex';
             document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
