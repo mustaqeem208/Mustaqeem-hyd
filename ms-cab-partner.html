@@ -16,7 +16,7 @@
 
         /* MAP */
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
-        #map { height:100%; width:100%; background: #222; }
+        #map { height:100%; width:100%; background: #ffffff; } /* MAP BACKGROUND: White */
 
         /* RECENTER BUTTON */
         .recenter-btn {
@@ -148,12 +148,10 @@
             <button class="accept-btn" onclick="location.reload()">COMPLETE & NEXT</button>
         </div>
     </div>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-    <script>
+        <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
             authDomain: "hyd-texi.firebaseapp.com",
@@ -170,7 +168,7 @@
         let currentReqKey, currentReqData, routeLine;
         let followDriver = true;
         let gpsWatchId = null; 
-        
+
         // --- FIX 1: Voice/SpeechSynthesis fallback for APK ---
         function speak(text) {
             if ('speechSynthesis' in window) {
@@ -178,8 +176,8 @@
                 s.lang = 'en-US'; 
                 window.speechSynthesis.speak(s);
             } else {
-                console.log("SPEAKING (Voice not supported): " + text);
-                // alert(text); // You can use alert for testing, but console log is cleaner for final APK
+                console.log("SPEAKING (Voice attempt failed): " + text);
+                // APK में, अगर स्पीच नहीं चली, तो हम इसे चुपचाप रहने देते हैं।
             }
         }
 
@@ -203,15 +201,19 @@
         function initializeMap(initialLatlng, initialZoom) {
             if (map) return; 
             
-            // --- FIX 2: Yellow Cab Icon (Base64) ---
+            // --- Yellow Cab Icon (Base64) ---
             const yellowCarIcon = L.icon({
+                // This is a Base64 image of a simple yellow car icon.
                 iconUrl: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAABHklEQVR4nO2ZwU3DQBBFj934tQf53dKAUQGaIGCAYQfBBhAFsYJ/p0hW04oM+k57Vp733Xv3wM+ZfP0/t8898144R7gP3F5N620j9p4Q26k1/zVwHTh4577bUf9OaG0jdlP9GgN5gN2l2H/d00J83a7Ffp2hS3C6rUjT67xGg80W3hN7X3hY642TzG6f/8C5Y6JdK4gH5jRj6QhV42jFvK/80T0oX23hD9K0kM+bYm0jtlO76+FwTzDb0b/bA9/0jT63p+s8RocK/u0hB/XQnzdrkR+naEFsYpYxawihhVXC9M/48vBf4u1Q+i/P4Q/S1M9T+qI3n7i51b6pP4YwR/kC5/0FwA635J/2k08AAAAAElFTkSuQmCC',
                 iconSize: [45, 45], iconAnchor: [22, 22]
             });
 
             map = L.map('map', {zoomControl: false}).setView(initialLatlng, initialZoom);
             
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+            // Map Tile Layer (Light/White background)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
             
             // Marker is ALWAYS draggable, for manual location setting
             driverMarker = L.marker(initialLatlng, {icon: yellowCarIcon, draggable: true}).addTo(map).bindPopup("Your Cab");
@@ -306,18 +308,14 @@
         }
 
         function startListening() {
-            // * FIX 3: Request/Booking not coming issue (likely due to missing driver location update)
-            // We should ensure the driver's current location (driverLat, driverLng) is uploaded regularly or at least before listening.
-            // Since we don't have a separate function for location upload, we rely on checking against driverLat/driverLng.
-            
             db.ref('requests').limitToLast(1).on('child_added', snap => {
                 const data = snap.val();
                 if(data.status === "pending") {
-                    // Ensure driverLat/Lng has been set by initializeMap or GPS check before calculating distance
                     if (!driverLat || !driverLng) return console.log("Waiting for initial location set."); 
                     
                     let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
                     if(dist <= 2.0) {
+                        // Request Tune
                         document.getElementById('ringtone').play().catch(e=>{});
                         speak("New Ride Request");
                         showRequest(data, snap.key, dist);
@@ -343,8 +341,6 @@
             db.ref('requests/' + currentReqKey).transaction(function(curr) {
                 if (curr === null) return curr; 
                 if (curr.status === 'pending') {
-                    // OPTIONAL: Upload current driver location to database before accepting
-                    // db.ref('drivers/' + driverMobile).set({lat: driverLat, lng: driverLng}); 
                     return { ...curr, status: 'accepted', driverMobile: driverMobile };
                 } else { return; } 
             }, function(error, committed, snapshot) {
