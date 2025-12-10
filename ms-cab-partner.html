@@ -3,128 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Partner - Premium</title>
+    <title>MS Partner - White Mode</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: #121212; color: #fff; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        body { background: #f4f4f4; color: #333; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
 
         /* --- 1. LOGIN SCREEN --- */
         #dLoginScreen {
             position: fixed; inset: 0; 
-            background: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            background: white; /* WHITE BG */
             z-index: 9999; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; padding: 30px;
         }
         .app-logo { 
-            font-size: 2.5rem; font-weight: 800; color: #d4af37; 
-            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3); margin-bottom: 5px; letter-spacing: 2px;
+            font-size: 2.5rem; font-weight: 800; color: #000; 
+            margin-bottom: 5px; letter-spacing: 2px;
         }
-        .tagline { color: #888; margin-bottom: 40px; font-size: 0.9rem; }
+        .tagline { color: #666; margin-bottom: 40px; font-size: 0.9rem; }
         
         .d-inp {
             width: 100%; max-width: 320px; padding: 18px; 
-            background: rgba(255,255,255,0.05); border: 1px solid #333; 
-            border-radius: 12px; color: #fff; font-size: 1.1rem; 
+            background: #f9f9f9; border: 2px solid #ddd; 
+            border-radius: 12px; color: #000; font-size: 1.1rem; 
             text-align: center; margin-bottom: 20px; outline: none;
-            transition: 0.3s;
         }
-        .d-inp:focus { border-color: #d4af37; background: rgba(255,255,255,0.1); }
+        .d-inp:focus { border-color: #000; }
 
         .d-btn {
             width: 100%; max-width: 320px; padding: 18px; 
-            background: linear-gradient(90deg, #d4af37, #f1c40f);
-            color: #000; font-weight: 800; border: none; border-radius: 12px; 
-            font-size: 1.1rem; cursor: pointer; text-transform: uppercase;
-            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
-            transition: transform 0.1s;
+            background: #000; color: #ffd700; font-weight: 800; 
+            border: none; border-radius: 12px; font-size: 1.1rem; 
+            cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
-        .d-btn:active { transform: scale(0.98); }
 
-        /* BRANDING FOOTER */
+        /* BRANDING */
         .branding {
             position: absolute; bottom: 20px; 
-            font-size: 0.7rem; color: #555; letter-spacing: 2px;
+            font-size: 0.7rem; color: #aaa; letter-spacing: 2px;
             text-transform: uppercase; font-weight: 600;
         }
 
         /* --- 2. MAIN APP --- */
         #dApp { display: none; height: 100vh; width: 100%; flex-direction: column; position: relative; }
         
-        /* MAP */
+        /* MAP (White Background) */
         #map { height: 100%; width: 100%; z-index: 1; }
 
         /* RECENTER BUTTON */
         .recenter-btn {
-            position: absolute; bottom: 260px; right: 20px;
+            position: absolute; bottom: 270px; right: 20px;
             width: 50px; height: 50px; background: #fff; color: #000;
             border-radius: 50%; display: flex; justify-content: center; align-items: center;
             font-size: 1.5rem; cursor: pointer; z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 2px solid #000;
         }
 
-        /* CARDS (Glassmorphism) */
+        /* CARDS (White Theme) */
         .card { 
             position: absolute; left: 15px; right: 15px; bottom: 25px; 
-            background: rgba(30, 30, 30, 0.95);
-            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            background: #fff; /* White Card */
             border-radius: 20px; padding: 25px; z-index: 1001; 
-            border: 1px solid rgba(255,255,255,0.1); display: none; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            animation: slideUp 0.4s ease-out;
         }
-        @keyframes slideUp { from { transform: translateY(120%); opacity:0; } to { transform: translateY(0); opacity:1; } }
+        @keyframes slideUp { from { transform: translateY(120%); } to { transform: translateY(0); } }
 
-        /* Typography inside Cards */
-        .fare-txt { font-size: 3rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; line-height: 1; }
-        .req-title { font-size: 0.8rem; font-weight: bold; color: #aaa; text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: space-between; margin-bottom: 10px; }
+        /* Typography */
+        .fare-txt { font-size: 3rem; font-weight: 800; color: #000; margin-bottom: 5px; line-height: 1; }
+        .req-title { font-size: 0.8rem; font-weight: bold; color: #666; text-transform: uppercase; display: flex; justify-content: space-between; margin-bottom: 10px; }
         
         .info-row { 
             display: flex; justify-content: space-between; margin-bottom: 20px; 
-            background: rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; 
+            background: #f4f4f4; padding: 12px; border-radius: 12px; 
         }
         .info-col { text-align: center; width: 48%; }
-        .lbl { font-size: 0.65rem; color: #888; font-weight: 600; letter-spacing: 1px; }
-        .val { font-size: 1.1rem; font-weight: 700; color: #fff; }
+        .lbl { font-size: 0.65rem; color: #888; font-weight: 600; }
+        .val { font-size: 1.1rem; font-weight: 700; color: #000; }
 
-        /* Action Buttons */
+        /* Buttons */
         .btn-row { display: flex; gap: 12px; }
         .action-btn { 
             flex: 1; padding: 15px; border-radius: 12px; border: none; 
             font-weight: 700; font-size: 1rem; cursor: pointer; 
         }
-        .btn-accept { background: #2ecc71; color: #fff; box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); }
-        .btn-skip { background: #333; color: #ccc; border: 1px solid #555; }
-        .btn-call { background: #007aff; color: white; display: flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; }
+        .btn-accept { background: #000; color: #ffd700; }
+        .btn-skip { background: #eee; color: #555; }
+        .btn-call { background: #2ecc71; color: white; display: flex; justify-content: center; align-items: center; gap: 8px; text-decoration: none; }
         .btn-cancel { background: #ff3b30; color: white; margin-top: 10px; }
 
         /* OTP Input */
-        .otp-box { margin-top: 15px; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; border: 1px solid #444; }
+        .otp-box { margin-top: 15px; background: #f9f9f9; padding: 15px; border-radius: 12px; border: 1px solid #eee; }
         .otp-row { display: flex; gap: 10px; margin-top: 10px; }
-        .otp-inp { flex: 1; padding: 12px; background: #000; border: 1px solid #d4af37; color: #fff; border-radius: 8px; text-align: center; font-size: 1.2rem; letter-spacing: 4px; }
-        .btn-go { background: #d4af37; color: black; border: none; padding: 0 25px; font-weight: bold; border-radius: 8px; cursor: pointer; }
+        .otp-inp { flex: 1; padding: 12px; background: #fff; border: 2px solid #000; color: #000; border-radius: 8px; text-align: center; font-size: 1.2rem; letter-spacing: 4px; font-weight: bold; }
+        .btn-go { background: #000; color: #ffd700; border: none; padding: 0 25px; font-weight: bold; border-radius: 8px; cursor: pointer; }
 
         /* HELP BUTTON */
         .help-btn { 
-            position: absolute; top: 40px; right: 20px; 
-            background: rgba(255, 59, 48, 0.2); color: #ff3b30; 
+            position: absolute; top: 20px; right: 20px; 
+            background: #fff; color: #ff3b30; 
             border: 2px solid #ff3b30; font-weight: 800; padding: 8px 16px; 
             border-radius: 50px; cursor: pointer; z-index: 2000; 
-            backdrop-filter: blur(5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         /* HELP MODAL */
-        #helpModal { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 3000; display: none; flex-direction: column; justify-content: center; align-items: center; }
-        .help-card { background: #222; padding: 30px; border-radius: 20px; width: 85%; text-align: center; border: 1px solid #444; }
-        .help-opt { display: block; padding: 15px; margin: 10px 0; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1rem; }
-        .opt-police { background: #ff3b30; color: white; }
-        .opt-admin { background: #d4af37; color: black; }
+        #helpModal { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 3000; display: none; flex-direction: column; justify-content: center; align-items: center; }
+        .help-card { background: #fff; padding: 30px; border-radius: 20px; width: 85%; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
+        .help-opt { display: block; padding: 15px; margin: 10px 0; border-radius: 10px; text-decoration: none; font-weight: bold; font-size: 1rem; color: white; }
+        .opt-police { background: #ff3b30; }
+        .opt-admin { background: #000; color: #ffd700; }
 
         /* BILL MODAL */
-        #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .bill-card { background: #fff; color: #000; padding: 40px; border-radius: 20px; width: 85%; max-width: 400px; }
         .bill-price { font-size: 4rem; font-weight: 900; color: #2ecc71; margin: 10px 0; }
 
@@ -134,20 +129,20 @@
 
     <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
 
-    <div id="helpBtn" class="help-btn" onclick="openHelp()">SOS</div>
+    <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
 
     <div id="helpModal">
         <div class="help-card">
-            <h2 style="color:#fff; margin-bottom:20px;">EMERGENCY</h2>
+            <h2 style="color:#000; margin-bottom:20px;">EMERGENCY</h2>
             <a href="tel:100" class="help-opt opt-police">👮 CALL POLICE (100)</a>
             <a href="tel:9381667208" class="help-opt opt-admin">👤 MUSTAQEEM (Owner)</a>
-            <button onclick="closeHelp()" style="margin-top:15px; background:none; border:none; color:#aaa; font-weight:bold; cursor:pointer;">CLOSE</button>
+            <button onclick="closeHelp()" style="margin-top:15px; background:none; border:none; color:#999; font-weight:bold; cursor:pointer;">CLOSE</button>
         </div>
     </div>
 
     <div id="dLoginScreen">
         <div class="app-logo">MS PARTNER</div>
-        <div class="tagline">Premium Driver App</div>
+        <div class="tagline">Official Driver App</div>
         <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number">
         <button class="d-btn" onclick="startDuty()">START DUTY</button>
         <div class="branding">DESIGN by ᗰᑌᔕTᗩᑫEEᗰ</div>
@@ -160,28 +155,28 @@
 
         <div id="reqPopup" class="card">
             <div class="req-title">
-                <span>NEW REQUEST 🔔</span>
-                <span style="color:#d4af37;">PREMIUM</span>
+                <span>NEW RIDE REQUEST</span>
+                <span style="color:#000;">● LIVE</span>
             </div>
             <div class="fare-txt">₹<span id="fareDisplay">0</span></div>
             
             <div class="info-row">
-                <div class="info-col"><div class="lbl">PICKUP IN</div><div class="val" id="pickupDist">...</div></div>
-                <div class="info-col"><div class="lbl">TRIP DIST</div><div class="val" id="tripDist">...</div></div>
+                <div class="info-col"><div class="lbl">PICKUP</div><div class="val" id="pickupDist">...</div></div>
+                <div class="info-col"><div class="lbl">TOTAL TRIP</div><div class="val" id="tripDist">...</div></div>
             </div>
             
             <div class="btn-row">
                 <button class="action-btn btn-skip" onclick="skipRide()">SKIP</button>
-                <button class="action-btn btn-accept" onclick="tryAcceptRide()">ACCEPT RIDE</button>
+                <button class="action-btn btn-accept" onclick="tryAcceptRide()">ACCEPT</button>
             </div>
         </div>
 
-        <div id="pickupCard" class="card" style="border-top: 4px solid #f1c40f;">
-            <div class="req-title" style="color:#f1c40f;">HEADING TO PICKUP</div>
+        <div id="pickupCard" class="card" style="border-top: 5px solid #ffd700;">
+            <div class="req-title" style="color:#e6b800;">HEADING TO PICKUP</div>
             
             <div style="margin-bottom:15px;">
                 <div class="lbl">CUSTOMER MOBILE</div>
-                <div id="custMobDisp" style="font-size:1.5rem; font-weight:700;">...</div>
+                <div id="custMobDisp" style="font-size:1.5rem; font-weight:700; color:#000;">...</div>
             </div>
             
             <a id="callBtn" href="#" class="action-btn btn-call">📞 CALL CUSTOMER</a>
@@ -197,20 +192,20 @@
             <button onclick="cancelRide()" class="action-btn btn-cancel" style="width:100%;">CANCEL RIDE</button>
         </div>
 
-        <div id="dropCard" class="card" style="border-top: 4px solid #2ecc71;">
-            <div class="req-title" style="color:#2ecc71;">ON TRIP • LIVE</div>
-            <div style="font-size:1.1rem; margin-bottom:20px; font-weight:600;">Navigating to Drop Location...</div>
+        <div id="dropCard" class="card" style="border-top: 5px solid #2ecc71;">
+            <div class="req-title" style="color:#2ecc71;">TRIP STARTED</div>
+            <div style="font-size:1.1rem; margin-bottom:20px; font-weight:600; color:#333;">Navigating to Drop Location...</div>
             <button class="action-btn btn-accept" style="width:100%;" onclick="completeRide()">FINISH TRIP & BILL</button>
         </div>
     </div>
 
     <div id="billModal">
         <div class="bill-card">
-            <h2>TRIP COMPLETED</h2>
-            <p style="color:#555; margin-top:10px;">Collect Cash</p>
+            <h2>RIDE COMPLETED</h2>
+            <p style="color:#555; margin-top:10px;">Total Fare</p>
             <div class="bill-price" id="billAmount">₹0</div>
             <button class="d-btn" onclick="location.reload()">NEXT RIDE</button>
-            <div style="margin-top:20px; font-size:0.7rem; color:#ccc;">DESIGN by ᗰᑌᔕTᗩᑫEEᗰ</div>
+            <div style="margin-top:20px; font-size:0.7rem; color:#aaa;">DESIGN by ᗰᑌᔕTᗩᑫEEᗰ</div>
         </div>
     </div>
 
@@ -233,16 +228,14 @@
 
         let map, driverMarker, driverLat, driverLng, driverMobile;
         let currentReqKey, currentReqData, routeLine;
-        let followDriver = true; // Auto follow feature
+        let followDriver = true;
 
-        // VOICE
         function speak(text) {
             const s = new SpeechSynthesisUtterance(text);
             s.lang = 'en-US'; 
             window.speechSynthesis.speak(s);
         }
 
-        // LOGIN
         function startDuty() {
             const num = document.getElementById('dPhone').value;
             if(num.length < 10) return alert("Valid Number Dalo!");
@@ -252,7 +245,6 @@
             startGPS();
         }
 
-        // GPS SETUP
         function startGPS() {
             if (navigator.geolocation) {
                 navigator.geolocation.watchPosition(onPositionFound, err => alert("Please Enable GPS"), {enableHighAccuracy: true});
@@ -266,9 +258,9 @@
             document.getElementById('helpBtn').style.display = 'block';
 
             if(!map) {
-                // DARK PREMIUM MAP
+                // WHITE MAP (OpenStreetMap)
                 map = L.map('map', {zoomControl: false}).setView([driverLat, driverLng], 16);
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
                 
                 // DRIVER ICON (Taxi)
                 var carIcon = L.icon({
@@ -277,10 +269,7 @@
                 });
                 
                 driverMarker = L.marker([driverLat, driverLng], {icon: carIcon}).addTo(map).bindPopup("Your Cab");
-                
-                // Stop follow on drag
                 map.on('dragstart', () => { followDriver = false; });
-
                 startListening();
             } else {
                 driverMarker.setLatLng([driverLat, driverLng]);
@@ -293,13 +282,11 @@
             if(driverLat) map.setView([driverLat, driverLng], 16);
         }
 
-        // LISTENER
         function startListening() {
             db.ref('requests').limitToLast(1).on('child_added', snap => {
                 const data = snap.val();
                 if(data.status === "pending") {
                     let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
-                    
                     if(dist <= 2.0) {
                         document.getElementById('ringtone').play().catch(e=>{});
                         speak("New Ride Request");
@@ -312,13 +299,12 @@
         function showRequest(data, key, pKM) {
             currentReqKey = key;
             currentReqData = data;
-
             document.getElementById('reqPopup').style.display = 'block';
             document.getElementById('fareDisplay').innerText = data.price;
             document.getElementById('pickupDist').innerText = pKM + " KM";
             document.getElementById('tripDist').innerText = data.distance;
 
-            // CUSTOMER ICON (Person)
+            // Customer Icon
             var personIcon = L.icon({
                 iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', 
                 iconSize: [35, 35], iconAnchor: [17, 35]
@@ -326,7 +312,6 @@
             L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("PICKUP").openPopup();
         }
 
-        // RACE CONDITION
         function tryAcceptRide() {
             document.getElementById('ringtone').pause();
             db.ref('requests/' + currentReqKey).transaction(function(curr) {
@@ -351,23 +336,22 @@
             document.getElementById('pickupCard').style.display = 'block';
             document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
             document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
-
-            drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
+            
+            // Route Line (Dark Blue on White Map)
+            drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, 'blue');
         }
 
         function verifyOtp() {
             if(document.getElementById('otpIn').value == currentReqData.otp) {
                 speak("OTP Verified. Start Trip.");
                 db.ref('requests/' + currentReqKey).update({ status: "started" });
-
                 document.getElementById('pickupCard').style.display = 'none';
                 document.getElementById('dropCard').style.display = 'block';
-
-                drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
+                
+                drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#000');
                 
                 var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
                 L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
-
             } else { alert("❌ Wrong OTP!"); }
         }
 
@@ -384,7 +368,7 @@
         }
 
         function cancelRide() {
-            if(confirm("Cancel Ride?")) {
+            if(confirm("Cancel?")) {
                 db.ref('requests/' + currentReqKey).update({ status: "cancelled" });
                 location.reload();
             }
