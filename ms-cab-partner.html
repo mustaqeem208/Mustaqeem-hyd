@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MS Partner - OTP Fixed</title>
+    <title>MS Partner - Final</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body { margin:0; font-family: 'Segoe UI', sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
@@ -46,6 +46,11 @@
         .otp-inp { flex: 1; padding: 10px; text-align: center; font-size: 1.3rem; letter-spacing: 5px; background: #000; border: 1px solid #d4af37; color: white; border-radius: 5px; }
         .go-btn { padding: 0 20px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
 
+        /* BILL MODAL */
+        #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .bill-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 85%; max-width: 400px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .total-fare { font-size: 4rem; font-weight: 900; color: green; margin: 10px 0; }
+
     </style>
 </head>
 <body>
@@ -62,7 +67,7 @@
         <div id="map"></div>
 
         <div id="reqPopup" class="card">
-            <div style="color:#fff; font-weight:bold; margin-bottom:5px;">NEW REQUEST 🔔</div>
+            <div style="color:#fff; font-weight:bold; margin-bottom:5px;">NEW RIDE REQUEST 🔔</div>
             <div class="fare-txt">₹<span id="fareDisplay">0</span></div>
             
             <div class="info-row">
@@ -99,7 +104,16 @@
             <div style="color:green; font-weight:bold; margin-bottom:5px;">ON TRIP 🟢</div>
             <p style="color:#ccc;">Navigating to Drop Location...</p>
             <h2 style="color:#d4af37; margin:10px 0;">Follow Map Route</h2>
-            <button class="accept-btn" onclick="completeRide()">COMPLETE RIDE</button>
+            <button class="accept-btn" onclick="completeRide()">END TRIP & GET BILL</button>
+        </div>
+    </div>
+
+    <div id="billModal">
+        <div class="bill-box">
+            <h2>TRIP COMPLETED ✅</h2>
+            <p style="color:#555;">Collect Cash from Customer</p>
+            <div class="total-fare" id="billAmount">₹0</div>
+            <button class="accept-btn" onclick="location.reload()">COMPLETE & NEXT</button>
         </div>
     </div>
 
@@ -126,7 +140,7 @@
         // VOICE
         function speak(text) {
             const s = new SpeechSynthesisUtterance(text);
-            s.lang = 'en-US';
+            s.lang = 'en-US'; 
             window.speechSynthesis.speak(s);
         }
 
@@ -142,7 +156,7 @@
 
         function startGPS() {
             if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(onPositionFound, err => alert("GPS Error"), {enableHighAccuracy: true});
+                navigator.geolocation.watchPosition(onPositionFound, err => alert("Enable GPS!"), {enableHighAccuracy: true});
             } else { alert("GPS Not Supported"); }
         }
 
@@ -168,7 +182,7 @@
             }
         }
 
-        // LISTENING LOGIC
+        // LISTEN FOR REQUESTS
         function startListening() {
             db.ref('requests').limitToLast(1).on('child_added', snap => {
                 const data = snap.val();
@@ -185,19 +199,19 @@
             });
         }
 
-        function showRequest(data, key, dist) {
+        function showRequest(data, key, pKM) {
             currentReqKey = key;
             currentReqData = data;
 
             document.getElementById('reqPopup').style.display = 'block';
             document.getElementById('fareDisplay').innerText = data.price;
-            document.getElementById('pickupDist').innerText = dist + " KM";
+            document.getElementById('pickupDist').innerText = pKM + " KM";
             document.getElementById('tripDist').innerText = data.distance;
 
             L.marker([data.pickupLat, data.pickupLng]).addTo(map).bindPopup("PICKUP").openPopup();
         }
 
-        // ACCEPT (FIRST COME FIRST SERVE)
+        // RACE CONDITION (FIRST COME)
         function tryAcceptRide() {
             document.getElementById('ringtone').pause();
 
@@ -205,11 +219,11 @@
                 if (curr === null) return curr; 
                 if (curr.status === 'pending') {
                     return { ...curr, status: 'accepted', driverMobile: driverMobile };
-                } else { return; } // Abort if taken
+                } else { return; } 
             }, function(error, committed, snapshot) {
                 if (!committed) {
                     speak("Sorry, booking taken by another driver.");
-                    alert('⚠️ Missed! Taken by another partner.');
+                    alert('⚠️ BOOKING MISSED! Taken by another partner.');
                     document.getElementById('reqPopup').style.display = 'none';
                 } else {
                     speak("Booking Accepted");
@@ -221,7 +235,6 @@
         function rideSecured() {
             document.getElementById('reqPopup').style.display = 'none';
             document.getElementById('pickupCard').style.display = 'block';
-            
             document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
             document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
 
@@ -229,11 +242,14 @@
             drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         }
 
-        // OTP VERIFICATION
+        // OTP LOGIC
         function verifyOtp() {
             const entered = document.getElementById('otpIn').value;
             if(entered == currentReqData.otp) {
-                speak("Trip Started");
+                
+                // 🔥 VOICE ALERT (Updated)
+                speak("OTP Verified. Ask customer for drop location.");
+
                 db.ref('requests/' + currentReqKey).update({ status: "started" });
 
                 document.getElementById('pickupCard').style.display = 'none';
@@ -248,10 +264,13 @@
             } else { alert("❌ Wrong OTP!"); }
         }
 
+        // BILL LOGIC
         function completeRide() {
             db.ref('requests/' + currentReqKey).update({ status: "completed" });
-            alert("Ride Completed! Cash: ₹" + currentReqData.price);
-            location.reload();
+            
+            document.getElementById('dropCard').style.display = 'none';
+            document.getElementById('billModal').style.display = 'flex';
+            document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
         }
 
         function skipRide() {
