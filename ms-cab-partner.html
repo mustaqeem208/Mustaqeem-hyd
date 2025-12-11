@@ -167,7 +167,7 @@
     let gpsWatchId = null;
     let isRequesting = false; 
 
-    // ------------------- custom dialog functions -------------------
+    // ------------------- custom dialog functions (No Change) -------------------
     const customDialog = document.getElementById('customDialog');
     const customDialogTitle = document.getElementById('customDialogTitle');
     const customDialogMessage = document.getElementById('customDialogMessage');
@@ -310,7 +310,6 @@
         else { const center = map.getCenter(); driverLat = center.lat; driverLng = center.lng; if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]); map.setView([driverLat, driverLng], map.getZoom()); speak("Location set to map center."); }
     }
     
-    // Function to listen for new requests
     function requestListener(snap) {
         if (isRequesting) return;
         
@@ -383,31 +382,29 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
     
-    // FIX: Changed URL format to standard HTTPS for better APK/WebView compatibility
+    // FIX: Using geo: scheme for direct app launch
     function openPickupMap() {
         if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
         const pLat = currentReqData.pickupLat;
         const pLng = currentReqData.pickupLng;
+        // Use geo: scheme - Most reliable for WebView to launch Maps app
+        const navUrl = `geo:${pLat},${pLng}?q=${pLat},${pLng}(Pickup Location)`;
         
-        // Standard Google Maps URL format for directions: saddr=source&daddr=destination
-        const navUrl = `https://maps.google.com/maps?saddr=${driverLat},${driverLng}&daddr=${pLat},${pLng}&travelmode=driving`;
-        
-        // Use _system (or just window.open without target) to try and launch external map app
-        window.open(navUrl, '_system'); 
+        // window.open(navUrl, '_system') will tell the WebView to pass this scheme to the OS
+        window.open(navUrl, '_system');
         speak("Opening navigation to customer pickup location.");
     }
     
-    // FIX: Changed URL format to standard HTTPS for better APK/WebView compatibility
+    // FIX: Using geo: scheme for direct app launch
     function openDropMap() {
         if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
         const dLat = currentReqData.dropLat;
         const dLng = currentReqData.dropLng;
         
-        // Standard Google Maps URL format for directions: saddr=source&daddr=destination
-        // Use current driver location as source
-        const navUrl = `https://maps.google.com/maps?saddr=${driverLat},${driverLng}&daddr=${dLat},${dLng}&travelmode=driving`;
+        // Use geo: scheme - Most reliable for WebView to launch Maps app
+        const navUrl = `geo:${dLat},${dLng}?q=${dLat},${dLng}(Drop Location)`;
         
-        window.open(navUrl, '_system'); 
+        window.open(navUrl, '_system');
         speak("Opening navigation to drop location.");
     }
 
@@ -450,22 +447,21 @@
         document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
         speak("Trip complete. Cash collect and move to next ride.");
         
-        // Cleanup and reset state
         if(routeLine) map.removeLayer(routeLine); 
         if(pickupMarker) map.removeLayer(pickupMarker);
         if(dropMarker) map.removeLayer(dropMarker);
         currentReqData = null; currentReqKey = null; 
         isRequesting = false;
-        startListening(); // Start listening for new requests again
+        startListening(); 
     }
 
     function skipRide() { 
         try{ document.getElementById('ringtone').pause(); }catch(e){} 
         document.getElementById('reqPopup').style.display = 'none'; 
         if (pickupMarker) map.removeLayer(pickupMarker); 
-        isRequesting = false; // Allow new requests
+        isRequesting = false; 
         speak("Request skipped."); 
-        startListening(); // Re-enable listening after skipping
+        startListening(); 
     }
     
     function cancelRide() {
