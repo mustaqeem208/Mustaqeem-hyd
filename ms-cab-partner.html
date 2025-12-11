@@ -383,25 +383,31 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
     
-    // FIX: Simplified Map URL for compatibility
+    // FIX: Changed URL format to standard HTTPS for better APK/WebView compatibility
     function openPickupMap() {
         if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
         const pLat = currentReqData.pickupLat;
         const pLng = currentReqData.pickupLng;
-        // Use standard Google Maps link format for directions
-        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${pLat},${pLng}&travelmode=driving`;
-        window.open(navUrl, '_system'); // Use _system to force opening in external app/browser
+        
+        // Standard Google Maps URL format for directions: saddr=source&daddr=destination
+        const navUrl = `https://maps.google.com/maps?saddr=${driverLat},${driverLng}&daddr=${pLat},${pLng}&travelmode=driving`;
+        
+        // Use _system (or just window.open without target) to try and launch external map app
+        window.open(navUrl, '_system'); 
         speak("Opening navigation to customer pickup location.");
     }
     
-    // FIX: Simplified Map URL for compatibility
+    // FIX: Changed URL format to standard HTTPS for better APK/WebView compatibility
     function openDropMap() {
         if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
         const dLat = currentReqData.dropLat;
         const dLng = currentReqData.dropLng;
-        // Use the current driver location (which should be close to pickup after OTP) as origin for drop
-        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${dLat},${dLng}&travelmode=driving`;
-        window.open(navUrl, '_system'); // Use _system to force opening in external app/browser
+        
+        // Standard Google Maps URL format for directions: saddr=source&daddr=destination
+        // Use current driver location as source
+        const navUrl = `https://maps.google.com/maps?saddr=${driverLat},${driverLng}&daddr=${dLat},${dLng}&travelmode=driving`;
+        
+        window.open(navUrl, '_system'); 
         speak("Opening navigation to drop location.");
     }
 
