@@ -1,159 +1,192 @@
-<!-- PART 1: Paste this first -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MS Partner - Premium</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>MS PARTNER — Driver</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
-    body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
-    #dLoginScreen { position:fixed; inset:0; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
-    .logo { font-size: 2rem; color: #d4af37; font-weight: bold; margin-bottom: 10px; letter-spacing: 2px; }
-    .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; text-align:center; margin-bottom:12px; font-size:1.05rem; }
-    .d-btn { width:85%; padding:13px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.05rem; }
-    .vehicle-checks { display:flex; gap:10px; margin-bottom:12px; }
-    .veh-btn { padding:10px 12px; border-radius:8px; background:#111; color:#fff; border:1px solid #333; cursor:pointer; font-weight:700; }
-    .veh-btn.active { background:#d4af37; color:#000; border-color:#d4af37; }
-    #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
-    #map { height:100%; width:100%; background:#fff; }
-    .recenter-btn { position:absolute; bottom:300px; right:20px; width:45px; height:45px; background:white; color:black; border-radius:50%; display:flex; justify-content:center; align-items:center; font-size:1.5rem; cursor:pointer; z-index:1000; box-shadow:0 5px 15px rgba(0,0,0,0.5); }
-    .card { position:absolute; left:10px; right:10px; bottom:20px; background:rgba(20,20,20,0.95); border-radius:15px; padding:20px; z-index:1001; border:1px solid #333; display:none; box-shadow:0 10px 40px rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
-    .fare-txt { font-size:2.2rem; font-weight:800; color:#d4af37; margin-bottom:6px; }
-    .info-row { display:flex; justify-content:space-between; margin-bottom:12px; background:#000; padding:10px; border-radius:8px; border:1px solid #333; }
-    .info-col { text-align:center; width:48%; }
-    .lbl { font-size:0.75rem; color:#888; }
-    .val { font-size:1.05rem; font-weight:700; color:#fff; }
-    .btn-row { display:flex; gap:10px; margin-top:12px; }
-    .accept-btn { flex:1; padding:12px; background:#d4af37; color:#000; font-weight:800; border:none; border-radius:8px; cursor:pointer; font-size:1rem; }
-    .skip-btn { flex:1; padding:12px; background:#333; color:#aaa; font-weight:700; border:1px solid #555; border-radius:8px; cursor:pointer; font-size:1rem; }
-    .contact-btn { display:block; background:#2ecc71; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.05rem; border:none; width:100%; cursor:pointer; }
-    .finish-btn { display:block; background:#000; color:#d4af37; border:1px solid #d4af37; text-align:center; padding:12px; border-radius:8px; font-weight:bold; font-size:1.05rem; width:100%; cursor:pointer; }
-    .otp-box { margin-top:12px; background:#111; padding:10px; border-radius:8px; border:1px solid #444; }
-    .otp-row { display:flex; gap:10px; margin-top:6px; }
-    .otp-inp { flex:1; padding:10px; text-align:center; font-size:1.3rem; letter-spacing:5px; background:#000; border:1px solid #d4af37; color:white; border-radius:5px; }
-    .go-btn { padding:0 18px; background:#d4af37; color:black; font-weight:800; border:none; border-radius:6px; cursor:pointer; }
-    .help-btn { position:absolute; top:20px; right:20px; background:red; color:white; font-weight:800; padding:8px 14px; border-radius:40px; z-index:2000; display:none; border:2px solid white; cursor:pointer; }
-    #helpModal { position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:3000; display:none; flex-direction:column; justify-content:center; align-items:center; }
-    .help-box { background:#222; padding:25px; border-radius:15px; width:80%; text-align:center; border:1px solid #d4af37; }
-    .call-opt { display:block; background:#333; color:white; padding:12px; margin:10px 0; text-decoration:none; border-radius:8px; font-weight:800; font-size:1.05rem; border:1px solid #555; }
-    #billModal { position:fixed; inset:0; background:rgba(0,0,0,0.95); z-index:5000; display:none; flex-direction:column; justify-content:center; align-items:center; text-align:center; }
-    .bill-box { background:white; color:black; padding:30px; border-radius:15px; width:85%; max-width:420px; box-shadow:0 0 20px rgba(255,255,255,0.2); }
-    .total-fare { font-size:3.2rem; font-weight:900; color:green; margin:10px 0; }
-    .duty-toggle { position: absolute; top: 18px; left: 18px; z-index: 2000; display:flex; gap:8px; align-items:center; }
-    .duty-btn { padding:8px 12px; border-radius:8px; background:#111; color:#fff; border:1px solid #333; cursor:pointer; font-weight:800; }
-    .duty-btn.on { background:#10b981; color:#fff; border-color:#10b981; }
-    /* custom dialog */
-    #customDialog { display:none; position:fixed; inset:0; z-index:6000; background: rgba(0,0,0,0.45); align-items:center; justify-content:center; }
-    #customDialogCard { width:90%; max-width:420px; background:#fff; padding:18px; box-shadow:0 15px 40px rgba(0,0,0,0.6); color:#000; }
-    #customDialogTitle { font-weight:800; color:#222; margin-bottom:8px; font-size:16px; }
-    #customDialogMessage { color:#333; line-height:1.4; white-space:pre-wrap; margin-bottom:18px; }
-    #customDialogCancel, #customDialogOk { padding:8px 12px; border-radius:6px; cursor:pointer; }
-    #customDialogCancel { background:transparent; border:none; color:#007bff; font-weight:700; }
-    #customDialogOk { background:#007bff; border:none; color:#fff; font-weight:800; }
-    @media(min-width:720px){ #dLoginScreen{width:420px;margin:auto;border-radius:16px} }
+    :root {
+      --bg:#07070a; --card:#0f1720; --accent:#d4af37; --muted:#9aa3b2; --ok:#10b981; --danger:#ef4444;
+      --radius:12px;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);font-family:Inter,Segoe UI,Roboto,Arial;color:#fff}
+    /* LOGIN */
+    #dLoginScreen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:20px;z-index:9999}
+    .login-card{background:linear-gradient(180deg,#081023,#0b1220);padding:22px;border-radius:14px;width:100%;max-width:420px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 12px 40px rgba(0,0,0,0.6)}
+    .logo{font-weight:900;color:var(--accent);font-size:1.6rem;margin-bottom:10px}
+    .d-inp{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:#071022;color:#fff;margin-bottom:10px;font-size:1rem;text-align:center}
+    .d-btn{width:100%;padding:12px;border-radius:10px;border:none;background:var(--accent);color:#000;font-weight:800;cursor:pointer}
+    .small{color:var(--muted);font-size:0.9rem;text-align:center;margin-top:8px}
+    /* APP SHELL */
+    #dApp{display:none;height:100vh;width:100%;position:relative}
+    #topBar{position:fixed;left:12px;right:12px;top:12px;height:56px;background:linear-gradient(90deg,rgba(0,0,0,0.6),rgba(8,8,12,0.6));border-radius:10px;display:flex;align-items:center;justify-content:space-between;padding:8px 12px;z-index:2000;border:1px solid rgba(255,255,255,0.04)}
+    #driverInfo{display:flex;gap:12px;align-items:center}
+    #driverMobile{font-weight:800}
+    #vehicleTag{background:rgba(255,255,255,0.03);padding:6px 10px;border-radius:8px;font-weight:700}
+    #incomeBox{background:linear-gradient(90deg,#071018,#07101a);padding:8px 12px;border-radius:8px;font-weight:900;color:var(--ok);border:1px solid rgba(16,185,129,0.08)}
+    #map{position:absolute;inset:80px 12px 12px 12px;border-radius:12px;overflow:hidden}
+    .map-btn{position:absolute;right:24px;bottom:120px;background:#fff;color:#000;padding:12px;border-radius:14px;font-weight:800;border:none;box-shadow:0 8px 24px rgba(2,6,23,0.5);z-index:1600;cursor:pointer}
+    .map-btn.small{right:24px;bottom:64px;padding:10px;border-radius:12px}
+    /* BOTTOM PANEL */
+    .panel{position:fixed;left:12px;right:12px;bottom:12px;background:var(--card);padding:12px;border-radius:14px;box-shadow:0 14px 40px rgba(2,6,23,0.6);z-index:1500;border:1px solid rgba(255,255,255,0.03)}
+    .panel .row{display:flex;justify-content:space-between;align-items:center}
+    .panel .label{color:var(--muted);font-size:0.9rem}
+    .panel .val{font-weight:900;font-size:1.2rem}
+    .panel .controls{display:flex;gap:8px;align-items:center}
+    .btn-accept{background:var(--accent);color:#000;padding:10px 12px;border-radius:10px;border:none;font-weight:900;cursor:pointer}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px;border-radius:10px;cursor:pointer}
+    /* REQUEST POPUP (center) */
+    #reqPopup{position:fixed;left:50%;transform:translateX(-50%);bottom:160px;width:92%;max-width:480px;background:linear-gradient(180deg,#07101a,#081026);padding:16px;border-radius:12px;display:none;z-index:1700;border:1px solid rgba(255,255,255,0.04)}
+    .fare{font-size:2.2rem;color:var(--accent);font-weight:900}
+    .info-row{display:flex;justify-content:space-between;margin-top:10px;color:var(--muted)}
+    .req-row-buttons{display:flex;gap:10px;margin-top:12px}
+    .btn-skip{flex:1;background:#111;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:10px;border-radius:10px;cursor:pointer}
+    .btn-accept2{flex:1;background:var(--accent);color:#000;padding:10px;border-radius:10px;border:none;cursor:pointer;font-weight:900}
+    /* PICKUP / DROP CARDS */
+    .card-large{position:fixed;left:12px;right:12px;bottom:120px;background:linear-gradient(180deg,#06101a,#071018);padding:14px;border-radius:12px;display:none;z-index:1800;border:1px solid rgba(255,255,255,0.03)}
+    .otp-input{padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:#fff;width:100%;text-align:center;font-size:1.2rem}
+    /* HISTORY DIALOG */
+    #historyModal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;z-index:2500;align-items:center;justify-content:center}
+    #historyCard{width:92%;max-width:720px;background:#06111a;padding:12px;border-radius:12px;max-height:80vh;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
+    .hist-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,0.02)}
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .pill{padding:6px 10px;border-radius:10px;background:rgba(255,255,255,0.02);font-weight:800}
+    /* vehicle change panel inside topbar */
+    #vehiclePanel{display:flex;gap:8px;align-items:center}
+    .veh-select{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02);cursor:pointer}
+    .veh-input{padding:6px 8px;border-radius:8px;background:#071022;border:1px solid rgba(255,255,255,0.03);color:#fff;width:120px}
+    .logout-btn{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:6px 8px;border-radius:8px;color:var(--muted);cursor:pointer}
+    @media(min-width:900px){ #map{inset:80px 40px 12px 40px} }
   </style>
 </head>
 <body>
 
-  <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
-
-  <div id="customDialog" style="display:none; align-items:center; justify-content:center;">
-    <div id="customDialogCard">
-      <div id="customDialogTitle">Title</div>
-      <div id="customDialogMessage">Message</div>
-      <div style="display:flex; justify-content:flex-end; gap:10px;">
-        <button id="customDialogCancel">CANCEL</button>
-        <button id="customDialogOk">OK</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
-
-  <div id="helpModal">
-      <div class="help-box">
-          <h2 style="color:red; margin-top:0;">EMERGENCY HELP</h2>
-          <a href="tel:100" class="call-opt" style="border-color:red;">👮 POLICE (100)</a>
-          <a href="tel:9381667208" class="call-opt" style="border-color:#d4af37; color:#d4af37;">👤 MUSTAQEEM (Founder)</a>
-          <button onclick="closeHelp()" style="margin-top:15px; padding:10px 30px; background:#333; color:white; border:none; border-radius:5px;">CLOSE</button>
-      </div>
-  </div>
-
+  <!-- LOGIN -->
   <div id="dLoginScreen">
-    <div class="logo">MS PARTNER</div>
-    <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number (10 digits)" />
-    <div style="width:85%; display:flex; flex-direction:column; align-items:center;">
-      <div style="width:100%; text-align:left; color:#aaa; margin-bottom:6px; font-weight:800;">I operate:</div>
-      <div class="vehicle-checks">
-        <button id="chk_car" class="veh-btn" onclick="toggleVeh('car')">Cab</button>
-        <button id="chk_auto" class="veh-btn" onclick="toggleVeh('auto')">Auto</button>
-        <button id="chk_bike" class="veh-btn" onclick="toggleVeh('bike')">Bike</button>
+    <div class="login-card">
+      <div class="logo">MS PARTNER — Driver</div>
+      <input id="dPhone" class="d-inp" type="tel" placeholder="Mobile number (10 digits)" />
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <input id="vehicleNumberInput" class="d-inp" placeholder="Vehicle Reg. No (KA-01-XXXX)" style="flex:1" />
       </div>
-      <small style="color:#888; margin-bottom:10px;">Select all that apply (driver will receive only matching requests).</small>
+      <div style="display:flex;gap:8px;margin-bottom:10px">
+        <button id="pickCab" class="veh-btn" style="flex:1" onclick="toggleVeh('car')">Cab</button>
+        <button id="pickAuto" class="veh-btn" style="flex:1" onclick="toggleVeh('auto')">Auto</button>
+        <button id="pickBike" class="veh-btn" style="flex:1" onclick="toggleVeh('bike')">Bike</button>
+      </div>
+      <button class="d-btn" onclick="startDuty()">LOGIN & START DUTY</button>
+      <div class="small">You will remain logged in until you logout. Location permission required for receiving requests.</div>
     </div>
-    <button class="d-btn" onclick="startDuty()">START DUTY</button>
   </div>
 
+  <!-- APP -->
   <div id="dApp">
-    <div class="duty-toggle">
-      <button id="dutyBtn" class="duty-btn on" onclick="toggleDuty()">ON DUTY</button>
+    <div id="topBar">
+      <div id="driverInfo">
+        <div style="display:flex;flex-direction:column">
+          <div id="driverMobile">+91 —</div>
+          <div class="muted" id="vehicleNumberDisplay">Vehicle: —</div>
+        </div>
+        <div id="vehicleTag" class="pill">Vehicle: —</div>
+      </div>
+
+      <div style="display:flex;gap:10px;align-items:center;">
+        <div id="incomeBox">Today ₹0</div>
+        <div id="vehiclePanel">
+          <div class="veh-select" id="curVehicle" onclick="openVehiclePicker()">Change</div>
+          <input id="vehNum" class="veh-input" placeholder="Reg no" />
+          <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+      </div>
     </div>
 
     <div id="map"></div>
-    <div class="recenter-btn" onclick="recenterMap()">🎯</div>
 
-    <div id="reqPopup" class="card">
-      <div style="color:#fff; font-weight:800; margin-bottom:6px;">NEW RIDE REQUEST 🔔</div>
-      <div class="fare-txt">₹<span id="fareDisplay">0</span></div>
-      <div class="info-row">
-        <div class="info-col"><div class="lbl">PICKUP DIST</div><div class="val" id="pickupDist">--</div></div>
-        <div class="info-col"><div class="lbl">TRIP DIST</div><div class="val" id="tripDist">--</div></div>
-      </div>
-      <div class="btn-row">
-        <button class="skip-btn" onclick="skipRide()">SKIP ✕</button>
-        <button class="accept-btn" onclick="tryAcceptRide()">ACCEPT ✓</button>
-      </div>
-    </div>
+    <button class="map-btn" onclick="recenterMap()">📍 Center</button>
+    <button class="map-btn small" style="right:24px;bottom:64px" onclick="openHistory()">📜 History</button>
 
-    <div id="pickupCard" class="card" style="border-top:4px solid #f59e0b;">
-      <div style="color:#f59e0b; font-weight:800; margin-bottom:6px;">HEADING TO PICKUP</div>
-      <div style="color:#aaa; font-size:0.85rem;">CUSTOMER</div>
-      <div id="custMobDisp" style="font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:10px;">...</div>
-      <button id="mapNavBtnPickup" class="map-nav-btn" onclick="openPickupMap()">🗺️ OPEN NAVIGATION TO PICKUP</button>
-      <a id="callBtn" href="#" class="contact-btn">📞 CALL CUSTOMER</a>
-      <div class="otp-box">
-        <div style="color:#888; font-size:0.75rem;">ENTER OTP TO START TRIP</div>
-        <div class="otp-row">
-          <input type="number" id="otpIn" class="otp-inp" placeholder="XXXX" />
-          <button class="go-btn" onclick="verifyOtp()">START</button>
+    <!-- Bottom panel for quick info -->
+    <div class="panel">
+      <div class="row">
+        <div>
+          <div class="label">Status</div>
+          <div class="val" id="dutyStatus">ON DUTY</div>
+        </div>
+        <div style="text-align:right">
+          <div class="label">Available Vehicle</div>
+          <div class="val" id="selectedVehicleLabel">—</div>
         </div>
       </div>
-      <button onclick="cancelRide()" style="width:100%; margin-top:12px; background:#b91c1c; color:white; border:none; padding:10px; font-weight:800; border-radius:8px;">CANCEL RIDE</button>
     </div>
 
-    <div id="dropCard" class="card" style="border-top:4px solid #10b981;">
-      <div style="color:#10b981; font-weight:800; margin-bottom:6px;">ON TRIP</div>
-      <p style="color:#ccc;">Navigate to drop location</p>
-      <button id="mapNavBtnDrop" class="map-nav-btn" onclick="openDropMap()">🗺️ OPEN NAVIGATION TO DROP</button>
-      <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
+    <!-- Request popup -->
+    <div id="reqPopup">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-weight:900">New Ride Request</div>
+        <div class="muted" id="reqTime">—</div>
+      </div>
+      <div style="margin-top:8px" class="fare">₹<span id="fareDisplay">0</span></div>
+      <div class="info-row">
+        <div>Pickup <b id="pickupDist">—</b></div>
+        <div>Trip <b id="tripDist">—</b></div>
+      </div>
+      <div class="req-row-buttons">
+        <button class="btn-skip" onclick="skipRide()">Skip</button>
+        <button class="btn-accept2" onclick="tryAcceptRide()">Accept</button>
+      </div>
     </div>
+
+    <!-- Pickup card -->
+    <div id="pickupCard" class="card-large">
+      <div style="font-weight:900;color:var(--accent)">Heading to Pickup</div>
+      <div style="margin-top:8px" id="custPhoneDisplay">Customer: —</div>
+      <div style="margin-top:8px">
+        <button class="map-btn small" onclick="openPickupMap()" style="position:static;margin-right:8px">🗺️ Navigate</button>
+        <a id="callBtn" class="map-btn small" style="position:static;background:#2ecc71;color:#000;padding:10px;border-radius:10px;text-decoration:none">📞 Call</a>
+      </div>
+      <div style="margin-top:12px">
+        <div class="muted">Enter OTP to start trip</div>
+        <input id="otpIn" class="otp-input" placeholder="Enter OTP" />
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="btn-ghost" onclick="cancelRide()">Cancel</button>
+          <button class="btn-accept" onclick="verifyOtp()">Start Trip</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Drop card -->
+    <div id="dropCard" class="card-large" style="border-top:3px solid #10b981">
+      <div style="font-weight:900;color:#10b981">On Trip</div>
+      <div style="margin-top:8px">Navigate to drop and finish trip.</div>
+      <div style="margin-top:12px">
+        <button class="map-btn small" onclick="openDropMap()" style="position:static">🗺️ Navigate to Drop</button>
+        <button class="btn-accept" onclick="completeRide()" style="margin-left:8px">End Trip & Bill</button>
+      </div>
+    </div>
+
   </div>
 
-  <div id="billModal" style="display:none;">
-    <div class="bill-box">
-      <h2 style="margin:6px 0;">TRIP COMPLETED ✅</h2>
-      <p style="color:#555;">Collect cash from customer</p>
-      <div class="total-fare" id="billAmount">₹0</div>
-      <button class="accept-btn" onclick="finishAndNext()">COMPLETE & NEXT</button>
+  <!-- History modal -->
+  <div id="historyModal">
+    <div id="historyCard">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h3 style="margin:0">Ride History</h3>
+        <div>
+          <button class="btn-ghost" onclick="closeHistory()">Close</button>
+        </div>
+      </div>
+      <div id="historyList"></div>
     </div>
   </div>
-  <!-- PART 2: Scripts — paste this second -->
+  <!-- PART 2: Scripts -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 <script>
-  // ---------- Firebase ----------
+  // ---------- Firebase config ----------
   const firebaseConfig = {
     apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
     authDomain: "hyd-texi.firebaseapp.com",
@@ -166,389 +199,385 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
 
-  // ---------- State ----------
+  // ---------- state ----------
   let map, driverMarker, driverLat, driverLng, driverMobile;
-  let currentReqKey = null, currentReqData = null, routeLine = null, pickupMarker = null, dropMarker = null;
   let gpsWatchId = null;
-  let isRequesting = false; // a request is in progress
-  let onDuty = true;
-  let operatedVehicles = { car:false, auto:false, bike:false }; // driver vehicle capabilities
+  let isRequesting = false;
+  let currentReqKey = null, currentReqData = null;
+  let pickupMarker = null, dropMarker = null, routeLine = null;
 
-  // ---------- dialog helpers ----------
-  const customDialog = document.getElementById('customDialog');
-  const customDialogTitle = document.getElementById('customDialogTitle');
-  const customDialogMessage = document.getElementById('customDialogMessage');
-  const customDialogOk = document.getElementById('customDialogOk');
-  const customDialogCancel = document.getElementById('customDialogCancel');
+  // vehicle state persisted
+  let selectedVehicle = null; // 'car'|'auto'|'bike'
+  let vehicleNumber = null;
 
-  function showCustomConfirm(title, message, onOk, onCancel) {
-    customDialogTitle.innerText = title || 'Confirm';
-    customDialogMessage.innerText = message || '';
-    customDialog.style.display = 'flex';
-    customDialogOk.style.display = 'inline-block';
-    customDialogCancel.style.display = 'inline-block';
-    function cleanup(){ customDialog.style.display='none'; customDialogOk.onclick=null; customDialogCancel.onclick=null; }
-    customDialogOk.onclick = () => { cleanup(); if(onOk) onOk(); };
-    customDialogCancel.onclick = () => { cleanup(); if(onCancel) onCancel(); };
-  }
-  function showCustomAlert(title, message, onOk) {
-    customDialogTitle.innerText = title || 'Alert';
-    customDialogMessage.innerText = message || '';
-    customDialog.style.display = 'flex';
-    customDialogCancel.style.display = 'none';
-    customDialogOk.style.display = 'inline-block';
-    customDialogOk.onclick = () => { customDialog.style.display = 'none'; if(onOk) onOk(); };
+  // ---------- utilities ----------
+  function el(id){ return document.getElementById(id); }
+  function fmtTodayUnixRange() {
+    // return [startMs, endMs] for local today
+    const now = new Date();
+    const s = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0,0,0,0).getTime();
+    const e = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23,59,59,999).getTime();
+    return [s,e];
   }
 
-  // speech + short ring fallback
-  function speak(text) {
+  // ---------- persist login & vehicle info ----------
+  function saveDriverPrefs() {
+    if (!driverMobile) return;
+    const prefs = { driverMobile, selectedVehicle, vehicleNumber };
+    localStorage.setItem('msPartnerPrefs', JSON.stringify(prefs));
+  }
+  function loadDriverPrefs() {
+    const raw = localStorage.getItem('msPartnerPrefs');
+    if (!raw) return false;
     try {
-      const r = document.getElementById('ringtone');
-      if (r) { r.play().catch(()=>{}); setTimeout(()=>{ try{ r.pause(); r.currentTime=0;}catch(e){} },1400); }
-    } catch(e){}
-    if ('speechSynthesis' in window) {
-      try { window.speechSynthesis.cancel(); const ut = new SpeechSynthesisUtterance(text); ut.lang='en-US'; ut.rate=1.0; window.speechSynthesis.speak(ut); } catch(e){}
-    }
+      const p = JSON.parse(raw);
+      driverMobile = p.driverMobile || null;
+      selectedVehicle = p.selectedVehicle || null;
+      vehicleNumber = p.vehicleNumber || null;
+      return true;
+    } catch(e){ return false; }
+  }
+  function clearDriverPrefs() {
+    localStorage.removeItem('msPartnerPrefs');
   }
 
-  // ---------- Login / Duty ----------
-  function toggleVeh(k){
-    operatedVehicles[k] = !operatedVehicles[k];
-    document.getElementById('chk_'+k).classList.toggle('active', operatedVehicles[k]);
+  // ---------- UI helpers ----------
+  function updateTopbar() {
+    el('driverMobile').innerText = driverMobile ? `+91 ${driverMobile}` : '+91 —';
+    el('vehicleTag').innerText = selectedVehicle ? selectedVehicle.toUpperCase() : '—';
+    el('selectedVehicleLabel').innerText = selectedVehicle ? selectedVehicle.toUpperCase() : '—';
+    el('vehicleNumberDisplay').innerText = vehicleNumber ? ('Vehicle: ' + vehicleNumber) : 'Vehicle: —';
+    el('vehNum').value = vehicleNumber || '';
   }
 
+  // ---------- login / logout ----------
   function startDuty(){
-    const num = document.getElementById('dPhone').value.trim();
-    if(!num || num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
-    // Ensure at least one vehicle selected
-    if(!operatedVehicles.car && !operatedVehicles.auto && !operatedVehicles.bike) {
-      return showCustomAlert('Select vehicle', 'Please select at least one vehicle type you operate (Cab, Auto, Bike).');
-    }
+    const num = el('dPhone').value.trim();
+    const vnum = el('vehicleNumberInput').value.trim();
+    if (!num || num.length < 10) return alert('Enter valid 10-digit mobile number');
+    if (!selectedVehicle) return alert('Select at least one vehicle (tap a vehicle).');
     driverMobile = num;
-    // save partner profile to DB
-    const partnerInfo = {
-      mobile: driverMobile,
-      vehicles: operatedVehicles,
-      onDuty: true,
-      lastSeen: Date.now()
-    };
+    vehicleNumber = vnum || vehicleNumber || '';
+    // persist
+    saveDriverPrefs();
+    // update DB partner profile
+    const partnerInfo = { mobile: driverMobile, vehicle: selectedVehicle, vehicleNumber: vehicleNumber, onDuty: true, lastSeen: Date.now() };
     db.ref('partners/' + driverMobile).update(partnerInfo).catch(()=>{});
-    document.getElementById('dLoginScreen').style.display = 'none';
-    document.getElementById('dApp').style.display = 'flex';
-    document.getElementById('helpBtn').style.display = 'block';
+    // show app
+    el('dLoginScreen').style.display = 'none';
+    el('dApp').style.display = 'block';
+    el('helpBtn').style.display = 'block';
+    updateTopbar();
     initializeMap([17.3850,78.4867],13);
     startGPSCheck();
-    startListening(); // start listening to requests
-    speak("You are now on duty. Waiting for nearby requests.");
+    startListening();
+    refreshTodayIncome();
   }
 
-  // duty toggle
-  function toggleDuty(){
-    onDuty = !onDuty;
-    const btn = document.getElementById('dutyBtn');
-    btn.classList.toggle('on', onDuty);
-    btn.innerText = onDuty ? 'ON DUTY' : 'OFF DUTY';
-    // update in DB
-    if (driverMobile) db.ref('partners/' + driverMobile).update({ onDuty: onDuty, lastSeen: Date.now() }).catch(()=>{});
-    if(!onDuty) {
-      // stop listening immediately
-      stopListening();
-      speak("You are now off duty. You will not receive new requests.");
-      // stop ringtone if any
-      try{ document.getElementById('ringtone').pause(); }catch(e){}
-    } else {
-      startListening();
-      speak("You are back on duty. Receiving requests now.");
-    }
+  function logout(){
+    if (!confirm('Logout and stop receiving requests?')) return;
+    // update DB
+    if (driverMobile) db.ref('partners/' + driverMobile).update({ onDuty: false, lastSeen: Date.now() }).catch(()=>{});
+    clearDriverPrefs();
+    location.reload();
   }
 
-  // ---------- Map & GPS ----------
-  function initializeMap(initialLatlng, initialZoom) {
-    if (map) return;
-    const carHtml = "<div class='car-emoji' style='position:relative'>🚗</div>";
-    const carDivIcon = L.divIcon({ html: carHtml, className: '', iconSize: [56,56], iconAnchor: [28,56], popupAnchor: [0,-40] });
-    map = L.map('map', { zoomControl:false }).setView(initialLatlng, initialZoom);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
-    driverMarker = L.marker(initialLatlng, { icon: carDivIcon, draggable:true }).addTo(map).bindPopup("You");
-    driverMarker.on('dragend', (e) => {
-      const newLoc = driverMarker.getLatLng(); driverLat = newLoc.lat; driverLng = newLoc.lng; speak("Location updated");
+  // vehicle toggles on login screen
+  function toggleVeh(type) {
+    // make single selection (user asked ability to change in-app, but on login choose default)
+    selectedVehicle = type;
+    // UI highlight
+    ['car','auto','bike'].forEach(k => {
+      const elId = {car:'pickCab',auto:'pickAuto',bike:'pickBike'}[k];
+      const node = document.getElementById(elId);
+      if (k === type) node.classList.add('active'); else node.classList.remove('active');
     });
-    map.on('dragstart', () => { /* user moved map */ });
-    driverLat = initialLatlng[0]; driverLng = initialLatlng[1];
+    updateTopbar();
+    saveDriverPrefs();
   }
 
-  function startGPSCheck() {
-    if (!navigator.geolocation) {
-      showCustomAlert('GPS Unavailable', "Your GPS is not available. Drag the vehicle icon to set your location.");
-      speak("GPS not available. Please set location manually.");
-      return;
-    }
-    navigator.geolocation.getCurrentPosition((pos) => {
+  // in-app vehicle picker
+  function openVehiclePicker(){
+    const choice = prompt('Change vehicle to (car/auto/bike):', selectedVehicle || 'car');
+    if (!choice) return;
+    const c = choice.toLowerCase().trim();
+    if (!['car','auto','bike'].includes(c)) return alert('Invalid. Choose car, auto or bike.');
+    selectedVehicle = c;
+    // vehicle number optionally saved from vehNum input
+    vehicleNumber = el('vehNum').value.trim() || vehicleNumber || '';
+    saveDriverPrefs();
+    // update DB
+    if (driverMobile) db.ref('partners/' + driverMobile).update({ vehicle: selectedVehicle, vehicleNumber }).catch(()=>{});
+    updateTopbar();
+    alert('Vehicle updated to ' + selectedVehicle.toUpperCase());
+  }
+
+  // ---------- map & GPS ----------
+  function initializeMap(initial, zoom) {
+    if (map) return;
+    map = L.map('map', { zoomControl:true }).setView(initial, zoom);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    const carHtml = "<div style='background:var(--accent);padding:8px;border-radius:10px;color:#000;font-weight:900'>YOU</div>";
+    const carIcon = L.divIcon({ html: carHtml, className:'', iconSize:[56,30], iconAnchor:[28,15] });
+    driverMarker = L.marker(initial, { icon: carIcon, draggable:true }).addTo(map);
+    driverMarker.on('dragend', () => {
+      const p = driverMarker.getLatLng();
+      driverLat = p.lat; driverLng = p.lng;
+      if (driverMobile) db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now() }).catch(()=>{});
+    });
+  }
+
+  function startGPSCheck(){
+    if (!navigator.geolocation) { alert('GPS unsupported'); return; }
+    navigator.geolocation.getCurrentPosition(pos => {
       driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
-      if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
-      if(map) map.setView([driverLat, driverLng], 16);
-      // update partner location
-      if(driverMobile) db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now() }).catch(()=>{});
+      if (driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
+      if (map) map.setView([driverLat, driverLng], 15);
+      if (driverMobile) db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now(), onDuty:true }).catch(()=>{});
       if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, { enableHighAccuracy:true, maximumAge:2000 });
-    }, (err) => {
-      console.warn("GPS initial error:", err);
-      showCustomAlert('GPS Unavailable', "GPS permission denied or unavailable. Drag the vehicle icon to set location.");
-      speak("GPS not available. Set your location manually.");
+    }, err => {
+      console.warn('gps err', err);
       if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, { enableHighAccuracy:true, maximumAge:2000 });
-    }, { enableHighAccuracy:true, timeout:7000 });
+    }, { enableHighAccuracy:true, timeout:8000 });
   }
 
-  function onPositionUpdate(pos) {
+  function onPositionUpdate(pos){
     driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
-    if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
-    if (onDuty && driverMobile) {
-      db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now() }).catch(()=>{});
-    }
+    if (driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
+    if (driverMobile) db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now() }).catch(()=>{});
   }
+  function onGPSError(e){ console.warn('gps watch error', e); }
 
-  function onGPSError(err) {
-    console.error("GPS watch error:", err);
-    if (gpsWatchId) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
-    showCustomAlert('GPS Signal Lost', 'GPS signal lost. Drag the vehicle to update location manually.');
-    speak('GPS signal lost.');
-  }
+  function recenterMap(){ if (driverLat && driverLng && map) map.setView([driverLat, driverLng], 15); }
 
-  function recenterMap(){
-    if(driverLat && driverLng && map) map.setView([driverLat, driverLng], map.getZoom() < 14 ? 16 : map.getZoom());
-    speak('Map centered.');
-  }
-
-  // ---------- Request Listening & Filtering ----------
-  // requestListener will be attached to child_added, but we filter by vehicle type, duty and distance
+  // ---------- request listening with vehicle filter ----------
   function requestListener(snap) {
-    if (!onDuty) return;
+    if (!driverMobile) return;
     if (isRequesting) return;
     const data = snap.val();
-    if (!data) return;
-    if (data.status !== 'pending') return;
-    // filter by vehicle type
-    const reqVehicle = (data.vehicleType || '').toLowerCase();
-    // mapping: 'Car' -> 'car', 'Auto'->'auto', 'Bike'->'bike'
-    const mapType = reqVehicle === 'car' ? 'car' : (reqVehicle === 'auto' ? 'auto' : (reqVehicle === 'bike' ? 'bike' : null));
+    if (!data || data.status !== 'pending') return;
+    // match vehicleType
+    const reqType = (data.vehicleType || '').toLowerCase();
+    const mapType = reqType === 'car' ? 'car' : (reqType === 'auto' ? 'auto' : (reqType === 'bike' ? 'bike' : null));
     if (!mapType) return;
-    if (!operatedVehicles[mapType]) return; // driver doesn't operate this vehicle
-
-    if (!driverLat || !driverLng) return console.log('Waiting for location...');
-    // pickup distance (km)
+    if (mapType !== selectedVehicle) return; // only matching vehicle
+    if (!driverLat || !driverLng) return;
     const pd = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng);
-    // notify if within 6 km (tweakable)
+    // radius threshold 6km
     if (pd <= 6.0) {
       isRequesting = true;
       try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
-      const txt = `New ${reqVehicle} request ₹${data.price}, pickup ${pd.toFixed(1)} km`;
-      speak(txt);
-      showRequest(data, snap.key, pd.toFixed(1));
+      currentReqData = data; currentReqKey = snap.key;
+      showRequest(data, currentReqKey, pd.toFixed(1));
     }
   }
 
-  function startListening() {
-    // Listen for last 20 pending requests (child_added), efficient approach: use limitToLast and child_added
-    // We attach to 'requests' and react to child_added; filter inside callback.
-    db.ref('requests').limitToLast(20).on('child_added', requestListener);
+  function startListening(){
+    db.ref('requests').limitToLast(50).on('child_added', requestListener);
+  }
+  function stopListening(){
+    db.ref('requests').limitToLast(50).off('child_added', requestListener);
   }
 
-  function stopListening() {
-    db.ref('requests').limitToLast(20).off('child_added', requestListener);
-  }
-
-  // ---------- UI: show request ----------
-  function showRequest(data, key, pickupKm) {
-    currentReqKey = key; currentReqData = data;
-    document.getElementById('reqPopup').style.display = 'block';
-    document.getElementById('fareDisplay').innerText = data.price;
-    document.getElementById('pickupDist').innerText = pickupKm + ' KM';
-    document.getElementById('tripDist').innerText = data.distance || '—';
+  // ---------- show request ----------
+  function showRequest(data, key, pickupKm){
+    el('reqPopup').style.display = 'block';
+    el('fareDisplay').innerText = data.price;
+    el('pickupDist').innerText = pickupKm + ' km';
+    el('tripDist').innerText = data.distance || '—';
+    el('reqTime').innerText = new Date(data.timestamp || Date.now()).toLocaleTimeString();
     // add pickup marker
-    const personIcon = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize:[36,36], iconAnchor:[18,36] });
     if (pickupMarker) map.removeLayer(pickupMarker);
-    pickupMarker = L.marker([data.pickupLat, data.pickupLng], { icon: personIcon }).addTo(map).bindPopup('Customer Pickup');
+    pickupMarker = L.marker([data.pickupLat, data.pickupLng]).addTo(map).bindPopup('Pickup');
     map.setView([data.pickupLat, data.pickupLng], 15);
   }
 
   function skipRide(){
     try{ document.getElementById('ringtone').pause(); }catch(e){}
-    document.getElementById('reqPopup').style.display = 'none';
+    el('reqPopup').style.display = 'none';
     if (pickupMarker) { map.removeLayer(pickupMarker); pickupMarker = null; }
     isRequesting = false;
-    speak('Request skipped.');
   }
 
-  // Accept with transaction to avoid races
+  // Accept transaction
   function tryAcceptRide(){
     try{ document.getElementById('ringtone').pause(); }catch(e){}
-    // briefly stop listening
-    stopListening();
-    // transaction
-    db.ref('requests/' + currentReqKey).transaction(function(curr){
+    stopListening(); // pause listeners
+    db.ref('requests/' + currentReqKey).transaction(curr => {
       if (curr === null) return curr;
-      if (curr.status === 'pending') {
-        return Object.assign({}, curr, { status:'accepted', driverMobile: driverMobile, driverLat: driverLat || null, driverLng: driverLng || null, acceptedAt: Date.now() });
-      } else return; // abort
-    }, function(err, committed, snapshot){
+      if (curr.status === 'pending') return Object.assign({}, curr, { status:'accepted', driverMobile: driverMobile, driverVehicle: selectedVehicle, driverVehicleNumber: vehicleNumber, acceptedAt: Date.now() });
+      return;
+    }, (err, committed, snap) => {
       if (err) {
-        console.error('Transaction error', err);
-        showCustomAlert('Error', 'Unable to accept request. Try again.');
+        alert('Accept failed.');
         isRequesting = false;
         startListening();
       } else if (!committed) {
-        showCustomAlert('Missed', 'Request already taken or cancelled.');
-        document.getElementById('reqPopup').style.display = 'none';
-        if (pickupMarker) { map.removeLayer(pickupMarker); pickupMarker = null; }
+        alert('Ride already taken.');
         isRequesting = false;
         startListening();
       } else {
-        // accepted successfully
-        currentReqData = snapshot.val();
-        speak('Request accepted. Proceed to pickup.');
-        rideSecured();
-        // save to partner history
-        const hist = {
+        currentReqData = snap.val();
+        // save partner history entry
+        const h = {
           reqId: currentReqKey,
           customerMobile: currentReqData.customerMobile,
           price: currentReqData.price,
-          vehicleType: currentReqData.vehicleType,
-          pickupLat: currentReqData.pickupLat,
-          pickupLng: currentReqData.pickupLng,
-          dropLat: currentReqData.dropLat || null,
-          dropLng: currentReqData.dropLng || null,
           status: 'accepted',
+          vehicle: currentReqData.vehicleType,
           timestamp: Date.now()
         };
-        db.ref('partners/' + driverMobile + '/history').push(hist).catch(()=>{});
-        // update partner node
-        db.ref('partners/' + driverMobile).update({ onDuty:true, lastRide: Date.now(), lastSeen: Date.now() }).catch(()=>{});
+        db.ref('partners/' + driverMobile + '/history').push(h).catch(()=>{});
+        db.ref('partners/' + driverMobile).update({ onDuty:true, lastRide: Date.now() }).catch(()=>{});
+        el('reqPopup').style.display = 'none';
+        el('pickupCard').style.display = 'block';
+        el('custPhoneDisplay').innerText = 'Customer: ' + (currentReqData.customerMobile || '—');
+        el('callBtn').href = 'tel:' + (currentReqData.customerMobile || '');
+        drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
+        // update topbar, income maybe
+        refreshTodayIncome();
       }
     });
   }
 
-  function rideSecured(){
-    document.getElementById('reqPopup').style.display = 'none';
-    document.getElementById('pickupCard').style.display = 'block';
-    document.getElementById('custMobDisp').innerText = currentReqData.customerMobile || '—';
-    document.getElementById('callBtn').href = "tel:" + (currentReqData.customerMobile || '');
-    // draw route from driver -> pickup
-    drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
-    if (pickupMarker) pickupMarker.openPopup();
-  }
-
-  function openPickupMap(){
-    if (!currentReqData) return showCustomAlert('Error','No request loaded.');
-    const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${currentReqData.pickupLat},${currentReqData.pickupLng}&travelmode=driving`;
-    window.open(navUrl, '_blank');
-    speak('Opening navigation to pickup.');
-  }
-
-  function openDropMap(){
-    if (!currentReqData || !currentReqData.dropLat) return showCustomAlert('Error','Drop location not available.');
-    const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${currentReqData.pickupLat},${currentReqData.pickupLng}&destination=${currentReqData.dropLat},${currentReqData.dropLng}&travelmode=driving`;
-    window.open(navUrl, '_blank');
-    speak('Opening navigation to drop.');
-  }
-
+  // verify OTP and start trip
   function verifyOtp(){
-    const entered = (document.getElementById('otpIn').value || '').trim();
-    if (!currentReqData) return showCustomAlert('Error','No request loaded.');
-    if (entered == (currentReqData.otp || '')) {
-      speak('OTP verified. Trip started.');
+    const entered = el('otpIn').value.trim();
+    if (!currentReqData) return alert('No request loaded');
+    if (entered === String(currentReqData.otp)) {
       db.ref('requests/' + currentReqKey).update({ status:'started', startedAt: Date.now() }).catch(()=>{});
-      document.getElementById('pickupCard').style.display = 'none';
-      document.getElementById('dropCard').style.display = 'block';
-      // draw drop route if available
+      el('pickupCard').style.display = 'none';
+      el('dropCard').style.display = 'block';
+      // draw drop route if present
       if (currentReqData.dropLat && currentReqData.dropLng) {
         drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#10b981');
-        if (dropMarker) map.removeLayer(dropMarker);
-        dropMarker = L.marker([currentReqData.dropLat, currentReqData.dropLng]).addTo(map).bindPopup('Drop');
       } else {
-        showCustomAlert('Drop missing','Drop location not provided — ask customer for drop address.');
+        alert('Drop location not available. Ask customer.');
       }
-      // update partner history status (started)
+      // update partner history entry
       updatePartnerHistoryStatus(currentReqKey, 'started');
     } else {
-      speak('Incorrect OTP.');
-      showCustomAlert('Wrong OTP','Entered OTP does not match. Please verify with customer.');
+      alert('Wrong OTP');
     }
   }
 
+  // complete ride
   function completeRide(){
-    if (!currentReqKey || !currentReqData) return showCustomAlert('Error','No active ride.');
+    if (!currentReqKey || !currentReqData) return alert('No active ride');
     db.ref('requests/' + currentReqKey).update({ status:'completed', completedAt: Date.now() }).then(()=>{
-      document.getElementById('dropCard').style.display = 'none';
-      document.getElementById('billModal').style.display = 'flex';
-      document.getElementById('billAmount').innerText = '₹' + (currentReqData.price || 0);
-      speak('Trip completed. Collect cash.');
-      // update partner history
+      el('dropCard').style.display = 'none';
+      el('billModal').style.display = 'flex';
+      el('billAmount').innerText = '₹' + (currentReqData.price || 0);
       updatePartnerHistoryStatus(currentReqKey, 'completed');
-      // set small delay then reset
-    }).catch(e=>{
-      console.error('complete error', e);
-      showCustomAlert('Error','Could not complete ride. Try again.');
-    });
+      refreshTodayIncome();
+    }).catch(e => alert('Complete failed'));
   }
 
   function finishAndNext(){
     // cleanup
-    document.getElementById('billModal').style.display = 'none';
-    if(routeLine) { map.removeLayer(routeLine); routeLine = null; }
-    if(pickupMarker) { map.removeLayer(pickupMarker); pickupMarker = null; }
-    if(dropMarker) { map.removeLayer(dropMarker); dropMarker = null; }
+    el('billModal').style.display = 'none';
+    if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
+    if (pickupMarker) { map.removeLayer(pickupMarker); pickupMarker = null; }
+    if (dropMarker) { map.removeLayer(dropMarker); dropMarker = null; }
     currentReqKey = null; currentReqData = null; isRequesting = false;
     startListening();
-    speak('Ready for next request.');
   }
 
   function cancelRide(){
-    showCustomConfirm('Cancel Ride','Are you sure you want to cancel this ride?', function ok(){
-      db.ref('requests/' + currentReqKey).update({ status:'cancelled' }).then(()=>{
-        isRequesting = false;
-        location.reload();
-      }).catch(()=> showCustomAlert('Error','Cancel failed.'));
-    }, function cancel(){});
+    if (!confirm('Cancel ride?')) return;
+    db.ref('requests/' + currentReqKey).update({ status:'cancelled' }).then(()=>{
+      isRequesting = false;
+      location.reload();
+    }).catch(()=>alert('Cancel failed'));
   }
 
-  function skipRide(){ 
-    try{ document.getElementById('ringtone').pause(); }catch(e){}
-    document.getElementById('reqPopup').style.display = 'none';
-    if (pickupMarker) { map.removeLayer(pickupMarker); pickupMarker = null; }
-    isRequesting = false; 
-    speak('Request skipped.');
+  // ---------- route drawing ----------
+  function drawRoute(lat1, lon1, lat2, lon2, color){
+    if (routeLine) map.removeLayer(routeLine);
+    routeLine = L.polyline([[lat1,lon1],[lat2,lon2]], { color, weight:5 }).addTo(map);
+    map.fitBounds(routeLine.getBounds(), { padding: [40,40] });
   }
 
-  function drawRoute(lat1, lng1, lat2, lng2, color){
-    if(routeLine) map.removeLayer(routeLine);
-    const latlngs = [[lat1, lng1], [lat2, lng2]];
-    routeLine = L.polyline(latlngs, { color: color, weight:5 }).addTo(map);
-    map.fitBounds(routeLine.getBounds(), { padding:[40,40] });
-  }
-
-  function getDist(lat1,lon1,lat2,lon2){
-    const R = 6371; const dLat = (lat2-lat1)*(Math.PI/180); const dLon = (lon2-lon1)*(Math.PI/180);
+  // ---------- helpers ----------
+  function getDist(lat1, lon1, lat2, lon2){
+    const R = 6371;
+    const dLat = (lat2-lat1)*(Math.PI/180);
+    const dLon = (lon2-lon1)*(Math.PI/180);
     const a = Math.sin(dLat/2)*Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180))*Math.cos(lat2*(Math.PI/180))*Math.sin(dLon/2)*Math.sin(dLon/2);
     return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
   }
 
-  // partner history helper: find entry by reqId and update its status
-  async function updatePartnerHistoryStatus(reqId, newStatus) {
-    try {
-      const ref = db.ref('partners/' + driverMobile + '/history');
-      const snap = await ref.orderByChild('reqId').equalTo(reqId).once('value');
-      const matches = snap.val();
-      if (!matches) return;
-      Object.keys(matches).forEach(k => ref.child(k).update({ status: newStatus }));
-    } catch(e){ console.warn('update history status error', e); }
+  // ---------- history & today income ----------
+  async function fetchHistory(){
+    if (!driverMobile) return;
+    const snap = await db.ref('partners/' + driverMobile + '/history').orderByChild('timestamp').once('value');
+    const data = snap.val() || {};
+    renderHistoryList(data);
   }
 
-  // Help modal
-  function openHelp(){ document.getElementById('helpModal').style.display='flex'; speak('Help opened.'); }
-  function closeHelp(){ document.getElementById('helpModal').style.display='none'; speak('Help closed.'); }
+  function renderHistoryList(dataObj){
+    const container = el('historyList');
+    container.innerHTML = '';
+    const keys = Object.keys(dataObj || {}).sort((a,b) => (dataObj[b].timestamp||0) - (dataObj[a].timestamp||0));
+    if (!keys.length) { container.innerHTML = '<div style="padding:18px;color:#9aa3b2">No rides yet</div>'; return; }
+    keys.forEach(k => {
+      const it = dataObj[k];
+      const t = new Date(it.timestamp||Date.now()).toLocaleString();
+      const row = document.createElement('div'); row.className = 'hist-item';
+      row.innerHTML = `<div>
+          <div style="font-weight:900">₹${it.price || 0} • ${it.vehicle || ''}</div>
+          <div class="muted">${t}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="muted">${(it.status||'').toUpperCase()}</div>
+        </div>`;
+      container.appendChild(row);
+    });
+  }
 
-  // Start listening initially? Not until startDuty called.
-  // Expose some debug helpers
-  window.debugRequests = async function(){ const s = await db.ref('requests').orderByChild('timestamp').limitToLast(50).once('value'); console.log(s.val()); alert('Check console for last requests.'); };
+  async function refreshTodayIncome(){
+    if (!driverMobile) return;
+    const [s,e] = fmtTodayUnixRange();
+    const snap = await db.ref('partners/' + driverMobile + '/history').orderByChild('timestamp').startAt(s).endAt(e).once('value');
+    const data = snap.val() || {};
+    let total = 0;
+    Object.values(data).forEach(it => { if (it.status === 'completed' || it.status === 'completed') total += Number(it.price || 0); });
+    el('incomeBox').innerText = 'Today ₹' + total;
+  }
+
+  async function updatePartnerHistoryStatus(reqId, newStatus){
+    if (!driverMobile) return;
+    const ref = db.ref('partners/' + driverMobile + '/history');
+    const snap = await ref.orderByChild('reqId').equalTo(reqId).once('value');
+    const matches = snap.val();
+    if (!matches) return;
+    Object.keys(matches).forEach(k => ref.child(k).update({ status: newStatus }));
+    fetchHistory();
+    refreshTodayIncome();
+  }
+
+  // ---------- history modal ----------
+  function openHistory(){ fetchHistory(); el('historyModal').style.display = 'flex'; }
+  function closeHistory(){ el('historyModal').style.display = 'none'; }
+
+  // ---------- app init: restore login if present ----------
+  (function init() {
+    const ok = loadDriverPrefs();
+    if (ok && driverMobile) {
+      // auto show app
+      el('dLoginScreen').style.display = 'none';
+      el('dApp').style.display = 'block';
+      el('helpBtn').style.display = 'block';
+      updateTopbar();
+      initializeMap([17.3850,78.4867],13);
+      startGPSCheck();
+      startListening();
+      refreshTodayIncome();
+    }
+  })();
+
+  // expose debug
+  window.debugRequests = async function(){ const s = await db.ref('requests').orderByChild('timestamp').limitToLast(50).once('value'); console.log(s.val()); alert('Check console'); };
 
 </script>
 </body>
