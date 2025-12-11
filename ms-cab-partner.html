@@ -1,443 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>MS Partner - Part1</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MS Partner</title>
 
-  <!-- Leaflet CSS -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-  <style>
-    body{margin:0;font-family:Segoe UI,Roboto,Arial,sans-serif;height:100vh;overflow:hidden;background:#000;color:#fff}
-    #dLoginScreen{position:fixed;inset:0;background:#000;z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:20px}
-    .logo{font-size:2rem;color:#d4af37;font-weight:700;margin-bottom:10px}
-    .d-inp{width:80%;padding:15px;border-radius:8px;border:1px solid #333;background:#111;color:#fff;text-align:center;margin-bottom:15px;font-size:1.05rem}
-    .d-btn{width:85%;padding:15px;border-radius:8px;border:none;background:#d4af37;color:#000;font-weight:700;cursor:pointer}
-    #dApp{display:none;height:100vh;width:100%;flex-direction:column}
-    #map{height:100%;width:100%}
-    .recenter-btn{position:absolute;bottom:300px;right:20px;width:45px;height:45px;background:white;color:black;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:1000;cursor:pointer}
-    .card{position:absolute;left:10px;right:10px;bottom:20px;background:rgba(20,20,20,0.95);border-radius:15px;padding:16px;z-index:1001;border:1px solid #333;display:none}
-    .btn-row{display:flex;gap:10px;margin-top:12px}
-    .accept-btn{flex:1;padding:12px;background:#d4af37;border:none;border-radius:8px;color:#000;font-weight:700;cursor:pointer}
-    .skip-btn{flex:1;padding:12px;background:#333;border:1px solid #555;border-radius:8px;color:#aaa;cursor:pointer}
-    .contact-btn{display:block;background:#1e90ff;color:#fff;text-align:center;padding:10px;border-radius:8px;text-decoration:none;font-weight:700;margin-bottom:10px;border:none;cursor:pointer}
-    .contact-btn.green{background:#4caf50}
-    .otp-row{display:flex;gap:8px;margin-top:8px}
-    .otp-inp{flex:1;padding:10px;text-align:center;font-size:1.1rem;background:#000;border:1px solid #d4af37;color:#fff;border-radius:6px}
-    .go-btn{padding:0 18px;background:#d4af37;border:none;border-radius:6px;cursor:pointer}
-    #helpBtn{position:absolute;top:16px;right:16px;background:red;color:#fff;padding:8px 12px;border-radius:50px;z-index:2000;display:none;cursor:pointer}
-    #helpModal,#billModal,#customDialog{display:none;position:fixed;inset:0;align-items:center;justify-content:center;z-index:3000}
-    .modal-card{background:#222;color:#fff;padding:18px;border-radius:12px;width:90%;max-width:420px;border:1px solid #d4af37;text-align:center}
-    .bill-box{background:#fff;color:#000;padding:18px;border-radius:12px;width:90%;max-width:420px;text-align:center}
-  </style>
+<style>
+body { margin:0; background:#000; color:white; font-family:Arial; }
+#dLoginScreen { position:fixed; inset:0; background:#000; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+.d-inp { width:80%; padding:12px; background:#111; border:1px solid #333; color:white; text-align:center; margin-bottom:10px; }
+.d-btn { width:83%; padding:12px; background:#d4af37; border:none; font-weight:bold; }
+#dApp { display:none; height:100vh; }
+#map { height:100vh; width:100%; }
+
+.card { position:absolute; left:10px; right:10px; bottom:20px; padding:15px; background:#111; border-radius:12px; border:1px solid #333; display:none; }
+
+.contact-btn { background:#1e90ff; padding:10px; border:none; color:white; width:100%; border-radius:8px; margin-bottom:10px; }
+.green-btn { background:#4caf50; }
+
+.otp-row { display:flex; gap:10px; }
+.otp-inp { flex:1; background:#000; border:1px solid #d4af37; color:white; padding:10px; text-align:center; }
+.go-btn { padding:0 15px; background:#d4af37; border:none; }
+
+</style>
 </head>
+
 <body>
 
-  <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
-
-  <div id="helpBtn" onclick="openHelp()">🆘 HELP</div>
-
-  <div id="helpModal" style="background:rgba(0,0,0,0.7);display:none;flex-direction:column;">
-    <div class="modal-card">
-      <h2 style="color:red;margin:0">EMERGENCY HELP</h2>
-      <div style="margin-top:12px">
-        <a href="tel:100" style="display:block;background:#333;color:#fff;padding:10px;border-radius:8px;margin:8px 0;text-decoration:none">👮 POLICE (100)</a>
-        <a href="tel:9381667208" style="display:block;background:#111;color:#d4af37;padding:10px;border-radius:8px;margin:8px 0;text-decoration:none">👤 MUSTAQEEM</a>
-        <button onclick="closeHelp()" style="margin-top:8px;padding:8px 14px;border-radius:8px;border:none;background:#333;color:#fff;cursor:pointer">CLOSE</button>
-      </div>
-    </div>
-  </div>
-
-  <div id="dLoginScreen">
-    <div class="logo">MS PARTNER</div>
+<div id="dLoginScreen">
+    <h2 style="color:#d4af37;">MS PARTNER</h2>
     <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number">
     <button class="d-btn" onclick="startDuty()">START DUTY</button>
-  </div>
+</div>
 
-  <div id="dApp">
+<div id="dApp">
     <div id="map"></div>
-    <div class="recenter-btn" onclick="recenterMap()">🎯</div>
 
-    <!-- Request popup -->
+    <!-- RIDE REQUEST POPUP -->
     <div id="reqPopup" class="card">
-      <div style="font-weight:700">NEW RIDE REQUEST 🔔</div>
-      <div style="font-size:22px;color:#d4af37;margin:8px 0">₹<span id="fareDisplay">0</span></div>
-      <div style="display:flex;justify-content:space-between;font-size:13px;color:#aaa">
-        <div><div style="font-size:11px;color:#888">PICKUP DIST</div><div id="pickupDist">...</div></div>
-        <div><div style="font-size:11px;color:#888">TRIP DIST</div><div id="tripDist">...</div></div>
-      </div>
-      <div class="btn-row">
-        <button class="skip-btn" onclick="skipRide()">SKIP ✕</button>
-        <button class="accept-btn" onclick="tryAcceptRide()">ACCEPT ✓</button>
-      </div>
+        <h3>NEW RIDE REQUEST</h3>
+        <div>Fare: ₹<span id="fareDisplay">0</span></div>
+        <button onclick="tryAcceptRide()" class="contact-btn">ACCEPT</button>
+        <button onclick="skipRide()" class="contact-btn" style="background:#444;">SKIP</button>
     </div>
 
-    <!-- Pickup card -->
-    <div id="pickupCard" class="card" style="border-top:4px solid #f0c000">
-      <div style="color:#f0c000;font-weight:700">HEADING TO PICKUP 🟡</div>
-      <div style="color:#aaa;font-size:13px;margin-top:6px">CUSTOMER MOBILE</div>
-      <div id="custMobDisp" style="font-size:18px;font-weight:700;color:#fff;margin:8px 0">...</div>
-      <a id="callBtn" class="contact-btn" href="#">📞 CALL CUSTOMER</a>
-      <button id="mapToPickupBtn" class="contact-btn" style="background:#1e90ff" onclick="openNavToPickup()">🗺️ MAP — Pickup par jao</button>
+    <!-- PICKUP CARD -->
+    <div id="pickupCard" class="card">
+        <h3>PICKUP</h3>
+        <div id="custMobDisp"></div>
+        <button id="mapToPickupBtn" class="contact-btn">🗺️ MAP — Pickup par jao</button>
 
-      <div class="otp-row" style="margin-top:8px">
-        <input id="otpIn" class="otp-inp" type="number" placeholder="OTP">
-        <button class="go-btn" onclick="verifyOtp()">START</button>
-      </div>
+        <div class="otp-row">
+            <input id="otpIn" class="otp-inp" type="number" placeholder="OTP">
+            <button class="go-btn" onclick="verifyOtp()">START</button>
+        </div>
 
-      <button onclick="cancelRide()" style="margin-top:10px;width:100%;padding:10px;border-radius:8px;background:#c0392b;border:none;color:#fff;cursor:pointer">CANCEL RIDE</button>
+        <button onclick="cancelRide()" class="contact-btn" style="background:red;">CANCEL RIDE</button>
     </div>
 
-    <!-- Drop card -->
-    <div id="dropCard" class="card" style="border-top:4px solid #2ecc71">
-      <div style="color:#2ecc71;font-weight:700">ON TRIP 🟢</div>
-      <div style="color:#ccc;margin:8px 0">Navigating to Drop Location...</div>
-      <button id="mapToDropBtn" class="contact-btn green" onclick="openNavToDrop()">🗺️ MAP — Drop par jao</button>
-      <button class="contact-btn" style="background:#000;margin-top:8px" onclick="completeRide()">END TRIP & GET BILL</button>
+    <!-- DROP CARD -->
+    <div id="dropCard" class="card">
+        <h3>ON TRIP</h3>
+        <button id="mapToDropBtn" class="contact-btn green-btn">🗺️ MAP — Drop par jao</button>
+        <button onclick="completeRide()" class="contact-btn" style="background:#000; border:1px solid #d4af37;">END TRIP</button>
     </div>
-  </div>
 
-  <div id="billModal" style="display:none;background:rgba(0,0,0,0.7);align-items:center;justify-content:center">
-    <div class="bill-box">
-      <h3 style="margin:0">TRIP COMPLETED ✅</h3>
-      <div style="margin:12px 0;color:#666">Collect Cash from Customer</div>
-      <div style="font-size:28px;font-weight:800;color:green" id="billAmount">₹0</div>
-      <button onclick="location.reload()" style="margin-top:12px;padding:10px 14px;border-radius:8px;border:none;background:#d4af37;cursor:pointer">COMPLETE & NEXT</button>
-    </div>
-  </div>
+</div>
 
-  <!-- custom confirm dialog -->
-  <div id="customDialog" style="background:rgba(0,0,0,0.45);display:none;align-items:center;justify-content:center">
-    <div class="modal-card">
-      <div id="customDialogTitle" style="font-weight:800;margin-bottom:8px">Title</div>
-      <div id="customDialogMessage" style="color:#ddd;white-space:pre-wrap;margin-bottom:12px">Message</div>
-      <div style="display:flex;gap:8px;justify-content:flex-end">
-        <button id="customDialogCancel" style="background:transparent;border:none;color:#1e90ff;font-weight:700;cursor:pointer">CANCEL</button>
-        <button id="customDialogOk" style="background:#1e90ff;border:none;color:#fff;padding:8px 12px;border-radius:6px;cursor:pointer">OK</button>
-      </div>
-    </div>
-  </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="
+  
+  let map, driverMarker, driverLat=17.3850, driverLng=78.4867;
+let currentReqData = null;
 
-  <!-- Leaflet + Firebase -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+function startDuty() {
+    document.getElementById("dLoginScreen").style.display = "none";
+    document.getElementById("dApp").style.display = "block";
+    initMap();
+    simulateRequest(); // TEST REQUEST
+}
 
-  <!-- Load part2.js -->
-  <script src="/* part2.js - corrected and debug-friendly */
-/* Save as part2.js in same folder as index.html */
+function initMap() {
+    map = L.map('map').setView([driverLat, driverLng], 14);
 
-/* Firebase config - same as before */
-const firebaseConfig = {
-  apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
-  authDomain: "hyd-texi.firebaseapp.com",
-  projectId: "hyd-texi",
-  storageBucket: "hyd-texi.firebasestorage.app",
-  messagingSenderId: "807048727786",
-  appId: "1:807048727786:web:7ef03573876c70b76e1b93",
-  databaseURL: "https://hyd-texi-default-rtdb.firebaseio.com"
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+      .addTo(map);
+
+    driverMarker = L.marker([driverLat, driverLng]).addTo(map);
+}
+
+function simulateRequest() {
+    currentReqData = {
+        pickupLat: 17.4370,
+        pickupLng: 78.3950,
+        dropLat: 17.4455,
+        dropLng: 78.4020,
+        customerMobile: "9000000000",
+        otp: 1234,
+        price: 150
+    };
+
+    document.getElementById("reqPopup").style.display = "block";
+    document.getElementById("fareDisplay").textContent = currentReqData.price;
+}
+
+function tryAcceptRide() {
+    document.getElementById("reqPopup").style.display = "none";
+    document.getElementById("pickupCard").style.display = "block";
+
+    document.getElementById("custMobDisp").textContent = currentReqData.customerMobile;
+}
+
+function skipRide() {
+    document.getElementById("reqPopup").style.display = "none";
+}
+
+function openNavigation(lat, lng) {
+    const url = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+    window.open(url, "_blank");
+}
+
+document.getElementById("mapToPickupBtn").onclick = () => {
+    openNavigation(currentReqData.pickupLat, currentReqData.pickupLng);
 };
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
 
-/* State */
-let map, driverMarker, driverLat, driverLng;
-let currentReqKey = null, currentReqData = null;
-let routeLine = null;
-let pickupMarker = null, dropMarker = null;
-let followDriver = true;
-let gpsWatchId = null;
+document.getElementById("mapToDropBtn").onclick = () => {
+    openNavigation(currentReqData.dropLat, currentReqData.dropLng);
+};
 
-/* Dialog elements */
-const customDialog = document.getElementById('customDialog');
-const customDialogTitle = document.getElementById('customDialogTitle');
-const customDialogMessage = document.getElementById('customDialogMessage');
-const customDialogOk = document.getElementById('customDialogOk');
-const customDialogCancel = document.getElementById('customDialogCancel');
+function verifyOtp() {
+    let otp = document.getElementById("otpIn").value;
 
-function showCustomConfirm(title, message, onOk, onCancel){
-  customDialogTitle.innerText = title||'Confirm';
-  customDialogMessage.innerText = message||'';
-  customDialog.style.display = 'flex';
-  customDialogOk.style.display = 'inline-block';
-  customDialogCancel.style.display = 'inline-block';
-
-  function cleanup(){ customDialog.style.display='none'; customDialogOk.removeEventListener('click',ok); customDialogCancel.removeEventListener('click',cancel); }
-  function ok(){ cleanup(); if(onOk) onOk(); }
-  function cancel(){ cleanup(); if(onCancel) onCancel(); }
-  customDialogOk.addEventListener('click', ok);
-  customDialogCancel.addEventListener('click', cancel);
-}
-
-function showCustomAlert(title, message, onOk){
-  customDialogTitle.innerText = title||'Alert';
-  customDialogMessage.innerText = message||'';
-  customDialog.style.display = 'flex';
-  customDialogCancel.style.display = 'none';
-  customDialogOk.style.display = 'inline-block';
-  function cleanup(){ customDialog.style.display='none'; customDialogOk.removeEventListener('click',ok); }
-  function ok(){ cleanup(); if(onOk) onOk(); }
-  customDialogOk.addEventListener('click', ok);
-}
-
-/* speak fallback */
-function speak(text){
-  try{
-    if(window.Android && typeof window.Android.speak === 'function'){ window.Android.speak(text); return; }
-  }catch(e){}
-  if('speechSynthesis' in window){
-    try{ window.speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(text); u.lang='en-US'; window.speechSynthesis.speak(u); return; }catch(e){}
-  }
-  try{ let r=document.getElementById('ringtone'); if(r){ r.play().catch(()=>{}); setTimeout(()=>{ try{ r.pause(); r.currentTime=0;}catch(e){} },1000);} }catch(e){}
-}
-
-/* Start duty */
-function startDuty(){
-  const num = document.getElementById('dPhone').value;
-  if(!num || num.trim().length<10){ showCustomAlert('Invalid','Enter a valid mobile number'); return; }
-  localStorage.setItem('msDriverPremium', num.trim());
-  driverMobile = num.trim();
-  document.getElementById('dLoginScreen').style.display='none';
-  document.getElementById('dApp').style.display='block';
-  document.getElementById('helpBtn').style.display='block';
-  initializeMap([17.3850,78.4867],13);
-  startGPSCheck();
-  startListening();
-  speak('Service started. Welcome partner.');
-}
-
-/* Map init */
-function initializeMap(center,zoom){
-  if(map) return;
-  map = L.map('map',{zoomControl:false}).setView(center,zoom);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{ attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
-  const carHtml = "<div style='width:56px;height:56px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:linear-gradient(180deg,#FFF4B0,#FFC843);font-size:28px'>🚗</div>";
-  const carIcon = L.divIcon({ html: carHtml, className:'' , iconSize:[56,56], iconAnchor:[28,56]});
-  driverMarker = L.marker(center,{icon:carIcon,draggable:true}).addTo(map).bindPopup('Your Cab');
-  driverMarker.on('dragend', ()=>{ const p = driverMarker.getLatLng(); driverLat=p.lat; driverLng=p.lng; followDriver=false; speak('Location set'); });
-  map.on('dragstart', ()=> followDriver=false);
-  driverLat=center[0]; driverLng=center[1];
-}
-
-/* GPS */
-const GPS_HELP_TEXT = "Agar GPS accessible nahi hai, ap car icon ko drag karke apni location set karo. Phir bookings milengi.";
-function startGPSCheck(){
-  if(!navigator.geolocation){ showCustomAlert('GPS Not Supported',GPS_HELP_TEXT); speak(GPS_HELP_TEXT); return; }
-  navigator.geolocation.getCurrentPosition(pos=>{
-    driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
-    if(driverMarker) driverMarker.setLatLng([driverLat,driverLng]);
-    if(map) map.setView([driverLat,driverLng],16);
-    if(!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate,onGPSError,{enableHighAccuracy:true});
-  }, err=>{
-    console.warn('GPS init error',err);
-    showCustomAlert('GPS Unavailable',GPS_HELP_TEXT);
-    speak(GPS_HELP_TEXT);
-    if(!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate,onGPSError,{enableHighAccuracy:true});
-  },{enableHighAccuracy:true,timeout:5000});
-}
-function onPositionUpdate(pos){
-  driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
-  if(driverMarker) driverMarker.setLatLng([driverLat,driverLng]);
-  if(followDriver && map) map.panTo([driverLat,driverLng]);
-}
-function onGPSError(err){
-  console.error('GPS watch error',err);
-  followDriver=false;
-  if(gpsWatchId){ navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId=null; }
-  showCustomAlert('GPS Signal Lost',GPS_HELP_TEXT);
-  speak(GPS_HELP_TEXT);
-}
-function recenterMap(){ followDriver=true; if(driverLat && driverLng){ map.setView([driverLat,driverLng], map.getZoom()<14?16:map.getZoom()); speak('Centered on your location'); } }
-
-/* Firebase listener - debug-friendly */
-function startListening(){
-  try{
-    console.log('Listening to requests node');
-    db.ref('requests').limitToLast(5).on('child_added', snap=>{
-      const data = snap.val();
-      if(!data) return;
-      console.log('request child_added', snap.key, data);
-      if(data.status==='pending'){
-        if(!driverLat || !driverLng){ console.log('no driver location yet'); return; }
-        const dist = (getDist(driverLat,driverLng,data.pickupLat,data.pickupLng)||0).toFixed(1);
-        // For testing we will show; in production replace condition with desired radius
-        if(true){
-          try{ document.getElementById('ringtone').play().catch(()=>{}); }catch(e){}
-          speak('Naya request aaya. Fare '+(data.price||'0')+' rupees. Pickup dist '+dist+' km.');
-          showRequest(data,snap.key,dist);
-        }
-      }
-    });
-  }catch(e){ console.error('startListening error',e); }
-}
-
-/* Show request */
-function showRequest(data,key,pKM){
-  currentReqKey = key; currentReqData = data;
-  document.getElementById('reqPopup').style.display='block';
-  document.getElementById('fareDisplay').innerText = data.price || '0';
-  document.getElementById('pickupDist').innerText = pKM+' KM';
-  document.getElementById('tripDist').innerText = data.distance || '...';
-
-  // remove previous pickupMarker (not driver)
-  if(pickupMarker){ try{ map.removeLayer(pickupMarker); }catch(e){} pickupMarker=null; }
-  if(dropMarker){ try{ map.removeLayer(dropMarker); }catch(e){} dropMarker=null; }
-
-  if(data.pickupLat && data.pickupLng){
-    const personIcon = L.icon({ iconUrl:'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize:[36,36], iconAnchor:[18,36] });
-    pickupMarker = L.marker([data.pickupLat,data.pickupLng],{icon:personIcon}).addTo(map).bindPopup('PICKUP').openPopup();
-    try{ map.fitBounds(L.latLngBounds([[driverLat||0,driverLng||0],[data.pickupLat,data.pickupLng]]), {padding:[40,40]}); }catch(e){}
-  }
-}
-
-/* Accept ride */
-function tryAcceptRide(){
-  try{ document.getElementById('ringtone').pause(); }catch(e){}
-  if(!currentReqKey){ showCustomAlert('Error','Koi request select nahi hai'); return; }
-  const path = 'requests/' + currentReqKey;
-  db.ref(path).transaction(curr=>{
-    if(curr === null) return curr;
-    if(curr.status === 'pending') { curr.status = 'accepted'; curr.driverMobile = localStorage.getItem('msDriverPremium')||''; return curr; }
-    return;
-  }, function(err, committed, snapshot){
-    if(err){ console.error('transaction err',err); showCustomAlert('Error','Accept failed'); return; }
-    if(!committed){ showCustomAlert('Booking Missed','Booking missed by another driver or customer cancelled.'); document.getElementById('reqPopup').style.display='none'; return; }
-    // success
-    console.log('Ride accepted', snapshot && snapshot.val());
-    currentReqData = snapshot.val() || currentReqData;
-    rideSecured();
-  });
-}
-
-/* After accept */
-function rideSecured(){
-  document.getElementById('reqPopup').style.display='none';
-  document.getElementById('pickupCard').style.display='block';
-  document.getElementById('custMobDisp').innerText = currentReqData.customerMobile || 'Unknown';
-  document.getElementById('callBtn').href = 'tel:'+ (currentReqData.customerMobile || '');
-  // ensure pickup button has dataset
-  try{
-    const pb = document.getElementById('mapToPickupBtn');
-    if(pb && currentReqData.pickupLat && currentReqData.pickupLng){
-      pb.dataset.lat = currentReqData.pickupLat;
-      pb.dataset.lng = currentReqData.pickupLng;
-      pb.innerText = '🗺️ MAP — Pickup par jao';
-    }
-  }catch(e){}
-  // draw simple line
-  drawRoute(driverLat,driverLng,currentReqData.pickupLat,currentReqData.pickupLng,'#d4af37');
-}
-
-/* OTP verify */
-function verifyOtp(){
-  const entered = document.getElementById('otpIn').value;
-  if(!currentReqData){ showCustomAlert('Error','No request data'); return; }
-  if(String(entered) === String(currentReqData.otp)){
-    const msg = "OTP verified. Passenger se drop location pooch lo. Jab passenger bol de to OK dabao.";
-    speak('OTP verified. Ask passenger for drop location.');
-    showCustomConfirm('OTP verified', msg, function(){
-      console.log('Trip starting...');
-      try{ db.ref('requests/'+currentReqKey).update({ status:'started' }); }catch(e){ console.warn('db update fail', e); }
-      document.getElementById('pickupCard').style.display='none';
-      document.getElementById('dropCard').style.display='block';
-      if(currentReqData.dropLat && currentReqData.dropLng){
-        // show drop marker
-        dropMarker = L.marker([currentReqData.dropLat,currentReqData.dropLng]).addTo(map).bindPopup('DROP');
-        drawRoute(currentReqData.pickupLat,currentReqData.pickupLng,currentReqData.dropLat,currentReqData.dropLng,'#2ecc71');
-        const dbtn = document.getElementById('mapToDropBtn'); if(dbtn){ dbtn.dataset.lat = currentReqData.dropLat; dbtn.dataset.lng = currentReqData.dropLng; dbtn.innerText='🗺️ MAP — Drop par jao'; }
-      } else {
-        showCustomAlert('Drop Missing','Drop coordinates available nahi. Passenger se pooch ke manual navigate karo.');
-        document.getElementById('mapToDropBtn').innerText = '🗺️ MAP — Drop missing';
-      }
-      onTripStartedSetup();
-    }, function(){ speak('Trip start cancelled'); });
-  } else {
-    speak('Incorrect OTP'); showCustomAlert('Wrong OTP','The OTP entered is incorrect');
-  }
-}
-
-/* Complete ride */
-function completeRide(){
-  try{ db.ref('requests/'+currentReqKey).update({ status:'completed' }); }catch(e){ console.warn('complete update fail',e); }
-  document.getElementById('dropCard').style.display='none';
-  document.getElementById('billAmount').innerText = '₹' + (currentReqData.price || '0');
-  document.getElementById('billModal').style.display='flex';
-  speak('Trip complete. Cash collect karo.');
-}
-
-/* UI actions */
-function skipRide(){ try{ document.getElementById('ringtone').pause(); }catch(e){} document.getElementById('reqPopup').style.display='none'; speak('Request skipped'); }
-function cancelRide(){ showCustomConfirm('Cancel Ride','Kya sure ho? Cancel karna hai?', function(){ db.ref('requests/'+currentReqKey).update({ status:'cancelled' }).then(()=> location.reload()).catch(()=> showCustomAlert('Error','Cancel failed')); }, function(){}); }
-function openHelp(){ document.getElementById('helpModal').style.display='flex'; speak('Help opened'); }
-function closeHelp(){ document.getElementById('helpModal').style.display='none'; speak('Help closed'); }
-
-/* Draw route (straight polyline) - fixed latlng order */
-function drawRoute(lat1,lon1,lat2,lon2,color){
-  if(routeLine){ try{ map.removeLayer(routeLine); }catch(e){} routeLine=null; }
-  if(!lat1 || !lon1 || !lat2 || !lon2) return;
-  routeLine = L.polyline([[lat1,lon1],[lat2,lon2]],{color:color||'#3388ff',weight:5}).addTo(map);
-  try{ map.fitBounds(routeLine.getBounds(),{padding:[40,40]}); }catch(e){}
-}
-
-/* Haversine */
-function getDist(lat1,lon1,lat2,lon2){
-  if(!lat1||!lon1||!lat2||!lon2) return 0;
-  var R=6371; var dLat=(lat2-lat1)*(Math.PI/180); var dLon=(lon2-lon1)*(Math.PI/180);
-  var a=Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*(Math.PI/180))*Math.cos(lat2*(Math.PI/180))*Math.sin(dLon/2)*Math.sin(dLon/2);
-  return R*(2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
-}
-
-/* External navigation open - safe */
-function openNavigationExternal(lat,lng,label){
-  if(!lat||!lng){ showCustomAlert('Location missing','Coordinates available nahi hain'); speak('Location missing'); return; }
-  const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}&travelmode=driving`;
-  const geo = `geo:${lat},${lng}?q=${lat},${lng}(${encodeURIComponent(label||'Destination')})`;
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent||'');
-  try{
-    if(isMobile){
-      // Try native geo intent then fallback
-      window.location.href = geo;
-      setTimeout(()=>{ window.open(gmaps,'_blank'); },800);
+    if (otp == currentReqData.otp) {
+        document.getElementById("pickupCard").style.display = "none";
+        document.getElementById("dropCard").style.display = "block";
     } else {
-      window.open(gmaps,'_blank');
+        alert("Wrong OTP");
     }
-  }catch(e){ window.open(gmaps,'_blank'); }
 }
 
-/* UI wrappers */
-function openNavToPickup(){ if(!currentReqData){ showCustomAlert('No request','Koi active request nahi hai'); return; } openNavigationExternal(currentReqData.pickupLat,currentReqData.pickupLng,'Pickup Location'); speak('Opening map to pickup'); }
-function openNavToDrop(){ if(!currentReqData){ showCustomAlert('No request','Koi active request nahi hai'); return; } if(!currentReqData.dropLat||!currentReqData.dropLng){ showCustomAlert('Drop missing','Drop coordinates not available'); speak('Drop missing'); return;} openNavigationExternal(currentReqData.dropLat,currentReqData.dropLng,'Drop Location'); speak('Opening map to drop'); }
-
-function onTripStartedSetup(){
-  try{
-    const dropBtn = document.getElementById('mapToDropBtn');
-    if(dropBtn && currentReqData && currentReqData.dropLat && currentReqData.dropLng){
-      dropBtn.dataset.lat = currentReqData.dropLat;
-      dropBtn.dataset.lng = currentReqData.dropLng;
-      dropBtn.innerText = '🗺️ MAP — Drop par jao';
-    } else if(dropBtn){
-      dropBtn.innerText = '🗺️ MAP — Drop missing';
-    }
-  }catch(e){}
+function cancelRide() {
+    location.reload();
 }
 
-/* Load saved phone */
-window.addEventListener('load', ()=>{ const s=localStorage.getItem('msDriverPremium'); if(s) document.getElementById('dPhone').value = s; });
+function completeRide() {
+    alert("Trip Completed");
+    location.reload();
+}"></script>
 
-/* Expose some functions globally so index.html buttons can call them (if bundling differs) */
-window.startDuty = startDuty;
-window.recenterMap = recenterMap;
-window.tryAcceptRide = tryAcceptRide;
-window.skipRide = skipRide;
-window.verifyOtp = verifyOtp;
-window.cancelRide = cancelRide;
-window.completeRide = completeRide;
-window.openHelp = openHelp;
-window.closeHelp = closeHelp;
-window.openNavToPickup = openNavToPickup;
-window.openNavToDrop = openNavToDrop;
-      
-      "></script>
 </body>
 </html>
