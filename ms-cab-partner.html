@@ -55,7 +55,7 @@
     </style>
 </head>
 <body>
-    
+
     <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
 
     <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
@@ -120,8 +120,30 @@
             <p style="color:#ccc;">Navigating to Drop Location...</p>
             <h2 style="color:#d4af37; margin:10px 0;">Follow Map Route</h2>
             
-            <button
+            <button id="mapNavBtnDrop" class="map-nav-btn" onclick="openDropMap()">🗺️ GO TO DROP</button>
+            
+            <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
+        </div>
+    </div>
+<div id="billModal" style="display:none;">
+    <div class="bill-box">
+        <h2>TRIP COMPLETED ✅</h2>
+        <p style="color:#555;">Collect Cash from Customer</p>
+        <div class="total-fare" id="billAmount">₹0</div>
+        <button class="accept-btn" onclick="location.reload()">COMPLETE & NEXT</button>
+    </div>
+</div>
 
+<div id="customDialog" style="display:none; position:fixed; inset:0; z-index:6000; background: rgba(0,0,0,0.45); align-items:center; justify-content:center;">
+  <div id="customDialogCard" style="width:90%; max-width:420px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 15px 40px rgba(0,0,0,0.6); color:#000;">
+    <div id="customDialogTitle" style="font-weight:800; color:#222; margin-bottom:8px; font-size:16px;">Message</div>
+    <div id="customDialogMessage" style="color:#333; line-height:1.4; white-space:pre-wrap; margin-bottom:18px;">Body</div>
+    <div style="display:flex; gap:10px; justify-content:flex-end;">
+      <button id="customDialogCancel" style="background:transparent; border:none; color:#007bff; font-weight:700; padding:8px 12px; border-radius:6px;">CANCEL</button>
+      <button id="customDialogOk" style="background:#007bff; border:none; color:#fff; font-weight:800; padding:8px 12px; border-radius:6px;">OK</button>
+    </div>
+  </div>
+</div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -142,7 +164,7 @@
     let currentReqKey, currentReqData, routeLine, pickupMarker, dropMarker;
     let followDriver = true;
     let gpsWatchId = null;
-    let isRequesting = false; 
+    let isRequesting = false; // NEW: Flag to stop listening for new requests
 
     // ------------------- custom dialog functions -------------------
     const customDialog = document.getElementById('customDialog');
@@ -165,91 +187,7 @@
         }
         function okHandler() { cleanup(); if (onOk) onOk(); }
         function cancelHandler() { cleanup(); if (onCancel) onCancel(); }
-ng) return console.log("Waiting for location.");
-            let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
-            if(dist <= 2.0) {
-                isRequesting = true; 
-                try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
-                speak("A new request has arrived. The fare is " + data.price + " rupees. Pickup distance " + dist + " kilometers.");
-                showRequest(data, snap.key, dist);
-            }
-        }
-    }
 
-    function startListening() {
-        db.ref('requests').limitToLast(1).on('child_added', requestListener);
-    }
-
-    function stopListening() {
-        db.ref('requests').limitToLast(1).off('child_added', requestListener);
-    }
-
-
-    function showRequest(data, key, pKM) {
-        currentReqKey = key; currentReqData = data;
-        document.getElementById('reqPopup').style.display = 'block';
-        document.getElementById('fareDisplay').innerText = data.price;
-        document.getElementById('pickupDist').innerText = pKM + " KM";
-        document.getElementById('tripDist').innerText = data.distance;
-        
-        var personIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize: [35, 35], iconAnchor: [17, 35] });
-        if (pickupMarker) map.removeLayer(pickupMarker); 
-        pickupMarker = L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("CUSTOMER PICKUP");
-        map.setView([data.pickupLat, data.pickupLng], 15); 
-    }
-            document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
-        document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
-        
-        drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
-        
-        if (pickupMarker) pickupMarker.openPopup();
-    }
-    
-    // FIX: Changed URL format to standard HTTPS for better APK/WebView compatibility
-    function openPickupMap() {
-        if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
-        const pLat = currentReqData.pickupLat;
-        const pLng = currentReqData.pickupLng;
-        
-        // Standard Google Maps URL format for directions: saddr=source&daddr=destination
-        const navUrl = `https://maps.google.com/maps?saddr=${driverLat},${driverLng}&daddr=${pLat},${pLng}&travelmode=driving`;
-        
-        // Use _system (or just window.open without target) to try and launch external map app
-        window.open(navUrl, '_system'); 
-        speak("Opening navigation to customer pickup location.");
-    }
-    
-    // FIX: Changed URL format to standard HTTPS for better APK/WebView compatibility
-    function openDropMap() {
-        if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
-        const dLat = currentReqData.dropLat;
-        const dLng = currentReqData.dropLng;
-        
-        // Standard Google Maps URL format for directions: saddr=source&daddr=destination
-        // Use current driver location as source
-        const navUrl = `https://maps.google.com/maps?saddr=${driverLat},${driverLng}&daddr=${dLat},${dLng}&travelmode=driving`;
-        
-        window.open(navUrl, '_system'); 
-        speak("Opening navigation to drop location.");
-    }
-            db.ref('requests/' + currentReqKey).transaction(function(curr) {
-            if (curr === null) return curr;
-            if (curr.status === 'pending') return { ...curr, status: 'accepted', driverMobile: driverMobile };
-            else return;
-        }, function(error, committed, snapshot) {
-            if (!committed) {
-                showCustomAlert('Booking Missed', 'Booking missed by another driver or customer cancelled.');
-                document.getElementById('reqPopup').style.display = 'none';
-                if (pickupMarker) map.removeLayer(pickupMarker); 
-                isRequesting = false; 
-                startListening(); 
-            } else {
-                speak("Booking accepted. Proceed to pickup.");
-                rideSecured();
-            }
-        });
-    }
-    
         customDialogOk.addEventListener('click', okHandler);
         customDialogCancel.addEventListener('click', cancelHandler);
     }
@@ -304,6 +242,7 @@ ng) return console.log("Waiting for location.");
     function startDuty() {
         const num = document.getElementById('dPhone').value;
         if(num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
+        // FIX: No longer saving mobile number to localStorage to prevent automatic pre-fill
         driverMobile = num;
         document.getElementById('dLoginScreen').style.display = 'none';
         document.getElementById('dApp').style.display = 'flex';
@@ -371,25 +310,101 @@ ng) return console.log("Waiting for location.");
         else { const center = map.getCenter(); driverLat = center.lat; driverLng = center.lng; if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]); map.setView([driverLat, driverLng], map.getZoom()); speak("Location set to map center."); }
     }
     
-    // Function to listen for new requests
+    // NEW: Function to listen for new requests
     function requestListener(snap) {
+        // FIX: Check isRequesting flag to block new requests if one is active
         if (isRequesting) return;
         
         const data = snap.val();
         if(!data) return;
         if(data.status === "pending") {
-            if (!driverLat || !driverL
+            if (!driverLat || !driverLng) return console.log("Waiting for location.");
+            let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
+            if(dist <= 2.0) {
+                isRequesting = true; // Block further requests immediately
+                try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
+                speak("A new request has arrived. The fare is " + data.price + " rupees. Pickup distance " + dist + " kilometers.");
+                showRequest(data, snap.key, dist);
+            }
+        }
+    }
+
+    function startListening() {
+        // FIX: Use requestListener and limit to last 1 request
+        db.ref('requests').limitToLast(1).on('child_added', requestListener);
+    }
+
+    function stopListening() {
+        // Function to stop listening for new requests
+        db.ref('requests').limitToLast(1).off('child_added', requestListener);
+    }
+
+
+    function showRequest(data, key, pKM) {
+        currentReqKey = key; currentReqData = data;
+        document.getElementById('reqPopup').style.display = 'block';
+        document.getElementById('fareDisplay').innerText = data.price;
+        document.getElementById('pickupDist').innerText = pKM + " KM";
+        document.getElementById('tripDist').innerText = data.distance;
+        
+        var personIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize: [35, 35], iconAnchor: [17, 35] });
+        if (pickupMarker) map.removeLayer(pickupMarker); 
+        pickupMarker = L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("CUSTOMER PICKUP");
+        map.setView([data.pickupLat, data.pickupLng], 15); 
+    }
 
     function tryAcceptRide() {
         try { document.getElementById('ringtone').pause(); } catch(e){}
-        stopListening(); 
+        stopListening(); // Temporarily stop listening while transaction is pending
         
-
+        db.ref('requests/' + currentReqKey).transaction(function(curr) {
+            if (curr === null) return curr;
+            if (curr.status === 'pending') return { ...curr, status: 'accepted', driverMobile: driverMobile };
+            else return;
+        }, function(error, committed, snapshot) {
+            if (!committed) {
+                showCustomAlert('Booking Missed', 'Booking missed by another driver or customer cancelled.');
+                document.getElementById('reqPopup').style.display = 'none';
+                if (pickupMarker) map.removeLayer(pickupMarker); 
+                isRequesting = false; // Allow new requests
+                startListening(); // Resume listening for new requests
+            } else {
+                speak("Booking accepted. Proceed to pickup.");
+                rideSecured();
+            }
+        });
+    }
 
     function rideSecured() {
         document.getElementById('reqPopup').style.display = 'none';
         document.getElementById('pickupCard').style.display = 'block';
-
+        document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
+        document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
+        
+        drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
+        
+        if (pickupMarker) pickupMarker.openPopup();
+    }
+    
+    function openPickupMap() {
+        if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
+        const pLat = currentReqData.pickupLat;
+        const pLng = currentReqData.pickupLng;
+        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${pLat},${pLng}&travelmode=driving`;
+        window.open(navUrl, '_blank');
+        speak("Opening navigation to customer pickup location.");
+    }
+    
+    // NEW FUNCTION: Open external map for Drop location
+    function openDropMap() {
+        if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
+        const dLat = currentReqData.dropLat;
+        const dLng = currentReqData.dropLng;
+        // Assuming current location is pickup location, since trip has started
+        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${currentReqData.pickupLat},${currentReqData.pickupLng}&destination=${dLat},${dLng}&travelmode=driving`;
+        window.open(navUrl, '_blank');
+        speak("Opening navigation to drop location.");
+    }
 
 
     function verifyOtp() {
@@ -397,6 +412,7 @@ ng) return console.log("Waiting for location.");
         if (!currentReqData) { showCustomAlert('Error', 'No request data.'); speak("No request data."); return; }
 
         if (entered == currentReqData.otp) {
+            // FIX: Show alert confirming OTP and starting trip.
             speak("OTP verified. Starting the trip now. Drive safely.");
             
             try { db.ref('requests/' + currentReqKey).update({ status: "started" }); } catch(e) { console.warn("DB update failed:", e); }
@@ -405,11 +421,13 @@ ng) return console.log("Waiting for location.");
             if (pickupMarker) map.removeLayer(pickupMarker); 
 
             if (currentReqData.dropLat && currentReqData.dropLng) {
-                drawRoute(driverLat, driverLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
+                drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
                 var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
+                // FIX: Store drop marker reference
                 if (dropMarker) map.removeLayer(dropMarker); 
                 dropMarker = L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
                 
+                // Show drop map button
                 document.getElementById('mapNavBtnDrop').style.display = 'block';
                 
             } else {
@@ -439,19 +457,18 @@ ng) return console.log("Waiting for location.");
         startListening(); // Start listening for new requests again
     }
 
-
     function skipRide() { 
         try{ document.getElementById('ringtone').pause(); }catch(e){} 
         document.getElementById('reqPopup').style.display = 'none'; 
         if (pickupMarker) map.removeLayer(pickupMarker); 
         isRequesting = false; // Allow new requests
         speak("Request skipped."); 
-        startListening(); // Re-enable listening after skipping
     }
     
     function cancelRide() {
         showCustomConfirm('Cancel Ride', 'Are you sure you want to cancel this ride?', function ok() {
             db.ref('requests/' + currentReqKey).update({ status: "cancelled" }).then(()=> {
+                // Cleanup and reset state on successful cancel
                 isRequesting = false;
                 location.reload(); 
             }).catch(()=> showCustomAlert('Error','Cancel failed'));
@@ -465,4 +482,14 @@ ng) return console.log("Waiting for location.");
         if(routeLine) map.removeLayer(routeLine);
         var latlngs = [[lat1, lng1], [lat2, lng2]];
         routeLine = L.polyline(latlngs, {color: color, weight: 5}).addTo(map);
-        map.fitBounds(routeLine.getBounds(),
+        map.fitBounds(routeLine.getBounds(), {padding:[40,40]});
+    }
+
+    function getDist(lat1,lon1,lat2,lon2) {
+        var R = 6371; var dLat = (lat2-lat1)*(Math.PI/180); var dLon = (lon2-lon1)*(Math.PI/180);
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+        return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+    }
+</script>
+</body>
+</html>
