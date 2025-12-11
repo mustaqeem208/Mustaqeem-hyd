@@ -167,7 +167,7 @@
     let gpsWatchId = null;
     let isRequesting = false; 
 
-    // ------------------- custom dialog functions (No Change) -------------------
+    // ------------------- custom dialog functions -------------------
     const customDialog = document.getElementById('customDialog');
     const customDialogTitle = document.getElementById('customDialogTitle');
     const customDialogMessage = document.getElementById('customDialogMessage');
@@ -382,20 +382,21 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
     
-    // FIX: Using geo: scheme for direct app launch
+    // FINAL FIX: Using geo: scheme for direct app launch
     function openPickupMap() {
         if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
         const pLat = currentReqData.pickupLat;
         const pLng = currentReqData.pickupLng;
         // Use geo: scheme - Most reliable for WebView to launch Maps app
+        // Isse Maps app seedha khulna chahiye
         const navUrl = `geo:${pLat},${pLng}?q=${pLat},${pLng}(Pickup Location)`;
         
         // window.open(navUrl, '_system') will tell the WebView to pass this scheme to the OS
-        window.open(navUrl, '_system');
+        window.open(navUrl, '_system'); 
         speak("Opening navigation to customer pickup location.");
     }
     
-    // FIX: Using geo: scheme for direct app launch
+    // FINAL FIX: Using geo: scheme for direct app launch
     function openDropMap() {
         if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
         const dLat = currentReqData.dropLat;
