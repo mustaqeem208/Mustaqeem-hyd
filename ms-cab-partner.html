@@ -33,6 +33,9 @@
 
         .contact-btn { display:block; background:#2ecc71; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
         .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:12px; border-radius:8px; font-weight:bold; font-size:1.1rem; width: 100%; cursor: pointer;}
+        
+        /* NEW: Map Navigation Button Style */
+        .map-nav-btn { display:block; background:#007bff; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
 
         .otp-box { margin-top: 15px; background: #111; padding: 10px; border-radius: 8px; border: 1px solid #444; }
         .otp-row { display: flex; gap: 10px; margin-top: 5px; }
@@ -52,7 +55,7 @@
     </style>
 </head>
 <body>
-    
+
     <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
 
     <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
@@ -97,6 +100,8 @@
             <div style="color:#aaa; font-size:0.8rem;">CUSTOMER MOBILE</div>
             <div id="custMobDisp" style="font-size:1.4rem; font-weight:bold; color:white; margin-bottom:10px;">...</div>
             
+            <button id="mapNavBtn" class="map-nav-btn" onclick="openPickupMap()">🗺️ GO TO PICKUP</button>
+
             <a id="callBtn" href="#" class="contact-btn">📞 CALL CUSTOMER</a>
 
             <div class="otp-box">
@@ -117,8 +122,7 @@
             <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
         </div>
     </div>
-<!-- Part 2: includes bill modal, custom modal, firebase & app logic -->
-<div id="billModal" style="display:none;">
+    <div id="billModal" style="display:none;">
     <div class="bill-box">
         <h2>TRIP COMPLETED ✅</h2>
         <p style="color:#555;">Collect Cash from Customer</p>
@@ -127,7 +131,6 @@
     </div>
 </div>
 
-<!-- CUSTOM MODAL HTML (no origin text) -->
 <div id="customDialog" style="display:none; position:fixed; inset:0; z-index:6000; background: rgba(0,0,0,0.45); align-items:center; justify-content:center;">
   <div id="customDialogCard" style="width:90%; max-width:420px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 15px 40px rgba(0,0,0,0.6); color:#000;">
     <div id="customDialogTitle" style="font-weight:800; color:#222; margin-bottom:8px; font-size:16px;">Message</div>
@@ -156,7 +159,7 @@
     const db = firebase.database();
 
     let map, driverMarker, driverLat, driverLng, driverMobile;
-    let currentReqKey, currentReqData, routeLine;
+    let currentReqKey, currentReqData, routeLine, pickupMarker; // pickupMarker added
     let followDriver = true;
     let gpsWatchId = null;
 
@@ -326,8 +329,11 @@
         document.getElementById('fareDisplay').innerText = data.price;
         document.getElementById('pickupDist').innerText = pKM + " KM";
         document.getElementById('tripDist').innerText = data.distance;
+        // Marker for pickup location when request arrives
         var personIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize: [35, 35], iconAnchor: [17, 35] });
-        L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("PICKUP").openPopup();
+        if (pickupMarker) map.removeLayer(pickupMarker); // Remove old one
+        pickupMarker = L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("CUSTOMER PICKUP");
+        map.setView([data.pickupLat, data.pickupLng], 15); // Center on pickup location
     }
 
     function tryAcceptRide() {
@@ -340,6 +346,7 @@
             if (!committed) {
                 showCustomAlert('Booking Missed', 'Booking missed by another driver or customer cancelled.');
                 document.getElementById('reqPopup').style.display = 'none';
+                if (pickupMarker) map.removeLayer(pickupMarker); // Remove pickup marker
             } else {
                 speak("Booking accepted. Proceed to pickup.");
                 rideSecured();
@@ -352,8 +359,24 @@
         document.getElementById('pickupCard').style.display = 'block';
         document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
         document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
+        
+        // Show route to pickup location
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
+        
+        // Ensure pickup marker is visible and map is centered on route
+        if (pickupMarker) pickupMarker.openPopup();
     }
+    
+    // NEW FUNCTION: Open external map for navigation
+    function openPickupMap() {
+        if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
+        const pLat = currentReqData.pickupLat;
+        const pLng = currentReqData.pickupLng;
+        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${pLat},${pLng}&travelmode=driving`;
+        window.open(navUrl, '_blank');
+        speak("Opening navigation to customer pickup location.");
+    }
+
 
     // verifyOtp uses custom confirm dialog (no origin shown)
     function verifyOtp() {
@@ -369,6 +392,8 @@
                 try { db.ref('requests/' + currentReqKey).update({ status: "started" }); } catch(e) { console.warn("DB update failed:", e); }
                 document.getElementById('pickupCard').style.display = 'none';
                 document.getElementById('dropCard').style.display = 'block';
+                if (pickupMarker) map.removeLayer(pickupMarker); // Remove pickup marker once trip starts
+
                 if (currentReqData.dropLat && currentReqData.dropLng) {
                     drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
                     var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
@@ -393,14 +418,23 @@
         document.getElementById('billModal').style.display = 'flex';
         document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
         speak("Trip complete. Cash collect and move to next ride.");
+        if(routeLine) map.removeLayer(routeLine); // Clear route on completion
+        // Note: Drop marker will stay on map until page refresh/next ride, which is fine.
     }
 
-    function skipRide() { try{ document.getElementById('ringtone').pause(); }catch(e){} document.getElementById('reqPopup').style.display = 'none'; speak("Request skipped."); }
+    function skipRide() { 
+        try{ document.getElementById('ringtone').pause(); }catch(e){} 
+        document.getElementById('reqPopup').style.display = 'none'; 
+        if (pickupMarker) map.removeLayer(pickupMarker); // Remove pickup marker
+        speak("Request skipped."); 
+    }
+    
     function cancelRide() {
         showCustomConfirm('Cancel Ride', 'Are you sure you want to cancel this ride?', function ok() {
             db.ref('requests/' + currentReqKey).update({ status: "cancelled" }).then(()=> location.reload()).catch(()=> showCustomAlert('Error','Cancel failed'));
         }, function cancel(){});
     }
+    
     function openHelp() { document.getElementById('helpModal').style.display = 'flex'; speak("Help opened."); }
     function closeHelp() { document.getElementById('helpModal').style.display = 'none'; speak("Help closed."); }
 
@@ -415,6 +449,14 @@
         var R = 6371; var dLat = (lat2-lat1)*(Math.PI/180); var dLon = (lon2-lon1)*(Math.PI/180);
         var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
         return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+    }
+
+    // Check localStorage for previous login
+    window.onload = function() {
+        const storedNum = localStorage.getItem('msDriverPremium');
+        if (storedNum) {
+            document.getElementById('dPhone').value = storedNum;
+        }
     }
 </script>
 </body>
