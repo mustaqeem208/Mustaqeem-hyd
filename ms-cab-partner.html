@@ -125,7 +125,7 @@
             <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
         </div>
     </div>
-<div id="billModal" style="display:none;">
+    <div id="billModal" style="display:none;">
     <div class="bill-box">
         <h2>TRIP COMPLETED ✅</h2>
         <p style="color:#555;">Collect Cash from Customer</p>
@@ -144,6 +144,7 @@
     </div>
   </div>
 </div>
+
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
@@ -164,7 +165,7 @@
     let currentReqKey, currentReqData, routeLine, pickupMarker, dropMarker;
     let followDriver = true;
     let gpsWatchId = null;
-    let isRequesting = false; // NEW: Flag to stop listening for new requests
+    let isRequesting = false; 
 
     // ------------------- custom dialog functions -------------------
     const customDialog = document.getElementById('customDialog');
@@ -242,7 +243,6 @@
     function startDuty() {
         const num = document.getElementById('dPhone').value;
         if(num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
-        // FIX: No longer saving mobile number to localStorage to prevent automatic pre-fill
         driverMobile = num;
         document.getElementById('dLoginScreen').style.display = 'none';
         document.getElementById('dApp').style.display = 'flex';
@@ -310,9 +310,7 @@
         else { const center = map.getCenter(); driverLat = center.lat; driverLng = center.lng; if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]); map.setView([driverLat, driverLng], map.getZoom()); speak("Location set to map center."); }
     }
     
-    // NEW: Function to listen for new requests
     function requestListener(snap) {
-        // FIX: Check isRequesting flag to block new requests if one is active
         if (isRequesting) return;
         
         const data = snap.val();
@@ -321,7 +319,7 @@
             if (!driverLat || !driverLng) return console.log("Waiting for location.");
             let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
             if(dist <= 2.0) {
-                isRequesting = true; // Block further requests immediately
+                isRequesting = true; 
                 try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
                 speak("A new request has arrived. The fare is " + data.price + " rupees. Pickup distance " + dist + " kilometers.");
                 showRequest(data, snap.key, dist);
@@ -330,12 +328,10 @@
     }
 
     function startListening() {
-        // FIX: Use requestListener and limit to last 1 request
         db.ref('requests').limitToLast(1).on('child_added', requestListener);
     }
 
     function stopListening() {
-        // Function to stop listening for new requests
         db.ref('requests').limitToLast(1).off('child_added', requestListener);
     }
 
@@ -355,7 +351,7 @@
 
     function tryAcceptRide() {
         try { document.getElementById('ringtone').pause(); } catch(e){}
-        stopListening(); // Temporarily stop listening while transaction is pending
+        stopListening(); 
         
         db.ref('requests/' + currentReqKey).transaction(function(curr) {
             if (curr === null) return curr;
@@ -366,8 +362,8 @@
                 showCustomAlert('Booking Missed', 'Booking missed by another driver or customer cancelled.');
                 document.getElementById('reqPopup').style.display = 'none';
                 if (pickupMarker) map.removeLayer(pickupMarker); 
-                isRequesting = false; // Allow new requests
-                startListening(); // Resume listening for new requests
+                isRequesting = false; 
+                startListening(); 
             } else {
                 speak("Booking accepted. Proceed to pickup.");
                 rideSecured();
@@ -386,23 +382,41 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
     
+    // FINAL FIX: Geo Scheme + Anchor Click
     function openPickupMap() {
         if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
         const pLat = currentReqData.pickupLat;
         const pLng = currentReqData.pickupLng;
-        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${pLat},${pLng}&travelmode=driving`;
-        window.open(navUrl, '_blank');
+        
+        const navUrl = `geo:${pLat},${pLng}?q=${pLat},${pLng}(Pickup Location)`;
+        
+        // Anchor Tag Trick: Attempt to bypass webview security like tel: links
+        const a = document.createElement('a');
+        a.href = navUrl;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a); // Cleanup
+        
         speak("Opening navigation to customer pickup location.");
     }
     
-    // NEW FUNCTION: Open external map for Drop location
+    // FINAL FIX: Geo Scheme + Anchor Click
     function openDropMap() {
         if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
         const dLat = currentReqData.dropLat;
         const dLng = currentReqData.dropLng;
-        // Assuming current location is pickup location, since trip has started
-        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${currentReqData.pickupLat},${currentReqData.pickupLng}&destination=${dLat},${dLng}&travelmode=driving`;
-        window.open(navUrl, '_blank');
+        
+        const navUrl = `geo:${dLat},${dLng}?q=${dLat},${dLng}(Drop Location)`;
+        
+        // Anchor Tag Trick
+        const a = document.createElement('a');
+        a.href = navUrl;
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a); // Cleanup
+        
         speak("Opening navigation to drop location.");
     }
 
@@ -412,7 +426,6 @@
         if (!currentReqData) { showCustomAlert('Error', 'No request data.'); speak("No request data."); return; }
 
         if (entered == currentReqData.otp) {
-            // FIX: Show alert confirming OTP and starting trip.
             speak("OTP verified. Starting the trip now. Drive safely.");
             
             try { db.ref('requests/' + currentReqKey).update({ status: "started" }); } catch(e) { console.warn("DB update failed:", e); }
@@ -421,13 +434,11 @@
             if (pickupMarker) map.removeLayer(pickupMarker); 
 
             if (currentReqData.dropLat && currentReqData.dropLng) {
-                drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
+                drawRoute(driverLat, driverLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
                 var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
-                // FIX: Store drop marker reference
                 if (dropMarker) map.removeLayer(dropMarker); 
                 dropMarker = L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
                 
-                // Show drop map button
                 document.getElementById('mapNavBtnDrop').style.display = 'block';
                 
             } else {
@@ -448,27 +459,26 @@
         document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
         speak("Trip complete. Cash collect and move to next ride.");
         
-        // Cleanup and reset state
         if(routeLine) map.removeLayer(routeLine); 
         if(pickupMarker) map.removeLayer(pickupMarker);
         if(dropMarker) map.removeLayer(dropMarker);
         currentReqData = null; currentReqKey = null; 
         isRequesting = false;
-        startListening(); // Start listening for new requests again
+        startListening(); 
     }
 
     function skipRide() { 
         try{ document.getElementById('ringtone').pause(); }catch(e){} 
         document.getElementById('reqPopup').style.display = 'none'; 
         if (pickupMarker) map.removeLayer(pickupMarker); 
-        isRequesting = false; // Allow new requests
+        isRequesting = false; 
         speak("Request skipped."); 
+        startListening(); 
     }
     
     function cancelRide() {
         showCustomConfirm('Cancel Ride', 'Are you sure you want to cancel this ride?', function ok() {
             db.ref('requests/' + currentReqKey).update({ status: "cancelled" }).then(()=> {
-                // Cleanup and reset state on successful cancel
                 isRequesting = false;
                 location.reload(); 
             }).catch(()=> showCustomAlert('Error','Cancel failed'));
