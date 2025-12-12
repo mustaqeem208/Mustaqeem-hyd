@@ -1,514 +1,674 @@
+<!-- PART 1: HTML + CORE UI (Login, Map container, Modal shell, basic placeholders) -->
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-  <title>MS PARTNER — Pro (GPS + Pro Popups)</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-  <style>
-    :root{
-      --bg:#03040a; --panel:#0b1116; --accent:#d4af37; --muted:#9aa3b2; --ok:#10b981; --danger:#ef4444;
-      --glass: rgba(255,255,255,0.03);
-      --radius:14px;
-      --shadow: 0 20px 50px rgba(0,0,0,0.6);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#020205,var(--bg));font-family:Inter,Segoe UI,Roboto,Arial;color:#fff}
-    /* TOP BAR */
-    #topBar{position:fixed;left:12px;right:12px;top:12px;height:78px;border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;z-index:4000;border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(4px)}
-    #leftTop{display:flex;align-items:center;gap:14px}
-    .logo{font-weight:900;color:var(--accent);font-size:1.05rem}
-    .duty-block{display:flex;flex-direction:column;gap:6px}
-    .duty-btn{padding:12px 18px;border-radius:12px;border:none;font-weight:900;cursor:pointer;font-size:1rem}
-    .duty-on{background:var(--ok);color:#021;box-shadow:0 8px 30px rgba(16,185,129,0.08)}
-    .duty-off{background:#111;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
-    .income-small{font-size:0.9rem;color:var(--muted);margin-top:2px}
-    .income-big{font-weight:900;color:var(--accent);font-size:1.05rem}
-    /* Right menu */
-    #rightTop{display:flex;align-items:center;gap:10px}
-    .menu-btn{padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--muted)}
-    /* MAP */
-    #mapContainer{position:fixed;left:12px;right:12px;top:100px;bottom:88px;border-radius:14px;overflow:hidden;z-index:1000;border:1px solid rgba(255,255,255,0.02);box-shadow:var(--shadow)}
-    #map{width:100%;height:100%}
-    /* Floating */
-    .float-btn{position:fixed;right:22px;bottom:120px;background:#fff;color:#000;padding:12px;border-radius:14px;font-weight:800;border:none;box-shadow:0 12px 30px rgba(2,6,23,0.6);cursor:pointer;z-index:2000}
-    .float-small{right:22px;bottom:66px;padding:10px;border-radius:12px}
-    /* Bottom */
-    #bottomBar{position:fixed;left:12px;right:12px;bottom:12px;height:64px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(0,0,0,0.3));display:flex;align-items:center;justify-content:space-between;padding:8px 12px;z-index:2500;border:1px solid rgba(255,255,255,0.02)}
-    .status-pill{padding:8px 10px;border-radius:8px;background:var(--glass);font-weight:800}
-    /* PROFESSIONAL POPUP (center) */
-    #popupBackdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:5000;align-items:center;justify-content:center}
-    #requestCard{width:92%;max-width:520px;background:linear-gradient(180deg,#07101a,#081026);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 20px 60px rgba(0,0,0,0.7);transform:translateY(10px);opacity:0;transition:all .22s ease}
-    #popupBackdrop.show #requestCard{transform:translateY(0);opacity:1}
-    .rc-head{display:flex;justify-content:space-between;align-items:center}
-    .rc-title{font-weight:900;font-size:1.05rem}
-    .rc-fare{font-weight:900;font-size:2.6rem;color:var(--accent);margin-top:8px;letter-spacing:1px}
-    .rc-meta{display:flex;gap:12px;color:var(--muted);margin-top:8px}
-    .rc-actions{display:flex;gap:10px;margin-top:14px}
-    .rc-btn-skip{flex:1;padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);cursor:pointer;font-weight:800}
-    .rc-btn-accept{flex:1;padding:12px;border-radius:10px;background:var(--accent);color:#000;border:none;cursor:pointer;font-weight:900}
-    .rc-small{font-size:0.9rem;color:var(--muted)}
-    /* PICKUP / DROP Pro cards (bottom) */
-    .card-panel{position:fixed;left:12px;right:12px;bottom:120px;border-radius:12px;padding:14px;background:linear-gradient(180deg,#061018,#071018);display:none;z-index:4800;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow)}
-    .otp-input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;margin-top:8px}
-    /* Drawer (right) */
-    #drawer{position:fixed;top:0;right:-360px;width:320px;height:100%;background:#07101a;z-index:4700;box-shadow:-8px 0 40px rgba(0,0,0,0.6);transition:right .22s;border-left:1px solid rgba(255,255,255,0.03);padding:16px}
-    #drawer.show{right:0}
-    .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
-    .drawer-item{padding:12px;border-radius:8px;margin-bottom:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
-    .small-muted{color:var(--muted);font-size:0.9rem}
-    /* Help modal */
-    #helpModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:6000;align-items:center;justify-content:center}
-    #helpCard{width:90%;max-width:360px;background:#08121a;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
-    /* History */
-    #historyModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:5500;align-items:center;justify-content:center}
-    #historyCard{width:92%;max-width:720px;background:#07111a;padding:12px;border-radius:12px;max-height:80vh;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
-    .hist-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,0.02)}
-    @media(min-width:900px){ #mapContainer{left:40px;right:40px;top:120px;bottom:96px} #topBar{left:40px;right:40px} #bottomBar{left:40px;right:40px} #drawer{width:360px} }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MS Partner — PART 1</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+  :root{
+    --gold:#d4af37; --bg:#000; --panel:#0a0f14; --muted:#9aa3b2;
+    --card:#0f1619; --accent:#07b
+  }
+  /* page base */
+  html,body{height:100%;margin:0;font-family:Inter,Roboto,Arial;background:var(--bg);color:#fff}
+  /* login screen */
+  #login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;background:linear-gradient(180deg,#000,#061018);flex-direction:column;gap:12px;padding:18px}
+  .brand{font-size:24px;font-weight:900;color:var(--gold);letter-spacing:1px}
+  .inp{width:86%;padding:12px;border-radius:10px;border:1px solid #233;background:#0f1517;color:#fff;text-align:center;font-size:16px}
+  .row{display:flex;gap:10px;align-items:center}
+  .btn{padding:10px 14px;border-radius:10px;border:none;background:var(--gold);color:#000;font-weight:800;cursor:pointer}
+  .btn.ghost{background:#222;color:#fff;border:1px solid #333}
+  .hint{font-size:13px;color:var(--muted)}
+  /* app shell */
+  #app{display:none;position:fixed;inset:0;overflow:hidden}
+  #map{height:100%;width:100%}
+  /* floating controls */
+  .float{position:fixed;z-index:9998;box-shadow:0 6px 18px rgba(0,0,0,0.6)}
+  #menuBtn{right:14px;top:14px;padding:9px 12px;border-radius:10px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.03)}
+  #status{left:14px;top:14px;padding:8px 12px;border-radius:10px;background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.03)}
+  #centerBtn{right:14px;bottom:18px;padding:10px;border-radius:10px;background:#fff;color:#000}
+  /* mini card (ride popup) */
+  .card{position:fixed;left:12px;right:12px;bottom:18px;background:rgba(12,18,20,0.98);padding:12px;border-radius:12px;border:1px solid #111;z-index:9997;display:none}
+  .card .title{font-weight:900;color:var(--gold);font-size:18px}
+  .col{display:flex;justify-content:space-between;align-items:center}
+  .small{font-size:12px;color:var(--muted)}
+  .big{font-weight:900;color:var(--gold);font-size:22px}
+  /* modal */
+  #modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:10000}
+  #modal .box{background:var(--panel);padding:14px;border-radius:10px;width:94%;max-width:420px;border:1px solid rgba(255,255,255,0.03)}
+  /* tiny helpers */
+  .muted{color:var(--muted)}
+  .flex{display:flex;gap:8px}
+  a.link{color:var(--gold);text-decoration:none;font-weight:700}
+  /* responsive */
+  @media(min-width:700px){ .inp{width:320px} #modal .box{width:420px} }
+</style>
 </head>
 <body>
 
-  <!-- TOP BAR -->
-  <div id="topBar">
-    <div id="leftTop">
-      <div class="logo">MS PARTNER PRO</div>
-      <div class="duty-block">
-        <button id="dutyToggle" class="duty-btn duty-off" onclick="toggleDuty()">START DUTY</button>
-        <div class="income-small">Today income <span id="incomeBox" class="income-big">₹0</span></div>
+<!-- LOGIN SCREEN -->
+<div id="login">
+  <div class="brand">MS PARTNER</div>
+  <input id="phone" class="inp" type="tel" placeholder="Enter mobile number" />
+  <div class="row" style="width:86%;justify-content:center">
+    <button class="btn" onclick="startFlow()">START DUTY</button>
+    <button class="btn ghost" onclick="openVehiclePicker()">VEHICLE</button>
+  </div>
+  <div style="width:86%;display:flex;justify-content:center;margin-top:6px">
+    <button class="btn ghost" onclick="openHelp()">HELP • 100 / Mustaqeem</button>
+  </div>
+  <div class="hint" style="margin-top:10px">Login with mobile number only — vehicle pick after login. Vehicle saved until logout.</div>
+</div>
+
+<!-- APP (map + UI) -->
+<div id="app">
+  <div id="map"></div>
+
+  <!-- top controls -->
+  <button id="menuBtn" class="float" onclick="toggleMenu()">☰</button>
+  <div id="status" class="float">OFF DUTY</div>
+
+  <!-- center map btn -->
+  <button id="centerBtn" style="position:fixed;right:14px;bottom:80px" onclick="recenterMap()">🎯</button>
+
+  <!-- mini ride card -->
+  <div id="miniCard" class="card">
+    <div class="title">NEW RIDE REQUEST 🔔</div>
+    <div style="margin-top:8px" class="col">
+      <div>
+        <div class="small">PICKUP DIST</div>
+        <div id="pdist" class="big">-- KM</div>
+      </div>
+      <div style="text-align:right">
+        <div class="small">FARE</div>
+        <div id="fare" class="big">₹0</div>
       </div>
     </div>
 
-    <div id="rightTop">
-      <button class="menu-btn" onclick="openDrawer()">☰ MENU</button>
+    <div style="margin-top:10px" class="flex">
+      <button class="btn" onclick="acceptReq()">ACCEPT</button>
+      <button class="btn ghost" onclick="skipReq()">SKIP</button>
     </div>
   </div>
+</div>
 
-  <!-- MAP -->
-  <div id="mapContainer"><div id="map"></div></div>
+<!-- MODAL (vehicle picker, history, OTP screens will load here) -->
+<div id="modal">
+  <div class="box" id="modalBox"></div>
+</div>
 
-  <!-- floating -->
-  <button class="float-btn" onclick="recenterMap()">📍 Center</button>
-  <button class="float-btn float-small" style="right:22px;bottom:66px" onclick="openHistory()">📜 History</button>
+<!-- AUDIO TONE -->
+<audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3"></audio>
 
-  <!-- bottom -->
-  <div id="bottomBar">
-    <div class="status-pill">Status: <span id="dutyStatusLabel" style="font-weight:900;margin-left:8px">OFF</span></div>
-    <div class="status-pill">Selected: <span id="selectedVehicleLabel" style="font-weight:900;margin-left:8px">—</span></div>
-  </div>
-
-  <!-- Professional popup backdrop + card -->
-  <div id="popupBackdrop">
-    <div id="requestCard" role="dialog" aria-modal="true">
-      <div class="rc-head">
-        <div class="rc-title">New Ride Request</div>
-        <div class="rc-small" id="reqTime">—</div>
-      </div>
-      <div class="rc-fare">₹<span id="fareDisplay">0</span></div>
-      <div class="rc-meta">
-        <div>Pickup <strong id="pickupDist">—</strong></div>
-        <div>Trip <strong id="tripDist">—</strong></div>
-        <div>Mode <strong id="reqMode">—</strong></div>
-      </div>
-      <div style="margin-top:12px;color:var(--muted)" id="reqNote">Tap Accept to lock this ride. OTP will be required to start trip.</div>
-      <div class="rc-actions">
-        <button class="rc-btn-skip" onclick="skipRide()">Skip</button>
-        <button class="rc-btn-accept" onclick="tryAcceptRide()">Accept</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Pickup card -->
-  <div id="pickupCard" class="card-panel">
-    <div style="font-weight:900;color:var(--accent)">Heading to Pickup</div>
-    <div id="custPhoneDisplay" style="margin-top:8px" class="small-muted">Customer: —</div>
-    <div style="margin-top:12px">
-      <a id="callBtn" class="drawer-item" href="#">📞 Call Customer</a>
-      <div style="margin-top:10px" class="small-muted">Enter OTP to start trip</div>
-      <input id="otpIn" class="otp-input" placeholder="Enter OTP"/>
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <button class="menu-btn" onclick="cancelRide()">Cancel</button>
-        <button class="duty-btn duty-on" onclick="verifyOtp()" style="background:var(--accent);color:#000">Start Trip</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Drop card -->
-  <div id="dropCard" class="card-panel" style="border-top:3px solid var(--ok)">
-    <div style="font-weight:900;color:var(--ok)">On Trip</div>
-    <div style="margin-top:8px" class="small-muted">Navigate to drop and complete trip</div>
-    <div style="margin-top:12px;display:flex;gap:8px">
-      <button class="menu-btn" onclick="openDropMap()">Navigate</button>
-      <button class="rc-btn-accept" onclick="completeRide()">End Trip & Bill</button>
-    </div>
-  </div>
-
-  <!-- Drawer (right) -->
-  <div id="drawer">
-    <div class="drawer-head">
-      <div style="font-weight:900">Menu</div>
-      <button class="menu-btn" onclick="closeDrawer()">✕</button>
-    </div>
-
-    <div style="margin-bottom:8px">
-      <div class="small-muted">Logged as</div>
-      <div style="font-weight:900;margin-top:6px" id="drawerMobile">+91 —</div>
-      <div class="small-muted" id="drawerVehicle">Vehicle: —</div>
-    </div>
-
-    <div class="drawer-item" onclick="openVehicleDialog()">Change Vehicle / Reg No</div>
-    <div class="drawer-item" onclick="openHistory()">Ride History</div>
-    <div class="drawer-item" onclick="logout()">Logout</div>
-    <div class="drawer-item" onclick="openHelp()">Help & Emergency</div>
-
-    <div style="margin-top:20px" class="small-muted">Keep GPS ON & allow location in browser.</div>
-  </div>
-
-  <!-- Help modal -->
-  <div id="helpModal">
-    <div id="helpCard">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-weight:900">Help & Emergency</div><button class="menu-btn" onclick="closeHelp()">✕</button></div>
-      <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)">📞 Police: <a href="tel:100" style="color:var(--accent);text-decoration:none">100</a></div>
-      <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)">👤 Mustaqeem: <a href="tel:9381667208" style="color:var(--accent);text-decoration:none">9381667208</a></div>
-      <div style="margin-top:12px;text-align:right"><button class="menu-btn" onclick="closeHelp()">CLOSE</button></div>
-    </div>
-  </div>
-
-  <!-- History modal -->
-  <div id="historyModal">
-    <div id="historyCard">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <h3 style="margin:0">Ride History</h3>
-        <div><button class="menu-btn" onclick="closeHistory()">Close</button></div>
-      </div>
-      <div id="historyList"></div>
-    </div>
-  </div>
-
-  
-<!-- PART 2: Scripts -->
+<!-- libs -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
+<!-- PART1: small helpers + firebase init (real logic in Part2/Part3) -->
 <script>
-  // ---------- Firebase ----------
-  const firebaseConfig = {
-    apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
-    authDomain: "hyd-texi.firebaseapp.com",
-    projectId: "hyd-texi",
-    storageBucket: "hyd-texi.firebasestorage.app",
-    messagingSenderId: "807048727786",
-    appId: "1:807048727786:web:7ef03573876c70b76e1b93",
-    databaseURL: "https://hyd-texi-default-rtdb.firebaseio.com"
-  };
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.database();
+/* FIREBASE CONFIG (keep same) */
+const firebaseConfig = {
+ apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
+ authDomain: "hyd-texi.firebaseapp.com",
+ projectId: "hyd-texi",
+ storageBucket: "hyd-texi.firebasestorage.app",
+ messagingSenderId: "807048727786",
+ appId: "1:807048727786:web:7ef03573876c70b76e1b93",
+ databaseURL: "https://hyd-texi-default-rtdb.firebaseio.com"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
-  // ---------- state ----------
-  let map, driverMarker, driverLat=null, driverLng=null;
-  let driverMobile = null;
-  let gpsWatchId = null;
-  let selectedVehicle = null; // 'car'|'auto'|'bike'
-  let vehicleNumber = null;
-  let isOnDuty = false;
-  let isRequesting = false;
-  let currentReqKey = null, currentReqData = null;
-  let pickupMarker=null, dropMarker=null, routeLine=null;
+/* DOM helpers */
+const $ = id => document.getElementById(id);
+function showModal(html){ $('modalBox').innerHTML = html; $('modal').style.display='flex'; }
+function closeModal(){ $('modal').style.display='none'; }
 
-  // ---------- helpers ----------
-  const $ = id => document.getElementById(id);
-  function savePrefs(){ if(!driverMobile) return; localStorage.setItem('msPartnerProV2', JSON.stringify({ driverMobile, selectedVehicle, vehicleNumber, isOnDuty })); updateUI(); }
-  function loadPrefs(){
-    try{ const raw = localStorage.getItem('msPartnerProV2'); if(!raw) return false; const p=JSON.parse(raw); driverMobile=p.driverMobile||null; selectedVehicle=p.selectedVehicle||null; vehicleNumber=p.vehicleNumber||null; isOnDuty=!!p.isOnDuty; return !!driverMobile; } catch(e){ return false; }
+/* small UI actions (to be wired in later parts) */
+function openHelp(){
+  showModal(`<div style="text-align:center">
+    <h3 style="color:var(--gold);margin:0">EMERGENCY</h3>
+    <div style="margin-top:10px"><a class="link" href="tel:100">👮 Police (100)</a></div>
+    <div style="margin-top:8px"><a class="link" href="tel:9381667208">👤 Mustaqeem</a></div>
+    <div style="margin-top:12px"><button class="btn" onclick="closeModal()">CLOSE</button></div>
+  </div>`);
+}
+
+/* vehicle picker (basic shell) */
+function openVehiclePicker(){
+  showModal(`<div>
+    <h3 style="color:var(--gold);margin:0">Choose vehicle</h3>
+    <div style="display:flex;gap:8px;margin-top:10px;justify-content:center">
+      <button class="btn" onclick="selectVehicle('car')">CAR</button>
+      <button class="btn" onclick="selectVehicle('auto')" style="background:#ff9f1c">AUTO</button>
+      <button class="btn" onclick="selectVehicle('bike')" style="background:#7ed957">BIKE</button>
+    </div>
+    <div style="margin-top:10px"><input id="regNo" class="inp" placeholder="Vehicle reg no (optional)"></div>
+    <div style="display:flex;gap:8px;margin-top:10px;justify-content:center">
+      <button class="btn" onclick="confirmVehicle()">CONFIRM</button>
+      <button class="btn ghost" onclick="closeModal()">CANCEL</button>
+    </div>
+  </div>`);
+}
+
+/* placeholders for later wiring */
+let driverMobile=null, selectedVehicle=null, vehicleReg=null;
+function selectVehicle(t){ selectedVehicle=t; }
+function confirmVehicle(){
+  vehicleReg = $('regNo').value.trim() || null;
+  localStorage.setItem('ms_pref', JSON.stringify({type:selectedVehicle, reg:vehicleReg}));
+  closeModal();
+  // If already logged in, start app; otherwise user must press START DUTY
+  if(driverMobile) startDuty();
+}
+
+/* start process */
+function startFlow(){
+  const no = $('phone').value.trim();
+  if(no.length < 10){ alert('Enter valid mobile number'); return; }
+  driverMobile = no;
+  const pref = localStorage.getItem('ms_pref');
+  if(pref){
+    const p = JSON.parse(pref); selectedVehicle=p.type; vehicleReg=p.reg;
+    startDuty();
+  } else {
+    openVehiclePicker();
   }
-  function clearPrefs(){ localStorage.removeItem('msPartnerProV2'); }
+}
 
-  function updateUI(){
-    $('driverMobile').innerText = driverMobile ? ('+91 ' + driverMobile) : '+91 —';
-    $('drawerMobile').innerText = driverMobile ? ('+91 ' + driverMobile) : '+91 —';
-    $('drawerVehicle').innerText = vehicleNumber ? ('Vehicle: ' + vehicleNumber) : (selectedVehicle ? ('Vehicle: ' + selectedVehicle.toUpperCase()) : 'Vehicle: —');
-    $('selectedVehicleLabel').innerText = selectedVehicle ? selectedVehicle.toUpperCase() : '—';
-    $('dutyStatusLabel').innerText = isOnDuty ? 'ON' : 'OFF';
-    $('dutyToggle').className = isOnDuty ? 'duty-btn duty-on' : 'duty-btn duty-off';
-    $('dutyToggle').innerText = isOnDuty ? 'GO OFF DUTY' : 'START DUTY';
+/* show app shell */
+function startDuty(){
+  $('login').style.display='none';
+  $('app').style.display='block';
+  $('status').innerText = 'ON DUTY (' + (selectedVehicle||'N/A') + ')';
+  // map + gps logic will be added in part2
+}
+
+/* small UI helpers used by part2/part3 */
+function recenterMap(){ /* implemented in Part2 */ }
+function acceptReq(){ /* implemented in Part3 */ }
+function skipReq(){ /* implemented in Part3 */ }
+function toggleMenu(){ /* implemented in Part3 */ }
+</script>
+<!-- PART 2: Map initialization, GPS, markers, utilities, and startDuty override -->
+<script>
+/* PART 2: Map + GPS + helpers
+   Paste this AFTER Part 1. It overrides startDuty to wire map & GPS,
+   and provides utilities used by Part3 (drawRoute, addPickupMarker, etc).
+*/
+
+let map = null;
+let meMarker = null;
+let followMe = true;
+let watchId = null;
+let myLat = null, myLng = null;
+let pickupMarker = null, dropMarker = null, routeLine = null;
+
+/* initMap: creates Leaflet map and adds basic controls */
+function initMap(initial = [17.3850, 78.4867], zoom = 13) {
+  if (map) return;
+  map = L.map('map', { zoomControl: true }).setView(initial, zoom);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // simple driver marker (custom div icon)
+  const carHtml = "<div style='background:var(--gold);border-radius:8px;padding:6px 8px;font-weight:800;color:#000'>YOU</div>";
+  const divIcon = L.divIcon({ html: carHtml, className: '', iconSize: [60, 28], iconAnchor: [30, 14] });
+
+  meMarker = L.marker(initial, { icon: divIcon, draggable: true }).addTo(map).bindPopup('You (drag to adjust)');
+  meMarker.on('dragend', (e) => {
+    const p = e.target.getLatLng();
+    myLat = p.lat; myLng = p.lng;
+    followMe = false;
+    // small feedback popup
+    meMarker.bindPopup('Location set manually').openPopup();
+  });
+
+  map.on('dragstart', () => { followMe = false; });
+}
+
+/* startGPS: request geolocation and begin watchPosition */
+function startGPS() {
+  if (!navigator.geolocation) {
+    alert('GPS not supported. You can drag marker to set location.');
+    return;
   }
 
-  // ---------- Map & GPS ----------
-  function initMap(){
-    if(map) return;
-    map = L.map('map', { zoomControl:true }).setView([17.3850,78.4867], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-    const you = L.divIcon({ html: "<div style='background:var(--accent);padding:6px 8px;border-radius:8px;color:#000;font-weight:900'>YOU</div>", className:'', iconSize:[60,30], iconAnchor:[30,15] });
-    driverMarker = L.marker([17.3850,78.4867], { icon: you, draggable:true }).addTo(map);
-    driverMarker.on('dragend', e => {
-      const p = e.target.getLatLng(); driverLat = p.lat; driverLng = p.lng;
-      if (driverMobile) db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now() }).catch(()=>{});
-    });
-  }
-
-  function startGPS(){
-    if (!navigator.geolocation) { alert('GPS not supported'); return; }
-    navigator.geolocation.getCurrentPosition(pos => {
-      driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
-      if (driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
-      if (map) map.setView([driverLat, driverLng], 15);
-      if (driverMobile) db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now(), onDuty: isOnDuty }).catch(()=>{});
-      if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(pos => {
-        driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
-        if (driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
-        if (isOnDuty && driverMobile) db.ref('partners/' + driverMobile).update({ lat: driverLat, lng: driverLng, lastSeen: Date.now() }).catch(()=>{});
-      }, err => { console.warn('gpswatch err', err); }, { enableHighAccuracy:true, maximumAge:2000, timeout:8000 });
-    }, err => { console.warn('gps init err', err); }, { enableHighAccuracy:true, timeout:8000 });
-  }
-
-  function recenterMap(){ if(driverLat && driverLng && map) map.setView([driverLat, driverLng], 15); }
-
-  // ---------- Drawer ----------
-  function openDrawer(){ $('drawer').classList.add('show'); }
-  function closeDrawer(){ $('drawer').classList.remove('show'); }
-
-  // ---------- Login / Vehicle / Duty ----------
-  function openVehicleDialog(){
-    const v = prompt('Vehicle (car/auto/bike):', selectedVehicle || 'car');
-    if (!v) return;
-    const vv = v.toLowerCase().trim();
-    if (!['car','auto','bike'].includes(vv)) return alert('Invalid vehicle');
-    selectedVehicle = vv;
-    const reg = prompt('Vehicle reg. no (optional):', vehicleNumber || '');
-    if (reg !== null) vehicleNumber = reg.trim();
-    saveAndUpdateProfile();
-  }
-
-  function saveAndUpdateProfile(){
-    if (!driverMobile) return alert('Login first');
-    savePrefs();
-    updateUI();
-    db.ref('partners/' + driverMobile).update({ mobile: driverMobile, vehicle: selectedVehicle, vehicleNumber: vehicleNumber, onDuty: isOnDuty, lastSeen: Date.now(), lat: driverLat || null, lng: driverLng || null }).catch(()=>{});
-    alert('Profile saved');
-  }
-
-  function startOrStopDuty(){
-    if (!driverMobile) {
-      const num = prompt('Enter your mobile number (10 digits):');
-      if (!num || num.trim().length < 10) return alert('Valid number required');
-      driverMobile = num.trim();
-      // ask vehicle if not set
-      if (!selectedVehicle) {
-        const v = prompt('Vehicle (car/auto/bike):','car');
-        if (!v) return alert('Vehicle required');
-        selectedVehicle = v.toLowerCase().trim();
-      }
-      const reg = prompt('Vehicle reg. no (optional):', vehicleNumber || '');
-      if (reg !== null) vehicleNumber = reg.trim();
+  // get current position first
+  navigator.geolocation.getCurrentPosition((pos) => {
+    myLat = pos.coords.latitude; myLng = pos.coords.longitude;
+    if (!map) initMap([myLat, myLng], 15);
+    meMarker.setLatLng([myLat, myLng]);
+    map.setView([myLat, myLng], 15);
+    // start watch
+    if (!watchId) {
+      watchId = navigator.geolocation.watchPosition(onPositionUpdate, onPositionError, {
+        enableHighAccuracy: true, maximumAge: 2000, timeout: 10000
+      });
     }
-    isOnDuty = !isOnDuty;
-    savePrefs();
-    updateUI();
-    db.ref('partners/' + driverMobile).update({ onDuty: isOnDuty, vehicle: selectedVehicle, vehicleNumber: vehicleNumber, lastSeen: Date.now(), lat: driverLat || null, lng: driverLng || null }).catch(()=>{});
-    if (isOnDuty) {
-      initMap(); startGPS(); startListening(); alert('You are ON DUTY');
+  }, (err) => {
+    console.warn('Initial GPS error', err);
+    // init map with default; allow user to drag the marker
+    if (!map) initMap();
+    alert('Allow location access or drag the marker to set your location.');
+    // still try to watch
+    try { if (!watchId) watchId = navigator.geolocation.watchPosition(onPositionUpdate, onPositionError, { enableHighAccuracy:true }); } catch(e){}
+  }, { enableHighAccuracy: true, timeout: 7000 });
+}
+
+function onPositionUpdate(pos) {
+  myLat = pos.coords.latitude; myLng = pos.coords.longitude;
+  if (meMarker) meMarker.setLatLng([myLat, myLng]);
+  if (followMe && map) map.panTo([myLat, myLng]);
+}
+
+function onPositionError(err) {
+  console.error('GPS watch error', err);
+  // fallback: stop watch so dev can drag marker
+  if (watchId) { try { navigator.geolocation.clearWatch(watchId); } catch(e){}; watchId = null; }
+  // user will be prompted to drag marker
+}
+
+/* recenterMap: center to my current location */
+function recenterMap() {
+  followMe = true;
+  if (myLat && myLng && map) {
+    map.setView([myLat, myLng], Math.max(map.getZoom(), 15));
+    if (meMarker) meMarker.openPopup();
+  } else if (map) {
+    // center to map center as fallback
+    const c = map.getCenter();
+    myLat = c.lat; myLng = c.lng;
+    if (meMarker) meMarker.setLatLng(c);
+  }
+}
+
+/* drawRoute: draw simple straight polyline between two points (lat,lng) */
+function drawRoute(lat1, lng1, lat2, lng2, color = '#2ecc71') {
+  // remove existing
+  if (routeLine) { try { map.removeLayer(routeLine); } catch(e){} routeLine = null; }
+  if (!map) return;
+  routeLine = L.polyline([[lat1, lng1], [lat2, lng2]], { color: color, weight: 5, opacity: 0.9 }).addTo(map);
+  try { map.fitBounds(routeLine.getBounds(), { padding: [40, 40] }); } catch(e){}
+}
+
+/* addPickupMarker / addDropMarker */
+function addPickupMarker(lat, lng) {
+  if (!map) initMap();
+  if (pickupMarker) { try { map.removeLayer(pickupMarker); } catch(e){} pickupMarker = null; }
+  const ico = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', iconSize: [36, 36], iconAnchor: [18,36] });
+  pickupMarker = L.marker([lat, lng], { icon: ico }).addTo(map).bindPopup('Pickup');
+  // pan to show both points nicely
+  try {
+    if (myLat && myLng) {
+      drawRoute(myLat, myLng, lat, lng, '#d4af37');
     } else {
-      stopListening(); alert('You are OFF DUTY');
+      map.setView([lat, lng], 15);
     }
-    updateUI();
-  }
+  } catch(e){}
+}
 
-  function toggleDuty(){ startOrStopDuty(); }
+function addDropMarker(lat, lng) {
+  if (!map) initMap();
+  if (dropMarker) { try { map.removeLayer(dropMarker); } catch(e){} dropMarker = null; }
+  const ico = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25,41], iconAnchor: [12,41] });
+  dropMarker = L.marker([lat, lng], { icon: ico }).addTo(map).bindPopup('Drop');
+}
 
-  function logout(){
-    if (!confirm('Logout and stop receiving requests?')) return;
-    if (driverMobile) db.ref('partners/' + driverMobile).update({ onDuty: false, lastSeen: Date.now() }).catch(()=>{});
-    clearPrefs();
-    location.reload();
-  }
+/* clearRouteAndMarkers: cleanup after trip */
+function clearRouteAndMarkers() {
+  try { if (routeLine) map.removeLayer(routeLine); } catch(e){} routeLine = null;
+  try { if (pickupMarker) map.removeLayer(pickupMarker); } catch(e){} pickupMarker = null;
+  try { if (dropMarker) map.removeLayer(dropMarker); } catch(e){} dropMarker = null;
+}
 
-  // ---------- Help ----------
-  function openHelp(){ $('helpModal').style.display='flex'; }
-  function closeHelp(){ $('helpModal').style.display='none'; }
+/* small helper used by Part3 to show mini card quickly */
+function showMiniCard(price, pickupDistKm) {
+  $('fare').innerText = '₹' + (price||0);
+  $('pdist').innerText = (pickupDistKm!==undefined ? (pickupDistKm.toFixed(1)+' KM') : '-- KM');
+  $('miniCard').style.display = 'block';
+  try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
+}
 
-  // ---------- Requests: listen & filter ----------
-  async function requestListener(snap){
-    if (!isOnDuty) return;
-    if (isRequesting) return;
-    const data = snap.val();
-    if (!data || data.status !== 'pending') return;
-    const reqType = (data.vehicleType || '').toLowerCase();
-    if (!selectedVehicle || reqType !== selectedVehicle) return;
-    if (!driverLat || !driverLng) return;
-    const pd = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng);
-    if (pd <= 6.0) {
-      isRequesting = true;
-      currentReqData = data; currentReqKey = snap.key;
-      $('reqPopup').style.display='block';
-      $('fareDisplay').innerText = data.price;
-      $('pickupDist').innerText = pd.toFixed(1) + ' km';
-      $('tripDist').innerText = (data.distance || '—');
-      $('reqTime').innerText = new Date(data.timestamp || Date.now()).toLocaleTimeString();
-      if (pickupMarker) map.removeLayer(pickupMarker);
-      pickupMarker = L.marker([data.pickupLat, data.pickupLng]).addTo(map).bindPopup('Pickup');
-      map.setView([data.pickupLat, data.pickupLng], 15);
-      try{ document.getElementById('ringtone') && document.getElementById('ringtone').play().catch(()=>{}); }catch(e){}
+/* hide mini card */
+function hideMiniCard() {
+  $('miniCard').style.display = 'none';
+  try { const r = document.getElementById('ringtone'); r.pause(); r.currentTime = 0; } catch(e){}
+}
+
+/* small distance calc (used maybe by Part3) */
+function distanceKm(aLat, aLng, bLat, bLng) {
+  const R = 6371;
+  const dLat = (bLat - aLat) * Math.PI / 180;
+  const dLon = (bLng - aLng) * Math.PI / 180;
+  const A = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(aLat * Math.PI / 180) * Math.cos(bLat * Math.PI / 180) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  return R * (2 * Math.atan2(Math.sqrt(A), Math.sqrt(1 - A)));
+}
+
+/* OVERRIDE startDuty (from Part1) to wire everything */
+(function overrideStartDuty() {
+  // keep original reference if needed (not necessary)
+  window.startDuty = function() {
+    // show UI (same as part1 had)
+    const pref = localStorage.getItem('ms_pref');
+    if (pref) {
+      try { const p = JSON.parse(pref); selectedVehicle = p.type; vehicleReg = p.reg; } catch(e){}
     }
-  }
-
-  function startListening(){ db.ref('requests').limitToLast(40).on('child_added', requestListener); }
-  function stopListening(){ db.ref('requests').limitToLast(40).off('child_added', requestListener); }
-
-  function skipRide(){ $('reqPopup').style.display='none'; if (pickupMarker){ map.removeLayer(pickupMarker); pickupMarker=null;} isRequesting=false; try{ document.getElementById('ringtone') && document.getElementById('ringtone').pause(); }catch(e){} }
-
-  // Accept with transaction (race-safe)
-  function tryAcceptRide(){
-    if (!currentReqKey) return alert('No request');
-    stopListening();
-    db.ref('requests/' + currentReqKey).transaction(curr=>{
-      if (curr === null) return curr;
-      if (curr.status === 'pending') return Object.assign({}, curr, { status:'accepted', driverMobile: driverMobile, driverVehicle: selectedVehicle, driverVehicleNumber: vehicleNumber, acceptedAt: Date.now() });
-      return;
-    }, (err, committed, snap) => {
-      if (err) { alert('Accept failed'); isRequesting=false; startListening(); }
-      else if (!committed) { alert('Request already taken'); isRequesting=false; startListening(); }
-      else {
-        currentReqData = snap.val();
-        $('reqPopup').style.display='none';
-        $('pickupCard').style.display='block';
-        $('custPhoneDisplay').innerText = 'Customer: ' + (currentReqData.customerMobile || '—');
-        $('callBtn').href = 'tel:' + (currentReqData.customerMobile || '');
-        drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
-        const hist = { reqId: currentReqKey, customerMobile: currentReqData.customerMobile, price: currentReqData.price, status:'accepted', vehicle: currentReqData.vehicleType, timestamp: Date.now() };
-        db.ref('partners/' + driverMobile + '/history').push(hist).catch(()=>{});
-        refreshTodayIncome();
-      }
-    });
-  }
-
-  function verifyOtp(){
-    const code = $('otpIn').value.trim();
-    if (!currentReqData) return alert('No request loaded');
-    if (String(currentReqData.otp) === code) {
-      db.ref('requests/' + currentReqKey).update({ status:'started', startedAt: Date.now() }).catch(()=>{});
-      $('pickupCard').style.display='none';
-      $('dropCard').style.display='block';
-      if (currentReqData.dropLat && currentReqData.dropLng) drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#10b981');
-      updatePartnerHistoryStatus(currentReqKey, 'started');
-    } else alert('Wrong OTP');
-  }
-
-  function completeRide(){
-    if (!currentReqKey || !currentReqData) return alert('No active ride');
-    db.ref('requests/' + currentReqKey).update({ status:'completed', completedAt: Date.now() }).then(()=>{
-      $('dropCard').style.display='none';
-      alert('Trip completed. Collect cash ₹' + (currentReqData.price || 0));
-      updatePartnerHistoryStatus(currentReqKey, 'completed');
-      refreshTodayIncome();
-      if (routeLine) { map.removeLayer(routeLine); routeLine=null; }
-      if (pickupMarker) { map.removeLayer(pickupMarker); pickupMarker=null; }
-      if (dropMarker) { map.removeLayer(dropMarker); dropMarker=null; }
-      currentReqKey = null; currentReqData = null; isRequesting=false;
-      startListening();
-    }).catch(e=>alert('Complete failed'));
-  }
-
-  function cancelRide(){
-    if (!confirm('Cancel this ride?')) return;
-    db.ref('requests/' + currentReqKey).update({ status:'cancelled' }).then(()=>{
-      isRequesting=false; location.reload();
-    }).catch(()=>alert('Cancel failed'));
-  }
-
-  // ---------- route draw ----------
-  function drawRoute(lat1, lon1, lat2, lon2, color){
-    if (routeLine) map.removeLayer(routeLine);
-    routeLine = L.polyline([[lat1,lon1],[lat2,lon2]], { color, weight:5 }).addTo(map);
-    map.fitBounds(routeLine.getBounds(), { padding:[40,40] });
-  }
-
-  // ---------- history & income ----------
-  async function fetchHistory(){
-    if (!driverMobile) return;
-    const snap = await db.ref('partners/' + driverMobile + '/history').orderByChild('timestamp').once('value');
-    const data = snap.val() || {};
-    renderHistory(data);
-  }
-  function renderHistory(data){
-    const container = $('historyList'); container.innerHTML='';
-    const keys = Object.keys(data||{}).sort((a,b)=> (data[b].timestamp||0)-(data[a].timestamp||0));
-    if (!keys.length) { container.innerHTML = '<div style="padding:12px;color:var(--muted)">No rides yet</div>'; return; }
-    keys.forEach(k=>{
-      const it = data[k];
-      const t = new Date(it.timestamp||Date.now()).toLocaleString();
-      const div = document.createElement('div'); div.className='hist-item';
-      div.innerHTML = `<div><div style="font-weight:900">₹${it.price||0} • ${it.vehicle||''}</div><div class="muted">${t}</div></div><div style="text-align:right"><div class="muted">${(it.status||'').toUpperCase()}</div></div>`;
-      container.appendChild(div);
-    });
-  }
-
-  async function refreshTodayIncome(){
-    if (!driverMobile) return;
-    const start = new Date(); start.setHours(0,0,0,0);
-    const end = new Date(); end.setHours(23,59,59,999);
-    const snap = await db.ref('partners/' + driverMobile + '/history').orderByChild('timestamp').startAt(start.getTime()).endAt(end.getTime()).once('value');
-    const data = snap.val() || {};
-    let total = 0;
-    Object.values(data).forEach(it => { if (it.status === 'completed') total += Number(it.price || 0); });
-    $('incomeBox').innerText = '₹' + total;
-  }
-
-  async function updatePartnerHistoryStatus(reqId, newStatus){
-    if (!driverMobile) return;
-    const ref = db.ref('partners/' + driverMobile + '/history');
-    const snap = await ref.orderByChild('reqId').equalTo(reqId).once('value'); const matches = snap.val();
-    if (!matches) return;
-    Object.keys(matches).forEach(k => ref.child(k).update({ status: newStatus }));
-    fetchHistory(); refreshTodayIncome();
-  }
-
-  // ---------- misc UI ----------
-  function openHistory(){ fetchHistory(); $('historyModal').style.display='flex'; }
-  function closeHistory(){ $('historyModal').style.display='none'; }
-  function openHelp(){ $('helpModal').style.display='flex'; }
-  function closeHelp(){ $('helpModal').style.display='none'; }
-
-  function getDist(lat1,lon1,lat2,lon2){
-    const R=6371; const dLat=(lat2-lat1)*(Math.PI/180); const dLon=(lon2-lon1)*(Math.PI/180);
-    const a = Math.sin(dLat/2)*Math.sin(dLat/2)+Math.cos(lat1*(Math.PI/180))*Math.cos(lat2*(Math.PI/180))*Math.sin(dLon/2)*Math.sin(dLon/2);
-    return R*(2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
-  }
-
-  // ---------- init ----------
-  (function init(){
+    $('login').style.display = 'none';
+    $('app').style.display = 'block';
+    $('status').innerText = 'ON DUTY (' + (selectedVehicle||'N/A') + ')';
+    // init map & gps
     initMap();
-    // ring audio
-    const a = document.createElement('audio'); a.id='ringtone'; a.src='https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3'; a.loop=true; document.body.appendChild(a);
-    const ok = loadPrefs();
-    if (ok && driverMobile) {
-      updateUI();
-      // show app (no overlay files — app UI already visible)
-      startGPS();
-      if (isOnDuty) startListening();
-      refreshTodayIncome();
-    } else {
-      // nothing: user presses START DUTY to login & start
-    }
-    // attach duty button guard: newer browsers might not let programmatically play audio
-    $('dutyToggle').addEventListener('click', function(){ if (!driverMobile) { /* prompts handled in toggleDuty */ } });
-  })();
+    startGPS();
+    // try starting listener if Part3 provided startListen
+    try { if (typeof startListen === 'function') startListen(); } catch(e){ console.warn('startListen not ready'); }
+  };
+})();
 
-  // expose some methods for inline onclicks
-  window.openDrawer = openDrawer;
-  window.closeDrawer = closeDrawer;
-  window.openVehicleDialog = openVehicleDialog;
-  window.recenterMap = recenterMap;
-  window.openHistory = openHistory;
-  window.closeHistory = closeHistory;
-  window.toggleDuty = toggleDuty;
-  window.logout = logout;
-  window.tryAcceptRide = tryAcceptRide;
-  window.skipRide = skipRide;
-  window.verifyOtp = verifyOtp;
-  window.completeRide = completeRide;
-  window.cancelRide = cancelRide;
+        </script>
+  
+  <!-- PART 3: Requests, Accept/OTP, History, Menu, Income, and control wiring -->
+<script>
+/*
+ PART 3 for MS PARTNER
+ Paste AFTER Part1 and Part2. This wires requests, menu, OTP flow, history, today income.
+*/
+
+let currentKey = null;
+let currentData = null;
+let listeningRef = null;
+let isProcessing = false; // prevent multiple accept flows
+
+/* Utility: push local history and (optional) to firebase under partners/<mobile>/history */
+function pushHistory(item) {
+  try {
+    const raw = localStorage.getItem('ms_history') || '[]';
+    const arr = JSON.parse(raw);
+    arr.push(item);
+    localStorage.setItem('ms_history', JSON.stringify(arr));
+    // also write to firebase partner node (non-blocking)
+    if (driverMobile) {
+      try { db.ref('partners/' + driverMobile + '/history').push(item).catch(()=>{}); } catch(e){}
+    }
+  } catch(e){ console.warn('history push err', e); }
+}
+
+/* Compute today income from local history */
+function getTodayIncome() {
+  try {
+    const raw = localStorage.getItem('ms_history') || '[]';
+    const arr = JSON.parse(raw);
+    const start = new Date(); start.setHours(0,0,0,0);
+    let total = 0;
+    arr.forEach(r => {
+      if (!r.ts) return;
+      if (r.status === 'completed' && r.price) {
+        if (r.ts >= start.getTime()) total += Number(r.price || 0);
+      }
+    });
+    return total;
+  } catch(e){ return 0; }
+}
+
+/* Show the right-side menu (toggle) */
+function toggleMenu() {
+  const existing = document.getElementById('menuPanel');
+  if (existing) { existing.remove(); return; }
+  const panel = document.createElement('div');
+  panel.id = 'menuPanel';
+  panel.style = 'position:fixed;right:12px;top:56px;width:240px;background:var(--panel);padding:12px;border-radius:10px;z-index:10020;border:1px solid rgba(255,255,255,0.03)';
+  panel.innerHTML = `
+    <div style="font-weight:900;color:var(--gold);margin-bottom:8px">${driverMobile||''}</div>
+    <div class="small">Vehicle: <b>${(selectedVehicle||'—').toUpperCase()}</b> ${vehicleReg?('<span class="small"> • '+vehicleReg+'</span>'):''}</div>
+    <div style="margin-top:10px"><button class="btn" onclick="changeVehicleFromMenu()">Change Vehicle</button></div>
+    <div style="margin-top:8px"><button class="btn" onclick="showHistoryModal()">History</button></div>
+    <div style="margin-top:8px"><button class="btn" onclick="showTodayIncome()">Today Income</button></div>
+    <div style="margin-top:8px"><button class="btn ghost" onclick="toggleDuty()">Toggle Duty</button></div>
+    <div style="margin-top:8px"><button class="btn" style="background:#ff6b6b" onclick="logoutAll()">Logout</button></div>
+  `;
+  document.body.appendChild(panel);
+}
+
+/* Change vehicle from menu */
+function changeVehicleFromMenu(){
+  localStorage.removeItem('ms_pref');
+  alert('Vehicle preference cleared. Pick again.');
+  location.reload();
+}
+
+/* Show history modal */
+function showHistoryModal(){
+  const raw = localStorage.getItem('ms_history') || '[]';
+  const arr = JSON.parse(raw);
+  let html = `<h3 style="color:var(--gold);margin:0">History</h3><div style="max-height:50vh;overflow:auto;margin-top:8px">`;
+  if (!arr.length) html += '<div class="small muted">No rides yet</div>';
+  arr.slice().reverse().forEach(it => {
+    html += `<div style="padding:8px;border-bottom:1px solid #111">
+      <div style="font-weight:800">₹${it.price||0} • ${it.status||''}</div>
+      <div class="small muted">${new Date(it.ts).toLocaleString()}</div>
+    </div>`;
+  });
+  html += `</div><div style="margin-top:10px"><button class="btn" onclick="closeModal()">CLOSE</button></div>`;
+  showModal(html);
+}
+
+/* Show today's income */
+function showTodayIncome(){
+  const income = getTodayIncome();
+  showModal(`<div style="text-align:center">
+    <h3 style="color:var(--gold);margin:0">Today Income</h3>
+    <div style="font-size:28px;font-weight:900;margin-top:10px">₹${income}</div>
+    <div style="margin-top:12px"><button class="btn" onclick="closeModal()">CLOSE</button></div>
+  </div>`);
+}
+
+/* Toggle ON/OFF duty */
+function toggleDuty(){
+  const st = $('status').innerText || '';
+  if (st.includes('ON')) {
+    $('status').innerText = 'OFF DUTY';
+    // stop listening
+    stopListen();
+  } else {
+    $('status').innerText = 'ON DUTY (' + (selectedVehicle||'N/A') + ')';
+    // start listening
+    startListen();
+  }
+}
+
+/* START listening for requests (filtered by vehicle type if present) */
+function startListen(){
+  try {
+    if (!db) return console.warn('DB not ready');
+    // ensure we don't attach multiple listeners
+    if (listeningRef) listeningRef.off();
+    listeningRef = db.ref('requests');
+    // listen to last 30 to reduce load
+    listeningRef.limitToLast(30).on('child_added', handleRequestSnapshot);
+    // also listen for child_changed for updates (optional)
+    listeningRef.limitToLast(30).on('child_changed', handleRequestSnapshot);
+  } catch(e){ console.warn('startListen err', e); }
+}
+
+/* stop listening */
+function stopListen(){
+  try {
+    if (listeningRef) { listeningRef.off(); listeningRef = null; }
+  } catch(e){}
+}
+
+/* Handle incoming request snapshot */
+function handleRequestSnapshot(snap){
+  try{
+    const d = snap.val();
+    const key = snap.key;
+    if (!d || d.status !== 'pending') return;
+    // vehicle filter: if request has vehicleType and driver has selectedVehicle, ensure match
+    if (d.vehicleType && selectedVehicle && d.vehicleType.toLowerCase() !== selectedVehicle) return;
+    // ensure we have location to compare
+    if (!myLat || !myLng) return;
+    const km = distanceKm(myLat, myLng, d.pickupLat, d.pickupLng);
+    // only notify if within radius (tweakable)
+    const radius = 6.0; // km
+    if (km <= radius && !isProcessing) {
+      currentKey = key;
+      currentData = d;
+      isProcessing = true;
+      showMiniCard(d.price, km);
+    }
+  } catch(e){ console.warn('handleRequest err', e); }
+}
+
+/* ACCEPT request (transaction-safe) */
+function acceptReq(){
+  if (!currentKey) return alert('No active request');
+  try {
+    // pause listening while attempting transaction
+    stopListen();
+    db.ref('requests/' + currentKey).transaction(curr => {
+      if (!curr) return; // already removed
+      if (curr.status === 'pending') {
+        curr.status = 'accepted';
+        curr.driverMobile = driverMobile || null;
+        curr.driverVehicle = selectedVehicle || null;
+        curr.driverReg = vehicleReg || null;
+        curr.acceptedAt = Date.now();
+        return curr;
+      }
+      return; // abort if not pending
+    }, (err, committed, snapshot) => {
+      if (err) {
+        console.warn('tx err', err);
+        alert('Accept failed');
+        isProcessing = false;
+        startListen();
+      } else if (!committed) {
+        alert('Booking missed or already taken');
+        hideMiniCard();
+        currentKey = null; currentData = null; isProcessing = false;
+        startListen();
+      } else {
+        // accepted successfully
+        const acceptedData = snapshot.val();
+        pushHistory({reqId: currentKey, price: acceptedData.price || 0, status: 'accepted', ts: Date.now(), vehicle: selectedVehicle});
+        // open pickup modal with OTP displayed and start trip flow
+        showModal(`<div>
+          <h3 style="color:var(--gold);margin:0">Heading to Pickup</h3>
+          <div style="margin-top:8px">Customer: <b>${acceptedData.customerMobile||'--'}</b></div>
+          <div style="margin-top:8px">OTP: <b>${acceptedData.otp||'----'}</b></div>
+          <div style="margin-top:10px"><input id="otpInput" class="inp" placeholder="Enter OTP to start"></div>
+          <div style="display:flex;gap:8px;margin-top:10px;justify-content:center">
+            <button class="btn" onclick="verifyOtpStart()">START TRIP</button>
+            <button class="btn ghost" onclick="cancelAccepted()">CANCEL</button>
+          </div>
+        </div>`);
+        hideMiniCard();
+      }
+    });
+  } catch(e){
+    console.warn('accept err', e);
+    isProcessing = false;
+    startListen();
+  }
+}
+
+/* Skip request (ignore) */
+function skipReq(){
+  hideMiniCard();
+  currentKey = null; currentData = null; isProcessing = false;
+  // continue listening
+  startListen();
+}
+
+/* Cancel after accept (driver cancels) */
+function cancelAccepted(){
+  if (!currentKey) { closeModal(); isProcessing=false; startListen(); return; }
+  db.ref('requests/' + currentKey).update({ status:'cancelled' }).then(()=>{
+    pushHistory({reqId: currentKey, price: currentData?.price||0, status:'cancelled', ts: Date.now(), vehicle: selectedVehicle});
+    closeModal();
+    currentKey = null; currentData = null; isProcessing = false;
+    startListen();
+  }).catch(err=>{ alert('Cancel failed'); console.warn(err); });
+}
+
+/* Verify OTP and start trip */
+function verifyOtpStart(){
+  const v = (document.getElementById('otpInput') || {}).value || '';
+  if (!currentKey || !currentData) { alert('No data'); closeModal(); startListen(); return; }
+  if (String(currentData.otp) !== String(v)) { alert('Wrong OTP'); return; }
+  // update status to started
+  db.ref('requests/' + currentKey).update({ status: 'started', startedAt: Date.now() }).then(()=>{
+    pushHistory({reqId: currentKey, price: currentData.price||0, status:'started', ts: Date.now(), vehicle: selectedVehicle});
+    closeModal();
+    // show drop screen & draw route if available
+    if (currentData.dropLat && currentData.dropLng) {
+      addDropMarker(currentData.dropLat, currentData.dropLng);
+      drawRoute(myLat||currentData.pickupLat, myLng||currentData.pickupLng, currentData.dropLat, currentData.dropLng, '#2ecc71');
+    }
+    showModal(`<div style="text-align:center">
+      <h3 style="color:var(--gold);margin:0">Trip Started</h3>
+      <div style="margin-top:10px">Navigate to drop and press End Trip when done.</div>
+      <div style="display:flex;gap:8px;margin-top:12px;justify-content:center">
+        <button class="btn" onclick="openNavigationToDrop()">OPEN NAV</button>
+        <button class="btn ghost" onclick="endTrip()">END TRIP</button>
+      </div>
+    </div>`);
+  }).catch(err=>{ alert('Start failed'); console.warn(err); });
+}
+
+/* open external maps for drop */
+function openNavigationToDrop(){
+  if (!currentData || !currentData.dropLat) return alert('Drop missing');
+  const origin = (myLat && myLng) ? `${myLat},${myLng}` : `${currentData.pickupLat},${currentData.pickupLng}`;
+  const dest = `${currentData.dropLat},${currentData.dropLng}`;
+  const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(dest)}&travelmode=driving`;
+  window.open(url, '_blank');
+}
+
+/* End trip and mark completed */
+function endTrip(){
+  if (!currentKey || !currentData) { alert('No trip active'); closeModal(); startListen(); return; }
+  db.ref('requests/' + currentKey).update({ status: 'completed', completedAt: Date.now() }).then(()=>{
+    pushHistory({reqId: currentKey, price: currentData.price||0, status:'completed', ts: Date.now(), vehicle: selectedVehicle});
+    closeModal();
+    alert('Trip completed. Collect ₹' + (currentData.price||0));
+    // cleanup
+    clearRouteAndMarkers();
+    currentKey = null; currentData = null; isProcessing = false;
+    // update Today income display if menu open
+    startListen();
+  }).catch(err => { alert('Complete failed'); console.warn(err); });
+}
+
+/* Logout: clear prefs and reload */
+function logoutAll(){
+  localStorage.removeItem('ms_pref');
+  // do not clear history, but you can clear if needed
+  // localStorage.removeItem('ms_history');
+  location.reload();
+}
+
+/* Boot: if already on duty & pref available, start listening (handles page refresh) */
+(function bootListenOnLoad(){
+  try {
+    const pref = localStorage.getItem('ms_pref');
+    if (pref && driverMobile) {
+      // short delay to allow Part2 to initialize map overrideStartDuty
+      setTimeout(()=>{ if ($('app').style.display !== 'block') { /* user not started; do nothing */ } else { startListen(); } }, 1000);
+    }
+  } catch(e){}
+})();
 
 </script>
+```0
 </body>
 </html>
