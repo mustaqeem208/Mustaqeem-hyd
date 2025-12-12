@@ -1,23 +1,46 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MS Partner - Premium Vehicle Icons</title>
+    <title>MS Partner - Professional</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         /* ---------- (General Styles) ---------- */
-        body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
+        body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#0a0a0a; color:#f0f0f0; }
 
-        #dLoginScreen { position:fixed; inset:0; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
-        .logo { font-size: 2rem; color: #d4af37; font-weight: bold; margin-bottom: 10px; letter-spacing: 2px; }
-        .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; text-align:center; margin-bottom:15px; font-size:1.1rem; }
-        .d-btn { width:85%; padding:15px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; }
+        /* Login Screen (Professional) */
+        #dLoginScreen { position:fixed; inset:0; background:#0a0a0a; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
+        .logo { font-size: 3rem; color: #d4af37; font-weight: 900; margin-bottom: 30px; letter-spacing: 2px; }
+        .d-inp { 
+            width:80%; 
+            padding:18px; 
+            border-radius:10px; 
+            border:1px solid #444; 
+            background:#181818; 
+            color:#fff; 
+            text-align:center; 
+            margin-bottom:20px; 
+            font-size:1.2rem; 
+            font-weight: bold; /* NEW: Added for visibility */
+        }
+        .d-btn { 
+            width:85%; 
+            padding:18px; 
+            border-radius:10px; 
+            border:none; 
+            background:#d4af37; 
+            color:#000; 
+            font-weight:bold; 
+            cursor:pointer; 
+            font-size:1.2rem;
+            transition: background 0.3s;
+        }
 
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
         #map { height:100%; width:100%; background: #ffffff; }
 
-        /* Vehicle Icons (Driver Marker) */
+        /* Vehicle Icons */
         .driver-icon-container {
             width:56px; height:56px; 
             display:flex; align-items:center; justify-content:center; 
@@ -30,127 +53,122 @@
             position: relative; 
         }
 
-        /* Vehicle Icons (Request Marker) */
         .request-icon-container {
-            width: 45px; height: 45px;
+            width: 50px; height: 50px;
             display: flex; align-items: center; justify-content: center;
             border-radius: 50%;
             background: #007bff;
             color: white;
-            font-size: 24px;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            font-size: 26px;
+            border: 3px solid #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4);
         }
 
-        /* Online/Offline Button */
+        /* Online/Offline Button (Professional Border) */
         #toggleDutyBtn {
             position: absolute;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 2002;
-            padding: 12px 20px;
+            padding: 14px 25px;
             border-radius: 50px;
             font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s, color 0.3s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            border: none;
+            transition: background 0.4s ease-in-out, border 0.4s;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+            border: 2px solid; /* NEW: Added border for professional look */
+            min-width: 150px;
         }
 
         .online-btn {
-            background: #2ecc71; /* Green */
+            background: linear-gradient(145deg, #2ecc71, #27ae60); 
             color: white;
+            border-color: #f0f0f0; /* Light border when online */
         }
 
         .offline-btn {
-            background: #e74c3c; /* Red */
+            background: linear-gradient(145deg, #e74c3c, #c0392b); 
             color: white;
+            border-color: #d4af37; /* Gold border when offline */
         }
 
-        .recenter-btn { position: absolute; bottom: 300px; right: 20px; width: 45px; height: 45px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .recenter-btn { position: absolute; bottom: 300px; right: 20px; width: 48px; height: 48px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.6rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
-        .card { position: absolute; left:10px; right:10px; bottom:20px; background: rgba(20,20,20,0.95); border-radius:15px; padding:20px; z-index:1001; border:1px solid #333; display:none; box-shadow: 0 10px 40px rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
-        .fare-txt { font-size: 2.8rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
-        .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#000; padding:10px; border-radius:8px; border:1px solid #333; }
+        .card { 
+            position: absolute; left:10px; right:10px; bottom:20px; 
+            background: rgba(20,20,20,0.95); 
+            border-radius:20px; 
+            padding:20px; 
+            z-index:1001; 
+            border:1px solid #333; 
+            display:none; 
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8); 
+            backdrop-filter: blur(15px); 
+        }
+        
+        .fare-txt { font-size: 3.2rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
+        
+        .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#111; padding:12px; border-radius:10px; border:1px solid #444; }
         .info-col { text-align:center; width:48%; }
-        .lbl { font-size:0.7rem; color:#888; }
-        .val { font-size:1.1rem; font-weight:bold; color:white; }
+        .lbl { font-size:0.75rem; color:#888; }
+        .val { font-size:1.2rem; font-weight:bold; color:white; }
 
-        .btn-row { display: flex; gap: 10px; margin-top: 15px; }
-        .accept-btn { flex: 1; padding: 15px; background: #d4af37; color:black; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:1.1rem; }
-        .skip-btn { flex: 1; padding: 15px; background: #333; color:#aaa; font-weight:bold; border:1px solid #555; border-radius:8px; cursor:pointer; font-size:1.1rem; }
+        .btn-row { display: flex; gap: 12px; margin-top: 20px; }
+        .accept-btn { flex: 1; padding: 18px; background: #d4af37; color:black; font-weight:bold; border:none; border-radius:10px; cursor:pointer; font-size:1.15rem; }
+        .skip-btn { flex: 1; padding: 18px; background: #333; color:#aaa; font-weight:bold; border:1px solid #555; border-radius:10px; cursor:pointer; font-size:1.15rem; }
 
-        .contact-btn { display:block; background:#2ecc71; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
-        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:12px; border-radius:8px; font-weight:bold; font-size:1.1rem; width: 100%; cursor: pointer;}
-        .map-nav-btn { display:block; background:#007bff; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
-
-        .otp-box { margin-top: 15px; background: #111; padding: 10px; border-radius: 8px; border: 1px solid #444; }
-        .otp-row { display: flex; gap: 10px; margin-top: 5px; }
-        .otp-inp { flex: 1; padding: 10px; text-align: center; font-size: 1.3rem; letter-spacing: 5px; background: #000; border: 1px solid #d4af37; color: white; border-radius: 5px; }
-        .go-btn { padding: 0 20px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+        /* Menu/SOS/Modal styles (kept similar for functionality) */
+        #mainMenuBtn { position: absolute; top: 18px; left: 18px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:12px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
+        #menuBox { position: absolute; top: 70px; left: 18px; z-index: 2001; display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:12px; width:240px; }
+        .menu-item { padding:10px 12px; border-radius:8px; cursor:pointer; color:#d4af37; font-weight:700; margin-bottom:6px; background:rgba(255,255,255,0.03); }
+        .menu-sub { font-size:0.9rem; color:#aaa; font-weight:500; margin-left:6px; }
 
         .help-btn { position: absolute; top: 20px; right: 20px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; display: none; border: 2px solid white; cursor: pointer; }
 
-        /* Menu button */
-        #mainMenuBtn { position: absolute; top: 18px; left: 18px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
-        #menuBox { position: absolute; top: 64px; left: 18px; z-index: 2001; display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:10px; width:220px; }
-        .menu-item { padding:8px 10px; border-radius:8px; cursor:pointer; color:#d4af37; font-weight:700; margin-bottom:6px; background:transparent; }
-        .menu-sub { font-size:0.9rem; color:#aaa; font-weight:500; margin-left:6px; }
-
-        /* Modals */
-        .modal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; z-index:3000; background: rgba(0,0,0,0.6); }
-        .modal-card { background:#111; padding:18px; border-radius:12px; width:92%; max-width:520px; border:1px solid #222; color:#fff; }
-        .modal-list { max-height:60vh; overflow:auto; margin-top:10px; }
-        .hist-row { padding:10px; border-bottom:1px solid rgba(255,255,255,0.03); display:flex; justify-content:space-between; gap:10px; }
-
         #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .bill-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 85%; max-width: 400px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-        /* NEW: Bill Amount Style */
-        .total-fare { 
-            font-size: 3.5rem; 
-            font-weight: 900; 
-            color: #2ecc71; /* Green color for amount */
-            margin: 15px 0 30px 0;
-        }
-
-        /* Footer Style */
+        .bill-box { background: #fff; color: black; padding: 40px 30px; border-radius: 20px; width: 85%; max-width: 400px; box-shadow: 0 0 30px rgba(255,255,255,0.2); }
+        .total-fare { font-size: 4rem; font-weight: 900; color: #2ecc71; margin: 20px 0 35px 0; text-shadow: 1px 1px 5px rgba(46, 204, 113, 0.4); }
+        
+        .call-opt { display: block; background: #f0f0f0; color: #222; text-align: center; padding: 15px; border-radius: 10px; text-decoration: none; font-weight: bold; margin-bottom: 15px; font-size: 1.2rem; border: 2px solid; }
+        
         #footer {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             text-align: center;
-            padding: 5px 0;
+            padding: 8px 0;
             background: rgba(0,0,0,0.8);
             color: #d4af37;
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             z-index: 1000;
             font-weight: 500;
+            letter-spacing: 1px;
         }
-
 
     </style>
 </head>
 <body>
-        <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
+
+    <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
 
     <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
 
     <div id="helpModal" class="modal">
         <div class="help-box modal-card">
-            <h2 style="color:red; margin-top:0;">EMERGENCY HELP</h2>
-            <a href="tel:100" class="call-opt" style="border-color:red;">👮 POLICE (100)</a>
-            <a href="tel:9381667208" class="call-opt" style="border-color:#d4af37; color:#d4af37;">👤 MUSTAQEEM (Founder)</a>
-            <button onclick="closeHelp()" style="margin-top:15px; padding:10px 30px; background:#333; color:white; border:none; border-radius:5px;">CLOSE</button>
+            <h2 style="color:red; margin-top:0;">🚨 EMERGENCY HELP 🚨</h2>
+            <a href="tel:100" class="call-opt" style="border-color:#3498db; color:#3498db; background:#ecf0f1;">👮 POLICE (100)</a>
+            <a href="tel:9381667208" class="call-opt" style="border-color:#d4af37; color:#d4af37; background:#fcf8e3;">👤 MUSTAQEEM (Founder)</a>
+            <button onclick="closeHelp()" style="margin-top:15px; padding:12px 30px; background:#333; color:white; border:none; border-radius:10px; font-size:1rem;">CLOSE</button>
         </div>
     </div>
 
     <div id="dLoginScreen">
         <div class="logo">MS PARTNER</div>
-        <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number">
+        <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number"> 
         <button class="d-btn" onclick="startDuty()">START DUTY</button>
-        <p style="color:#999; font-size:0.9rem; margin-top:12px;">One-time login -- will remember your number for next time.</p>
+        <p style="color:#999; font-size:0.9rem; margin-top:15px;">One-time login — will keep you logged in until you choose to Logout (Clear).</p>
     </div>
 
     <div id="dApp">
@@ -162,7 +180,7 @@
             <div class="menu-item" onclick="showTodayEarnings()">Today Earnings <span class="menu-sub" id="earnTodaySub"></span></div>
             <div class="menu-item" onclick="showPartnerHistory()">History</div>
             <div class="menu-item" onclick="openVehicleChange()">Change Vehicle</div>
-            <div class="menu-item" onclick="logoutAndClear()">Logout (Clear)</div>
+            <div class="menu-item" onclick="logoutAndClear()">Logout (Clear)</div> 
         </div>
 
         <div id="map"></div>
@@ -194,7 +212,7 @@
                     <button class="go-btn" onclick="verifyOtp()">START</button>
                 </div>
             </div>
-            <button onclick="cancelRide()" style="width:100%; margin-top:10px; background:red; color:white; border:none; padding:10px; font-weight:bold; border-radius:8px;">CANCEL RIDE</button>
+            <button onclick="cancelRide()" style="width:100%; margin-top:10px; background:red; color:white; border:none; padding:12px; font-weight:bold; border-radius:10px;">CANCEL RIDE</button>
         </div>
 
         <div id="dropCard" class="card" style="border-top: 4px solid green;">
@@ -207,13 +225,13 @@
 
         <div id="vehicleModal" class="modal">
             <div class="modal-card">
-                <h3 style="margin:0 0 10px 0; color:#d4af37;">Select Vehicle</h3>
-                <div style="display:flex;gap:8px;">
-                    <button class="accept-btn" onclick="chooseVehicle('car')">Car</button>
-                    <button class="accept-btn" onclick="chooseVehicle('auto')">Auto</button>
-                    <button class="accept-btn" onclick="chooseVehicle('bike')">Bike</button>
+                <h3 style="margin:0 0 15px 0; color:#d4af37;">Select Vehicle Type</h3>
+                <div style="display:flex;gap:12px;">
+                    <button class="accept-btn" onclick="chooseVehicle('car')">Car 🚗</button>
+                    <button class="accept-btn" onclick="chooseVehicle('auto')">Auto 🛺</button>
+                    <button class="accept-btn" onclick="chooseVehicle('bike')">Bike 🏍️</button>
                 </div>
-                <div style="margin-top:12px; text-align:right;">
+                <div style="margin-top:15px; text-align:right;">
                     <button onclick="closeVehicleModal()" class="skip-btn">CLOSE</button>
                 </div>
             </div>
@@ -244,7 +262,7 @@
     <div id="billModal" style="display:none;">
         <div class="bill-box">
             <h2>TRIP COMPLETED ✅</h2>
-            <p style="color:#555;">Collect Cash from Customer</p>
+            <p style="color:#555; font-size:1.1rem; font-weight:500;">Collect Cash from Customer</p>
             <div class="total-fare" id="billAmount">₹0</div> 
             <button class="accept-btn" onclick="closeBillAndNext()">COMPLETE & NEXT</button>
         </div>
@@ -265,7 +283,8 @@
         </div>
       </div>
     </div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
@@ -286,18 +305,10 @@
     let followDriver = true;
     let gpsWatchId = null;
     let isRequesting = false;
-    let partnerObj = null; // partner profile from DB (including vehicleType, partnerId, name)
-    let isOnline = false; // NEW: Track online/offline status locally
+    let partnerObj = null; 
+    let isOnline = false;
 
-    // Try auto-login (one-time login)
-    if (localStorage.getItem('msPartnerMobile')) {
-        const saved = localStorage.getItem('msPartnerMobile');
-        if (saved) {
-            document.getElementById('dPhone').value = saved;
-        }
-    }
-
-    // ---------- dialog helpers (kept) ----------
+    // --- Utility Helpers (Dialogs and Speech) ---
     const customDialog = document.getElementById('customDialog');
     const customDialogTitle = document.getElementById('customDialogTitle');
     const customDialogMessage = document.getElementById('customDialogMessage');
@@ -310,57 +321,31 @@
         customDialog.style.display = 'flex';
         customDialogOk.style.display = 'inline-block';
         customDialogCancel.style.display = 'inline-block';
-
-        function cleanup() {
-            customDialog.style.display = 'none';
-            customDialogOk.removeEventListener('click', okHandler);
-            customDialogCancel.removeEventListener('click', cancelHandler);
-        }
+        function cleanup() { customDialog.style.display = 'none'; customDialogOk.removeEventListener('click', okHandler); customDialogCancel.removeEventListener('click', cancelHandler); }
         function okHandler() { cleanup(); if (onOk) onOk(); }
         function cancelHandler() { cleanup(); if (onCancel) onCancel(); }
-
         customDialogOk.addEventListener('click', okHandler);
         customDialogCancel.addEventListener('click', cancelHandler);
     }
-
     function showCustomAlert(title, message, onOk) {
         customDialogTitle.innerText = title || 'Alert';
         customDialogMessage.innerText = message || '';
         customDialog.style.display = 'flex';
         customDialogCancel.style.display = 'none';
         customDialogOk.style.display = 'inline-block';
-
-        function cleanup() {
-            customDialog.style.display = 'none';
-            customDialogOk.removeEventListener('click', okHandler);
-        }
+        function cleanup() { customDialog.style.display = 'none'; customDialogOk.removeEventListener('click', okHandler); }
         function okHandler() { cleanup(); if (onOk) onOk(); }
-
         customDialogOk.addEventListener('click', okHandler);
     }
-
-    // speech/beep helper (kept)
     function speak(text) {
-        try {
-            if (window.Android && typeof window.Android.speak === 'function') {
-                window.Android.speak(text); return;
-            }
-        } catch(e){}
-
-        if ('speechSynthesis' in window) {
-            try {
-                window.speechSynthesis.cancel();
-                const ut = new SpeechSynthesisUtterance(text);
-                ut.lang = 'en-US'; ut.rate = 1.0; ut.pitch = 1.0;
-                window.speechSynthesis.speak(ut); return;
-            } catch(err){}
-        }
+        try { if (window.Android && typeof window.Android.speak === 'function') { window.Android.speak(text); return; } } catch(e){}
+        if ('speechSynthesis' in window) { try { window.speechSynthesis.cancel(); const ut = new SpeechSynthesisUtterance(text); ut.lang = 'en-US'; ut.rate = 1.0; ut.pitch = 1.0; window.speechSynthesis.speak(ut); return; } catch(err){} }
         try { const r = document.getElementById('ringtone'); if (r) { r.play().catch(()=>{}); setTimeout(()=>{ try{ r.pause(); r.currentTime=0; }catch(e){} },1400); } } catch(e){}
     }
     
-    // NEW: Get Emoji based on vehicle type
+    // Get Emoji based on vehicle type
     function getVehicleEmoji(type, isReq = false) {
-        let emoji = '🚗'; // Default to car
+        let emoji = '🚗';
         switch (type) {
             case 'car': emoji = '🚗'; break;
             case 'auto': emoji = '🛺'; break;
@@ -370,7 +355,7 @@
         return `<div class='driver-icon-container'>${emoji}</div>`;
     }
 
-    // NEW: Update driver marker with current vehicle type
+    // Update driver marker with current vehicle type
     function updateDriverIcon() {
         if (!map) return;
         const vType = partnerObj && partnerObj.vehicleType ? partnerObj.vehicleType : 'car';
@@ -383,37 +368,46 @@
     }
 
 
-    // START DUTY: login + profile load + GPS + listen
-    async function startDuty() {
-        const num = document.getElementById('dPhone').value.trim();
-        if (num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
-        driverMobile = num;
-        localStorage.setItem('msPartnerMobile', driverMobile);
+    // Autologin Check and Default Number Setup
+    async function checkAutoLogin() {
+        const saved = localStorage.getItem('msPartnerMobile');
+        const dPhoneInput = document.getElementById('dPhone');
+        
+        if (saved) {
+            dPhoneInput.value = saved;
+            // Attempt Auto Start
+            driverMobile = saved;
+            document.getElementById('dLoginScreen').style.display = 'none';
+            document.getElementById('dApp').style.display = 'flex';
+            document.getElementById('helpBtn').style.display = 'block';
+            initializeMap([17.3850, 78.4867], 13);
+            startGPSCheck();
+            await loadPartnerProfile(saved);
+        } else {
+            // Set default number for first time entry, but don't show it if input is empty
+            dPhoneInput.value = ''; // Ensure it's empty initially to hide the number
+            dPhoneInput.placeholder = "Enter Mobile Number (e.g., 9381667208)";
+        }
+    }
 
-        document.getElementById('dLoginScreen').style.display = 'none';
-        document.getElementById('dApp').style.display = 'flex';
-        document.getElementById('helpBtn').style.display = 'block';
-        initializeMap([17.3850, 78.4867], 13);
-        startGPSCheck();
-
-        // load partner profile
+    // Load Profile (Used in startDuty and checkAutoLogin)
+    async function loadPartnerProfile(mobile) {
         try {
-            const snap = await db.ref('partners/' + driverMobile).once('value');
+            const snap = await db.ref('partners/' + mobile).once('value');
             const data = snap.val();
             
-            // Minimal profile check
             if (!data || !data.vehicleType || !data.partnerId) {
                 partnerObj = data || {};
                 partnerObj.partnerId = partnerObj.partnerId || ('P' + (Math.floor(100000 + Math.random()*900000)));
-                partnerObj.mobile = driverMobile;
+                partnerObj.mobile = mobile;
                 partnerObj.vehicleType = partnerObj.vehicleType || 'car';
-                await db.ref('partners/' + driverMobile).set(partnerObj);
+                await db.ref('partners/' + mobile).update(partnerObj);
                 updateDriverIcon();
-                openVehicleModal(); // Ask user to confirm vehicle type
+                openVehicleModal(); 
             } else {
                 partnerObj = data;
-                updateDriverIcon(); // update icon
-                isOnline = partnerObj.isOnline || false; // load last known status
+                updateDriverIcon();
+                isOnline = partnerObj.isOnline || false; 
 
                 if(isOnline) {
                     toggleDutyBtn.classList.remove('offline-btn'); toggleDutyBtn.classList.add('online-btn');
@@ -428,12 +422,31 @@
         } catch(err){
             console.warn("Profile load err", err);
             // Fallback: create minimal and prompt vehicle
-            partnerObj = { partnerId: 'P' + (Math.floor(100000 + Math.random()*900000)), mobile: driverMobile, vehicleType: 'car' };
-            db.ref('partners/' + driverMobile).set(partnerObj);
+            partnerObj = { partnerId: 'P' + (Math.floor(100000 + Math.random()*900000)), mobile: mobile, vehicleType: 'car' };
+            db.ref('partners/' + mobile).set(partnerObj);
             updateDriverIcon();
             openVehicleModal();
         }
     }
+
+    // START DUTY: login + profile load + GPS + listen
+    async function startDuty() {
+        const num = document.getElementById('dPhone').value.trim();
+        if (num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
+        driverMobile = num;
+        localStorage.setItem('msPartnerMobile', driverMobile); // Save for permanent login
+
+        document.getElementById('dLoginScreen').style.display = 'none';
+        document.getElementById('dApp').style.display = 'flex';
+        document.getElementById('helpBtn').style.display = 'block';
+        initializeMap([17.3850, 78.4867], 13);
+        startGPSCheck();
+        
+        await loadPartnerProfile(driverMobile);
+    }
+    
+    // Call auto-login check when script loads
+    checkAutoLogin();
 
     // NEW: Toggle Online/Offline
     const toggleDutyBtn = document.getElementById('toggleDutyBtn');
@@ -481,7 +494,7 @@
         driverLat = initialLatlng[0]; driverLng = initialLatlng[1];
     }
 
-    const GPS_HELP_TEXT = "Your GPS location cannot be accessed. Don't worry -- just drag the car icon to where you are and you will start receiving bookings.";
+    const GPS_HELP_TEXT = "Your GPS location cannot be accessed. Don't worry — just drag the car icon to where you are and you will start receiving bookings.";
 
     function startGPSCheck() {
         if (!navigator.geolocation) {
@@ -497,7 +510,8 @@
             if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy:true});
         }, {enableHighAccuracy:true, timeout:5000});
     }
-        function onPositionUpdate(pos) {
+
+    function onPositionUpdate(pos) {
         driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
         if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
         if(followDriver && map) map.panTo([driverLat, driverLng]);
@@ -557,7 +571,7 @@
         document.getElementById('reqPopup').style.display = 'block';
         document.getElementById('fareDisplay').innerText = data.price || 0;
         document.getElementById('pickupDist').innerText = pKM + " KM";
-        document.getElementById('tripDist').innerText = data.distance || '--';
+        document.getElementById('tripDist').innerText = data.distance || '—';
         
         // Use request vehicle icon
         const reqIconHtml = getVehicleEmoji(reqVehicle, true);
@@ -632,14 +646,13 @@
     function rideSecured() {
         document.getElementById('reqPopup').style.display = 'none';
         document.getElementById('pickupCard').style.display = 'block';
-        document.getElementById('custMobDisp').innerText = currentReqData.customerMobile || '--';
+        document.getElementById('custMobDisp').innerText = currentReqData.customerMobile || '—';
         document.getElementById('callBtn').href = "tel:" + (currentReqData.customerMobile || '');
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         if (pickupMarker) pickupMarker.openPopup();
     }
-</script>
-
-<script>
+            </script>
+            <script>
     function openPickupMap() {
         if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
         const pLat = currentReqData.pickupLat; const pLng = currentReqData.pickupLng;
@@ -689,7 +702,6 @@
         db.ref('requests/' + currentReqKey).update({ status: "completed", completedAt: Date.now() }).then(()=>{
             document.getElementById('dropCard').style.display = 'none';
             document.getElementById('billModal').style.display = 'flex';
-            // Amount is now styled with .total-fare class
             document.getElementById('billAmount').innerText = "₹" + (currentReqData.price || 0); 
             speak("Trip complete. Cash collect and move to next ride.");
             
@@ -777,10 +789,6 @@
             if (r.status === 'completed' && r.completedAt && r.completedAt >= start) total += Number(r.price || 0);
         });
         document.getElementById('earnContent').innerText = '₹' + total;
-        
-
-
-
         document.getElementById('earnModal').style.display = 'flex';
         document.getElementById('earnTodaySub').innerText = '₹' + total;
     }
