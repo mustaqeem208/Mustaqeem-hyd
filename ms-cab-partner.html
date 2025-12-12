@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MS Partner - Professional</title>
+    <title>MS Partner - Professional Final</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* ---------- Base Styles & Smooth Look ---------- */
+        /* ---------- Base Styles & Professional Look ---------- */
         body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#0a0a0a; color:#f0f0f0; }
 
-        /* Login Screen */
+        /* Login Screen (Image 1 Fix: Empty Input) */
         #dLoginScreen { position:fixed; inset:0; background:#0a0a0a; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
         .logo { font-size: 3rem; color: #d4af37; font-weight: 900; margin-bottom: 30px; letter-spacing: 2px; }
         .d-inp { 
@@ -43,7 +43,7 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* Online/Offline Button (Professional Border) */
+        /* Online/Offline Button */
         #toggleDutyBtn {
             position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 2002;
             padding: 14px 25px; border-radius: 50px; font-weight: bold; cursor: pointer;
@@ -56,16 +56,18 @@
 
         .recenter-btn { position: absolute; bottom: 300px; right: 20px; width: 48px; height: 48px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.6rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
+        /* Request Popup Card Style Fix */
         .card { 
             position: absolute; left:10px; right:10px; bottom:20px; 
             background: rgba(20,20,20,0.95); border-radius:20px; padding:20px; 
             z-index:1001; border:1px solid #333; display:none; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.8); backdrop-filter: blur(15px); 
+            text-align: center; /* Center align text inside request popup */
         }
         
         .fare-txt { font-size: 3.2rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
         
-        /* Pickup Card/OTP Section Styles (Large and Clear) */
+        /* Pickup Card/OTP Section Styles (Large OTP Fix) */
         .otp-box { margin-top: 15px; background: #111; padding: 20px; border-radius: 10px; border: 1px solid #d4af37; }
         .otp-row { display: flex; gap: 15px; margin-top: 10px; align-items: center; }
         .otp-inp { 
@@ -669,7 +671,6 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
 </script>
-    
 <script>
     
     // OTP verify + start trip
@@ -820,11 +821,11 @@
             const row = document.createElement('div'); row.className='hist-row';
             row.innerHTML = `<div style="flex:1">
                 <div style="font-weight:800">₹${v.price||0} • ${v.vehicleType||''}</div>
-                <div style="color:#888; font-size:0.9rem">${v.status||'—'}</div>
+                <div style="color:#888; font-size:0.9rem">${v.status||'--'}</div>
                 <div style="color:#666; font-size:0.85rem">${v.customerMobile || ''}</div>
             </div>
             <div style="text-align:right">
-                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'—')}</div>
+                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'--')}</div>
                 <div style="margin-top:8px"><button class="smallBtn" onclick="console.log(${JSON.stringify(it)})">DETAILS</button></div>
             </div>`;
             listDom.appendChild(row);
@@ -866,7 +867,6 @@
 
     window.openPartnerHistory = showPartnerHistory;
 </script>
-    
+
 </body>
 </html>
-    
