@@ -1,449 +1,689 @@
+<!-- PART 1: Paste this at the top of your partner.html (replace old top portion up to before scripts) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>MS CABS — Partner</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <style>
-    :root{
-      --bg:#0f1724;
-      --card:#0b1220;
-      --accent:#d4af37;
-      --muted:#9aa3b2;
-      --glass: rgba(255,255,255,0.03);
-      --radius:12px;
-    }
-    html,body{height:100%;margin:0;background:linear-gradient(180deg,#071022,#0b1220);color:var(--accent);font-family:Inter,system-ui,Roboto,Arial;}
-    .center{max-width:460px;margin:36px auto;padding:18px;background:var(--card);border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
-    h1{margin:0 0 12px;font-size:1.5rem}
-    .inp, select{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--accent);margin-bottom:10px;font-size:1rem}
-    .btn{width:100%;padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,#111,#222);color:var(--accent);font-weight:800;cursor:pointer}
-    .small{font-size:0.9rem;color:var(--muted)}
-    .row{display:flex;gap:8px}
-    .half{flex:1}
-    .chip{display:inline-block;padding:8px 10px;border-radius:10px;background:var(--glass);color:var(--muted);margin-right:6px;cursor:pointer}
-    #onlineToggle{display:flex;align-items:center;gap:10px;margin-top:10px}
-    .pill{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.03);font-weight:700}
-    #incomingReq{margin-top:12px;padding:12px;border-radius:10px;background:rgba(0,0,0,0.25);display:none}
-    .muted{color:var(--muted)}
-    .success{color:#7af27a}
-    .danger{color:#ff7b7b}
-    .smallBtn{padding:8px 10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--accent);cursor:pointer}
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>MS Partner - Premium Car Emoji</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        /* ---------- (kept your styles) + small menu & modal styles ---------- */
+        body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
+
+        #dLoginScreen { position:fixed; inset:0; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
+        .logo { font-size: 2rem; color: #d4af37; font-weight: bold; margin-bottom: 10px; letter-spacing: 2px; }
+        .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; text-align:center; margin-bottom:15px; font-size:1.1rem; }
+        .d-btn { width:85%; padding:15px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; }
+
+        #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
+        #map { height:100%; width:100%; background: #ffffff; }
+
+        .car-emoji { width:56px; height:56px; display:flex; align-items:center; justify-content:center; border-radius:14px; box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 -6px 10px rgba(0,0,0,0.08); font-size:28px; transform: translateY(-6px); border: 2px solid rgba(0,0,0,0.6); background: linear-gradient(180deg, #FFF4B0 0%, #FFC843 60%); position: relative; }
+
+        .recenter-btn { position: absolute; bottom: 300px; right: 20px; width: 45px; height: 45px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+
+        .card { position: absolute; left:10px; right:10px; bottom:20px; background: rgba(20,20,20,0.95); border-radius:15px; padding:20px; z-index:1001; border:1px solid #333; display:none; box-shadow: 0 10px 40px rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .fare-txt { font-size: 2.8rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
+        .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#000; padding:10px; border-radius:8px; border:1px solid #333; }
+        .info-col { text-align:center; width:48%; }
+        .lbl { font-size:0.7rem; color:#888; }
+        .val { font-size:1.1rem; font-weight:bold; color:white; }
+
+        .btn-row { display: flex; gap: 10px; margin-top: 15px; }
+        .accept-btn { flex: 1; padding: 15px; background: #d4af37; color:black; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:1.1rem; }
+        .skip-btn { flex: 1; padding: 15px; background: #333; color:#aaa; font-weight:bold; border:1px solid #555; border-radius:8px; cursor:pointer; font-size:1.1rem; }
+
+        .contact-btn { display:block; background:#2ecc71; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
+        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:12px; border-radius:8px; font-weight:bold; font-size:1.1rem; width: 100%; cursor: pointer;}
+        .map-nav-btn { display:block; background:#007bff; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
+
+        .otp-box { margin-top: 15px; background: #111; padding: 10px; border-radius: 8px; border: 1px solid #444; }
+        .otp-row { display: flex; gap: 10px; margin-top: 5px; }
+        .otp-inp { flex: 1; padding: 10px; text-align: center; font-size: 1.3rem; letter-spacing: 5px; background: #000; border: 1px solid #d4af37; color: white; border-radius: 5px; }
+        .go-btn { padding: 0 20px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+
+        .help-btn { position: absolute; top: 20px; right: 20px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; display: none; border: 2px solid white; cursor: pointer; }
+
+        /* Menu button */
+        #mainMenuBtn { position: absolute; top: 18px; left: 18px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:10px 12px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
+        #menuBox { position: absolute; top: 64px; left: 18px; z-index: 2001; display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:10px; width:220px; }
+        .menu-item { padding:8px 10px; border-radius:8px; cursor:pointer; color:#d4af37; font-weight:700; margin-bottom:6px; background:transparent; }
+        .menu-sub { font-size:0.9rem; color:#aaa; font-weight:500; margin-left:6px; }
+
+        /* Modals */
+        .modal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; z-index:3000; background: rgba(0,0,0,0.6); }
+        .modal-card { background:#111; padding:18px; border-radius:12px; width:92%; max-width:520px; border:1px solid #222; color:#fff; }
+        .modal-list { max-height:60vh; overflow:auto; margin-top:10px; }
+        .hist-row { padding:10px; border-bottom:1px solid rgba(255,255,255,0.03); display:flex; justify-content:space-between; gap:10px; }
+
+        #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .bill-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 85%; max-width: 400px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+
+    </style>
 </head>
 <body>
-  <div class="center" id="loginCard">
-    <h1>MS CABS — Partner</h1>
 
-    <!-- Login -->
-    <div id="loginBox">
-      <input id="mobileInput" class="inp" type="tel" placeholder="Enter mobile number (10 digits)" />
-      <button class="btn" onclick="partnerLogin()">Continue (Login)</button>
-      <p class="small muted">One-time mobile login. If first time, you'll be asked to complete partner details.</p>
+    <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
+
+    <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
+
+    <div id="helpModal" class="modal">
+        <div class="help-box modal-card">
+            <h2 style="color:red; margin-top:0;">EMERGENCY HELP</h2>
+            <a href="tel:100" class="call-opt" style="border-color:red;">👮 POLICE (100)</a>
+            <a href="tel:9381667208" class="call-opt" style="border-color:#d4af37; color:#d4af37;">👤 MUSTAQEEM (Founder)</a>
+            <button onclick="closeHelp()" style="margin-top:15px; padding:10px 30px; background:#333; color:white; border:none; border-radius:5px;">CLOSE</button>
+        </div>
     </div>
 
-    <!-- Registration / Profile -->
-    <div id="profileBox" style="display:none">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <div class="small muted">Logged in as</div>
-          <div id="pMobile" style="font-weight:800;font-size:1.1rem"></div>
-        </div>
-        <div>
-          <button class="smallBtn" onclick="logoutPartner()">Logout</button>
-        </div>
-      </div>
+    <div id="dLoginScreen">
+        <div class="logo">MS PARTNER</div>
+        <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number">
+        <button class="d-btn" onclick="startDuty()">START DUTY</button>
+        <p style="color:#999; font-size:0.9rem; margin-top:12px;">One-time login — will remember your number for next time.</p>
+    </div>
 
-      <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:12px 0;border-radius:2px">
-
-      <div id="regForm">
-        <input id="pName" class="inp" type="text" placeholder="Full name (as on licence)" />
-        <input id="pLicence" class="inp" type="text" placeholder="Driving licence number" />
-        <select id="pVehicle" class="inp">
-          <option value="">Select vehicle type</option>
-          <option value="car">Car</option>
-          <option value="auto">Auto</option>
-          <option value="bike">Bike</option>
-        </select>
-        <input id="pVehicleNo" class="inp" type="text" placeholder="Vehicle reg. no. (optional)" />
-        <button class="btn" onclick="saveProfile()">Save & Activate</button>
-        <p class="small muted">As soon as licence + vehicle selected, you will get a confirmation and your partner id will activate.</p>
-      </div>
-
-      <!-- Congratulation banner -->
-      <div id="congrats" style="display:none;margin-top:12px;padding:12px;border-radius:10px;background:linear-gradient(90deg,#072,#0b6);color:#031; font-weight:800">
-        🎉 Congratulations — Partner activated! Your Partner ID: <span id="partnerIdDisplay"></span>
-      </div>
-
-      <!-- Online/Offline + Incoming Request -->
-      <div id="onlineArea" style="margin-top:12px;display:none">
-        <div id="onlineToggle">
-          <div>
-            <label class="pill">Status:</label>
-            <span id="statusText" class="pill muted">OFFLINE</span>
-          </div>
-          <div style="margin-left:auto">
-            <button class="smallBtn" id="goOnlineBtn" onclick="setOnline(true)">Go ONLINE</button>
-            <button class="smallBtn" id="goOfflineBtn" onclick="setOnline(false)" style="display:none">Go OFFLINE</button>
-          </div>
+    <div id="dApp">
+        <div id="mainMenuBtn" onclick="toggleMenu()">☰ MENU</div>
+        <div id="menuBox">
+            <div class="menu-item" onclick="showTodayEarnings()">Today Earnings <span class="menu-sub" id="earnTodaySub"></span></div>
+            <div class="menu-item" onclick="showPartnerHistory()">History</div>
+            <div class="menu-item" onclick="openVehicleChange()">Change Vehicle</div>
+            <div class="menu-item" onclick="logoutAndClear()">Logout (Clear)</div>
         </div>
 
-        <div id="incomingReq">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div>
-              <div style="font-weight:900" id="reqFare">₹0</div>
-              <div class="muted" id="reqVehicle">—</div>
-              <div class="muted" id="reqDistance">—</div>
+        <div id="map"></div>
+        <div class="recenter-btn" onclick="recenterMap()">🎯</div>
+
+        <!-- (existing cards kept) -->
+        <div id="reqPopup" class="card">
+            <div style="color:#fff; font-weight:bold; margin-bottom:5px;">NEW RIDE REQUEST 🔔</div>
+            <div class="fare-txt">₹<span id="fareDisplay">0</span></div>
+            <div class="info-row">
+                <div class="info-col"><div class="lbl">PICKUP DIST</div><div class="val" id="pickupDist">...</div></div>
+                <div class="info-col"><div class="lbl">TRIP DIST</div><div class="val" id="tripDist">...</div></div>
             </div>
-            <div style="text-align:right">
-              <div class="muted">From</div>
-              <div id="reqPickup" style="font-weight:800">—</div>
+            <div class="btn-row">
+                <button class="skip-btn" onclick="skipRide()">SKIP ✕</button>
+                <button class="accept-btn" onclick="tryAcceptRide()">ACCEPT ✓</button>
             </div>
-          </div>
-          <div style="margin-top:8px;display:flex;gap:8px">
-            <button class="btn" onclick="acceptRequest()" id="acceptBtn">Accept</button>
-            <button class="smallBtn" onclick="rejectRequest()">Reject</button>
-          </div>
-          <div style="margin-top:8px" class="muted">OTP: <span id="reqOTP">0000</span></div>
-          <div style="margin-top:6px" class="small muted">Customer: <span id="reqCustomerMobile">—</span></div>
         </div>
 
-        <div id="assignedInfo" style="margin-top:12px;display:none">
-          <div style="font-weight:800">Assigned Request: <span id="assignedReqId"></span></div>
-          <div class="muted">Trip status: <span id="assignedStatus">—</span></div>
-          <div style="margin-top:8px"><button class="smallBtn" onclick="completeTrip()">Mark Completed</button></div>
+        <div id="pickupCard" class="card" style="border-top: 4px solid yellow;">
+            <div style="color:yellow; font-weight:bold; margin-bottom:5px;">HEADING TO PICKUP 🟡</div>
+            <div style="color:#aaa; font-size:0.8rem;">CUSTOMER MOBILE</div>
+            <div id="custMobDisp" style="font-size:1.4rem; font-weight:bold; color:white; margin-bottom:10px;">...</div>
+            <button id="mapNavBtnPickup" class="map-nav-btn" onclick="openPickupMap()">🗺️ GO TO PICKUP</button>
+            <a id="callBtn" href="#" class="contact-btn">📞 CALL CUSTOMER</a>
+            <div class="otp-box">
+                <div style="color:#888; font-size:0.7rem;">ENTER OTP TO START TRIP</div>
+                <div class="otp-row">
+                    <input type="number" id="otpIn" class="otp-inp" placeholder="XXXX">
+                    <button class="go-btn" onclick="verifyOtp()">START</button>
+                </div>
+            </div>
+            <button onclick="cancelRide()" style="width:100%; margin-top:10px; background:red; color:white; border:none; padding:10px; font-weight:bold; border-radius:8px;">CANCEL RIDE</button>
         </div>
-      </div>
 
-      <div style="margin-top:14px">
-        <button class="smallBtn" onclick="openPartnerHistory()">My accepted rides (debug)</button>
+        <div id="dropCard" class="card" style="border-top: 4px solid green;">
+            <div style="color:green; font-weight:bold; margin-bottom:5px;">ON TRIP 🟢</div>
+            <p style="color:#ccc;">Navigating to Drop Location...</p>
+            <h2 style="color:#d4af37; margin:10px 0;">Follow Map Route</h2>
+            <button id="mapNavBtnDrop" class="map-nav-btn" onclick="openDropMap()">🗺️ GO TO DROP</button>
+            <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
+        </div>
+
+        <!-- Vehicle change modal -->
+        <div id="vehicleModal" class="modal">
+            <div class="modal-card">
+                <h3 style="margin:0 0 10px 0; color:#d4af37;">Select Vehicle</h3>
+                <div style="display:flex;gap:8px;">
+                    <button class="accept-btn" onclick="chooseVehicle('car')">Car</button>
+                    <button class="accept-btn" onclick="chooseVehicle('auto')">Auto</button>
+                    <button class="accept-btn" onclick="chooseVehicle('bike')">Bike</button>
+                </div>
+                <div style="margin-top:12px; text-align:right;">
+                    <button onclick="closeVehicleModal()" class="skip-btn">CLOSE</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Earnings modal -->
+        <div id="earnModal" class="modal">
+            <div class="modal-card">
+                <h3 style="margin:0 0 10px 0; color:#d4af37;">Today's Earnings</h3>
+                <div id="earnContent" style="font-size:1.6rem; font-weight:800; margin-top:12px;">₹0</div>
+                <div style="margin-top:14px; text-align:right;">
+                    <button onclick="closeEarnModal()" class="skip-btn">CLOSE</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History modal -->
+        <div id="histModal" class="modal">
+            <div class="modal-card">
+                <h3 style="margin:0 0 10px 0; color:#d4af37;">My Rides</h3>
+                <div id="histList" class="modal-list"></div>
+                <div style="margin-top:14px; text-align:right;">
+                    <button onclick="closeHistModal()" class="skip-btn">CLOSE</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="billModal" style="display:none;">
+        <div class="bill-box">
+            <h2>TRIP COMPLETED ✅</h2>
+            <p style="color:#555;">Collect Cash from Customer</p>
+            <div class="total-fare" id="billAmount">₹0</div>
+            <button class="accept-btn" onclick="closeBillAndNext()">COMPLETE & NEXT</button>
+        </div>
+    </div>
+
+    <!-- small reusable confirm dialog (kept) -->
+    <div id="customDialog" style="display:none; position:fixed; inset:0; z-index:6000; background: rgba(0,0,0,0.45); align-items:center; justify-content:center;">
+      <div id="customDialogCard" style="width:90%; max-width:420px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 15px 40px rgba(0,0,0,0.6); color:#000;">
+        <div id="customDialogTitle" style="font-weight:800; color:#222; margin-bottom:8px; font-size:16px;">Message</div>
+        <div id="customDialogMessage" style="color:#333; line-height:1.4; white-space:pre-wrap; margin-bottom:18px;">Body</div>
+        <div style="display:flex; gap:10px; justify-content:flex-end;">
+          <button id="customDialogCancel" style="background:transparent; border:none; color:#007bff; font-weight:700; padding:8px 12px; border-radius:6px;">CANCEL</button>
+          <button id="customDialogOk" style="background:#007bff; border:none; color:#fff; font-weight:800; padding:8px 12px; border-radius:6px;">OK</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-  <script>
-    // ---------- CONFIG (same as customer panel) ----------
+<!-- End of PART 1 HTML — now paste PART 2 (JS) replacing the old <script> block -->
+  <!-- PART 2A: paste this first (includes external script tags) -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script>
     const firebaseConfig = {
-      apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
-      authDomain: "hyd-texi.firebaseapp.com",
-      projectId: "hyd-texi",
-      storageBucket: "hyd-texi.firebasestorage.app",
-      messagingSenderId: "807048727786",
-      appId: "1:807048727786:web:7ef03573876e1b93",
-      databaseURL: "https://hyd-texi-default-rtdb.firebaseio.com"
+        apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
+        authDomain: "hyd-texi.firebaseapp.com",
+        projectId: "hyd-texi",
+        storageBucket: "hyd-texi.firebasestorage.app",
+        messagingSenderId: "807048727786",
+        appId: "1:807048727786:web:7ef03573876c70b76e1b93",
+        databaseURL: "https://hyd-texi-default-rtdb.firebaseio.com"
     };
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    // ---------- GLOBALS ----------
-    let partnerMobile = null;
-    let partnerObj = null; // saved profile
-    let listening = false;
-    let currentIncoming = null; // request id currently showing to driver
-    let assignedRequest = null; // request id assigned to this driver
+    let map, driverMarker, driverLat, driverLng, driverMobile;
+    let currentReqKey, currentReqData, routeLine, pickupMarker, dropMarker;
+    let followDriver = true;
+    let gpsWatchId = null;
+    let isRequesting = false;
+    let partnerObj = null; // partner profile from DB (including vehicleType, partnerId, name)
 
-    // Auto-login if saved
+    // Try auto-login (one-time login)
     if (localStorage.getItem('msPartnerMobile')) {
-      partnerMobile = localStorage.getItem('msPartnerMobile');
-      showProfilePanel();
-      loadPartnerProfile().then(()=>{});
-    }
-
-    // ---------- AUTH / PROFILE ----------
-    function partnerLogin(){
-      const num = document.getElementById('mobileInput').value.trim();
-      if (!num || num.length < 10) return alert('Enter valid 10-digit mobile.');
-      partnerMobile = num;
-      localStorage.setItem('msPartnerMobile', partnerMobile);
-      showProfilePanel();
-      loadPartnerProfile();
-    }
-
-    function logoutPartner(){
-      if (confirm('Logout?')) {
-        stopListeningRequests();
-        localStorage.removeItem('msPartnerMobile');
-        location.reload();
-      }
-    }
-
-    function showProfilePanel(){
-      document.getElementById('loginBox').style.display = 'none';
-      document.getElementById('profileBox').style.display = 'block';
-      document.getElementById('pMobile').innerText = '+91 ' + (partnerMobile || '');
-    }
-
-    async function loadPartnerProfile(){
-      if (!partnerMobile) return;
-      const snap = await db.ref('partners/' + partnerMobile).once('value');
-      const data = snap.val();
-      if (!data) {
-        // new partner -> keep reg form visible
-        document.getElementById('regForm').style.display = 'block';
-        document.getElementById('onlineArea').style.display = 'none';
-        return;
-      }
-      partnerObj = data;
-      // fill form hidden, show info
-      document.getElementById('regForm').style.display = 'none';
-      document.getElementById('congrats').style.display = 'block';
-      document.getElementById('partnerIdDisplay').innerText = data.partnerId || partnerMobile;
-      document.getElementById('onlineArea').style.display = 'block';
-      // show online status
-      updateStatusUI(data.isOnline);
-      // if already accepted request — show assigned
-      if (data.assignedReqId) {
-        assignedRequest = data.assignedReqId;
-        showAssignedInfo();
-      }
-    }
-
-    function generatePartnerId(){
-      // simple partner id
-      return 'P' + (Math.floor(100000 + Math.random()*900000));
-    }
-
-    async function saveProfile(){
-      const name = document.getElementById('pName').value.trim();
-      const licence = document.getElementById('pLicence').value.trim();
-      const vehicle = document.getElementById('pVehicle').value;
-      const vehicleNo = document.getElementById('pVehicleNo').value.trim();
-
-      if (!name || !licence || !vehicle) return alert('Please fill name, licence and select vehicle.');
-
-      const partnerId = generatePartnerId();
-      const payload = {
-        partnerId,
-        mobile: partnerMobile,
-        name,
-        licence,
-        vehicleType: vehicle,
-        vehicleNo: vehicleNo || '',
-        isOnline: false,
-        createdAt: Date.now()
-      };
-
-      await db.ref('partners/' + partnerMobile).set(payload);
-      partnerObj = payload;
-
-      // show congrats and activate
-      document.getElementById('regForm').style.display = 'none';
-      document.getElementById('congrats').style.display = 'block';
-      document.getElementById('partnerIdDisplay').innerText = partnerId;
-      document.getElementById('onlineArea').style.display = 'block';
-
-      // small UX: auto-open online
-      setTimeout(()=>{ setOnline(true); }, 800);
-    }
-
-    // ---------- ONLINE / OFFLINE ----------
-    function updateStatusUI(isOnline){
-      const txt = document.getElementById('statusText');
-      if (isOnline) {
-        txt.innerText = 'ONLINE';
-        txt.classList.remove('muted');
-        txt.classList.add('success');
-        document.getElementById('goOnlineBtn').style.display = 'none';
-        document.getElementById('goOfflineBtn').style.display = 'inline-block';
-      } else {
-        txt.innerText = 'OFFLINE';
-        txt.classList.remove('success');
-        txt.classList.add('muted');
-        document.getElementById('goOnlineBtn').style.display = 'inline-block';
-        document.getElementById('goOfflineBtn').style.display = 'none';
-      }
-    }
-
-    async function setOnline(yes){
-      if (!partnerObj) {
-        // try load partnerObj
-        const snap = await db.ref('partners/' + partnerMobile).once('value');
-        partnerObj = snap.val();
-        if (!partnerObj) return alert('Please complete profile first.');
-      }
-      partnerObj.isOnline = !!yes;
-      await db.ref('partners/' + partnerMobile + '/isOnline').set(!!yes);
-      updateStatusUI(!!yes);
-      if (yes) startListeningRequests();
-      else stopListeningRequests();
-    }
-
-    // ---------- REQUEST LISTENING (only when online) ----------
-    let reqListenerRef = null;
-    function startListeningRequests(){
-      if (listening) return;
-      listening = true;
-      // Listen for new requests (child_added) and changes
-      reqListenerRef = db.ref('requests');
-      reqListenerRef.on('child_added', handleRequestSnapshot);
-      reqListenerRef.on('child_changed', handleRequestSnapshot);
-      console.log('Started listening to requests.');
-    }
-
-    function stopListeningRequests(){
-      if (!listening) return;
-      listening = false;
-      if (reqListenerRef) {
-        reqListenerRef.off('child_added', handleRequestSnapshot);
-        reqListenerRef.off('child_changed', handleRequestSnapshot);
-        reqListenerRef = null;
-      }
-      // hide incoming
-      hideIncoming();
-      console.log('Stopped listening.');
-    }
-
-    function handleRequestSnapshot(snap){
-      const data = snap.val();
-      const id = snap.key;
-      if (!data) return;
-      // Ignore if already assigned or not pending
-      if (data.status !== 'pending') return;
-      if (!partnerObj || !partnerObj.vehicleType) return;
-      // Match vehicle types: customer panel stored label (Car/Auto/Bike) — we used cfg.label earlier.
-      // Normalize both to lowercase for matching.
-      const reqVehicle = (data.vehicleType || '').toString().toLowerCase();
-      const myVehicle = (partnerObj.vehicleType || '').toString().toLowerCase();
-
-      if (reqVehicle !== myVehicle) return; // not for this partner
-
-      // If partner already has an assigned request, don't show new incoming
-      if (assignedRequest) return;
-
-      // Show incoming request to partner
-      currentIncoming = { id, data };
-      showIncoming(data, id);
-    }
-
-    // UI helpers
-    function showIncoming(data, id){
-      document.getElementById('incomingReq').style.display = 'block';
-      document.getElementById('reqFare').innerText = '₹' + (data.price || '0');
-      document.getElementById('reqVehicle').innerText = data.vehicleType || '';
-      document.getElementById('reqDistance').innerText = data.distance || '';
-      document.getElementById('reqPickup').innerText = (data.pickupLat && data.pickupLng) ? (Number(data.pickupLat).toFixed(3)+', '+Number(data.pickupLng).toFixed(3)) : '—';
-      document.getElementById('reqOTP').innerText = data.otp || '0000';
-      document.getElementById('reqCustomerMobile').innerText = data.customerMobile || '—';
-    }
-
-    function hideIncoming(){
-      currentIncoming = null;
-      document.getElementById('incomingReq').style.display = 'none';
-    }
-
-    // ---------- ACCEPT / REJECT ----------
-    async function acceptRequest(){
-      if (!currentIncoming || !currentIncoming.id) return;
-      const id = currentIncoming.id;
-      // Double-check request is still pending
-      const snap = await db.ref('requests/' + id).once('value');
-      const req = snap.val();
-      if (!req || req.status !== 'pending') {
-        alert('Request no longer available.');
-        hideIncoming();
-        return;
-      }
-
-      // Write assignment atomically (simple approach)
-      await db.ref('requests/' + id).update({
-        status: 'accepted',
-        driverMobile: partnerMobile,
-        driverId: partnerObj.partnerId || partnerMobile,
-        acceptedAt: Date.now()
-      });
-
-      // Update partner record: assignedReqId
-      await db.ref('partners/' + partnerMobile + '/assignedReqId').set(id);
-      assignedRequest = id;
-      showAssignedInfo();
-
-      hideIncoming();
-      alert('Accepted — request assigned. OTP: ' + (req.otp || '0000'));
-    }
-
-    async function rejectRequest(){
-      // just hide and allow other requests
-      hideIncoming();
-    }
-
-    function showAssignedInfo(){
-      document.getElementById('assignedInfo').style.display = 'block';
-      document.getElementById('assignedReqId').innerText = assignedRequest || '—';
-      document.getElementById('assignedStatus').innerText = 'ACCEPTED';
-      // start listening to status changes for this specific request
-      db.ref('requests/' + assignedRequest).on('value', snap => {
-        const d = snap.val();
-        if (!d) return;
-        document.getElementById('assignedStatus').innerText = (d.status || '—').toUpperCase();
-        if (d.status === 'completed') {
-          alert('Trip completed and closed.');
-          clearAssignment();
-        } else if (d.status === 'cancelled') {
-          alert('Trip cancelled by customer.');
-          clearAssignment();
+        const saved = localStorage.getItem('msPartnerMobile');
+        if (saved) {
+            document.getElementById('dPhone').value = saved;
+            // auto-start duty kept manual — user must press START DUTY
         }
-      });
     }
 
-    async function clearAssignment(){
-      if (!assignedRequest) return;
-      try {
-        await db.ref('partners/' + partnerMobile + '/assignedReqId').remove();
-      } catch(e){}
-      // turn offline optionally
-      assignedRequest = null;
-      document.getElementById('assignedInfo').style.display = 'none';
-      document.getElementById('assignedReqId').innerText = '';
-      document.getElementById('assignedStatus').innerText = '';
+    // ---------- dialog helpers (kept) ----------
+    const customDialog = document.getElementById('customDialog');
+    const customDialogTitle = document.getElementById('customDialogTitle');
+    const customDialogMessage = document.getElementById('customDialogMessage');
+    const customDialogOk = document.getElementById('customDialogOk');
+    const customDialogCancel = document.getElementById('customDialogCancel');
+
+    function showCustomConfirm(title, message, onOk, onCancel) {
+        customDialogTitle.innerText = title || 'Confirm';
+        customDialogMessage.innerText = message || '';
+        customDialog.style.display = 'flex';
+        customDialogOk.style.display = 'inline-block';
+        customDialogCancel.style.display = 'inline-block';
+
+        function cleanup() {
+            customDialog.style.display = 'none';
+            customDialogOk.removeEventListener('click', okHandler);
+            customDialogCancel.removeEventListener('click', cancelHandler);
+        }
+        function okHandler() { cleanup(); if (onOk) onOk(); }
+        function cancelHandler() { cleanup(); if (onCancel) onCancel(); }
+
+        customDialogOk.addEventListener('click', okHandler);
+        customDialogCancel.addEventListener('click', cancelHandler);
     }
 
-    // Driver can mark completed — updates request status to completed
-    async function completeTrip(){
-      if (!assignedRequest) return alert('No assigned trip.');
-      // update request status
-      await db.ref('requests/' + assignedRequest).update({
-        status: 'completed',
-        completedAt: Date.now()
-      });
-      // update partner history node
-      await db.ref('partners/' + partnerMobile + '/history').push({
-        reqId: assignedRequest,
-        completedAt: Date.now()
-      });
-      clearAssignment();
-      alert('Trip marked completed.');
+    function showCustomAlert(title, message, onOk) {
+        customDialogTitle.innerText = title || 'Alert';
+        customDialogMessage.innerText = message || '';
+        customDialog.style.display = 'flex';
+        customDialogCancel.style.display = 'none';
+        customDialogOk.style.display = 'inline-block';
+
+        function cleanup() {
+            customDialog.style.display = 'none';
+            customDialogOk.removeEventListener('click', okHandler);
+        }
+        function okHandler() { cleanup(); if (onOk) onOk(); }
+
+        customDialogOk.addEventListener('click', okHandler);
     }
 
-    // Debug: show recent accepted rides for this partner
-    async function openPartnerHistory(){
-      const snap = await db.ref('requests').orderByChild('driverMobile').equalTo(partnerMobile).limitToLast(50).once('value');
-      console.log('Your assigned requests:', snap.val());
-      alert('Check console for your assigned requests (debug).');
+    // speech/beep helper (kept)
+    function speak(text) {
+        try {
+            if (window.Android && typeof window.Android.speak === 'function') {
+                window.Android.speak(text); return;
+            }
+        } catch(e){}
+
+        if ('speechSynthesis' in window) {
+            try {
+                window.speechSynthesis.cancel();
+                const ut = new SpeechSynthesisUtterance(text);
+                ut.lang = 'en-US'; ut.rate = 1.0; ut.pitch = 1.0;
+                window.speechSynthesis.speak(ut); return;
+            } catch(err){}
+        }
+        try { const r = document.getElementById('ringtone'); if (r) { r.play().catch(()=>{}); setTimeout(()=>{ try{ r.pause(); r.currentTime=0; }catch(e){} },1400); } } catch(e){}
     }
 
-    // ---------- small helpers ----------
-    function stopListeningRequests(){
-      if (reqListenerRef) {
-        reqListenerRef.off('child_added', handleRequestSnapshot);
-        reqListenerRef.off('child_changed', handleRequestSnapshot);
-        reqListenerRef = null;
-      }
-      listening = false;
-      hideIncoming();
+    // START DUTY: login + profile load + GPS + listen
+    function startDuty() {
+        const num = document.getElementById('dPhone').value.trim();
+        if (num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
+        driverMobile = num;
+        // save one time for next load
+        localStorage.setItem('msPartnerMobile', driverMobile);
+
+        // hide login UI
+        document.getElementById('dLoginScreen').style.display = 'none';
+        document.getElementById('dApp').style.display = 'flex';
+        document.getElementById('helpBtn').style.display = 'block';
+        initializeMap([17.3850, 78.4867], 13);
+        startGPSCheck();
+
+        // load partner profile (if exists) else ask to choose vehicle
+        db.ref('partners/' + driverMobile).once('value').then(snap=>{
+            const data = snap.val();
+            if (!data) {
+                // show vehicle selection modal to register partner minimal profile
+                openVehicleModal(); // user picks vehicle
+            } else {
+                partnerObj = data;
+                // if vehicle missing prompt change
+                if (!partnerObj.vehicleType) openVehicleModal();
+            }
+        }).catch(err=>{
+            console.warn("Profile load err", err);
+            openVehicleModal();
+        });
+
+        startListening();
+        speak("Service started. Welcome partner.");
     }
 
-    // Clean up on unload
+    // MAP init
+    function initializeMap(initialLatlng, initialZoom) {
+        if (map) return;
+        const carHtml = "<div class='car-emoji' style='position:relative'>🚗</div>";
+        const carDivIcon = L.divIcon({ html: carHtml, className: '', iconSize: [56,56], iconAnchor: [28,56], popupAnchor: [0,-40] });
+        map = L.map('map', {zoomControl: false}).setView(initialLatlng, initialZoom);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
+        driverMarker = L.marker(initialLatlng, {icon: carDivIcon, draggable: true}).addTo(map).bindPopup("Your Cab 🚗");
+        driverMarker.on('dragend', (e) => {
+            const newLoc = driverMarker.getLatLng();
+            driverLat = newLoc.lat; driverLng = newLoc.lng; followDriver = false; speak("Location set.");
+            // update partner location in DB (optional) if partner exists
+            if (driverMobile) db.ref('partners/' + driverMobile + '/lastSeen').set({lat:driverLat,lng:driverLng,ts:Date.now()});
+        });
+        map.on('dragstart', () => { followDriver = false; });
+        driverLat = initialLatlng[0]; driverLng = initialLatlng[1];
+    }
+
+    const GPS_HELP_TEXT = "Your GPS location cannot be accessed. Don't worry — just drag the car icon to where you are and you will start receiving bookings.";
+
+    function startGPSCheck() {
+        if (!navigator.geolocation) {
+            showCustomAlert('GPS Not Supported', GPS_HELP_TEXT); speak(GPS_HELP_TEXT); return;
+        }
+        navigator.geolocation.getCurrentPosition((pos) => {
+            const lat = pos.coords.latitude; const lng = pos.coords.longitude;
+            driverLat = lat; driverLng = lng; if(driverMarker) driverMarker.setLatLng([lat,lng]); if(map) map.setView([lat,lng],16);
+            if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy:true});
+        }, (err) => {
+            console.warn("GPS initial error:", err);
+            showCustomAlert('GPS Unavailable', GPS_HELP_TEXT); speak(GPS_HELP_TEXT);
+            if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy:true});
+        }, {enableHighAccuracy:true, timeout:5000});
+    }
+
+    function onPositionUpdate(pos) {
+        driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
+        if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
+        if(followDriver && map) map.panTo([driverLat, driverLng]);
+        // optionally update partner location
+        if (driverMobile) db.ref('partners/' + driverMobile + '/lastSeen').set({lat:driverLat,lng:driverLng,ts:Date.now()});
+    }
+
+    function onGPSError(err) {
+        console.error("GPS watch error:", err);
+        followDriver = false;
+        if (gpsWatchId) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
+        showCustomAlert('GPS Signal Lost', GPS_HELP_TEXT);
+        speak(GPS_HELP_TEXT);
+    }
+
+    function recenterMap() {
+        followDriver = true;
+        if(driverLat && driverLng) { const newZoom = map.getZoom() < 14 ? 16 : map.getZoom(); map.setView([driverLat, driverLng], newZoom); speak("Centered on your location."); }
+        else { const center = map.getCenter(); driverLat = center.lat; driverLng = center.lng; if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]); map.setView([driverLat, driverLng], map.getZoom()); speak("Location set to map center."); }
+    }
+
+    // -------------------- REQUEST LISTENING --------------------
+    function requestListener(snap) {
+        if (isRequesting) return;
+        const data = snap.val();
+        if(!data) return;
+        if(data.status === "pending") {
+            if (!driverLat || !driverLng) return console.log("Waiting for location.");
+            // match vehicle types (if partner profile exists)
+            const reqVehicle = (data.vehicleType || '').toString().toLowerCase();
+            const myVehicle = (partnerObj && partnerObj.vehicleType) ? partnerObj.vehicleType.toString().toLowerCase() : null;
+            if (myVehicle && reqVehicle !== myVehicle) return; // only show matching vehicle
+            let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng);
+            if (dist <= 2.0) {
+                isRequesting = true;
+                try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
+                speak("A new request has arrived. The fare is " + (data.price || 0) + " rupees. Pickup distance " + dist.toFixed(1) + " kilometers.");
+                showRequest(data, snap.key, dist.toFixed(1));
+            }
+        }
+    }
+
+    function startListening() {
+        // listen to requests (last 10 for safety)
+        db.ref('requests').limitToLast(10).on('child_added', requestListener);
+        db.ref('requests').limitToLast(10).on('child_changed', requestListener);
+    }
+
+    function stopListening() {
+        db.ref('requests').limitToLast(10).off('child_added', requestListener);
+        db.ref('requests').limitToLast(10).off('child_changed', requestListener);
+    }
+
+    function showRequest(data, key, pKM) {
+        currentReqKey = key; currentReqData = data;
+        document.getElementById('reqPopup').style.display = 'block';
+        document.getElementById('fareDisplay').innerText = data.price || 0;
+        document.getElementById('pickupDist').innerText = pKM + " KM";
+        document.getElementById('tripDist').innerText = data.distance || '—';
+        var personIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize: [35, 35], iconAnchor: [17, 35] });
+        if (pickupMarker) map.removeLayer(pickupMarker);
+        pickupMarker = L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("CUSTOMER PICKUP");
+        map.setView([data.pickupLat, data.pickupLng], 15);
+    }
+
+    // Accept with transaction + extra driverVehicle field
+    function tryAcceptRide() {
+        try { document.getElementById('ringtone').pause(); } catch(e){}
+        stopListening(); // stop listening while attempting accept
+
+        if (!partnerObj || !partnerObj.vehicleType) {
+            // Ensure partner profile exists: minimal create if missing
+            partnerObj = partnerObj || { vehicleType: null };
+            speak("Please choose vehicle before accepting. Opening selection.");
+            openVehicleModal(); isRequesting = false; startListening(); return;
+        }
+
+        db.ref('requests/' + currentReqKey).transaction(function(curr) {
+            if (curr === null) return curr;
+            if (curr.status === 'pending') {
+                return { 
+                    ...curr, 
+                    status: 'accepted', 
+                    driverMobile: driverMobile, 
+                    driverVehicle: partnerObj.vehicleType || 'unknown',
+                    driverId: partnerObj.partnerId || driverMobile,
+                    acceptedAt: Date.now()
+                };
+            } else return;
+        }, function(error, committed, snapshot) {
+            if (!committed) {
+                showCustomAlert('Booking Missed', 'Booking missed by another driver or customer cancelled.');
+                document.getElementById('reqPopup').style.display = 'none';
+                if (pickupMarker) map.removeLayer(pickupMarker);
+                isRequesting = false;
+                startListening();
+            } else {
+                // refresh currentReqData from snapshot
+                currentReqData = snapshot.val();
+                speak("Booking accepted. Proceed to pickup.");
+                // save record for partner history
+                db.ref('partners/' + driverMobile + '/history').push({
+                    reqId: currentReqKey,
+                    price: currentReqData.price || 0,
+                    status: 'accepted',
+                    ts: Date.now()
+                });
+                // ensure partner profile saved with vehicle & partnerId
+                if (!partnerObj || !partnerObj.partnerId) {
+                    // create minimal partner profile
+                    const pid = 'P' + (Math.floor(100000 + Math.random()*900000));
+                    partnerObj = partnerObj || {};
+                    partnerObj.partnerId = pid;
+                    partnerObj.mobile = driverMobile;
+                    partnerObj.vehicleType = partnerObj.vehicleType || 'car';
+                    db.ref('partners/' + driverMobile).set(partnerObj);
+                }
+                rideSecured();
+            }
+        });
+    }
+
+    function rideSecured() {
+        document.getElementById('reqPopup').style.display = 'none';
+        document.getElementById('pickupCard').style.display = 'block';
+        document.getElementById('custMobDisp').innerText = currentReqData.customerMobile || '—';
+        document.getElementById('callBtn').href = "tel:" + (currentReqData.customerMobile || '');
+        drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
+        if (pickupMarker) pickupMarker.openPopup();
+    }
+          </script>
+          <!-- PART 2B: paste this second (continuation of script) -->
+<script>
+    function openPickupMap() {
+        if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
+        const pLat = currentReqData.pickupLat; const pLng = currentReqData.pickupLng;
+        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${pLat},${pLng}&travelmode=driving`;
+        window.open(navUrl, '_blank'); speak("Opening navigation to customer pickup location.");
+    }
+
+    function openDropMap() {
+        if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
+        const dLat = currentReqData.dropLat; const dLng = currentReqData.dropLng;
+        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${currentReqData.pickupLat},${currentReqData.pickupLng}&destination=${dLat},${dLng}&travelmode=driving`;
+        window.open(navUrl, '_blank'); speak("Opening navigation to drop location.");
+    }
+
+    // OTP verify + start trip
+    function verifyOtp() {
+        const entered = document.getElementById('otpIn').value;
+        if (!currentReqData) { showCustomAlert('Error', 'No request data.'); speak("No request data."); return; }
+        if (entered == currentReqData.otp) {
+            speak("OTP verified. Starting the trip now. Drive safely.");
+            try { db.ref('requests/' + currentReqKey).update({ status: "started", startedAt: Date.now() }); } catch(e) { console.warn("DB update failed:", e); }
+            document.getElementById('pickupCard').style.display = 'none';
+            document.getElementById('dropCard').style.display = 'block';
+            if (pickupMarker) map.removeLayer(pickupMarker);
+            if (currentReqData.dropLat && currentReqData.dropLng) {
+                drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
+                var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
+                if (dropMarker) map.removeLayer(dropMarker);
+                dropMarker = L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
+                document.getElementById('mapNavBtnDrop').style.display = 'block';
+            } else {
+                speak("Drop location was not provided. Ask passenger for drop location and navigate manually.");
+                showCustomAlert('Drop Missing', 'Drop coordinates not available. Ask passenger for drop location and navigate manually.');
+                document.getElementById('mapNavBtnDrop').style.display = 'none';
+            }
+        } else {
+            speak("Incorrect OTP.");
+            showCustomAlert('Wrong OTP', 'The OTP entered is incorrect. Please ask the passenger to re-check.');
+        }
+    }
+
+    // complete ride -> update request completed + partner history
+    function completeRide() {
+        if (!currentReqKey || !currentReqData) return;
+        db.ref('requests/' + currentReqKey).update({ status: "completed", completedAt: Date.now() }).then(()=>{
+            document.getElementById('dropCard').style.display = 'none';
+            document.getElementById('billModal').style.display = 'flex';
+            document.getElementById('billAmount').innerText = "₹" + (currentReqData.price || 0);
+            speak("Trip complete. Cash collect and move to next ride.");
+            // update partner history
+            if (driverMobile) db.ref('partners/' + driverMobile + '/history').push({ reqId: currentReqKey, price: currentReqData.price || 0, status: 'completed', ts: Date.now() });
+            // cleanup state
+            if(routeLine) map.removeLayer(routeLine);
+            if(pickupMarker) map.removeLayer(pickupMarker);
+            if(dropMarker) map.removeLayer(dropMarker);
+            currentReqData = null; currentReqKey = null; isRequesting = false;
+            startListening();
+        }).catch(err=>{ console.warn("complete update err",err); showCustomAlert('Error','Could not mark completed'); });
+    }
+
+    function closeBillAndNext() {
+        document.getElementById('billModal').style.display = 'none';
+        // ready for next ride
+        isRequesting = false;
+        startListening();
+    }
+
+    function skipRide() {
+        try{ document.getElementById('ringtone').pause(); }catch(e){}
+        document.getElementById('reqPopup').style.display = 'none';
+        if (pickupMarker) map.removeLayer(pickupMarker);
+        isRequesting = false;
+        speak("Request skipped.");
+        startListening();
+    }
+
+    function cancelRide() {
+        showCustomConfirm('Cancel Ride', 'Are you sure you want to cancel this ride?', function ok() {
+            if (!currentReqKey) return showCustomAlert('No ride', 'No active ride to cancel.');
+            db.ref('requests/' + currentReqKey).update({ status: "cancelled" }).then(()=> {
+                isRequesting = false; location.reload();
+            }).catch(()=> showCustomAlert('Error','Cancel failed'));
+        }, function cancel(){});
+    }
+
+    // utility route drawing
+    function drawRoute(lat1, lng1, lat2, lng2, color) {
+        if(routeLine) map.removeLayer(routeLine);
+        var latlngs = [[lat1, lng1], [lat2, lng2]];
+        routeLine = L.polyline(latlngs, {color: color, weight: 5}).addTo(map);
+        map.fitBounds(routeLine.getBounds(), {padding:[40,40]});
+    }
+
+    function getDist(lat1,lon1,lat2,lon2) {
+        var R = 6371; var dLat = (lat2-lat1)*(Math.PI/180); var dLon = (lon2-lon1)*(Math.PI/180);
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+        return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+    }
+
+    // -------- MENU & MODALS --------
+    function toggleMenu(){ const m = document.getElementById('menuBox'); m.style.display = (m.style.display==='block') ? 'none':'block'; }
+    function openVehicleModal(){ document.getElementById('vehicleModal').style.display='flex'; }
+    function closeVehicleModal(){ document.getElementById('vehicleModal').style.display='none'; }
+    function chooseVehicle(v){
+        // set local partnerObj and save to DB
+        partnerObj = partnerObj || {};
+        partnerObj.vehicleType = v;
+        partnerObj.mobile = driverMobile;
+        partnerObj.partnerId = partnerObj.partnerId || ('P' + (Math.floor(100000 + Math.random()*900000)));
+        // write to DB
+        db.ref('partners/' + driverMobile).update({ vehicleType: v, partnerId: partnerObj.partnerId, mobile: driverMobile, updatedAt: Date.now() }).then(()=>{
+            showCustomAlert('Saved', 'Vehicle set to ' + v.toUpperCase());
+            closeVehicleModal();
+            // if currently in incoming accept flow, reopen listening
+            startListening();
+        }).catch(err=>{ console.warn("save vehicle err",err); showCustomAlert('Error','Could not save vehicle'); });
+    }
+
+    function openVehicleChange(){
+        openVehicleModal();
+    }
+
+    // Earnings: sum of completed rides for today for this driver
+    async function showTodayEarnings(){
+        if (!driverMobile) return showCustomAlert('Login', 'Please login first.');
+        // calculate midnight timestamp
+        const now = new Date();
+        const start = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+        const snap = await db.ref('requests').orderByChild('driverMobile').equalTo(driverMobile).once('value');
+        const data = snap.val() || {};
+        let total = 0;
+        Object.values(data).forEach(r=>{
+            if (r.status === 'completed' && r.completedAt && r.completedAt >= start) total += Number(r.price || 0);
+        });
+        document.getElementById('earnContent').innerText = '₹' + total;
+        document.getElementById('earnModal').style.display = 'flex';
+        document.getElementById('earnTodaySub').innerText = '₹' + total;
+    }
+    function closeEarnModal(){ document.getElementById('earnModal').style.display='none'; }
+
+    // Partner history modal (recent requests involving this driver)
+    async function showPartnerHistory(){
+        if (!driverMobile) return showCustomAlert('Login', 'Please login first.');
+        const snap = await db.ref('requests').orderByChild('driverMobile').equalTo(driverMobile).limitToLast(50).once('value');
+        const data = snap.val() || {};
+        const listDom = document.getElementById('histList'); listDom.innerHTML = '';
+        const items = Object.keys(data).map(k=>({id:k, val:data[k]})).sort((a,b)=> (b.val.timestamp||b.val.completedAt||0) - (a.val.timestamp||a.val.completedAt||0));
+        if (items.length===0) listDom.innerHTML = '<div style="padding:12px;color:#aaa">No rides yet</div>';
+        items.forEach(it=>{
+            const v = it.val;
+            const row = document.createElement('div'); row.className='hist-row';
+            row.innerHTML = `<div style="flex:1">
+                <div style="font-weight:800">₹${v.price||0} • ${v.vehicleType||''}</div>
+                <div style="color:#888; font-size:0.9rem">${v.status||'—'}</div>
+                <div style="color:#666; font-size:0.85rem">${v.customerMobile || ''}</div>
+            </div>
+            <div style="text-align:right">
+                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'—')}</div>
+                <div style="margin-top:8px"><button class="smallBtn" onclick="console.log(${JSON.stringify(it)})">DETAILS</button></div>
+            </div>`;
+            listDom.appendChild(row);
+        });
+        document.getElementById('histModal').style.display = 'flex';
+    }
+    function closeHistModal(){ document.getElementById('histModal').style.display='none'; }
+
+    // Logout & clear localStorage
+    function logoutAndClear(){
+        showCustomConfirm('Logout', 'Clear saved mobile and logout?', function ok(){
+            localStorage.removeItem('msPartnerMobile');
+            // set partner offline flag
+            if (driverMobile) db.ref('partners/' + driverMobile + '/isOnline').set(false);
+            location.reload();
+        }, function cancel(){});
+    }
+
+    // helper wrappers
+    window.openVehicleChange = openVehicleChange;
+    window.showTodayEarnings = showTodayEarnings;
+    window.showPartnerHistory = showPartnerHistory;
+    window.toggleMenu = toggleMenu;
+    window.openHelp = function(){ document.getElementById('helpModal').style.display='flex'; speak("Help opened."); };
+    window.closeHelp = function(){ document.getElementById('helpModal').style.display='none'; speak("Help closed."); };
+
+    // onUnload: set offline
     window.addEventListener('beforeunload', ()=> {
-      if (partnerMobile) db.ref('partners/' + partnerMobile + '/isOnline').set(false);
-      stopListeningRequests();
+        if (driverMobile) db.ref('partners/' + driverMobile + '/isOnline').set(false);
+        stopListening();
     });
 
-    // End
-  </script>
+    // small debug: openPartnerHistory alias
+    window.openPartnerHistory = showPartnerHistory;
+</script>
 </body>
 </html>
