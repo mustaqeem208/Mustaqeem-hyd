@@ -6,7 +6,7 @@
     <title>MS Partner - Professional</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* ---------- Base Styles & Smooth Look ---------- */
+        /* ---------- (General Styles) ---------- */
         body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#0a0a0a; color:#f0f0f0; }
 
         /* Login Screen (Professional) */
@@ -141,7 +141,7 @@
             background: linear-gradient(145deg, #2ecc71, #27ae60); 
             color:white; 
             text-align:center; 
-            padding:15px; /* Slightly larger for premium feel */
+            padding:15px; 
             border-radius:10px; 
             text-decoration:none; 
             font-weight:bold; 
@@ -194,6 +194,52 @@
             z-index: 1000;
             font-weight: 500;
             letter-spacing: 1px;
+        }
+
+        /* --- PREMIUM BILL CARD STYLES --- */
+        #billModal { 
+            position: fixed; inset: 0; 
+            background: rgba(0,0,0,0.98); /* Slightly darker background */
+            z-index: 5000; 
+            display: none; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            text-align: center; 
+        }
+        .bill-box { 
+            background: linear-gradient(160deg, #1f1f1f 0%, #0a0a0a 100%); /* Dark gradient background */
+            color: #fff; 
+            padding: 40px 30px; 
+            border-radius: 20px; 
+            width: 85%; 
+            max-width: 400px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 3px #d4af37; /* Gold inner border */
+            border: 1px solid #444;
+            animation: fadeIn 0.5s ease-out;
+        }
+        .total-fare { 
+            font-size: 4.5rem; /* Larger font */
+            font-weight: 900; 
+            color: #2ecc71; /* Bright Green */
+            margin: 20px 0 35px 0;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.6);
+            letter-spacing: -2px;
+        }
+        .bill-box h2 {
+            color: #d4af37;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .bill-box p {
+            color: #aaa;
+            font-size: 1.1rem;
+            font-weight: 300;
+        }
+        /* Custom animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
     </style>
@@ -313,7 +359,7 @@
     <div id="billModal" style="display:none;">
         <div class="bill-box">
             <h2>TRIP COMPLETED ✅</h2>
-            <p style="color:#555; font-size:1.1rem; font-weight:500;">Collect Cash from Customer</p>
+            <p style="color:#aaa; font-size:1.1rem; font-weight:500;">Collect Cash from Customer</p>
             <div class="total-fare" id="billAmount">₹0</div> 
             <button class="accept-btn" onclick="closeBillAndNext()">COMPLETE & NEXT</button>
         </div>
@@ -334,8 +380,7 @@
         </div>
       </div>
     </div>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
@@ -426,7 +471,7 @@
         
         if (saved) {
             // If number is saved, auto-start without showing login screen
-            dPhoneInput.value = saved; // Set value internally
+            dPhoneInput.value = saved; // Set value internally for logic
             driverMobile = saved;
             
             document.getElementById('dLoginScreen').style.display = 'none';
@@ -584,25 +629,23 @@
         else { const center = map.getCenter(); driverLat = center.lat; driverLng = center.lng; if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]); map.setView([driverLat, driverLng], map.getZoom()); speak("Location set to map center."); }
     }
     
-    // NEW: Map opening function for Pickup
+    // Map opening function for Pickup
     function openPickupMap() {
         if (!currentReqData || !driverLat || !driverLng) return showCustomAlert('Error', 'Location data missing.');
         const pLat = currentReqData.pickupLat; const pLng = currentReqData.pickupLng;
-        // Use a generic map URL scheme that should work on most mobile devices
-        const navUrl = `https://www.google.com/maps/dir/${driverLat},${driverLng}/${pLat},${pLng}`;
+        const navUrl = `https://www.google.com/maps/dir/${driverLat},${driverLng}/${pLat},${pLng}/data=!4m2!4m1!3e0`;
         window.open(navUrl, '_blank'); speak("Opening navigation to customer pickup location.");
     }
 
-    // NEW: Map opening function for Drop
+    // Map opening function for Drop
     function openDropMap() {
         if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
         const dLat = currentReqData.dropLat; const dLng = currentReqData.dropLng;
-        // Navigation starts from the pickup point (or current location if needed, but pickup makes more sense post-OTP)
-        const navUrl = `https://www.google.com/maps/dir/${driverLat},${driverLng}/${dLat},${dLng}`;
+        const navUrl = `https://www.google.com/maps/dir/${driverLat},${driverLng}/${dLat},${dLng}/data=!4m2!4m1!3e0`;
         window.open(navUrl, '_blank'); speak("Opening navigation to drop location.");
     }
     
-    // NEW: Call function
+    // Call function
     function callCustomer() {
         if (!currentReqData || !currentReqData.customerMobile) return showCustomAlert('Error', 'Customer mobile number missing.');
         window.location.href = `tel:${currentReqData.customerMobile}`;
@@ -651,6 +694,7 @@
         document.getElementById('pickupDist').innerText = pKM + " KM";
         document.getElementById('tripDist').innerText = data.distance || '—';
         
+        // Use request vehicle icon
         const reqIconHtml = getVehicleEmoji(reqVehicle, true);
         const reqDivIcon = L.divIcon({ html: reqIconHtml, className: '', iconSize: [50,50], iconAnchor: [25,50], popupAnchor: [0,-30] });
 
@@ -724,12 +768,12 @@
         document.getElementById('reqPopup').style.display = 'none';
         document.getElementById('pickupCard').style.display = 'block';
         document.getElementById('custMobDisp').innerText = currentReqData.customerMobile || '—';
-        // Note: Call action is now handled by callCustomer() function
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         if (pickupMarker) pickupMarker.openPopup();
     }
-</script>
-<script>
+                        </script>
+    
+    <script>
     
     // OTP verify + start trip
     function verifyOtp() {
@@ -744,7 +788,7 @@
             if (reqVehicleMarker) map.removeLayer(reqVehicleMarker); 
             
             if (currentReqData.dropLat && currentReqData.dropLng) {
-                // Change current location to pickup location for drop navigation calculation
+                // Set current location to pickup location for drop navigation calculation
                 driverLat = currentReqData.pickupLat;
                 driverLng = currentReqData.pickupLng;
                 
@@ -905,7 +949,6 @@
     window.openHelp = function(){ document.getElementById('helpModal').style.display='flex'; speak("Help opened."); };
     window.closeHelp = function(){ document.getElementById('helpModal').style.display='none'; speak("Help closed."); };
     window.toggleDuty = toggleDuty; 
-    // Expose new functions
     window.openPickupMap = openPickupMap;
     window.openDropMap = openDropMap;
     window.callCustomer = callCustomer;
