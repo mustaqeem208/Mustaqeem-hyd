@@ -199,7 +199,7 @@
         /* --- PREMIUM BILL CARD STYLES --- */
         #billModal { 
             position: fixed; inset: 0; 
-            background: rgba(0,0,0,0.98); /* Slightly darker background */
+            background: rgba(0,0,0,0.98); 
             z-index: 5000; 
             display: none; 
             flex-direction: column; 
@@ -208,20 +208,20 @@
             text-align: center; 
         }
         .bill-box { 
-            background: linear-gradient(160deg, #1f1f1f 0%, #0a0a0a 100%); /* Dark gradient background */
+            background: linear-gradient(160deg, #1f1f1f 0%, #0a0a0a 100%); 
             color: #fff; 
             padding: 40px 30px; 
             border-radius: 20px; 
             width: 85%; 
             max-width: 400px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 3px #d4af37; /* Gold inner border */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 3px #d4af37; 
             border: 1px solid #444;
             animation: fadeIn 0.5s ease-out;
         }
         .total-fare { 
-            font-size: 4.5rem; /* Larger font */
+            font-size: 4.5rem; 
             font-weight: 900; 
-            color: #2ecc71; /* Bright Green */
+            color: #2ecc71; 
             margin: 20px 0 35px 0;
             text-shadow: 0 0 10px rgba(46, 204, 113, 0.6);
             letter-spacing: -2px;
@@ -380,7 +380,8 @@
         </div>
       </div>
     </div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
@@ -470,7 +471,6 @@
         const dPhoneInput = document.getElementById('dPhone');
         
         if (saved) {
-            // If number is saved, auto-start without showing login screen
             dPhoneInput.value = saved; // Set value internally for logic
             driverMobile = saved;
             
@@ -771,15 +771,18 @@
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         if (pickupMarker) pickupMarker.openPopup();
     }
-                        </script>
-    
-    <script>
+</script>
+<script>
     
     // OTP verify + start trip
     function verifyOtp() {
         const entered = document.getElementById('otpIn').value;
         if (!currentReqData) { showCustomAlert('Error', 'No request data.'); speak("No request data."); return; }
-        if (entered == currentReqData.otp) {
+        
+        // --- FIXED OTP CHECK ---
+        const correctOtp = (currentReqData.otp || '').toString();
+        
+        if (entered === correctOtp && entered.length > 0) { // Check for match and non-empty input
             speak("OTP verified. Starting the trip now. Drive safely.");
             try { db.ref('requests/' + currentReqKey).update({ status: "started", startedAt: Date.now() }); } catch(e) { console.warn("DB update failed:", e); }
             document.getElementById('pickupCard').style.display = 'none';
@@ -919,18 +922,20 @@
             const row = document.createElement('div'); row.className='hist-row';
             row.innerHTML = `<div style="flex:1">
                 <div style="font-weight:800">₹${v.price||0} • ${v.vehicleType||''}</div>
-                <div style="color:#888; font-size:0.9rem">${v.status||'--'}</div>
+                <div style="color:#888; font-size:0.9rem">${v.status||'—'}</div>
                 <div style="color:#666; font-size:0.85rem">${v.customerMobile || ''}</div>
             </div>
             <div style="text-align:right">
-                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'--')}</div>
+                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'—')}</div>
                 <div style="margin-top:8px"><button class="smallBtn" onclick="console.log(${JSON.stringify(it)})">DETAILS</button></div>
             </div>`;
             listDom.appendChild(row);
         });
         document.getElementById('histModal').style.display = 'flex';
     }
+    // --- FIXED HISTORY MODAL CLOSURE ---
     function closeHistModal(){ document.getElementById('histModal').style.display='none'; }
+
 
     // Logout & clear localStorage
     function logoutAndClear(){
@@ -952,6 +957,7 @@
     window.openPickupMap = openPickupMap;
     window.openDropMap = openDropMap;
     window.callCustomer = callCustomer;
+    window.closeHistModal = closeHistModal; // Expose the fixed close function
 
 
     // onUnload: set offline
@@ -962,6 +968,5 @@
 
     window.openPartnerHistory = showPartnerHistory;
 </script>
-
 </body>
 </html>
