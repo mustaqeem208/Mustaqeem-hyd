@@ -6,7 +6,7 @@
     <title>MS Partner - Professional</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* ---------- (General Styles) ---------- */
+        /* ---------- Base Styles & Smooth Look ---------- */
         body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#0a0a0a; color:#f0f0f0; }
 
         /* Login Screen */
@@ -43,13 +43,14 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* Online/Offline Button */
+        /* Online/Offline Button (Professional Border) */
         #toggleDutyBtn {
             position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 2002;
             padding: 14px 25px; border-radius: 50px; font-weight: bold; cursor: pointer;
             transition: background 0.4s ease-in-out, border 0.4s; box-shadow: 0 6px 15px rgba(0,0,0,0.6);
             border: 2px solid; min-width: 150px;
         }
+
         .online-btn { background: linear-gradient(145deg, #2ecc71, #27ae60); color: white; border-color: #f0f0f0; }
         .offline-btn { background: linear-gradient(145deg, #e74c3c, #c0392b); color: white; border-color: #d4af37; }
 
@@ -68,62 +69,56 @@
         .otp-box { margin-top: 15px; background: #111; padding: 20px; border-radius: 10px; border: 1px solid #d4af37; }
         .otp-row { display: flex; gap: 15px; margin-top: 10px; align-items: center; }
         .otp-inp { 
-            flex: 1; 
-            padding: 15px; /* Larger padding */
-            height: 60px; /* Specific height for visibility */
-            text-align: center; 
-            font-size: 1.8rem; /* Larger font */
-            letter-spacing: 5px; 
-            background: #000; 
-            border: 2px solid #d4af37; 
-            color: white; 
-            border-radius: 8px; 
+            flex: 1; padding: 15px; height: 60px; text-align: center; 
+            font-size: 1.8rem; letter-spacing: 5px; background: #000; 
+            border: 2px solid #d4af37; color: white; border-radius: 8px; 
             font-weight: bold;
         }
         .go-btn { padding: 0 30px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; height: 60px; font-size: 1.2rem; }
 
+        /* Pickup/Drop card button styles */
+        .map-nav-btn {
+            display:block; background: linear-gradient(145deg, #007bff, #0056b3); color:white; 
+            text-align:center; padding:12px; border-radius:10px; text-decoration:none; 
+            font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; 
+            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+        
+        .contact-btn {
+            display:block; background: linear-gradient(145deg, #2ecc71, #27ae60); color:white; 
+            text-align:center; padding:15px; border-radius:10px; text-decoration:none; 
+            font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; 
+            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
 
+        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:12px; border-radius:10px; font-weight:bold; font-size:1.1rem; width: 100%; cursor: pointer;}
+        
         /* Menu/SOS styles */
         #mainMenuBtn { position: absolute; top: 18px; left: 18px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:12px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
-        /* ... (rest of the Menu/Modal styles are generally kept) ... */
+        #menuBox { position: absolute; top: 70px; left: 18px; z-index: 2001; display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:12px; width:240px; }
+        .menu-item { padding:10px 12px; border-radius:8px; cursor:pointer; color:#d4af37; font-weight:700; margin-bottom:6px; background:rgba(255,255,255,0.03); }
+        .menu-sub { font-size:0.9rem; color:#aaa; font-weight:500; margin-left:6px; }
 
-        /* --- History Modal Styles (Centered & Scrollable) --- */
-        #histModal { 
-            position: fixed; inset: 0; 
-            display:none; 
-            align-items:center; 
-            justify-content:center; 
-            z-index:3000; 
-            background: rgba(0,0,0,0.8); 
+        .help-btn { position: absolute; top: 20px; right: 20px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; display: none; border: 2px solid white; cursor: pointer; }
+
+        /* Emergency Modal Fixes (Clean Look) */
+        .call-opt {
+            display: block; background: #f0f0f0; color: #222; text-align: center; padding: 15px; 
+            border-radius: 10px; text-decoration: none; font-weight: bold; margin-bottom: 15px; 
+            font-size: 1.2rem; border: 2px solid; transition: background 0.2s;
         }
-        #histModal .modal-card { 
-            background: #1f1f1f; 
-            padding:25px; 
-            border-radius:15px; 
-            width:90%; 
-            max-width:550px; 
-            border:1px solid #444; 
-            color:#fff; 
-            max-height: 80vh; /* Max height for scrollability */
-            display: flex;
-            flex-direction: column;
-        }
-        .modal-list { 
-            overflow-y: auto; 
-            margin-top:15px; 
-            flex-grow: 1; /* Allows list to take up available space */
-            padding-right: 5px;
-        }
-        .hist-row { 
-            padding:12px 0; 
-            border-bottom:1px solid rgba(255,255,255,0.1); 
-            display:flex; 
-            justify-content:space-between; 
-            gap:10px; 
-            align-items: center;
-        }
-        .hist-row:last-child { border-bottom: none; }
         
+        /* History Modal Styles (Scrollable & Centered) */
+        #histModal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; z-index:3000; background: rgba(0,0,0,0.8); }
+        #histModal .modal-card { 
+            background: #1f1f1f; padding:25px; border-radius:15px; width:90%; max-width:550px; 
+            border:1px solid #444; color:#fff; max-height: 80vh; display: flex; flex-direction: column;
+        }
+        .modal-list { overflow-y: auto; margin-top:15px; flex-grow: 1; padding-right: 5px; }
+        .hist-row { padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; gap:10px; align-items: center; }
+        .hist-row:last-child { border-bottom: none; }
+
+
         /* Bill Modal Styles */
         #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
         .bill-box { 
@@ -281,7 +276,8 @@
         </div>
       </div>
     </div>
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
@@ -400,8 +396,6 @@
                 partnerObj.vehicleType = partnerObj.vehicleType || 'car';
                 await db.ref('partners/' + mobile).update(partnerObj);
                 updateDriverIcon();
-                // We do NOT open modals automatically on load now
-                // openVehicleModal(); 
             } else {
                 partnerObj = data;
                 updateDriverIcon();
@@ -422,8 +416,6 @@
             partnerObj = { partnerId: 'P' + (Math.floor(100000 + Math.random()*900000)), mobile: mobile, vehicleType: 'car' };
             db.ref('partners/' + mobile).set(partnerObj);
             updateDriverIcon();
-            // We do NOT open modals automatically on load now
-            // openVehicleModal();
         }
     }
 
@@ -677,7 +669,8 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
 </script>
-    <script>
+    
+<script>
     
     // OTP verify + start trip
     function verifyOtp() {
@@ -687,7 +680,7 @@
         // --- FIXED OTP CHECK ---
         const correctOtp = (currentReqData.otp || '').toString();
         
-        if (entered === correctOtp && entered.length > 0) { // Check for match and non-empty input
+        if (entered === correctOtp && entered.length > 0) { 
             speak("OTP verified. Starting the trip now. Drive safely.");
             try { db.ref('requests/' + currentReqKey).update({ status: "started", startedAt: Date.now() }); } catch(e) { console.warn("DB update failed:", e); }
             document.getElementById('pickupCard').style.display = 'none';
@@ -827,11 +820,11 @@
             const row = document.createElement('div'); row.className='hist-row';
             row.innerHTML = `<div style="flex:1">
                 <div style="font-weight:800">₹${v.price||0} • ${v.vehicleType||''}</div>
-                <div style="color:#888; font-size:0.9rem">${v.status||'--'}</div>
+                <div style="color:#888; font-size:0.9rem">${v.status||'—'}</div>
                 <div style="color:#666; font-size:0.85rem">${v.customerMobile || ''}</div>
             </div>
             <div style="text-align:right">
-                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'--')}</div>
+                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'—')}</div>
                 <div style="margin-top:8px"><button class="smallBtn" onclick="console.log(${JSON.stringify(it)})">DETAILS</button></div>
             </div>`;
             listDom.appendChild(row);
@@ -862,7 +855,7 @@
     window.openPickupMap = openPickupMap;
     window.openDropMap = openDropMap;
     window.callCustomer = callCustomer;
-    window.closeHistModal = closeHistModal; // Expose the fixed close function
+    window.closeHistModal = closeHistModal;
 
 
     // onUnload: set offline
@@ -873,8 +866,7 @@
 
     window.openPartnerHistory = showPartnerHistory;
 </script>
-
-
+    
 </body>
 </html>
     
