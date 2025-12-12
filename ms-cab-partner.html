@@ -1,58 +1,69 @@
+<!-- PART 1: Paste this first -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
-  <title>MS PARTNER — Driver (Pro)</title>
+  <title>MS PARTNER — Pro (GPS + Pro Popups)</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <style>
     :root{
-      --bg:#04050a; --panel:#0c1116; --accent:#d4af37; --muted:#9aa3b2; --ok:#10b981; --danger:#ef4444;
-      --radius:12px; --glass: rgba(255,255,255,0.03);
+      --bg:#03040a; --panel:#0b1116; --accent:#d4af37; --muted:#9aa3b2; --ok:#10b981; --danger:#ef4444;
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      --shadow: 0 20px 50px rgba(0,0,0,0.6);
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,#020205,var(--bg));font-family:Inter,Segoe UI,Roboto,Arial;color:#fff}
-    /* TOP BAR: left big duty + income, right menu */
-    #topBar{position:fixed;left:12px;right:12px;top:12px;height:74px;border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;z-index:3000;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(90deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005))}
+    /* TOP BAR */
+    #topBar{position:fixed;left:12px;right:12px;top:12px;height:78px;border-radius:12px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;z-index:4000;border:1px solid rgba(255,255,255,0.03);backdrop-filter: blur(4px)}
     #leftTop{display:flex;align-items:center;gap:14px}
-    .logo{font-weight:900;color:var(--accent);font-size:1.1rem}
+    .logo{font-weight:900;color:var(--accent);font-size:1.05rem}
     .duty-block{display:flex;flex-direction:column;gap:6px}
     .duty-btn{padding:12px 18px;border-radius:12px;border:none;font-weight:900;cursor:pointer;font-size:1rem}
     .duty-on{background:var(--ok);color:#021;box-shadow:0 8px 30px rgba(16,185,129,0.08)}
     .duty-off{background:#111;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
     .income-small{font-size:0.9rem;color:var(--muted);margin-top:2px}
     .income-big{font-weight:900;color:var(--accent);font-size:1.05rem}
-    /* Right menu button */
+    /* Right menu */
     #rightTop{display:flex;align-items:center;gap:10px}
     .menu-btn{padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--muted)}
-    /* Map container always visible */
-    #mapContainer{position:fixed;left:12px;right:12px;top:98px;bottom:84px;border-radius:14px;overflow:hidden;z-index:1000;border:1px solid rgba(255,255,255,0.02)}
+    /* MAP */
+    #mapContainer{position:fixed;left:12px;right:12px;top:100px;bottom:88px;border-radius:14px;overflow:hidden;z-index:1000;border:1px solid rgba(255,255,255,0.02);box-shadow:var(--shadow)}
     #map{width:100%;height:100%}
-    /* Floating buttons */
-    .float-btn{position:fixed;right:24px;bottom:120px;background:#fff;color:#000;padding:12px;border-radius:14px;font-weight:800;border:none;box-shadow:0 12px 30px rgba(2,6,23,0.6);cursor:pointer;z-index:2000}
-    .float-small{right:24px;bottom:64px;padding:10px;border-radius:12px}
-    /* Bottom small status */
+    /* Floating */
+    .float-btn{position:fixed;right:22px;bottom:120px;background:#fff;color:#000;padding:12px;border-radius:14px;font-weight:800;border:none;box-shadow:0 12px 30px rgba(2,6,23,0.6);cursor:pointer;z-index:2000}
+    .float-small{right:22px;bottom:66px;padding:10px;border-radius:12px}
+    /* Bottom */
     #bottomBar{position:fixed;left:12px;right:12px;bottom:12px;height:64px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(0,0,0,0.3));display:flex;align-items:center;justify-content:space-between;padding:8px 12px;z-index:2500;border:1px solid rgba(255,255,255,0.02)}
     .status-pill{padding:8px 10px;border-radius:8px;background:var(--glass);font-weight:800}
-    /* Request popup (center bottom) */
-    #reqPopup{position:fixed;left:50%;transform:translateX(-50%);bottom:160px;width:92%;max-width:520px;background:linear-gradient(180deg,#07101a,#081026);padding:14px;border-radius:12px;display:none;z-index:2600;border:1px solid rgba(255,255,255,0.03)}
-    .fare{font-size:2rem;color:var(--accent);font-weight:900}
-    .info-row{display:flex;justify-content:space-between;color:var(--muted);margin-top:8px}
-    .req-actions{display:flex;gap:10px;margin-top:12px}
-    .btn-skip{flex:1;padding:10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);cursor:pointer}
-    .btn-accept{flex:1;padding:10px;border-radius:10px;background:var(--accent);color:#000;border:none;font-weight:900;cursor:pointer}
-    /* Cards for pickup/drop */
-    .card-panel{position:fixed;left:12px;right:12px;bottom:120px;border-radius:12px;padding:14px;background:linear-gradient(180deg,#061018,#071018);display:none;z-index:2700;border:1px solid rgba(255,255,255,0.03)}
+    /* PROFESSIONAL POPUP (center) */
+    #popupBackdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:5000;align-items:center;justify-content:center}
+    #requestCard{width:92%;max-width:520px;background:linear-gradient(180deg,#07101a,#081026);border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 20px 60px rgba(0,0,0,0.7);transform:translateY(10px);opacity:0;transition:all .22s ease}
+    #popupBackdrop.show #requestCard{transform:translateY(0);opacity:1}
+    .rc-head{display:flex;justify-content:space-between;align-items:center}
+    .rc-title{font-weight:900;font-size:1.05rem}
+    .rc-fare{font-weight:900;font-size:2.6rem;color:var(--accent);margin-top:8px;letter-spacing:1px}
+    .rc-meta{display:flex;gap:12px;color:var(--muted);margin-top:8px}
+    .rc-actions{display:flex;gap:10px;margin-top:14px}
+    .rc-btn-skip{flex:1;padding:12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);cursor:pointer;font-weight:800}
+    .rc-btn-accept{flex:1;padding:12px;border-radius:10px;background:var(--accent);color:#000;border:none;cursor:pointer;font-weight:900}
+    .rc-small{font-size:0.9rem;color:var(--muted)}
+    /* PICKUP / DROP Pro cards (bottom) */
+    .card-panel{position:fixed;left:12px;right:12px;bottom:120px;border-radius:12px;padding:14px;background:linear-gradient(180deg,#061018,#071018);display:none;z-index:4800;border:1px solid rgba(255,255,255,0.03);box-shadow:var(--shadow)}
     .otp-input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;margin-top:8px}
-    /* Drawer menu on right */
-    #drawer{position:fixed;top:0;right:-360px;width:320px;height:100%;background:#07101a;z-index:4000;box-shadow:-8px 0 40px rgba(0,0,0,0.6);transition:right .22s;border-left:1px solid rgba(255,255,255,0.03);padding:16px}
+    /* Drawer (right) */
+    #drawer{position:fixed;top:0;right:-360px;width:320px;height:100%;background:#07101a;z-index:4700;box-shadow:-8px 0 40px rgba(0,0,0,0.6);transition:right .22s;border-left:1px solid rgba(255,255,255,0.03);padding:16px}
     #drawer.show{right:0}
     .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
     .drawer-item{padding:12px;border-radius:8px;margin-bottom:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
     .small-muted{color:var(--muted);font-size:0.9rem}
-    /* History modal */
-    #historyModal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:5000}
-    #historyCard{width:92%;max-width:700px;background:#07111a;padding:12px;border-radius:12px;max-height:80vh;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
+    /* Help modal */
+    #helpModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:6000;align-items:center;justify-content:center}
+    #helpCard{width:90%;max-width:360px;background:#08121a;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    /* History */
+    #historyModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:5500;align-items:center;justify-content:center}
+    #historyCard{width:92%;max-width:720px;background:#07111a;padding:12px;border-radius:12px;max-height:80vh;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
     .hist-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,0.02)}
     @media(min-width:900px){ #mapContainer{left:40px;right:40px;top:120px;bottom:96px} #topBar{left:40px;right:40px} #bottomBar{left:40px;right:40px} #drawer{width:360px} }
   </style>
@@ -75,41 +86,46 @@
   </div>
 
   <!-- MAP -->
-  <div id="mapContainer">
-    <div id="map"></div>
-  </div>
+  <div id="mapContainer"><div id="map"></div></div>
 
-  <!-- floating buttons -->
+  <!-- floating -->
   <button class="float-btn" onclick="recenterMap()">📍 Center</button>
-  <button class="float-btn float-small" style="right:24px;bottom:64px" onclick="openHistory()">📜 History</button>
+  <button class="float-btn float-small" style="right:22px;bottom:66px" onclick="openHistory()">📜 History</button>
 
-  <!-- bottom status -->
+  <!-- bottom -->
   <div id="bottomBar">
     <div class="status-pill">Status: <span id="dutyStatusLabel" style="font-weight:900;margin-left:8px">OFF</span></div>
     <div class="status-pill">Selected: <span id="selectedVehicleLabel" style="font-weight:900;margin-left:8px">—</span></div>
   </div>
 
-  <!-- Request popup -->
-  <div id="reqPopup">
-    <div style="display:flex;justify-content:space-between;align-items:center">
-      <div style="font-weight:900">New Ride Request</div>
-      <div id="reqTime" class="muted">—</div>
-    </div>
-    <div style="margin-top:8px" class="fare">₹<span id="fareDisplay">0</span></div>
-    <div class="info-row"><div>Pickup <b id="pickupDist">—</b></div><div>Trip <b id="tripDist">—</b></div></div>
-    <div class="req-actions">
-      <button class="btn-skip" onclick="skipRide()">Skip</button>
-      <button class="btn-accept" onclick="tryAcceptRide()">Accept</button>
+  <!-- Professional popup backdrop + card -->
+  <div id="popupBackdrop">
+    <div id="requestCard" role="dialog" aria-modal="true">
+      <div class="rc-head">
+        <div class="rc-title">New Ride Request</div>
+        <div class="rc-small" id="reqTime">—</div>
+      </div>
+      <div class="rc-fare">₹<span id="fareDisplay">0</span></div>
+      <div class="rc-meta">
+        <div>Pickup <strong id="pickupDist">—</strong></div>
+        <div>Trip <strong id="tripDist">—</strong></div>
+        <div>Mode <strong id="reqMode">—</strong></div>
+      </div>
+      <div style="margin-top:12px;color:var(--muted)" id="reqNote">Tap Accept to lock this ride. OTP will be required to start trip.</div>
+      <div class="rc-actions">
+        <button class="rc-btn-skip" onclick="skipRide()">Skip</button>
+        <button class="rc-btn-accept" onclick="tryAcceptRide()">Accept</button>
+      </div>
     </div>
   </div>
 
-  <!-- Pickup Card -->
+  <!-- Pickup card -->
   <div id="pickupCard" class="card-panel">
     <div style="font-weight:900;color:var(--accent)">Heading to Pickup</div>
-    <div id="custPhoneDisplay" style="margin-top:8px" class="muted">Customer: —</div>
+    <div id="custPhoneDisplay" style="margin-top:8px" class="small-muted">Customer: —</div>
     <div style="margin-top:12px">
       <a id="callBtn" class="drawer-item" href="#">📞 Call Customer</a>
-      <div style="margin-top:8px" class="small-muted">Enter OTP to start trip</div>
+      <div style="margin-top:10px" class="small-muted">Enter OTP to start trip</div>
       <input id="otpIn" class="otp-input" placeholder="Enter OTP"/>
       <div style="display:flex;gap:8px;margin-top:10px">
         <button class="menu-btn" onclick="cancelRide()">Cancel</button>
@@ -118,13 +134,13 @@
     </div>
   </div>
 
-  <!-- Drop Card -->
+  <!-- Drop card -->
   <div id="dropCard" class="card-panel" style="border-top:3px solid var(--ok)">
     <div style="font-weight:900;color:var(--ok)">On Trip</div>
-    <div style="margin-top:8px" class="muted">Navigate to drop and complete trip</div>
+    <div style="margin-top:8px" class="small-muted">Navigate to drop and complete trip</div>
     <div style="margin-top:12px;display:flex;gap:8px">
-      <button class="btn-skip" onclick="openDropMap()">Navigate</button>
-      <button class="btn-accept" onclick="completeRide()">End Trip & Bill</button>
+      <button class="menu-btn" onclick="openDropMap()">Navigate</button>
+      <button class="rc-btn-accept" onclick="completeRide()">End Trip & Bill</button>
     </div>
   </div>
 
@@ -138,7 +154,7 @@
     <div style="margin-bottom:8px">
       <div class="small-muted">Logged as</div>
       <div style="font-weight:900;margin-top:6px" id="drawerMobile">+91 —</div>
-      <div class="muted" id="drawerVehicle">Vehicle: —</div>
+      <div class="small-muted" id="drawerVehicle">Vehicle: —</div>
     </div>
 
     <div class="drawer-item" onclick="openVehicleDialog()">Change Vehicle / Reg No</div>
@@ -146,12 +162,12 @@
     <div class="drawer-item" onclick="logout()">Logout</div>
     <div class="drawer-item" onclick="openHelp()">Help & Emergency</div>
 
-    <div style="margin-top:20px" class="small-muted">Tips: keep GPS ON & allow location in browser</div>
+    <div style="margin-top:20px" class="small-muted">Keep GPS ON & allow location in browser.</div>
   </div>
 
-  <!-- Help modal (simple) -->
-  <div id="helpModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:6000;align-items:center;justify-content:center">
-    <div style="width:90%;max-width:360px;background:#08121a;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+  <!-- Help modal -->
+  <div id="helpModal">
+    <div id="helpCard">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-weight:900">Help & Emergency</div><button class="menu-btn" onclick="closeHelp()">✕</button></div>
       <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)">📞 Police: <a href="tel:100" style="color:var(--accent);text-decoration:none">100</a></div>
       <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)">👤 Mustaqeem: <a href="tel:9381667208" style="color:var(--accent);text-decoration:none">9381667208</a></div>
@@ -169,7 +185,9 @@
       <div id="historyList"></div>
     </div>
   </div>
-  <!-- PART 2: Scripts -->
+
+  
+<!-- PART 2: Scripts -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
