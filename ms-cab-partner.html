@@ -9,7 +9,7 @@
         /* ---------- Base Styles & Professional Look ---------- */
         body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#0a0a0a; color:#f0f0f0; }
 
-        /* Login Screen (Image 1 Fix: Empty Input) */
+        /* Login Screen (Professional) */
         #dLoginScreen { position:fixed; inset:0; background:#0a0a0a; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
         .logo { font-size: 3rem; color: #d4af37; font-weight: 900; margin-bottom: 30px; letter-spacing: 2px; }
         .d-inp { 
@@ -43,7 +43,7 @@
             display: flex; align-items: center; justify-content: center;
         }
 
-        /* Online/Offline Button */
+        /* Online/Offline Button (Professional Border) */
         #toggleDutyBtn {
             position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 2002;
             padding: 14px 25px; border-radius: 50px; font-weight: bold; cursor: pointer;
@@ -56,27 +56,33 @@
 
         .recenter-btn { position: absolute; bottom: 300px; right: 20px; width: 48px; height: 48px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.6rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
-        /* Request Popup Card Style Fix */
+        /* Request Popup Card Fix */
         .card { 
             position: absolute; left:10px; right:10px; bottom:20px; 
             background: rgba(20,20,20,0.95); border-radius:20px; padding:20px; 
             z-index:1001; border:1px solid #333; display:none; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.8); backdrop-filter: blur(15px); 
-            text-align: center; /* Center align text inside request popup */
         }
         
-        .fare-txt { font-size: 3.2rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
-        
-        /* Pickup Card/OTP Section Styles (Large OTP Fix) */
-        .otp-box { margin-top: 15px; background: #111; padding: 20px; border-radius: 10px; border: 1px solid #d4af37; }
-        .otp-row { display: flex; gap: 15px; margin-top: 10px; align-items: center; }
+        /* Request popup content style (fixed from previous broken look) */
+        #reqPopup .fare-txt { text-align: center; font-size: 3.2rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
+        #reqPopup .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#111; padding:12px; border-radius:10px; border:1px solid #444; }
+        #reqPopup .info-col { text-align:center; width:48%; }
+        #reqPopup .lbl { font-size:0.75rem; color:#888; }
+        #reqPopup .val { font-size:1.2rem; font-weight:bold; color:white; }
+        #reqPopup .btn-row { display: flex; gap: 12px; margin-top: 20px; }
+
+
+        /* Pickup Card/OTP Section Styles (OTP Smaller Fix) */
+        .otp-box { margin-top: 15px; background: #111; padding: 15px; border-radius: 10px; border: 1px solid #d4af37; }
+        .otp-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
         .otp-inp { 
-            flex: 1; padding: 15px; height: 60px; text-align: center; 
-            font-size: 1.8rem; letter-spacing: 5px; background: #000; 
+            flex: 1; padding: 10px; height: 50px; text-align: center; /* Reduced height/padding */
+            font-size: 1.5rem; letter-spacing: 4px; background: #000; 
             border: 2px solid #d4af37; color: white; border-radius: 8px; 
             font-weight: bold;
         }
-        .go-btn { padding: 0 30px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; height: 60px; font-size: 1.2rem; }
+        .go-btn { padding: 0 20px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; height: 50px; font-size: 1.1rem; }
 
         /* Pickup/Drop card button styles */
         .map-nav-btn {
@@ -278,8 +284,7 @@
         </div>
       </div>
     </div>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
@@ -671,7 +676,8 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
 </script>
-<script>
+    
+    <script>
     
     // OTP verify + start trip
     function verifyOtp() {
