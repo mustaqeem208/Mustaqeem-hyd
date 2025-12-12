@@ -160,7 +160,6 @@
             <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
         </div>
     </div>
-
     <div id="billModal" style="display:none;">
     <div class="bill-box">
         <h2>TRIP COMPLETED ✅</h2>
@@ -280,13 +279,15 @@
         driverLat = initialLatlng[0]; driverLng = initialLatlng[1];
     }
 
+    const GPS_HELP_TEXT = "Your GPS location cannot be accessed. Don't worry — just drag the car icon to where you are and you will start receiving bookings.";
+
     function startGPSCheck() { /* ... */ }
     function onPositionUpdate(pos) { /* ... */ }
     function onGPSError(err) { /* ... */ }
     function recenterMap() { /* ... */ }
 
 
-    // --- Login and Duty Management ---
+    // --- Login and Duty Management (Updated) ---
 
     window.onload = function() {
         driverMobile = localStorage.getItem('msPartnerMobile');
@@ -413,7 +414,23 @@
         db.ref('requests').limitToLast(1).off('child_added', requestListener);
     }
     
-    function requestListener(snap) { /* ... */ }
+    function requestListener(snap) {
+        if (!isOnDuty || isRequesting) return;
+        
+        const data = snap.val();
+        if(!data) return;
+        if(data.status === "pending") {
+            if (!driverLat || !driverLng) return console.log("Waiting for location.");
+            let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
+            if(dist <= 2.0) {
+                isRequesting = true; 
+                try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
+                speak("A new request has arrived. The fare is " + data.price + " rupees. Pickup distance " + dist + " kilometers.");
+                showRequest(data, snap.key, dist);
+            }
+        }
+    }
+
     function showRequest(data, key, pKM) { /* ... */ }
     function tryAcceptRide() { /* ... */ }
     function rideSecured() { /* ... */ }
@@ -439,7 +456,7 @@
         speak("Opening navigation to customer pickup location.");
     }
     
-    // ** MAPS FINAL APP LAUNCH FIX (Anchor Click Trick) **
+    // ** MAPS FINAL APP LAUNCH FIX (Anchor Tag Trick) **
     function openDropMap() {
         if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
         const dLat = currentReqData.dropLat;
