@@ -57,7 +57,7 @@
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
         #map { height:100%; width:100%; background: #ffffff; }
 
-        /* Driver Icons & Vehicle Icons */
+        /* Vehicle Icons */
         .driver-icon-container {
             width:56px; height:56px; 
             display:flex; align-items:center; justify-content:center; 
@@ -99,12 +99,12 @@
         }
 
         .online-btn {
-            background: linear-gradient(145deg, #2ecc71, #27ae60); /* Green */
+            background: linear-gradient(145deg, #2ecc71, #27ae60); 
             color: white;
         }
 
         .offline-btn {
-            background: linear-gradient(145deg, #e74c3c, #c0392b); /* Red */
+            background: linear-gradient(145deg, #e74c3c, #c0392b); 
             color: white;
         }
 
@@ -133,11 +133,27 @@
         .accept-btn { flex: 1; padding: 18px; background: #d4af37; color:black; font-weight:bold; border:none; border-radius:10px; cursor:pointer; font-size:1.15rem; }
         .skip-btn { flex: 1; padding: 18px; background: #333; color:#aaa; font-weight:bold; border:1px solid #555; border-radius:10px; cursor:pointer; font-size:1.15rem; }
 
-        /* Menu/Modal styles (kept similar) */
+        /* Menu button (Left Side) */
         #mainMenuBtn { position: absolute; top: 18px; left: 18px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:12px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
         #menuBox { position: absolute; top: 70px; left: 18px; z-index: 2001; display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:12px; width:240px; }
         .menu-item { padding:10px 12px; border-radius:8px; cursor:pointer; color:#d4af37; font-weight:700; margin-bottom:6px; background:rgba(255,255,255,0.03); }
         .menu-sub { font-size:0.9rem; color:#aaa; font-weight:500; margin-left:6px; }
+
+        /* SOS Button (Right Side) */
+        .help-btn { 
+            position: absolute; 
+            top: 20px; 
+            right: 20px; 
+            background: red; 
+            color: white; 
+            font-weight: bold; 
+            padding: 8px 15px; 
+            border-radius: 50px; 
+            z-index: 2000; 
+            display: none; 
+            border: 2px solid white; 
+            cursor: pointer; 
+        }
 
         /* Bill Modal Styles */
         #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
@@ -164,7 +180,7 @@
             font-size: 1.2rem;
             border: 2px solid;
         }
-
+        
         /* Footer Style */
         #footer {
             position: absolute;
@@ -572,7 +588,10 @@
         }
 
         if(data.status === "pending") {
-            if (!driverLat || !driverLng) return console.log("Waiting for location.");
+            if (!driverLat || !driverLng) {
+                console.log("Waiting for location to receive requests.");
+                return; // Wait for location before showing request
+            }
             
             const reqVehicle = (data.vehicleType || 'car').toString().toLowerCase();
             const myVehicle = (partnerObj && partnerObj.vehicleType) ? partnerObj.vehicleType.toString().toLowerCase() : null;
@@ -580,7 +599,7 @@
             if (myVehicle && reqVehicle !== myVehicle) return; 
 
             let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng);
-            if (dist <= 2.0) {
+            if (dist <= 2.0) { // Only accept within 2.0 KM
                 isRequesting = true;
                 try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
                 speak("A new request has arrived for a " + reqVehicle + ". The fare is " + (data.price || 0) + " rupees. Pickup distance " + dist.toFixed(1) + " kilometers.");
@@ -591,9 +610,11 @@
 
     function startListening() {
         if(!isOnline) return; 
+        // 1. Listen to requests
         db.ref('requests').limitToLast(10).on('child_added', requestListener);
         db.ref('requests').limitToLast(10).on('child_changed', requestListener);
-        // Also listen to my own partner profile for session conflict
+        
+        // 2. Listen to my own partner profile for session conflict
         db.ref('partners/' + driverMobile).on('value', (snap) => {
              const data = snap.val();
              if (data && data.sessionKey && data.sessionKey !== sessionKey && isOnline) {
@@ -692,8 +713,8 @@
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         if (pickupMarker) pickupMarker.openPopup();
     }
-</script>
-<script>
+        </script>
+        <script>
     function openPickupMap() {
         if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
         const pLat = currentReqData.pickupLat; const pLng = currentReqData.pickupLng;
@@ -848,11 +869,11 @@
             const row = document.createElement('div'); row.className='hist-row';
             row.innerHTML = `<div style="flex:1">
                 <div style="font-weight:800">₹${v.price||0} • ${v.vehicleType||''}</div>
-                <div style="color:#888; font-size:0.9rem">${v.status||'—'}</div>
+                <div style="color:#888; font-size:0.9rem">${v.status||'--'}</div>
                 <div style="color:#666; font-size:0.85rem">${v.customerMobile || ''}</div>
             </div>
             <div style="text-align:right">
-                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'—')}</div>
+                <div style="font-size:0.8rem; color:#999">${v.completedAt? new Date(v.completedAt).toLocaleString() : (v.timestamp? new Date(v.timestamp).toLocaleString():'--')}</div>
                 <div style="margin-top:8px"><button class="smallBtn" onclick="console.log(${JSON.stringify(it)})">DETAILS</button></div>
             </div>`;
             listDom.appendChild(row);
