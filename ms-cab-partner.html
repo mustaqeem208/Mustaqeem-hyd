@@ -16,7 +16,7 @@
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
         #map { height:100%; width:100%; background: #ffffff; }
 
-        /* Vehicle Selection Styles */
+        /* Vehicle Selection Styles (Car/Bike buttons) */
         .vehicle-type-select { display: flex; justify-content: space-around; width: 85%; margin-bottom: 25px; }
         .v-opt { padding: 20px 10px; background: #222; border: 2px solid #333; border-radius: 10px; width: 45%; color: #888; cursor: pointer; transition: all 0.2s; }
         .v-opt.selected { background: #d4af37; color: #000; border-color: #fff; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
@@ -38,12 +38,12 @@
         .close-menu { position: absolute; top: 15px; right: 15px; font-size: 2rem; color: white; cursor: pointer; }
         #incomeDisplay { font-size: 1.8rem; font-weight: bold; color: #2ecc71; margin-top: 5px; }
 
-        /* Existing styles for card, buttons, etc. remain here... */
+        /* General styles for map/cards/buttons */
         .recenter-btn { position: absolute; bottom: 150px; right: 20px; width: 45px; height: 45px; z-index: 1000; }
         .card { position: absolute; left:10px; right:10px; bottom:20px; z-index:1001; }
         .contact-btn, .map-nav-btn { margin-bottom:10px; }
 
-        /* Toggle Switch CSS (for professional look) */
+        /* Toggle Switch CSS (Uber style) */
         .switch { position: relative; display: inline-block; width: 40px; height: 24px; }
         .switch input { opacity: 0; width: 0; height: 0; }
         .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; }
@@ -84,7 +84,7 @@
         </div>
         
         <input id="dVehNumber" class="d-inp" type="text" placeholder="Vehicle Number (e.g., TS09AB1234)">
-        <button class="d-btn" onclick="saveVehicleDetails()">CONTINUE</button>
+        <button class="d-btn" onclick="saveVehicleDetails()">GO ONLINE</button>
     </div>
 
     <div id="dMenu">
@@ -160,6 +160,7 @@
             <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
         </div>
     </div>
+
     <div id="billModal" style="display:none;">
     <div class="bill-box">
         <h2>TRIP COMPLETED ✅</h2>
@@ -206,7 +207,86 @@
 
     // --- Utility Functions (Speak, Dialogs, GPS, Map Init) ---
 
-    // (speak, showCustomConfirm, showCustomAlert, initializeMap, startGPSCheck, etc. functions remain same)
+    const customDialog = document.getElementById('customDialog');
+    const customDialogTitle = document.getElementById('customDialogTitle');
+    const customDialogMessage = document.getElementById('customDialogMessage');
+    const customDialogOk = document.getElementById('customDialogOk');
+    const customDialogCancel = document.getElementById('customDialogCancel');
+
+    function showCustomConfirm(title, message, onOk, onCancel) {
+        customDialogTitle.innerText = title || 'Confirm';
+        customDialogMessage.innerText = message || '';
+        customDialog.style.display = 'flex';
+        customDialogOk.style.display = 'inline-block';
+        customDialogCancel.style.display = 'inline-block';
+
+        function cleanup() {
+            customDialog.style.display = 'none';
+            customDialogOk.removeEventListener('click', okHandler);
+            customDialogCancel.removeEventListener('click', cancelHandler);
+        }
+        function okHandler() { cleanup(); if (onOk) onOk(); }
+        function cancelHandler() { cleanup(); if (onCancel) onCancel(); }
+
+        customDialogOk.addEventListener('click', okHandler);
+        customDialogCancel.addEventListener('click', cancelHandler);
+    }
+
+    function showCustomAlert(title, message, onOk) {
+        customDialogTitle.innerText = title || 'Alert';
+        customDialogMessage.innerText = message || '';
+        customDialog.style.display = 'flex';
+        customDialogCancel.style.display = 'none';
+        customDialogOk.style.display = 'inline-block';
+
+        function cleanup() {
+            customDialog.style.display = 'none';
+            customDialogOk.removeEventListener('click', okHandler);
+        }
+        function okHandler() { cleanup(); if (onOk) onOk(); }
+
+        customDialogOk.addEventListener('click', okHandler);
+    }
+    
+    function speak(text) {
+        try {
+            if (window.Android && typeof window.Android.speak === 'function') {
+                window.Android.speak(text);
+                return;
+            }
+        } catch(e){ console.warn("Android bridge failed:", e); }
+        if ('speechSynthesis' in window) {
+            try {
+                window.speechSynthesis.cancel();
+                const ut = new SpeechSynthesisUtterance(text);
+                window.speechSynthesis.speak(ut);
+                return;
+            } catch(err) { console.warn("speechSynthesis error:", err); }
+        }
+    }
+
+    function initializeMap(initialLatlng, initialZoom) {
+        if (map) return;
+        const carHtml = "<div class='car-emoji' style='position:relative'>🚗</div>";
+        const carDivIcon = L.divIcon({ html: carHtml, className: '', iconSize: [56,56], iconAnchor: [28,56], popupAnchor: [0,-40] });
+        map = L.map('map', {zoomControl: false}).setView(initialLatlng, initialZoom);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
+        driverMarker = L.marker(initialLatlng, {icon: carDivIcon, draggable: true}).addTo(map).bindPopup("Your Cab 🚗");
+        driverMarker.on('dragend', (e) => {
+            const newLoc = driverMarker.getLatLng();
+            driverLat = newLoc.lat; driverLng = newLoc.lng; followDriver = false; speak("Location set.");
+        });
+        map.on('dragstart', () => { followDriver = false; });
+        driverLat = initialLatlng[0]; driverLng = initialLatlng[1];
+    }
+
+    function startGPSCheck() { /* ... */ }
+    function onPositionUpdate(pos) { /* ... */ }
+    function onGPSError(err) { /* ... */ }
+    function recenterMap() { /* ... */ }
+
+
+    // --- Login and Duty Management ---
 
     window.onload = function() {
         driverMobile = localStorage.getItem('msPartnerMobile');
@@ -270,8 +350,6 @@
         toggleDuty(); 
     }
 
-    // --- Menu and Duty Functions ---
-
     function updateIncomeDisplay() {
         document.getElementById('incomeDisplay').innerText = `₹${todayIncome.toFixed(2)}`;
         localStorage.setItem('msPartnerIncome', todayIncome.toFixed(2));
@@ -323,19 +401,22 @@
     }
 
 
-    // --- Core Map and Firebase Logic ---
+    // --- Firebase and Ride Logic ---
 
-    function initializeMap(initialLatlng, initialZoom) { /* ... (Same as before) */ }
-    function startGPSCheck() { /* ... (Same as before) */ }
-    function onPositionUpdate(pos) { /* ... (Same as before) */ }
-    function onGPSError(err) { /* ... (Same as before) */ }
-    function recenterMap() { /* ... (Same as before) */ }
-    function startListening() { /* ... (Same as before) */ }
-    function stopListening() { /* ... (Same as before) */ }
-    function requestListener(snap) { /* ... (Same as before) */ }
-    function showRequest(data, key, pKM) { /* ... (Same as before) */ }
-    function tryAcceptRide() { /* ... (Same as before) */ }
-    function rideSecured() { /* ... (Same as before) */ }
+    function startListening() {
+        if (isOnDuty) {
+            db.ref('requests').limitToLast(1).on('child_added', requestListener);
+        }
+    }
+
+    function stopListening() {
+        db.ref('requests').limitToLast(1).off('child_added', requestListener);
+    }
+    
+    function requestListener(snap) { /* ... */ }
+    function showRequest(data, key, pKM) { /* ... */ }
+    function tryAcceptRide() { /* ... */ }
+    function rideSecured() { /* ... */ }
 
 
     // ** MAPS FINAL APP LAUNCH FIX (Anchor Click Trick) **
@@ -379,12 +460,36 @@
     }
 
 
-    function verifyOtp() { /* ... (Same as before) */ }
-    function completeRide() { /* ... (Same as before) */ }
-    function skipRide() { /* ... (Same as before) */ }
-    function cancelRide() { /* ... (Same as before) */ }
+    function verifyOtp() { /* ... */ }
+    function completeRide() {
+        db.ref('requests/' + currentReqKey).update({ status: "completed" });
+        
+        const fare = parseFloat(currentReqData.price);
+        if (!isNaN(fare)) {
+            todayIncome += fare;
+            updateIncomeDisplay();
+        }
+
+        document.getElementById('dropCard').style.display = 'none';
+        document.getElementById('billModal').style.display = 'flex';
+        document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
+        speak("Trip complete. Cash collect and move to next ride.");
+        
+        if(routeLine) map.removeLayer(routeLine); 
+        if(pickupMarker) map.removeLayer(pickupMarker);
+        if(dropMarker) map.removeLayer(dropMarker);
+        currentReqData = null; currentReqKey = null; 
+        isRequesting = false;
+        if (isOnDuty) startListening();
+    }
+
+    function skipRide() { /* ... */ }
+    function cancelRide() { /* ... */ }
     
-    // (openHelp, closeHelp, drawRoute, getDist remain same)
+    function openHelp() { /* ... */ }
+    function closeHelp() { /* ... */ }
+    function drawRoute(lat1, lng1, lat2, lng2, color) { /* ... */ }
+    function getDist(lat1,lon1,lat2,lon2) { /* ... */ }
 </script>
 </body>
 </html>
