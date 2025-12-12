@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MS Partner - Ultimate Final Fix</title>
+    <title>MS Partner - Professional Final</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         /* ---------- Base Styles & Professional Look ---------- */
@@ -63,7 +63,7 @@
         .accept-btn { background: #d4af37; color:black; border:none; }
         .skip-btn { background: #333; color:#aaa; border:1px solid #555; }
         
-        /* Pickup Card/OTP Section Styles (OTP Layout Fix) */
+        /* Pickup Card/OTP Section Styles */
         .otp-box { margin-top: 4vw; background: #111; padding: 4vw; border-radius: 10px; border: 1px solid #d4af37; }
         .otp-row { display: flex; gap: 3vw; margin-top: 3vw; align-items: center; }
         .otp-inp { 
@@ -82,28 +82,16 @@
             padding:3.5vw; font-weight:bold; border-radius:10px; font-size: 4.5vw;
         }
 
-        /* Map Button Size Increase (GO TO PICKUP/DROP) */
-        .map-nav-btn {
-            display:block; background: linear-gradient(145deg, #007bff, #0056b3); color:white; 
-            text-align:center; padding:4vw; /* Increased padding */ border-radius:10px; font-weight:bold; 
-            margin-bottom:3vw; font-size:4.5vw; border: none; 
-            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
-        }
-        
-        /* Call button (Premium Look) */
-        .contact-btn {
-            display:block; background: linear-gradient(145deg, #2ecc71, #27ae60); color:white; 
-            text-align:center; padding:4vw; border-radius:10px; font-weight:bold; 
-            margin-bottom:3vw; font-size:4.5vw; border: none; width: 100%; cursor: pointer; 
-            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
-        }
-
-        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:3.5vw; border-radius:10px; font-weight:bold; font-size:4.5vw; width: 100%; cursor: pointer;}
-        
         /* Menu/SOS styles */
-        #mainMenuBtn { position: absolute; top: 20px; left: 15px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:10px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
+        #mainMenuBtn { position: absolute; top: 20px; left: 15px; z-index: 2002; /* Match SOS Z-Index */ padding:10px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); }
+        #menuBox { 
+            position: absolute; top: 65px; left: 15px; 
+            z-index: 2003; /* Higher Z-Index to ensure it opens on top */ 
+            display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); 
+            padding:10px; border-radius:12px; width:240px; 
+        }
         
-        .help-btn { position: absolute; top: 20px; right: 15px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; display: none; border: 2px solid white; cursor: pointer; }
+        .help-btn { position: absolute; top: 20px; right: 15px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2002; display: none; border: 2px solid white; cursor: pointer; }
 
         /* SOS Modal Styles (Center Fix) */
         #helpModal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; z-index:3000; background: rgba(0,0,0,0.8); }
@@ -127,10 +115,10 @@
             border: 1px solid #444;
             animation: fadeIn 0.5s ease-out;
         }
-        .total-fare { font-size: 4.5rem; font-weight: 900; color: #2ecc71; margin: 20px 0 20px 0; /* Reduced margin */ text-shadow: 0 0 10px rgba(46, 204, 113, 0.6); letter-spacing: -2px; }
+        .total-fare { font-size: 4.5rem; font-weight: 900; color: #2ecc71; margin: 20px 0 20px 0; text-shadow: 0 0 10px rgba(46, 204, 113, 0.6); letter-spacing: -2px; }
         
         /* Bill Reversal Button Row */
-        .bill-btn-row { display: flex; gap: 10px; margin-top: 20px; }
+        .bill-btn-row { display: flex; gap: 10px; margin-top: 20px; width: 100%; }
 
 
         /* Footer Style */
@@ -261,8 +249,8 @@
             <p style="color:#aaa; font-size:1.1rem; font-weight:500;">Collect Cash from Customer</p>
             <div class="total-fare" id="billAmount">₹0</div> 
             <div class="bill-btn-row">
-                <button class="skip-btn" onclick="backToDropCard()">⟲ BACK</button>
-                <button class="accept-btn" onclick="closeBillAndNext()">COMPLETE & NEXT</button>
+                <button class="skip-btn" style="flex:1;" onclick="backToDropCard()">⟲ BACK</button>
+                <button class="accept-btn" style="flex:1;" onclick="closeBillAndNext()">COMPLETE & NEXT</button>
             </div>
         </div>
     </div>
@@ -713,19 +701,16 @@
         }
     }
 
-    // complete ride -> update request completed + partner history
+    // complete ride -> Show Bill Modal (Step 1)
     function completeRide() {
-        // This function now only prepares the bill modal
         if (!currentReqKey || !currentReqData) return;
         
         document.getElementById('dropCard').style.display = 'none';
         
-        // --- BILL CARD FIX: Show Bill Modal ---
+        // Show Bill Modal with amount
         document.getElementById('billModal').style.display = 'flex'; 
         document.getElementById('billAmount').innerText = "₹" + (currentReqData.price || 0); 
         speak("Trip completed. Please confirm collection.");
-        
-        // NOTE: We don't mark as 'completed' in DB yet, that happens in closeBillAndNext()
     }
     
     // New function to handle going back from Bill to Drop Card
@@ -735,10 +720,11 @@
         speak("Trip reversed. Continue driving.");
     }
 
+    // Final action: Mark as completed and cleanup (Step 2)
     function closeBillAndNext() {
-        // Final action: Mark as completed and cleanup
         if (!currentReqKey || !currentReqData) return;
         
+        // Mark as completed in DB
         db.ref('requests/' + currentReqKey).update({ status: "completed", completedAt: Date.now() }).then(()=>{
             
             // Update history
@@ -880,7 +866,7 @@
     window.openDropMap = openDropMap;
     window.callCustomer = callCustomer;
     window.closeHistModal = closeHistModal;
-    window.backToDropCard = backToDropCard; // Expose new reversal function
+    window.backToDropCard = backToDropCard;
 
 
     // onUnload: set offline
