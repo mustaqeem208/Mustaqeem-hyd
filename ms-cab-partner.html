@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MS Partner - Professional Final</title>
+    <title>MS Partner - Ultimate Final Fix</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         /* ---------- Base Styles & Professional Look ---------- */
@@ -82,11 +82,28 @@
             padding:3.5vw; font-weight:bold; border-radius:10px; font-size: 4.5vw;
         }
 
+        /* Map Button Size Fix */
+        .map-nav-btn {
+            display:block; background: linear-gradient(145deg, #007bff, #0056b3); color:white; 
+            text-align:center; padding:4vw; border-radius:10px; font-weight:bold; 
+            margin-bottom:3vw; font-size:4.5vw; border: none; 
+            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+        }
+        
+        .contact-btn {
+            display:block; background: linear-gradient(145deg, #2ecc71, #27ae60); color:white; 
+            text-align:center; padding:4vw; border-radius:10px; font-weight:bold; 
+            margin-bottom:3vw; font-size:4.5vw; border: none; width: 100%; cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+        }
+
+        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:3.5vw; border-radius:10px; font-weight:bold; font-size:4.5vw; width: 100%; cursor: pointer;}
+        
         /* Menu/SOS styles */
-        #mainMenuBtn { position: absolute; top: 20px; left: 15px; z-index: 2002; /* Match SOS Z-Index */ padding:10px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); }
+        #mainMenuBtn { position: absolute; top: 20px; left: 15px; z-index: 2002; padding:10px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); }
         #menuBox { 
             position: absolute; top: 65px; left: 15px; 
-            z-index: 2003; /* Higher Z-Index to ensure it opens on top */ 
+            z-index: 2003; /* Higher Z-Index */ 
             display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); 
             padding:10px; border-radius:12px; width:240px; 
         }
@@ -270,7 +287,7 @@
         </div>
       </div>
     </div>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
@@ -661,8 +678,8 @@
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
         if (pickupMarker) pickupMarker.openPopup();
     }
-</script>
-<script>
+                               </script>
+    <script>
     
     // OTP verify + start trip
     function verifyOtp() {
@@ -880,3 +897,5 @@
 
 </body>
 </html>
+    
+    
