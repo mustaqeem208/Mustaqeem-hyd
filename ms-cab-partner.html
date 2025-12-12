@@ -3,146 +3,108 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MS Partner - Professional Final</title>
+    <title>MS Partner - Mobile Optimized</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* ---------- Base Styles & Professional Look ---------- */
+        /* ---------- Base Styles & Mobile Optimization ---------- */
         body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#0a0a0a; color:#f0f0f0; }
 
-        /* Login Screen (Professional) */
-        #dLoginScreen { position:fixed; inset:0; background:#0a0a0a; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
-        .logo { font-size: 3rem; color: #d4af37; font-weight: 900; margin-bottom: 30px; letter-spacing: 2px; }
+        /* Login Screen */
+        #dLoginScreen { position:fixed; inset:0; background:#0a0a0a; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:5vw; }
+        .logo { font-size: 8vw; color: #d4af37; font-weight: 900; margin-bottom: 6vw; letter-spacing: 2px; }
         .d-inp { 
-            width:80%; padding:18px; border-radius:10px; border:1px solid #444; 
-            background:#181818; color:#fff; text-align:center; margin-bottom:20px; 
-            font-size:1.2rem; font-weight: bold;
+            width: 90%; max-width: 350px; padding: 4vw; border-radius: 10px; border: 1px solid #444; 
+            background:#181818; color:#fff; text-align:center; margin-bottom: 4vw; font-size: 4.5vw; 
+            font-weight: bold;
         }
         .d-btn { 
-            width:85%; padding:18px; border-radius:10px; border:none; 
+            width: 90%; max-width: 350px; padding: 4.5vw; border-radius: 10px; border: none; 
             background:#d4af37; color:#000; font-weight:bold; cursor:pointer; 
-            font-size:1.2rem; transition: background 0.3s;
+            font-size: 5vw; transition: background 0.3s;
         }
 
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
         #map { height:100%; width:100%; background: #ffffff; }
 
         /* Vehicle Icons */
-        .driver-icon-container {
-            width:56px; height:56px; border-radius:14px; 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 -6px 10px rgba(0,0,0,0.08); 
-            font-size:28px; transform: translateY(-6px); 
-            border: 2px solid rgba(0,0,0,0.6); 
-            background: linear-gradient(180deg, #FFF4B0 0%, #FFC843 60%); 
-            position: relative; display:flex; align-items:center; justify-content:center;
-        }
+        .driver-icon-container { width:56px; height:56px; border-radius:14px; box-shadow: 0 8px 20px rgba(0,0,0,0.6); font-size:28px; transform: translateY(-6px); border: 2px solid rgba(0,0,0,0.6); background: linear-gradient(180deg, #FFF4B0 0%, #FFC843 60%); position: relative; display:flex; align-items:center; justify-content:center; }
+        .request-icon-container { width: 50px; height: 50px; border-radius: 50%; background: #007bff; color: white; font-size: 26px; border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; }
 
-        .request-icon-container {
-            width: 50px; height: 50px; border-radius: 50%;
-            background: #007bff; color: white; font-size: 26px;
-            border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.4);
-            display: flex; align-items: center; justify-content: center;
-        }
-
-        /* Online/Offline Button (Professional Border) */
+        /* Online/Offline Button */
         #toggleDutyBtn {
             position: absolute; top: 20px; left: 50%; transform: translateX(-50%); z-index: 2002;
             padding: 14px 25px; border-radius: 50px; font-weight: bold; cursor: pointer;
             transition: background 0.4s ease-in-out, border 0.4s; box-shadow: 0 6px 15px rgba(0,0,0,0.6);
             border: 2px solid; min-width: 150px;
         }
-
         .online-btn { background: linear-gradient(145deg, #2ecc71, #27ae60); color: white; border-color: #f0f0f0; }
         .offline-btn { background: linear-gradient(145deg, #e74c3c, #c0392b); color: white; border-color: #d4af37; }
 
-        .recenter-btn { position: absolute; bottom: 300px; right: 20px; width: 48px; height: 48px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.6rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
+        .recenter-btn { position: absolute; bottom: 100px; right: 20px; width: 48px; height: 48px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.6rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
-        /* Request Popup Card Fix */
+        /* Request Popup Card (Stylish Fix) */
         .card { 
-            position: absolute; left:10px; right:10px; bottom:20px; 
-            background: rgba(20,20,20,0.95); border-radius:20px; padding:20px; 
-            z-index:1001; border:1px solid #333; display:none; 
+            position: absolute; left: 4vw; right: 4vw; bottom: 4vw; 
+            background: rgba(20,20,20,0.95); border-radius: 20px; padding: 5vw; 
+            z-index:1001; border: 1px solid #333; display:none; 
             box-shadow: 0 15px 50px rgba(0,0,0,0.8); backdrop-filter: blur(15px); 
+            max-width: 92vw;
         }
         
-        /* Request popup content style (fixed from previous broken look) */
-        #reqPopup .fare-txt { text-align: center; font-size: 3.2rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
-        #reqPopup .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#111; padding:12px; border-radius:10px; border:1px solid #444; }
-        #reqPopup .info-col { text-align:center; width:48%; }
-        #reqPopup .lbl { font-size:0.75rem; color:#888; }
-        #reqPopup .val { font-size:1.2rem; font-weight:bold; color:white; }
-        #reqPopup .btn-row { display: flex; gap: 12px; margin-top: 20px; }
+        .fare-txt { font-size: 8vw; font-weight: 800; color: #d4af37; margin-bottom: 5px; text-align: center; }
+        
+        .info-row { display:flex; justify-content:space-around; margin-bottom:4vw; background:#111; padding:3vw; border-radius:10px; border:1px solid #444; }
+        .info-col { text-align:center; width:48%; }
+        .lbl { font-size: 3vw; color:#888; }
+        .val { font-size: 4.5vw; font-weight:bold; color:white; }
 
-
-        /* Pickup Card/OTP Section Styles (OTP Smaller Fix) */
-        .otp-box { margin-top: 15px; background: #111; padding: 15px; border-radius: 10px; border: 1px solid #d4af37; }
-        .otp-row { display: flex; gap: 10px; margin-top: 10px; align-items: center; }
+        .btn-row { display: flex; gap: 4vw; margin-top: 5vw; }
+        .accept-btn, .skip-btn { flex: 1; padding: 4vw; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 4.5vw; }
+        .accept-btn { background: #d4af37; color:black; border:none; }
+        .skip-btn { background: #333; color:#aaa; border:1px solid #555; }
+        
+        /* Pickup Card/OTP Section Styles (OTP Size Fix) */
+        .otp-box { margin-top: 4vw; background: #111; padding: 4vw; border-radius: 10px; border: 1px solid #d4af37; }
+        .otp-row { display: flex; gap: 3vw; margin-top: 3vw; align-items: center; }
         .otp-inp { 
-            flex: 1; padding: 10px; height: 50px; text-align: center; /* Reduced height/padding */
-            font-size: 1.5rem; letter-spacing: 4px; background: #000; 
+            flex: 1; padding: 3vw; height: 12vw; text-align: center; 
+            font-size: 5vw; letter-spacing: 4px; background: #000; 
             border: 2px solid #d4af37; color: white; border-radius: 8px; 
             font-weight: bold;
         }
-        .go-btn { padding: 0 20px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; height: 50px; font-size: 1.1rem; }
+        .go-btn { padding: 0 6vw; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; height: 12vw; font-size: 4.5vw; }
 
         /* Pickup/Drop card button styles */
         .map-nav-btn {
             display:block; background: linear-gradient(145deg, #007bff, #0056b3); color:white; 
-            text-align:center; padding:12px; border-radius:10px; text-decoration:none; 
-            font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; 
-            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            text-align:center; padding:3vw; border-radius:10px; font-weight:bold; 
+            margin-bottom:3vw; font-size:4.5vw; border: none; width: 100%; cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
         }
         
         .contact-btn {
             display:block; background: linear-gradient(145deg, #2ecc71, #27ae60); color:white; 
-            text-align:center; padding:15px; border-radius:10px; text-decoration:none; 
-            font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; 
-            width: 100%; cursor: pointer; box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
+            text-align:center; padding:4vw; border-radius:10px; font-weight:bold; 
+            margin-bottom:3vw; font-size:4.5vw; border: none; width: 100%; cursor: pointer; 
+            box-shadow: 0 4px 10px rgba(46, 204, 113, 0.3);
         }
 
-        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:12px; border-radius:10px; font-weight:bold; font-size:1.1rem; width: 100%; cursor: pointer;}
+        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:3vw; border-radius:10px; font-weight:bold; font-size:4.5vw; width: 100%; cursor: pointer;}
         
         /* Menu/SOS styles */
-        #mainMenuBtn { position: absolute; top: 18px; left: 18px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:12px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
-        #menuBox { position: absolute; top: 70px; left: 18px; z-index: 2001; display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:12px; width:240px; }
-        .menu-item { padding:10px 12px; border-radius:8px; cursor:pointer; color:#d4af37; font-weight:700; margin-bottom:6px; background:rgba(255,255,255,0.03); }
-        .menu-sub { font-size:0.9rem; color:#aaa; font-weight:500; margin-left:6px; }
-
-        .help-btn { position: absolute; top: 20px; right: 20px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; display: none; border: 2px solid white; cursor: pointer; }
-
-        /* Emergency Modal Fixes (Clean Look) */
-        .call-opt {
-            display: block; background: #f0f0f0; color: #222; text-align: center; padding: 15px; 
-            border-radius: 10px; text-decoration: none; font-weight: bold; margin-bottom: 15px; 
-            font-size: 1.2rem; border: 2px solid; transition: background 0.2s;
-        }
+        #mainMenuBtn { position: absolute; top: 20px; left: 15px; z-index: 2001; background: rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); padding:10px 14px; border-radius:12px; cursor:pointer; color:#fff; font-weight:800; }
+        #menuBox { position: absolute; top: 65px; left: 15px; z-index: 2001; display:none; background:rgba(8,8,8,0.95); border:1px solid rgba(255,255,255,0.04); padding:10px; border-radius:12px; width:240px; }
         
-        /* History Modal Styles (Scrollable & Centered) */
-        #histModal { position: fixed; inset: 0; display:none; align-items:center; justify-content:center; z-index:3000; background: rgba(0,0,0,0.8); }
-        #histModal .modal-card { 
-            background: #1f1f1f; padding:25px; border-radius:15px; width:90%; max-width:550px; 
-            border:1px solid #444; color:#fff; max-height: 80vh; display: flex; flex-direction: column;
-        }
-        .modal-list { overflow-y: auto; margin-top:15px; flex-grow: 1; padding-right: 5px; }
-        .hist-row { padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; gap:10px; align-items: center; }
-        .hist-row:last-child { border-bottom: none; }
+        .help-btn { position: absolute; top: 20px; right: 15px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; display: none; border: 2px solid white; cursor: pointer; }
 
-
-        /* Bill Modal Styles */
-        #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
-        .bill-box { 
-            background: linear-gradient(160deg, #1f1f1f 0%, #0a0a0a 100%); 
-            color: #fff; padding: 40px 30px; border-radius: 20px; width: 85%; max-width: 400px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 3px #d4af37; 
-            border: 1px solid #444;
-            animation: fadeIn 0.5s ease-out;
-        }
-        .total-fare { font-size: 4.5rem; font-weight: 900; color: #2ecc71; margin: 20px 0 35px 0; text-shadow: 0 0 10px rgba(46, 204, 113, 0.6); letter-spacing: -2px; }
+        /* Modals and Footer */
+        #histModal .modal-card { max-width: 90vw; }
+        .total-fare { font-size: 10vw; }
         
-        /* Footer Style */
         #footer {
             position: absolute; bottom: 0; left: 0; right: 0; text-align: center;
             padding: 8px 0; background: rgba(0,0,0,0.8); color: #d4af37;
-            font-size: 0.8rem; z-index: 1000; font-weight: 500; letter-spacing: 1px;
+            font-size: 3.5vw; z-index: 1000; font-weight: 500; letter-spacing: 1px;
         }
 
     </style>
@@ -185,7 +147,7 @@
         <div class="recenter-btn" onclick="recenterMap()">🎯</div>
 
         <div id="reqPopup" class="card">
-            <div style="color:#fff; font-weight:bold; margin-bottom:5px;">NEW RIDE REQUEST 🔔</div>
+            <div style="color:#fff; font-weight:bold; margin-bottom:5px; text-align: center;">NEW RIDE REQUEST 🔔</div>
             <div class="fare-txt">₹<span id="fareDisplay">0</span></div>
             <div class="info-row">
                 <div class="info-col"><div class="lbl">PICKUP DIST</div><div class="val" id="pickupDist">...</div></div>
@@ -676,7 +638,6 @@
         if (pickupMarker) pickupMarker.openPopup();
     }
 </script>
-    
     <script>
     
     // OTP verify + start trip
@@ -876,3 +837,5 @@
 
 </body>
 </html>
+    
+    
