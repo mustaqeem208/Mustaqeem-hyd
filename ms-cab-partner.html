@@ -7,26 +7,26 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
   <style>
     :root{
-      --bg:#05060a; --panel:#0d1116; --accent:#d4af37; --muted:#9aa3b2; --ok:#10b981; --danger:#ef4444;
+      --bg:#04050a; --panel:#0c1116; --accent:#d4af37; --muted:#9aa3b2; --ok:#10b981; --danger:#ef4444;
       --radius:12px; --glass: rgba(255,255,255,0.03);
     }
     *{box-sizing:border-box}
     html,body{height:100%;margin:0;background:linear-gradient(180deg,#020205,var(--bg));font-family:Inter,Segoe UI,Roboto,Arial;color:#fff}
-    /* Top bar */
-    #topBar{position:fixed;left:12px;right:12px;top:12px;height:64px;background:linear-gradient(90deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;z-index:3000;border:1px solid rgba(255,255,255,0.03)}
-    #leftTop{display:flex;align-items:center;gap:12px}
-    .logo{font-weight:900;color:var(--accent);font-size:1.2rem}
-    .driver-block{display:flex;flex-direction:column}
-    .driver-mobile{font-weight:800;font-size:1rem}
-    .muted{color:var(--muted);font-size:0.85rem}
-    #rightTop{display:flex;align-items:center;gap:12px}
-    .income-pill{background:linear-gradient(90deg,#071018,#07101a);padding:8px 12px;border-radius:10px;font-weight:900;color:var(--ok);border:1px solid rgba(16,185,129,0.06)}
-    .duty-btn{padding:10px 14px;border-radius:10px;border:none;font-weight:900;cursor:pointer}
+    /* TOP BAR: left big duty + income, right menu */
+    #topBar{position:fixed;left:12px;right:12px;top:12px;height:74px;border-radius:14px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;z-index:3000;border:1px solid rgba(255,255,255,0.03);background:linear-gradient(90deg,rgba(255,255,255,0.01),rgba(255,255,255,0.005))}
+    #leftTop{display:flex;align-items:center;gap:14px}
+    .logo{font-weight:900;color:var(--accent);font-size:1.1rem}
+    .duty-block{display:flex;flex-direction:column;gap:6px}
+    .duty-btn{padding:12px 18px;border-radius:12px;border:none;font-weight:900;cursor:pointer;font-size:1rem}
     .duty-on{background:var(--ok);color:#021;box-shadow:0 8px 30px rgba(16,185,129,0.08)}
-    .duty-off{background:#222;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
-    .menu-btn{padding:8px 10px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);cursor:pointer}
+    .duty-off{background:#111;color:var(--muted);border:1px solid rgba(255,255,255,0.03)}
+    .income-small{font-size:0.9rem;color:var(--muted);margin-top:2px}
+    .income-big{font-weight:900;color:var(--accent);font-size:1.05rem}
+    /* Right menu button */
+    #rightTop{display:flex;align-items:center;gap:10px}
+    .menu-btn{padding:10px 12px;border-radius:10px;background:transparent;border:1px solid rgba(255,255,255,0.03);cursor:pointer;color:var(--muted)}
     /* Map container always visible */
-    #mapContainer{position:fixed;left:12px;right:12px;top:92px;bottom:84px;border-radius:14px;overflow:hidden;z-index:1000;border:1px solid rgba(255,255,255,0.02)}
+    #mapContainer{position:fixed;left:12px;right:12px;top:98px;bottom:84px;border-radius:14px;overflow:hidden;z-index:1000;border:1px solid rgba(255,255,255,0.02)}
     #map{width:100%;height:100%}
     /* Floating buttons */
     .float-btn{position:fixed;right:24px;bottom:120px;background:#fff;color:#000;padding:12px;border-radius:14px;font-weight:800;border:none;box-shadow:0 12px 30px rgba(2,6,23,0.6);cursor:pointer;z-index:2000}
@@ -44,9 +44,9 @@
     /* Cards for pickup/drop */
     .card-panel{position:fixed;left:12px;right:12px;bottom:120px;border-radius:12px;padding:14px;background:linear-gradient(180deg,#061018,#071018);display:none;z-index:2700;border:1px solid rgba(255,255,255,0.03)}
     .otp-input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#fff;margin-top:8px}
-    /* Drawer menu */
-    #drawer{position:fixed;top:0;left:-360px;width:320px;height:100%;background:#07101a;z-index:4000;box-shadow:8px 0 40px rgba(0,0,0,0.6);transition:left .22s;border-right:1px solid rgba(255,255,255,0.03);padding:16px}
-    #drawer.show{left:0}
+    /* Drawer menu on right */
+    #drawer{position:fixed;top:0;right:-360px;width:320px;height:100%;background:#07101a;z-index:4000;box-shadow:-8px 0 40px rgba(0,0,0,0.6);transition:right .22s;border-left:1px solid rgba(255,255,255,0.03);padding:16px}
+    #drawer.show{right:0}
     .drawer-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
     .drawer-item{padding:12px;border-radius:8px;margin-bottom:8px;background:transparent;border:1px solid rgba(255,255,255,0.02);cursor:pointer}
     .small-muted{color:var(--muted);font-size:0.9rem}
@@ -54,7 +54,7 @@
     #historyModal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:5000}
     #historyCard{width:92%;max-width:700px;background:#07111a;padding:12px;border-radius:12px;max-height:80vh;overflow:auto;border:1px solid rgba(255,255,255,0.03)}
     .hist-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid rgba(255,255,255,0.02)}
-    @media(min-width:900px){ #mapContainer{left:40px;right:40px;top:110px;bottom:96px} #topBar{left:40px;right:40px} #bottomBar{left:40px;right:40px} #drawer{width:340px} }
+    @media(min-width:900px){ #mapContainer{left:40px;right:40px;top:120px;bottom:96px} #topBar{left:40px;right:40px} #bottomBar{left:40px;right:40px} #drawer{width:360px} }
   </style>
 </head>
 <body>
@@ -63,20 +63,14 @@
   <div id="topBar">
     <div id="leftTop">
       <div class="logo">MS PARTNER PRO</div>
-      <div class="driver-block">
-        <div id="driverMobile" class="driver-mobile">+91 —</div>
-        <div id="vehicleInfo" class="muted">Vehicle: —</div>
+      <div class="duty-block">
+        <button id="dutyToggle" class="duty-btn duty-off" onclick="toggleDuty()">START DUTY</button>
+        <div class="income-small">Today income <span id="incomeBox" class="income-big">₹0</span></div>
       </div>
     </div>
 
     <div id="rightTop">
-      <div id="incomeBox" class="income-pill">Today ₹0</div>
-
-      <!-- START DUTY / OFF DUTY -->
-      <button id="dutyToggle" class="duty-btn duty-off" onclick="toggleDuty()">START DUTY</button>
-
-      <!-- menu -->
-      <button class="menu-btn" onclick="openDrawer()">☰</button>
+      <button class="menu-btn" onclick="openDrawer()">☰ MENU</button>
     </div>
   </div>
 
@@ -85,7 +79,7 @@
     <div id="map"></div>
   </div>
 
-  <!-- floating -->
+  <!-- floating buttons -->
   <button class="float-btn" onclick="recenterMap()">📍 Center</button>
   <button class="float-btn float-small" style="right:24px;bottom:64px" onclick="openHistory()">📜 History</button>
 
@@ -134,7 +128,7 @@
     </div>
   </div>
 
-  <!-- Drawer -->
+  <!-- Drawer (right) -->
   <div id="drawer">
     <div class="drawer-head">
       <div style="font-weight:900">Menu</div>
@@ -149,10 +143,20 @@
 
     <div class="drawer-item" onclick="openVehicleDialog()">Change Vehicle / Reg No</div>
     <div class="drawer-item" onclick="openHistory()">Ride History</div>
-    <div class="drawer-item" onclick="showPrefs()">Preferences</div>
     <div class="drawer-item" onclick="logout()">Logout</div>
+    <div class="drawer-item" onclick="openHelp()">Help & Emergency</div>
 
     <div style="margin-top:20px" class="small-muted">Tips: keep GPS ON & allow location in browser</div>
+  </div>
+
+  <!-- Help modal (simple) -->
+  <div id="helpModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:6000;align-items:center;justify-content:center">
+    <div style="width:90%;max-width:360px;background:#08121a;padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><div style="font-weight:900">Help & Emergency</div><button class="menu-btn" onclick="closeHelp()">✕</button></div>
+      <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)">📞 Police: <a href="tel:100" style="color:var(--accent);text-decoration:none">100</a></div>
+      <div style="margin:8px 0;padding:10px;border-radius:8px;background:rgba(255,255,255,0.02)">👤 Mustaqeem: <a href="tel:9381667208" style="color:var(--accent);text-decoration:none">9381667208</a></div>
+      <div style="margin-top:12px;text-align:right"><button class="menu-btn" onclick="closeHelp()">CLOSE</button></div>
+    </div>
   </div>
 
   <!-- History modal -->
@@ -197,17 +201,16 @@
 
   // ---------- helpers ----------
   const $ = id => document.getElementById(id);
-  function savePrefs(){ if(!driverMobile) return; localStorage.setItem('msPartnerPro', JSON.stringify({ driverMobile, selectedVehicle, vehicleNumber, isOnDuty })); updateUI(); }
+  function savePrefs(){ if(!driverMobile) return; localStorage.setItem('msPartnerProV2', JSON.stringify({ driverMobile, selectedVehicle, vehicleNumber, isOnDuty })); updateUI(); }
   function loadPrefs(){
-    try{ const raw = localStorage.getItem('msPartnerPro'); if(!raw) return false; const p=JSON.parse(raw); driverMobile=p.driverMobile||null; selectedVehicle=p.selectedVehicle||null; vehicleNumber=p.vehicleNumber||null; isOnDuty=!!p.isOnDuty; return !!driverMobile; } catch(e){ return false; }
+    try{ const raw = localStorage.getItem('msPartnerProV2'); if(!raw) return false; const p=JSON.parse(raw); driverMobile=p.driverMobile||null; selectedVehicle=p.selectedVehicle||null; vehicleNumber=p.vehicleNumber||null; isOnDuty=!!p.isOnDuty; return !!driverMobile; } catch(e){ return false; }
   }
-  function clearPrefs(){ localStorage.removeItem('msPartnerPro'); }
+  function clearPrefs(){ localStorage.removeItem('msPartnerProV2'); }
 
   function updateUI(){
     $('driverMobile').innerText = driverMobile ? ('+91 ' + driverMobile) : '+91 —';
     $('drawerMobile').innerText = driverMobile ? ('+91 ' + driverMobile) : '+91 —';
-    $('vehicleInfo').innerText = vehicleNumber ? ('Vehicle: ' + (selectedVehicle ? selectedVehicle.toUpperCase() + ' • ' : '') + vehicleNumber) : (selectedVehicle ? ('Vehicle: ' + selectedVehicle.toUpperCase()) : 'Vehicle: —');
-    $('drawerVehicle').innerText = vehicleNumber ? ('Vehicle: ' + vehicleNumber) : 'Vehicle: —';
+    $('drawerVehicle').innerText = vehicleNumber ? ('Vehicle: ' + vehicleNumber) : (selectedVehicle ? ('Vehicle: ' + selectedVehicle.toUpperCase()) : 'Vehicle: —');
     $('selectedVehicleLabel').innerText = selectedVehicle ? selectedVehicle.toUpperCase() : '—';
     $('dutyStatusLabel').innerText = isOnDuty ? 'ON' : 'OFF';
     $('dutyToggle').className = isOnDuty ? 'duty-btn duty-on' : 'duty-btn duty-off';
@@ -248,7 +251,7 @@
   function openDrawer(){ $('drawer').classList.add('show'); }
   function closeDrawer(){ $('drawer').classList.remove('show'); }
 
-  // ---------- Login / Duty ----------
+  // ---------- Login / Vehicle / Duty ----------
   function openVehicleDialog(){
     const v = prompt('Vehicle (car/auto/bike):', selectedVehicle || 'car');
     if (!v) return;
@@ -269,34 +272,27 @@
   }
 
   function startOrStopDuty(){
-    // used when pressing duty button on login (if not logged in) or topbar toggle
     if (!driverMobile) {
-      // attempt login via prompt
       const num = prompt('Enter your mobile number (10 digits):');
       if (!num || num.trim().length < 10) return alert('Valid number required');
       driverMobile = num.trim();
-      // If vehicle not selected, ask
+      // ask vehicle if not set
       if (!selectedVehicle) {
         const v = prompt('Vehicle (car/auto/bike):','car');
         if (!v) return alert('Vehicle required');
-        selectedVehicle = v.toLowerCase();
+        selectedVehicle = v.toLowerCase().trim();
       }
       const reg = prompt('Vehicle reg. no (optional):', vehicleNumber || '');
       if (reg !== null) vehicleNumber = reg.trim();
     }
-    // toggle duty
     isOnDuty = !isOnDuty;
     savePrefs();
     updateUI();
-    // update DB
     db.ref('partners/' + driverMobile).update({ onDuty: isOnDuty, vehicle: selectedVehicle, vehicleNumber: vehicleNumber, lastSeen: Date.now(), lat: driverLat || null, lng: driverLng || null }).catch(()=>{});
     if (isOnDuty) {
-      startGPS();
-      startListening();
-      alert('You are ON DUTY');
+      initMap(); startGPS(); startListening(); alert('You are ON DUTY');
     } else {
-      stopListening();
-      alert('You are OFF DUTY');
+      stopListening(); alert('You are OFF DUTY');
     }
     updateUI();
   }
@@ -310,6 +306,10 @@
     location.reload();
   }
 
+  // ---------- Help ----------
+  function openHelp(){ $('helpModal').style.display='flex'; }
+  function closeHelp(){ $('helpModal').style.display='none'; }
+
   // ---------- Requests: listen & filter ----------
   async function requestListener(snap){
     if (!isOnDuty) return;
@@ -321,32 +321,24 @@
     if (!driverLat || !driverLng) return;
     const pd = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng);
     if (pd <= 6.0) {
-      // show popup
       isRequesting = true;
       currentReqData = data; currentReqKey = snap.key;
-      $('reqPopup').style.display = 'block';
+      $('reqPopup').style.display='block';
       $('fareDisplay').innerText = data.price;
       $('pickupDist').innerText = pd.toFixed(1) + ' km';
       $('tripDist').innerText = (data.distance || '—');
       $('reqTime').innerText = new Date(data.timestamp || Date.now()).toLocaleTimeString();
-      // add marker
       if (pickupMarker) map.removeLayer(pickupMarker);
       pickupMarker = L.marker([data.pickupLat, data.pickupLng]).addTo(map).bindPopup('Pickup');
       map.setView([data.pickupLat, data.pickupLng], 15);
-      // ring
-      try{ document.getElementById('ringtone').play().catch(()=>{}); }catch(e){}
+      try{ document.getElementById('ringtone') && document.getElementById('ringtone').play().catch(()=>{}); }catch(e){}
     }
   }
 
   function startListening(){ db.ref('requests').limitToLast(40).on('child_added', requestListener); }
   function stopListening(){ db.ref('requests').limitToLast(40).off('child_added', requestListener); }
 
-  function skipRide(){
-    $('reqPopup').style.display = 'none';
-    if (pickupMarker) { map.removeLayer(pickupMarker); pickupMarker = null; }
-    isRequesting = false;
-    try{ document.getElementById('ringtone').pause(); }catch(e){}
-  }
+  function skipRide(){ $('reqPopup').style.display='none'; if (pickupMarker){ map.removeLayer(pickupMarker); pickupMarker=null;} isRequesting=false; try{ document.getElementById('ringtone') && document.getElementById('ringtone').pause(); }catch(e){} }
 
   // Accept with transaction (race-safe)
   function tryAcceptRide(){
@@ -361,12 +353,11 @@
       else if (!committed) { alert('Request already taken'); isRequesting=false; startListening(); }
       else {
         currentReqData = snap.val();
-        $('reqPopup').style.display = 'none';
-        $('pickupCard').style.display = 'block';
+        $('reqPopup').style.display='none';
+        $('pickupCard').style.display='block';
         $('custPhoneDisplay').innerText = 'Customer: ' + (currentReqData.customerMobile || '—');
         $('callBtn').href = 'tel:' + (currentReqData.customerMobile || '');
         drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
-        // save to partner history
         const hist = { reqId: currentReqKey, customerMobile: currentReqData.customerMobile, price: currentReqData.price, status:'accepted', vehicle: currentReqData.vehicleType, timestamp: Date.now() };
         db.ref('partners/' + driverMobile + '/history').push(hist).catch(()=>{});
         refreshTodayIncome();
@@ -379,8 +370,8 @@
     if (!currentReqData) return alert('No request loaded');
     if (String(currentReqData.otp) === code) {
       db.ref('requests/' + currentReqKey).update({ status:'started', startedAt: Date.now() }).catch(()=>{});
-      $('pickupCard').style.display = 'none';
-      $('dropCard').style.display = 'block';
+      $('pickupCard').style.display='none';
+      $('dropCard').style.display='block';
       if (currentReqData.dropLat && currentReqData.dropLng) drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#10b981');
       updatePartnerHistoryStatus(currentReqKey, 'started');
     } else alert('Wrong OTP');
@@ -389,11 +380,10 @@
   function completeRide(){
     if (!currentReqKey || !currentReqData) return alert('No active ride');
     db.ref('requests/' + currentReqKey).update({ status:'completed', completedAt: Date.now() }).then(()=>{
-      $('dropCard').style.display = 'none';
+      $('dropCard').style.display='none';
       alert('Trip completed. Collect cash ₹' + (currentReqData.price || 0));
       updatePartnerHistoryStatus(currentReqKey, 'completed');
       refreshTodayIncome();
-      // cleanup
       if (routeLine) { map.removeLayer(routeLine); routeLine=null; }
       if (pickupMarker) { map.removeLayer(pickupMarker); pickupMarker=null; }
       if (dropMarker) { map.removeLayer(dropMarker); dropMarker=null; }
@@ -444,7 +434,7 @@
     const data = snap.val() || {};
     let total = 0;
     Object.values(data).forEach(it => { if (it.status === 'completed') total += Number(it.price || 0); });
-    $('incomeBox').innerText = 'Today ₹' + total;
+    $('incomeBox').innerText = '₹' + total;
   }
 
   async function updatePartnerHistoryStatus(reqId, newStatus){
@@ -456,11 +446,11 @@
     fetchHistory(); refreshTodayIncome();
   }
 
-  // ---------- misc ----------
+  // ---------- misc UI ----------
   function openHistory(){ fetchHistory(); $('historyModal').style.display='flex'; }
   function closeHistory(){ $('historyModal').style.display='none'; }
-  function openVehicleDialogShortcut(){ openVehicleDialog(); closeDrawer(); }
-  function showPrefs(){ alert('Preferences: Auto-accept OFF. You can request feature.'); }
+  function openHelp(){ $('helpModal').style.display='flex'; }
+  function closeHelp(){ $('helpModal').style.display='none'; }
 
   function getDist(lat1,lon1,lat2,lon2){
     const R=6371; const dLat=(lat2-lat1)*(Math.PI/180); const dLon=(lon2-lon1)*(Math.PI/180);
@@ -468,28 +458,26 @@
     return R*(2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
   }
 
-  // ---------- init: restore prefs and map ----------
+  // ---------- init ----------
   (function init(){
     initMap();
-    // ring audio element
+    // ring audio
     const a = document.createElement('audio'); a.id='ringtone'; a.src='https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3'; a.loop=true; document.body.appendChild(a);
-
     const ok = loadPrefs();
     if (ok && driverMobile) {
       updateUI();
-      // show app immediately
-      $('dLoginScreen') && ($('dLoginScreen').style && ($('dLoginScreen').style.display='none'));
-      $('dApp') && ($('dApp').style && ($('dApp').style.display='block'));
+      // show app (no overlay files — app UI already visible)
       startGPS();
       if (isOnDuty) startListening();
       refreshTodayIncome();
     } else {
-      // show login overlay behavior: but here use drawer login prompt on duty toggle
-      // attach click to duty toggle to trigger prompts if not logged in
+      // nothing: user presses START DUTY to login & start
     }
+    // attach duty button guard: newer browsers might not let programmatically play audio
+    $('dutyToggle').addEventListener('click', function(){ if (!driverMobile) { /* prompts handled in toggleDuty */ } });
   })();
 
-  // expose some methods to UI
+  // expose some methods for inline onclicks
   window.openDrawer = openDrawer;
   window.closeDrawer = closeDrawer;
   window.openVehicleDialog = openVehicleDialog;
@@ -503,12 +491,6 @@
   window.verifyOtp = verifyOtp;
   window.completeRide = completeRide;
   window.cancelRide = cancelRide;
-
-  // small helper: when user uses top duty button first time, prompt to login
-  document.getElementById('dutyToggle').addEventListener('click', function(e){
-    // if not logged in, call toggleDuty which prompts
-    if (!driverMobile) toggleDuty();
-  });
 
 </script>
 </body>
