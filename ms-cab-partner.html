@@ -3,55 +3,55 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>MS Partner - Professional Dashboard</title>
+    <title>MS Partner - Premium Car Emoji</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         body { margin:0; font-family: 'Segoe UI', Roboto, Arial, sans-serif; height:100vh; overflow:hidden; background:#000; color:#fff; }
 
-        /* General UI Styles */
-        #dLoginScreen, #dVehicleSetup, #dMenu { position:fixed; inset:0; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; text-align:center; }
-        .logo { font-size: 2.2rem; color: #d4af37; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px; }
+        #dLoginScreen { position:fixed; inset:0; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:20px; }
+        .logo { font-size: 2rem; color: #d4af37; font-weight: bold; margin-bottom: 10px; letter-spacing: 2px; }
         .d-inp { width:80%; padding:15px; border-radius:8px; border:1px solid #333; background:#111; color:#fff; text-align:center; margin-bottom:15px; font-size:1.1rem; }
         .d-btn { width:85%; padding:15px; border-radius:8px; border:none; background:#d4af37; color:#000; font-weight:bold; cursor:pointer; font-size:1.1rem; }
+
         #dApp { display:none; height:100vh; width:100%; flex-direction:column; }
         #map { height:100%; width:100%; background: #ffffff; }
 
-        /* Vehicle Selection Styles (Car/Bike buttons) */
-        .vehicle-type-select { display: flex; justify-content: space-around; width: 85%; margin-bottom: 25px; }
-        .v-opt { padding: 20px 10px; background: #222; border: 2px solid #333; border-radius: 10px; width: 45%; color: #888; cursor: pointer; transition: all 0.2s; }
-        .v-opt.selected { background: #d4af37; color: #000; border-color: #fff; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-        .v-opt span { display: block; font-size: 2.5rem; margin-bottom: 5px; }
+        .car-emoji { width:56px; height:56px; display:flex; align-items:center; justify-content:center; border-radius:14px; box-shadow: 0 8px 20px rgba(0,0,0,0.6), inset 0 -6px 10px rgba(0,0,0,0.08); font-size:28px; transform: translateY(-6px); border: 2px solid rgba(0,0,0,0.6); background: linear-gradient(180deg, #FFF4B0 0%, #FFC843 60%); position: relative; }
 
-        /* Header and Duty Toggle */
-        #appHeader { position: absolute; top: 0; left: 0; right: 0; height: 60px; background: rgba(0,0,0,0.9); z-index: 2000; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        #dutyStatus { font-weight: bold; font-size: 1rem; }
-        .duty-on { color: #2ecc71; }
-        .duty-off { color: #f39c12; }
-        .menu-btn { font-size: 1.5rem; color: #d4af37; cursor: pointer; }
+        .recenter-btn { position: absolute; bottom: 300px; right: 20px; width: 45px; height: 45px; background: white; color: black; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
 
-        /* Menu Modal */
-        #dMenu { justify-content: flex-start; align-items: flex-start; background: rgba(0,0,0,0.95); padding: 50px 20px; transform: translateX(100%); transition: transform 0.3s ease-out; }
-        #dMenu.active { transform: translateX(0); }
-        .menu-item { width: 100%; padding: 15px 0; border-bottom: 1px solid #333; text-align: left; font-size: 1.2rem; cursor: pointer; color: white; }
-        .menu-item:last-child { border-bottom: none; }
-        .menu-item span { display: block; font-size: 0.8rem; color: #888; }
-        .close-menu { position: absolute; top: 15px; right: 15px; font-size: 2rem; color: white; cursor: pointer; }
-        #incomeDisplay { font-size: 1.8rem; font-weight: bold; color: #2ecc71; margin-top: 5px; }
+        .card { position: absolute; left:10px; right:10px; bottom:20px; background: rgba(20,20,20,0.95); border-radius:15px; padding:20px; z-index:1001; border:1px solid #333; display:none; box-shadow: 0 10px 40px rgba(0,0,0,0.8); backdrop-filter: blur(10px); }
+        .fare-txt { font-size: 2.8rem; font-weight: 800; color: #d4af37; margin-bottom: 5px; }
+        .info-row { display:flex; justify-content:space-between; margin-bottom:15px; background:#000; padding:10px; border-radius:8px; border:1px solid #333; }
+        .info-col { text-align:center; width:48%; }
+        .lbl { font-size:0.7rem; color:#888; }
+        .val { font-size:1.1rem; font-weight:bold; color:white; }
 
-        /* General styles for map/cards/buttons */
-        .recenter-btn { position: absolute; bottom: 150px; right: 20px; width: 45px; height: 45px; z-index: 1000; }
-        .card { position: absolute; left:10px; right:10px; bottom:20px; z-index:1001; }
-        .contact-btn, .map-nav-btn { margin-bottom:10px; }
+        .btn-row { display: flex; gap: 10px; margin-top: 15px; }
+        .accept-btn { flex: 1; padding: 15px; background: #d4af37; color:black; font-weight:bold; border:none; border-radius:8px; cursor:pointer; font-size:1.1rem; }
+        .skip-btn { flex: 1; padding: 15px; background: #333; color:#aaa; font-weight:bold; border:1px solid #555; border-radius:8px; cursor:pointer; font-size:1.1rem; }
 
-        /* Toggle Switch CSS (Uber style) */
-        .switch { position: relative; display: inline-block; width: 40px; height: 24px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; }
-        .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 4px; bottom: 4px; background-color: white; transition: .4s; }
-        input:checked + .slider { background-color: #2ecc71; }
-        input:checked + .slider:before { transform: translateX(16px); }
-        .slider.round { border-radius: 24px; }
-        .slider.round:before { border-radius: 50%; }
+        .contact-btn { display:block; background:#2ecc71; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
+        .finish-btn { display:block; background:#000; color:#d4af37; border: 1px solid #d4af37; text-align:center; padding:12px; border-radius:8px; font-weight:bold; font-size:1.1rem; width: 100%; cursor: pointer;}
+        
+        /* Map Navigation Button Style */
+        .map-nav-btn { display:block; background:#007bff; color:white; text-align:center; padding:12px; border-radius:8px; text-decoration:none; font-weight:bold; margin-bottom:10px; font-size:1.1rem; border: none; width: 100%; cursor: pointer;}
+
+        .otp-box { margin-top: 15px; background: #111; padding: 10px; border-radius: 8px; border: 1px solid #444; }
+        .otp-row { display: flex; gap: 10px; margin-top: 5px; }
+        .otp-inp { flex: 1; padding: 10px; text-align: center; font-size: 1.3rem; letter-spacing: 5px; background: #000; border: 1px solid #d4af37; color: white; border-radius: 5px; }
+        .go-btn { padding: 0 20px; background: #d4af37; color: black; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+
+        .help-btn { position: absolute; top: 20px; right: 20px; background: red; color: white; font-weight: bold; padding: 8px 15px; border-radius: 50px; z-index: 2000; display: none; border: 2px solid white; cursor: pointer; }
+
+        #helpModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; flex-direction: column; justify-content: center; align-items: center; }
+        .help-box { background: #222; padding: 25px; border-radius: 15px; width: 80%; text-align: center; border: 1px solid #d4af37; }
+        .call-opt { display: block; background: #333; color: white; padding: 15px; margin: 10px 0; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 1px solid #555; }
+
+        #billModal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .bill-box { background: white; color: black; padding: 30px; border-radius: 15px; width: 85%; max-width: 400px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
+        .total-fare { font-size: 4rem; font-weight: 900; color: green; margin: 10px 0; }
+
     </style>
 </head>
 <body>
@@ -59,6 +59,7 @@
     <audio id="ringtone" src="https://media.geeksforgeeks.org/wp-content/uploads/20190531135120/beep.mp3" loop></audio>
 
     <div id="helpBtn" class="help-btn" onclick="openHelp()">🆘 HELP</div>
+
     <div id="helpModal">
         <div class="help-box">
             <h2 style="color:red; margin-top:0;">EMERGENCY HELP</h2>
@@ -71,46 +72,10 @@
     <div id="dLoginScreen">
         <div class="logo">MS PARTNER</div>
         <input id="dPhone" class="d-inp" type="tel" placeholder="Enter Mobile Number">
-        <button class="d-btn" onclick="tryLogin()">LOGIN & CONTINUE</button>
-    </div>
-
-    <div id="dVehicleSetup" style="display:none;">
-        <div class="logo">SETUP VEHICLE</div>
-        <p style="color:#aaa; margin-bottom: 20px;">Please select your vehicle and enter the number.</p>
-        
-        <div class="vehicle-type-select">
-            <div id="vCar" class="v-opt" onclick="selectVehicle('Car')"><span>🚗</span> Car</div>
-            <div id="vBike" class="v-opt" onclick="selectVehicle('Bike')"><span>🏍️</span> Bike</div>
-        </div>
-        
-        <input id="dVehNumber" class="d-inp" type="text" placeholder="Vehicle Number (e.g., TS09AB1234)">
-        <button class="d-btn" onclick="saveVehicleDetails()">GO ONLINE</button>
-    </div>
-
-    <div id="dMenu">
-        <div class="close-menu" onclick="closeMenu()">✕</div>
-        <div class="logo" style="margin-bottom: 40px;">DASHBOARD</div>
-        
-        <div class="menu-item">Today's Earnings: <span id="incomeDisplay">₹0</span></div>
-        <div class="menu-item" onclick="viewHistory()">Trip History <span>(Past Rides)</span></div>
-        <div class="menu-item" onclick="showCustomConfirm('Logout', 'Are you sure you want to log out and go offline?', logout)">
-            <span style="color:red; font-weight:bold;">LOGOUT</span>
-            <span>(Stop receiving requests)</span>
-        </div>
+        <button class="d-btn" onclick="startDuty()">START DUTY</button>
     </div>
 
     <div id="dApp">
-        <div id="appHeader">
-            <div style="display:flex; align-items:center;">
-                <label class="switch" style="margin-right: 15px;">
-                    <input type="checkbox" id="dutyToggle" onchange="toggleDuty()">
-                    <span class="slider round"></span>
-                </label>
-                <div id="dutyStatus" class="duty-off">OFF DUTY</div>
-            </div>
-            <div id="menuBtn" class="menu-btn" onclick="openMenu()">☰</div>
-        </div>
-
         <div id="map"></div>
         <div class="recenter-btn" onclick="recenterMap()">🎯</div>
 
@@ -160,7 +125,7 @@
             <button class="finish-btn" onclick="completeRide()">END TRIP & GET BILL</button>
         </div>
     </div>
-    <div id="billModal" style="display:none;">
+<div id="billModal" style="display:none;">
     <div class="bill-box">
         <h2>TRIP COMPLETED ✅</h2>
         <p style="color:#555;">Collect Cash from Customer</p>
@@ -196,16 +161,13 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.database();
 
-    let map, driverMarker, driverLat, driverLng, driverMobile, driverVehicle, driverVehicleNum;
+    let map, driverMarker, driverLat, driverLng, driverMobile;
     let currentReqKey, currentReqData, routeLine, pickupMarker, dropMarker;
     let followDriver = true;
     let gpsWatchId = null;
-    let isRequesting = false;
-    let isOnDuty = false;
-    let todayIncome = parseFloat(localStorage.getItem('msPartnerIncome') || '0');
+    let isRequesting = false; // NEW: Flag to stop listening for new requests
 
-    // --- Utility Functions (Speak, Dialogs, GPS, Map Init) ---
-
+    // ------------------- custom dialog functions -------------------
     const customDialog = document.getElementById('customDialog');
     const customDialogTitle = document.getElementById('customDialogTitle');
     const customDialogMessage = document.getElementById('customDialogMessage');
@@ -246,22 +208,50 @@
 
         customDialogOk.addEventListener('click', okHandler);
     }
-    
+    // ----------------------------------------------------------------
+
     function speak(text) {
         try {
             if (window.Android && typeof window.Android.speak === 'function') {
                 window.Android.speak(text);
                 return;
             }
+            if (window.Android && typeof window.Android.speak === 'string') {
+                window.Android.speak(text);
+                return;
+            }
         } catch(e){ console.warn("Android bridge failed:", e); }
+
         if ('speechSynthesis' in window) {
             try {
                 window.speechSynthesis.cancel();
                 const ut = new SpeechSynthesisUtterance(text);
+                ut.lang = 'en-US'; 
+                ut.rate = 1.0;
+                ut.pitch = 1.0;
                 window.speechSynthesis.speak(ut);
                 return;
             } catch(err) { console.warn("speechSynthesis error:", err); }
         }
+
+        try {
+            const r = document.getElementById('ringtone');
+            if (r) { r.play().catch(()=>{}); setTimeout(()=>{ try{ r.pause(); r.currentTime=0; }catch(e){} },1400); }
+        } catch(e){ console.warn("beep fallback failed:", e); }
+    }
+
+    function startDuty() {
+        const num = document.getElementById('dPhone').value;
+        if(num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
+        // FIX: No longer saving mobile number to localStorage to prevent automatic pre-fill
+        driverMobile = num;
+        document.getElementById('dLoginScreen').style.display = 'none';
+        document.getElementById('dApp').style.display = 'flex';
+        document.getElementById('helpBtn').style.display = 'block';
+        initializeMap([17.3850, 78.4867], 13);
+        startGPSCheck();
+        startListening();
+        speak("Service started. Welcome partner.");
     }
 
     function initializeMap(initialLatlng, initialZoom) {
@@ -279,143 +269,52 @@
         driverLat = initialLatlng[0]; driverLng = initialLatlng[1];
     }
 
+    // ======= GPS GUIDANCE TEXT (English) =======
     const GPS_HELP_TEXT = "Your GPS location cannot be accessed. Don't worry — just drag the car icon to where you are and you will start receiving bookings.";
+    // =======
 
-    function startGPSCheck() { /* ... */ }
-    function onPositionUpdate(pos) { /* ... */ }
-    function onGPSError(err) { /* ... */ }
-    function recenterMap() { /* ... */ }
-
-
-    // --- Login and Duty Management (Updated) ---
-
-    window.onload = function() {
-        driverMobile = localStorage.getItem('msPartnerMobile');
-        driverVehicle = localStorage.getItem('msPartnerVehicle');
-        driverVehicleNum = localStorage.getItem('msPartnerVehicleNum');
-
-        if (driverMobile) {
-            document.getElementById('dPhone').value = driverMobile;
-            if (driverVehicle && driverVehicleNum) {
-                startApp();
-            } else {
-                document.getElementById('dLoginScreen').style.display = 'none';
-                document.getElementById('dVehicleSetup').style.display = 'flex';
-            }
+    function startGPSCheck() {
+        if (!navigator.geolocation) {
+            showCustomAlert('GPS Not Supported', GPS_HELP_TEXT);
+            speak(GPS_HELP_TEXT);
+            return;
         }
-        updateIncomeDisplay();
+        navigator.geolocation.getCurrentPosition((pos) => {
+            const lat = pos.coords.latitude; const lng = pos.coords.longitude;
+            driverLat = lat; driverLng = lng; if(driverMarker) driverMarker.setLatLng([lat,lng]); if(map) map.setView([lat,lng],16);
+            if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy:true});
+        }, (err) => {
+            console.warn("GPS initial error:", err);
+            showCustomAlert('GPS Unavailable', GPS_HELP_TEXT);
+            speak(GPS_HELP_TEXT);
+            if (!gpsWatchId) gpsWatchId = navigator.geolocation.watchPosition(onPositionUpdate, onGPSError, {enableHighAccuracy:true});
+        }, {enableHighAccuracy:true, timeout:5000});
     }
 
-    function tryLogin() {
-        const num = document.getElementById('dPhone').value;
-        if(num.length < 10) return showCustomAlert('Invalid', 'Enter a valid mobile number');
-        
-        localStorage.setItem('msPartnerMobile', num);
-        driverMobile = num;
-
-        if (localStorage.getItem('msPartnerVehicle')) {
-            startApp();
-        } else {
-            document.getElementById('dLoginScreen').style.display = 'none';
-            document.getElementById('dVehicleSetup').style.display = 'flex';
-        }
+    function onPositionUpdate(pos) {
+        driverLat = pos.coords.latitude; driverLng = pos.coords.longitude;
+        if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]);
+        if(followDriver && map) map.panTo([driverLat, driverLng]);
     }
 
-    function selectVehicle(type) {
-        document.querySelectorAll('.v-opt').forEach(el => el.classList.remove('selected'));
-        document.getElementById(`v${type}`).classList.add('selected');
-        driverVehicle = type;
+    function onGPSError(err) {
+        console.error("GPS watch error:", err);
+        followDriver = false;
+        if (gpsWatchId) { navigator.geolocation.clearWatch(gpsWatchId); gpsWatchId = null; }
+        showCustomAlert('GPS Signal Lost', GPS_HELP_TEXT);
+        speak(GPS_HELP_TEXT);
     }
 
-    function saveVehicleDetails() {
-        const vehNum = document.getElementById('dVehNumber').value;
-        if (!driverVehicle) return showCustomAlert('Error', 'Please select a vehicle type.');
-        if (vehNum.length < 5) return showCustomAlert('Error', 'Please enter a valid vehicle number.');
-        
-        localStorage.setItem('msPartnerVehicle', driverVehicle);
-        localStorage.setItem('msPartnerVehicleNum', vehNum);
-        driverVehicleNum = vehNum;
-        
-        startApp();
-    }
-
-    function startApp() {
-        document.getElementById('dLoginScreen').style.display = 'none';
-        document.getElementById('dVehicleSetup').style.display = 'none';
-        document.getElementById('dApp').style.display = 'flex';
-        document.getElementById('helpBtn').style.display = 'block';
-        initializeMap([17.3850, 78.4867], 13);
-        startGPSCheck();
-        
-        document.getElementById('dutyToggle').checked = true;
-        toggleDuty(); 
-    }
-
-    function updateIncomeDisplay() {
-        document.getElementById('incomeDisplay').innerText = `₹${todayIncome.toFixed(2)}`;
-        localStorage.setItem('msPartnerIncome', todayIncome.toFixed(2));
-    }
-
-    function openMenu() {
-        document.getElementById('dMenu').classList.add('active');
-    }
-
-    function closeMenu() {
-        document.getElementById('dMenu').classList.remove('active');
-    }
-
-    function viewHistory() {
-        closeMenu();
-        showCustomAlert('Trip History', 'This feature is under development! Current Income: ₹' + todayIncome.toFixed(2));
-    }
-
-    function logout() {
-        if (!isOnDuty) {
-            localStorage.removeItem('msPartnerMobile');
-            localStorage.removeItem('msPartnerVehicle');
-            localStorage.removeItem('msPartnerVehicleNum');
-            localStorage.removeItem('msPartnerIncome');
-            location.reload(); 
-        } else {
-            showCustomAlert('Cannot Logout', 'Please go OFF DUTY before logging out.');
-        }
-    }
-
-    function toggleDuty() {
-        const toggle = document.getElementById('dutyToggle');
-        const statusDiv = document.getElementById('dutyStatus');
-        isOnDuty = toggle.checked;
-
-        if (isOnDuty) {
-            statusDiv.innerText = 'ON DUTY';
-            statusDiv.className = 'duty-on';
-            startListening(); 
-            speak("You are now online.");
-        } else {
-            statusDiv.innerText = 'OFF DUTY';
-            statusDiv.className = 'duty-off';
-            stopListening(); 
-            document.getElementById('reqPopup').style.display = 'none'; 
-            isRequesting = false;
-            speak("You are now offline.");
-        }
-    }
-
-
-    // --- Firebase and Ride Logic ---
-
-    function startListening() {
-        if (isOnDuty) {
-            db.ref('requests').limitToLast(1).on('child_added', requestListener);
-        }
-    }
-
-    function stopListening() {
-        db.ref('requests').limitToLast(1).off('child_added', requestListener);
+    function recenterMap() {
+        followDriver = true;
+        if(driverLat && driverLng) { const newZoom = map.getZoom() < 14 ? 16 : map.getZoom(); map.setView([driverLat, driverLng], newZoom); speak("Centered on your location."); }
+        else { const center = map.getCenter(); driverLat = center.lat; driverLng = center.lng; if(driverMarker) driverMarker.setLatLng([driverLat, driverLng]); map.setView([driverLat, driverLng], map.getZoom()); speak("Location set to map center."); }
     }
     
+    // NEW: Function to listen for new requests
     function requestListener(snap) {
-        if (!isOnDuty || isRequesting) return;
+        // FIX: Check isRequesting flag to block new requests if one is active
+        if (isRequesting) return;
         
         const data = snap.val();
         if(!data) return;
@@ -423,7 +322,7 @@
             if (!driverLat || !driverLng) return console.log("Waiting for location.");
             let dist = getDist(driverLat, driverLng, data.pickupLat, data.pickupLng).toFixed(1);
             if(dist <= 2.0) {
-                isRequesting = true; 
+                isRequesting = true; // Block further requests immediately
                 try { document.getElementById('ringtone').play().catch(()=>{}); } catch(e){}
                 speak("A new request has arrived. The fare is " + data.price + " rupees. Pickup distance " + dist + " kilometers.");
                 showRequest(data, snap.key, dist);
@@ -431,82 +330,168 @@
         }
     }
 
-    function showRequest(data, key, pKM) { /* ... */ }
-    function tryAcceptRide() { /* ... */ }
-    function rideSecured() { /* ... */ }
+    function startListening() {
+        // FIX: Use requestListener and limit to last 1 request
+        db.ref('requests').limitToLast(1).on('child_added', requestListener);
+    }
+
+    function stopListening() {
+        // Function to stop listening for new requests
+        db.ref('requests').limitToLast(1).off('child_added', requestListener);
+    }
 
 
-    // ** MAPS FINAL APP LAUNCH FIX (Anchor Click Trick) **
+    function showRequest(data, key, pKM) {
+        currentReqKey = key; currentReqData = data;
+        document.getElementById('reqPopup').style.display = 'block';
+        document.getElementById('fareDisplay').innerText = data.price;
+        document.getElementById('pickupDist').innerText = pKM + " KM";
+        document.getElementById('tripDist').innerText = data.distance;
+        
+        var personIcon = L.icon({ iconUrl: 'https://cdn-icons-png.flaticon.com/512/236/236831.png', iconSize: [35, 35], iconAnchor: [17, 35] });
+        if (pickupMarker) map.removeLayer(pickupMarker); 
+        pickupMarker = L.marker([data.pickupLat, data.pickupLng], {icon: personIcon}).addTo(map).bindPopup("CUSTOMER PICKUP");
+        map.setView([data.pickupLat, data.pickupLng], 15); 
+    }
+
+    function tryAcceptRide() {
+        try { document.getElementById('ringtone').pause(); } catch(e){}
+        stopListening(); // Temporarily stop listening while transaction is pending
+        
+        db.ref('requests/' + currentReqKey).transaction(function(curr) {
+            if (curr === null) return curr;
+            if (curr.status === 'pending') return { ...curr, status: 'accepted', driverMobile: driverMobile };
+            else return;
+        }, function(error, committed, snapshot) {
+            if (!committed) {
+                showCustomAlert('Booking Missed', 'Booking missed by another driver or customer cancelled.');
+                document.getElementById('reqPopup').style.display = 'none';
+                if (pickupMarker) map.removeLayer(pickupMarker); 
+                isRequesting = false; // Allow new requests
+                startListening(); // Resume listening for new requests
+            } else {
+                speak("Booking accepted. Proceed to pickup.");
+                rideSecured();
+            }
+        });
+    }
+
+    function rideSecured() {
+        document.getElementById('reqPopup').style.display = 'none';
+        document.getElementById('pickupCard').style.display = 'block';
+        document.getElementById('custMobDisp').innerText = currentReqData.customerMobile;
+        document.getElementById('callBtn').href = "tel:" + currentReqData.customerMobile;
+        
+        drawRoute(driverLat, driverLng, currentReqData.pickupLat, currentReqData.pickupLng, '#d4af37');
+        
+        if (pickupMarker) pickupMarker.openPopup();
+    }
+    
     function openPickupMap() {
         if (!currentReqData) return showCustomAlert('Error', 'No pickup location data.');
         const pLat = currentReqData.pickupLat;
         const pLng = currentReqData.pickupLng;
-        
-        // Use geo: scheme - which mimics the behavior of a tel: link
-        const navUrl = `geo:${pLat},${pLng}?q=${pLat},${pLng}(Pickup Location)`;
-        
-        // Anchor Tag Trick: This is the best JavaScript way to force app launch
-        const a = document.createElement('a');
-        a.href = navUrl;
-        a.style.display = 'none';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a); 
-        
+        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${driverLat},${driverLng}&destination=${pLat},${pLng}&travelmode=driving`;
+        window.open(navUrl, '_blank');
         speak("Opening navigation to customer pickup location.");
     }
     
-    // ** MAPS FINAL APP LAUNCH FIX (Anchor Tag Trick) **
+    // NEW FUNCTION: Open external map for Drop location
     function openDropMap() {
         if (!currentReqData || !currentReqData.dropLat || !currentReqData.dropLng) return showCustomAlert('Error', 'Drop location is missing.');
         const dLat = currentReqData.dropLat;
         const dLng = currentReqData.dropLng;
-        
-        // Use geo: scheme
-        const navUrl = `geo:${dLat},${dLng}?q=${dLat},${dLng}(Drop Location)`;
-        
-        // Anchor Tag Trick
-        const a = document.createElement('a');
-        a.href = navUrl;
-        a.style.display = 'none';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a); 
-        
+        // Assuming current location is pickup location, since trip has started
+        const navUrl = `https://www.google.com/maps/dir/?api=1&origin=${currentReqData.pickupLat},${currentReqData.pickupLng}&destination=${dLat},${dLng}&travelmode=driving`;
+        window.open(navUrl, '_blank');
         speak("Opening navigation to drop location.");
     }
 
 
-    function verifyOtp() { /* ... */ }
+    function verifyOtp() {
+        const entered = document.getElementById('otpIn').value;
+        if (!currentReqData) { showCustomAlert('Error', 'No request data.'); speak("No request data."); return; }
+
+        if (entered == currentReqData.otp) {
+            // FIX: Show alert confirming OTP and starting trip.
+            speak("OTP verified. Starting the trip now. Drive safely.");
+            
+            try { db.ref('requests/' + currentReqKey).update({ status: "started" }); } catch(e) { console.warn("DB update failed:", e); }
+            document.getElementById('pickupCard').style.display = 'none';
+            document.getElementById('dropCard').style.display = 'block';
+            if (pickupMarker) map.removeLayer(pickupMarker); 
+
+            if (currentReqData.dropLat && currentReqData.dropLng) {
+                drawRoute(currentReqData.pickupLat, currentReqData.pickupLng, currentReqData.dropLat, currentReqData.dropLng, '#2ecc71');
+                var dropIcon = L.icon({ iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png', iconSize: [25, 41] });
+                // FIX: Store drop marker reference
+                if (dropMarker) map.removeLayer(dropMarker); 
+                dropMarker = L.marker([currentReqData.dropLat, currentReqData.dropLng], {icon: dropIcon}).addTo(map).bindPopup("DROP");
+                
+                // Show drop map button
+                document.getElementById('mapNavBtnDrop').style.display = 'block';
+                
+            } else {
+                speak("Drop location was not provided. Ask passenger for drop location and navigate manually.");
+                showCustomAlert('Drop Missing', 'Drop coordinates not available. Ask passenger for drop location and navigate manually.');
+                document.getElementById('mapNavBtnDrop').style.display = 'none';
+            }
+        } else {
+            speak("Incorrect OTP.");
+            showCustomAlert('Wrong OTP', 'The OTP entered is incorrect. Please ask the passenger to re-check.');
+        }
+    }
+
     function completeRide() {
         db.ref('requests/' + currentReqKey).update({ status: "completed" });
-        
-        const fare = parseFloat(currentReqData.price);
-        if (!isNaN(fare)) {
-            todayIncome += fare;
-            updateIncomeDisplay();
-        }
-
         document.getElementById('dropCard').style.display = 'none';
         document.getElementById('billModal').style.display = 'flex';
         document.getElementById('billAmount').innerText = "₹" + currentReqData.price;
         speak("Trip complete. Cash collect and move to next ride.");
         
+        // Cleanup and reset state
         if(routeLine) map.removeLayer(routeLine); 
         if(pickupMarker) map.removeLayer(pickupMarker);
         if(dropMarker) map.removeLayer(dropMarker);
         currentReqData = null; currentReqKey = null; 
         isRequesting = false;
-        if (isOnDuty) startListening();
+        startListening(); // Start listening for new requests again
     }
 
-    function skipRide() { /* ... */ }
-    function cancelRide() { /* ... */ }
+    function skipRide() { 
+        try{ document.getElementById('ringtone').pause(); }catch(e){} 
+        document.getElementById('reqPopup').style.display = 'none'; 
+        if (pickupMarker) map.removeLayer(pickupMarker); 
+        isRequesting = false; // Allow new requests
+        speak("Request skipped."); 
+    }
     
-    function openHelp() { /* ... */ }
-    function closeHelp() { /* ... */ }
-    function drawRoute(lat1, lng1, lat2, lng2, color) { /* ... */ }
-    function getDist(lat1,lon1,lat2,lon2) { /* ... */ }
+    function cancelRide() {
+        showCustomConfirm('Cancel Ride', 'Are you sure you want to cancel this ride?', function ok() {
+            db.ref('requests/' + currentReqKey).update({ status: "cancelled" }).then(()=> {
+                // Cleanup and reset state on successful cancel
+                isRequesting = false;
+                location.reload(); 
+            }).catch(()=> showCustomAlert('Error','Cancel failed'));
+        }, function cancel(){});
+    }
+    
+    function openHelp() { document.getElementById('helpModal').style.display = 'flex'; speak("Help opened."); }
+    function closeHelp() { document.getElementById('helpModal').style.display = 'none'; speak("Help closed."); }
+
+    function drawRoute(lat1, lng1, lat2, lng2, color) {
+        if(routeLine) map.removeLayer(routeLine);
+        var latlngs = [[lat1, lng1], [lat2, lng2]];
+        routeLine = L.polyline(latlngs, {color: color, weight: 5}).addTo(map);
+        map.fitBounds(routeLine.getBounds(), {padding:[40,40]});
+    }
+ 
+    function getDist(lat1,lon1,lat2,lon2) {
+        var R = 6371; var dLat = (lat2-lat1)*(Math.PI/180); var dLon = (lon2-lon1)*(Math.PI/180);
+        var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1*(Math.PI/180)) * Math.cos(lat2*(Math.PI/180)) * Math.sin(dLon/2) * Math.sin(dLon/2);
+        return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)));
+    }
 </script>
 </body>
 </html>
+            
