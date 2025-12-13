@@ -804,35 +804,6 @@ selectVehicle(selectedVehicle);
 
     // End of script
   <script>
-function selectVehicle(type){
 
-  // sab ke border hata
-  ['car','auto','bike'].forEach(v=>{
-    const el = document.getElementById('vehicle_'+v);
-    if(el){
-      el.style.border = '2px solid transparent';
-    }
-  });
-
-  // selected vehicle pe green border
-  const active = document.getElementById('vehicle_'+type);
-  if(active){
-    active.style.border = '2px solid #16a34a';
-  }
-
-  // selected vehicle save
-  selectedVehicle = type;
-
-  // fare recalc
-  if(typeof updateCalc === 'function'){
-    updateCalc();
-  }
-}
-
-// page load pe car active
-document.addEventListener("DOMContentLoaded", ()=>{
-  selectVehicle('car');
-});
-</script>
 </body>
 </html>
