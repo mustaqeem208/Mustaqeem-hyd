@@ -72,87 +72,49 @@
 </head>
 <body>
 
-  <!-- ===== ZIGO CAB | SLIM TOP BAR ===== -->
-<div id="topBar"
+<!-- ===== ZIGO CAB | MENU PANEL ===== -->
+<div id="menuPanel"
   style="
+    display:none;
     position:fixed;
-    top:0;left:0;right:0;
-    z-index:1800;
-    height:44px;                 /* 👈 BARIK */
+    top:50px;
+    right:10px;
+    z-index:1900;
+    width:220px;
     background:#020617;
-    color:#fff;
-    padding:0 10px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    box-shadow:0 4px 12px rgba(0,0,0,0.35);
+    border-radius:14px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.6);
+    padding:10px;
   ">
 
-  <!-- User -->
-  <div id="userLabel"
+  <!-- USER -->
+  <div
     style="
-      font-size:13px;
-      font-weight:700;
+      padding:8px 10px;
+      font-size:12px;
+      font-weight:800;
       color:#facc15;
-      white-space:nowrap;
-    ">
+      border-bottom:1px solid #1e293b;
+      margin-bottom:6px;
+    "
+    id="userLabel">
     +91 99999 99999
   </div>
 
-  <!-- Actions -->
-  <div style="display:flex;gap:6px;align-items:center">
+  <!-- ITEMS -->
+  <div onclick="openHistory()"
+    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
+    📜 Ride History
+  </div>
 
-    <!-- HELP -->
-    <button
-      onclick="openHelp()"
-      style="
-        height:26px;
-        padding:0 10px;
-        border-radius:999px;
-        border:1px solid #7f1d1d;
-        background:transparent;
-        color:#fca5a5;
-        font-size:11px;
-        font-weight:800;
-        cursor:pointer;
-      ">
-      HELP
-    </button>
+  <div onclick="openPrivacy()"
+    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
+    🔐 Privacy Policy
+  </div>
 
-    <!-- History -->
-    <button
-      onclick="openHistory()"
-      style="
-        height:26px;
-        padding:0 10px;
-        border-radius:999px;
-        border:1px solid #334155;
-        background:transparent;
-        color:#e5e7eb;
-        font-size:11px;
-        font-weight:700;
-        cursor:pointer;
-      ">
-      History
-    </button>
-
-    <!-- Logout -->
-    <button
-      onclick="logout()"
-      style="
-        height:26px;
-        padding:0 10px;
-        border-radius:999px;
-        border:1px solid #334155;
-        background:transparent;
-        color:#e5e7eb;
-        font-size:11px;
-        font-weight:700;
-        cursor:pointer;
-      ">
-      Logout
-    </button>
-
+  <div onclick="logout()"
+    style="padding:10px;border-radius:10px;color:#fca5a5;font-size:13px;font-weight:800;cursor:pointer">
+    🚪 Logout
   </div>
 </div>
 
