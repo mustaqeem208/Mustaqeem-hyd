@@ -72,62 +72,59 @@
 </head>
 <body>
 
+
   <!-- ===== ZIGO CAB | TOP BAR ===== -->
 <div id="topBar"
   style="
     position:fixed;
     top:0;left:0;right:0;
-    height:44px;
-    z-index:1800;
+    height:46px;
     background:#020617;
     color:#fff;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 10px;
+    padding:0 12px;
+    z-index:2000;
+    box-shadow:0 4px 14px rgba(0,0,0,0.4);
   ">
 
-  <!-- USER -->
+  <!-- LEFT : MENU -->
+  <button onclick="openMenu()"
+    style="
+      background:transparent;
+      border:none;
+      color:#fff;
+      font-size:20px;
+      cursor:pointer;
+    ">
+    ☰
+  </button>
+
+  <!-- CENTER : USER NUMBER -->
   <div id="userLabel"
-    style="font-size:13px;font-weight:800;color:#facc15">
+    style="
+      font-size:14px;
+      font-weight:800;
+      color:#facc15;
+    ">
     +91 99999 99999
   </div>
 
-  <!-- RIGHT -->
-  <div style="display:flex;gap:8px;align-items:center">
-
-    <!-- HELP -->
-    <button onclick="openHelp()"
-      style="
-        height:26px;
-        padding:0 12px;
-        border-radius:999px;
-        border:1px solid #7f1d1d;
-        background:#7f1d1d;
-        color:#fff;
-        font-size:11px;
-        font-weight:900;
-        cursor:pointer;
-      ">
-      HELP
-    </button>
-
-    <!-- MENU ICON -->
-    <button onclick="toggleMenu()"
-      style="
-        height:26px;
-        width:26px;
-        border-radius:6px;
-        border:1px solid #334155;
-        background:transparent;
-        color:#fff;
-        font-size:16px;
-        cursor:pointer;
-      ">
-      ☰
-    </button>
-
-  </div>
+  <!-- RIGHT : SOS -->
+  <button onclick="openHelp()"
+    style="
+      padding:6px 12px;
+      border-radius:999px;
+      border:none;
+      background:#dc2626;
+      color:#fff;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    ">
+    HELP
+  </button>
 </div>
 
 <!-- ===== ZIGO CAB | MENU PANEL ===== -->
