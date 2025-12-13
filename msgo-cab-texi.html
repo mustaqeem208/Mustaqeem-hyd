@@ -801,38 +801,36 @@ selectVehicle(selectedVehicle);
 
     // End of script
   </script>
-  
-<script>
-let selectedVehicle = 'car';
+  <script>
+/* ===== FINAL BOOKING FIX ===== */
 
-function selectVehicle(type) {
-  selectedVehicle = type;
+function bookRide() {
 
-  // sab reset (FORCE)
-  ['car','auto','bike'].forEach(v => {
-    const el = document.getElementById('vehicle_' + v);
-    if (!el) return;
-    el.classList.remove('active','active-vehicle');
-    el.style.cssText = 'border:1px solid #e5e7eb !important;';
-  });
-
-  // active pe FORCE green
-  const active = document.getElementById('vehicle_' + type);
-  if (active) {
-    active.classList.add('active-vehicle');
-    active.style.cssText = 'border:2px solid #16a34a !important;';
+  if (!selectedVehicle) {
+    alert("Please select vehicle");
+    return;
   }
 
-  // fare recalc
-  if (typeof updateCalc === 'function') {
-    updateCalc();
-  }
+  const fare = vehicleMinFare[selectedVehicle];
+
+  const bookingData = {
+    vehicleType: selectedVehicle,   // 🔥 MOST IMPORTANT
+    price: fare,
+    minFare: fare,
+    status: "pending",
+    createdAt: Date.now()
+  };
+
+  // Firebase booking
+  firebase.database().ref("requests").push(bookingData)
+    .then(() => {
+      alert("Booking sent for " + selectedVehicle.toUpperCase());
+    })
+    .catch(err => {
+      alert("Booking failed");
+      console.error(err);
+    });
 }
-
-// default
-document.addEventListener("DOMContentLoaded", () => {
-  selectVehicle('car');
-});
-</script>
+  </script>
 </body>
 </html>
