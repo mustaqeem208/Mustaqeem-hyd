@@ -133,7 +133,37 @@
   </div>
 </div>
 
+<!-- ===== TOP MENU ===== -->
+<div id="topMenu"
+  style="
+    display:none;
+    position:fixed;
+    top:48px;
+    right:10px;
+    z-index:1900;
+    background:#020617;
+    border:1px solid #334155;
+    border-radius:10px;
+    width:160px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  ">
 
+  <div onclick="openHistory()"
+    style="padding:10px;color:#e5e7eb;font-size:13px;cursor:pointer">
+    📜 History
+  </div>
+
+  <div onclick="openPrivacy()"
+    style="padding:10px;color:#e5e7eb;font-size:13px;cursor:pointer">
+    🔒 Privacy Policy
+  </div>
+
+  <div onclick="logout()"
+    style="padding:10px;color:#fca5a5;font-size:13px;cursor:pointer">
+    🚪 Logout
+  </div>
+
+</div>
   
   <!-- ===== ZIGO CAB | LOGIN PAGE ===== -->
 <div id="loginPage"
@@ -800,7 +830,20 @@
 
     // End of script
   </script>
- 
+ <script>
+function setUserLabel(mobile){
+  if(!mobile) return;
+  document.getElementById('userLabel').innerText = '+91 ' + mobile;
+}
+
+/* ---- AUTO SET FROM LOCALSTORAGE ---- */
+document.addEventListener("DOMContentLoaded", () => {
+  const savedMobile = localStorage.getItem('zigoUserMobile'); 
+  if(savedMobile){
+    setUserLabel(savedMobile);
+  }
+});
+ </script>
   
 </body>
 </html>
