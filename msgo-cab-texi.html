@@ -1,9 +1,9 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>MS CABS -- Customer</title>
+  <title>MS CABS — Customer</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     /* ---------- Base / Professional Look ---------- */
@@ -41,7 +41,7 @@
     .valueCard .label{font-size:0.8rem;color:var(--muted)}
     .valueCard .value{font-size:1.25rem;font-weight:800;margin-top:6px}
 
-  /* Vehicle selector */
+    /* Vehicle selector */
     .vehicle-row{display:flex;gap:8px;margin-bottom:12px;align-items:center;justify-content:center}
     .vehicle-btn{flex:1;padding:10px;border-radius:10px;border:1px solid #e9e9ee;background:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
     .vehicle-btn.active{border:2px solid var(--accent);box-shadow:0 6px 18px rgba(16,24,40,0.06)}
@@ -80,126 +80,13 @@
     </div>
   </div>
 
-  <!-- ===== PREMIUM LOGIN PAGE ===== -->
-<div id="loginPage"
-  style="
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    background:
-      radial-gradient(circle at top, #111 0%, #000 60%);
-    color:#fff;
-    padding:24px;
-    text-align:center;
-  ">
-
-  <!-- Brand -->
-  <div
-    style="
-      font-size:36px;
-      font-weight:900;
-      letter-spacing:3px;
-      color:#f5c542;
-      margin-bottom:6px;
-    ">
-    ZIGO CAB 
+  <!-- LOGIN PAGE -->
+  <div id="loginPage">
+    <h1>MS CABS</h1>
+    <input id="mobileInput" class="inp" type="number" placeholder="Enter mobile number (10 digits)" />
+    <button class="btn" onclick="loginUser()">Continue</button>
+    <p class="note">We will request location permission to set pickup automatically. Mobile number is used to contact you when a driver accepts.</p>
   </div>
-
-  <div
-    style="
-      font-size:14px;
-      color:#aaa;
-      margin-bottom:26px;
-      letter-spacing:0.5px;
-    ">
-    Instant Ride Booking
-  </div>
-
-  <!-- Card -->
-  <div
-    style="
-      width:100%;
-      max-width:360px;
-      background:rgba(20,20,20,0.95);
-      border-radius:18px;
-      padding:22px 18px 24px;
-      box-shadow:0 18px 50px rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.06);
-    ">
-
-    <div
-      style="
-        font-size:16px;
-        font-weight:700;
-        margin-bottom:14px;
-        color:#f1f1f1;
-      ">
-      Login with Mobile Number
-    </div>
-
-    <input
-      id="mobileInput"
-      class="inp"
-      type="number"
-      placeholder="Enter 10-digit mobile number"
-      style="
-        width:100%;
-        padding:14px;
-        border-radius:14px;
-        border:1px solid #333;
-        background:#000;
-        color:#fff;
-        font-size:16px;
-        text-align:center;
-        margin-bottom:14px;
-        outline:none;
-      "
-    />
-
-    <button
-      class="btn"
-      onclick="loginUser()"
-      style="
-        width:100%;
-        padding:14px;
-        border-radius:14px;
-        border:none;
-        font-size:16px;
-        font-weight:800;
-        cursor:pointer;
-        background:linear-gradient(135deg,#f5c542,#e0aa1a);
-        color:#000;
-        box-shadow:0 6px 18px rgba(245,197,66,0.35);
-      ">
-      CONTINUE
-    </button>
-
-    <p
-      style="
-        font-size:12px;
-        color:#9ca3af;
-        margin-top:14px;
-        line-height:1.4;
-      ">
-      We will request location permission to set pickup automatically.
-      Your mobile number is used only to contact you when a driver accepts your ride.
-    </p>
-  </div>
-
-  <!-- Footer Branding -->
-  <div
-    style="
-      margin-top:26px;
-      font-size:11px;
-      color:#777;
-      letter-spacing:1px;
-    ">
-    Design by ᗰᑌᔕTᗩᑫEEᗰ
-  </div>
-
-</div>
 
   <!-- HELP -->
   <div class="help-btn" id="helpBtn" style="display:none;position:fixed;top:76px;right:12px;z-index:1700;background:#fff;padding:8px 12px;border-radius:18px;border:1px solid #ffdede;color:#e74c3c;font-weight:800;cursor:pointer" onclick="alert('Call 9381667208 for Help or 100 for Police')">🆘 Help</div>
@@ -214,241 +101,68 @@
   <!-- DRIVER PANEL -->
   <div id="driverPanel">
     <h3 style="margin:0;color:green">Driver Assigned</h3>
-    <p style="margin:6px 0">Driver: <b id="dMob">--</b></p>
+    <p style="margin:6px 0">Driver: <b id="dMob">—</b></p>
     <div class="otp-box" id="otpDisplay">0000</div>
     <div id="tripStatus" style="color:#0b6bdc;font-weight:700;margin-top:6px"></div>
     <button class="smallBtn" onclick="cancelRequest()" style="margin-top:10px;background:#ff4d4f;color:white;border:none;padding:10px 12px;border-radius:8px">Cancel Ride</button>
   </div>
 
+  <!-- MAP -->
+  <div id="map"></div>
 
-
-
-      
-<!-- ===== MAP ===== -->
-<div id="map"
-  style="
-    position:fixed;
-    inset:0;
-    z-index:1;
-    background:#eef7f1;
-  ">
-</div>
-
-<!-- ===== BOOKING PANEL ===== -->
-<div id="bookingPanel"
-  style="
-    position:fixed;
-    left:0;right:0;bottom:0;
-    z-index:999;
-    background:#e9f6ef;
-    border-radius:18px 18px 0 0;
-    padding:12px 14px 14px;
-    box-shadow:0 -14px 36px rgba(0,0,0,0.35);
-    pointer-events:auto;
-  ">
-
-  <!-- TOP -->
-  <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-    <div>
-      <div style="font-size:11px;color:#4b5563">Select vehicle</div>
-      <div style="font-size:15px;font-weight:800;color:#111">Choose your ride</div>
-    </div>
-
-    <div style="text-align:right">
-      <div style="font-size:11px;color:#4b5563">Estimated</div>
-      <div style="font-size:12px;color:#9ca3af;text-decoration:line-through">
-        ₹<span id="oldFare">350</span>
+  <!-- BOOKING PANEL -->
+  <div class="panel" id="bookingPanel">
+    <div class="panel-top">
+      <div>
+        <div class="small-muted">Select vehicle</div>
+        <div style="font-weight:800;margin-top:4px">Choose your ride</div>
       </div>
-      <div id="estFareDisplay"
-        style="font-size:17px;font-weight:900;color:#15803d">
-        ₹250
+      <div style="text-align:right">
+        <div class="small-muted">Estimated</div>
+        <div style="font-weight:900;font-size:1.1rem" id="estFareDisplay">₹250</div>
       </div>
     </div>
+
+        <!-- Vehicle selector -->
+    <div class="vehicle-row">
+      <div id="vehicle_car" class="vehicle-btn active" onclick="selectVehicle('car')">
+        <div class="vehicle-title">Car</div>
+        <div class="vehicle-sub">₹35/km • Min ₹250</div>
+      </div>
+      <div id="vehicle_auto" class="vehicle-btn" onclick="selectVehicle('auto')">
+        <div class="vehicle-title">Auto</div>
+        <div class="vehicle-sub">₹20/km • Min ₹170</div>
+      </div>
+      <div id="vehicle_bike" class="vehicle-btn" onclick="selectVehicle('bike')">
+        <div class="vehicle-title">Bike</div>
+        <div class="vehicle-sub">₹16/km • Min ₹120</div>
+      </div>
+    </div>
+
+    <!-- distance/fare -->
+    <div style="display:flex;gap:10px;margin-bottom:12px">
+      <div class="valueCard">
+        <div class="label">DISTANCE</div>
+        <div class="value" id="distDisplay">0.00 KM</div>
+      </div>
+      <div class="valueCard">
+        <div class="label">FARE</div>
+        <div class="value" id="priceDisplay">₹250</div>
+      </div>
+    </div>
+
+    <button class="book-btn" onclick="bookRide()">Book Now — Confirm</button>
   </div>
 
-  <!-- SAVE LINE -->
-  <div style="font-size:11px;color:#166534;margin-bottom:8px">
-    You save ₹<span id="saveAmt">100</span> • Safe & verified ride
-  </div>
-
-  <!-- VEHICLES -->
-  <div style="display:flex;gap:8px;margin-bottom:10px">
-
-    <div id="vehicle_car"
-      onclick="selectVehicle('car')"
-      style="
-        flex:1;
-        background:#fff;
-        border-radius:12px;
-        padding:8px;
-        text-align:center;
-        border:2px solid #16a34a;
-        cursor:pointer;
-      ">
-      <div style="font-weight:800">Car</div>
-      <div style="font-size:10px;color:#4b5563">Min ₹250</div>
-    </div>
-
-    <div id="vehicle_auto"
-      onclick="selectVehicle('auto')"
-      style="
-        flex:1;
-        background:#fff;
-        border-radius:12px;
-        padding:8px;
-        text-align:center;
-        border:2px solid transparent;
-        cursor:pointer;
-      ">
-      <div style="font-weight:800">Auto</div>
-      <div style="font-size:10px;color:#4b5563">Min ₹170</div>
-    </div>
-
-    <div id="vehicle_bike"
-      onclick="selectVehicle('bike')"
-      style="
-        flex:1;
-        background:#fff;
-        border-radius:12px;
-        padding:8px;
-        text-align:center;
-        border:2px solid transparent;
-        cursor:pointer;
-      ">
-      <div style="font-weight:800">Bike</div>
-      <div style="font-size:10px;color:#4b5563">Min ₹120</div>
-    </div>
-
-  </div>
-
-  <!-- DIST / FARE -->
-  <div style="display:flex;gap:8px;margin-bottom:10px">
-    <div style="flex:1;background:#fff;border-radius:10px;padding:8px;text-align:center">
-      <div style="font-size:10px;color:#6b7280">DISTANCE</div>
-      <div id="distDisplay" style="font-size:13px;font-weight:800">0.00 KM</div>
-    </div>
-    <div style="flex:1;background:#fff;border-radius:10px;padding:8px;text-align:center">
-      <div style="font-size:10px;color:#6b7280">FARE</div>
-      <div id="priceDisplay" style="font-size:13px;font-weight:900;color:#15803d">₹250</div>
+  <!-- BILL MODAL -->
+  <div id="billModal" style="display:none;position:fixed;inset:0;z-index:2200;align-items:center;justify-content:center;background:rgba(0,0,0,0.5)">
+    <div style="background:var(--card);padding:16px;border-radius:12px;width:90%;max-width:420px;text-align:center">
+      <h3 style="margin:6px 0">Payment Due</h3>
+      <div class="value" id="finalBill">₹0</div>
+      <p style="color:var(--muted)">Please pay the driver in cash.</p>
+      <button class="btn" onclick="closeBill()">Done</button>
     </div>
   </div>
-
-  <!-- BUTTON -->
-  <button onclick="bookRide()"
-    style="
-      width:100%;
-      padding:12px;
-      border-radius:14px;
-      border:none;
-      font-size:15px;
-      font-weight:900;
-      background:#facc15;
-      color:#000;
-      cursor:pointer;
-    ">
-    Book Now
-  </button>
-
-</div>
-
-
-        
-
-  
-
-<!-- ===== PREMIUM BILL MODAL ===== -->
-<div id="billModal"
-  style="
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:2200;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,0.75);
-    backdrop-filter:blur(6px);
-  ">
-
-  <div
-    style="
-      background:linear-gradient(180deg,#ffffff,#f7f7f7);
-      padding:22px 20px 24px;
-      border-radius:18px;
-      width:92%;
-      max-width:420px;
-      text-align:center;
-      box-shadow:0 20px 60px rgba(0,0,0,0.45);
-      border:1px solid rgba(0,0,0,0.06);
-      position:relative;
-    ">
-
-    <!-- Header -->
-    <div style="font-size:18px;font-weight:800;color:#111;margin-bottom:6px;">
-      Trip Completed
-    </div>
-    <div style="font-size:13px;color:#777;margin-bottom:14px;">
-      Thank you for riding with ZIGO
-    </div>
-
-    <!-- Amount -->
-    <div
-      style="
-        font-size:44px;
-        font-weight:900;
-        color:#16a34a;
-        margin:12px 0 10px;
-        letter-spacing:-1px;
-      "
-      id="finalBill">
-      ₹0
-    </div>
-
-    <!-- Info -->
-    <div
-      style="
-        background:#f1f5f9;
-        padding:12px;
-        border-radius:12px;
-        font-size:14px;
-        color:#444;
-        margin-bottom:18px;
-        line-height:1.4;
-      ">
-      Please pay the <b>exact amount</b> to the driver in <b>cash</b>.
-    </div>
-
-    <!-- Button -->
-    <button
-      class="btn"
-      onclick="closeBill()"
-      style="
-        width:100%;
-        padding:14px;
-        border-radius:14px;
-        border:none;
-        font-size:16px;
-        font-weight:800;
-        cursor:pointer;
-        background:linear-gradient(135deg,#111,#333);
-        color:#fff;
-        box-shadow:0 6px 18px rgba(0,0,0,0.35);
-      ">
-      DONE
-    </button>
-
-    <!-- Footer -->
-    <div
-      style="
-        margin-top:14px;
-        font-size:11px;
-        color:#999;
-        letter-spacing:0.5px;
-      ">
-      Powered by ZIGO • Safe & Reliable
-    </div>
-
-  </div>
-</div>
 
   <!-- HISTORY MODAL -->
   <div id="historyModal">
@@ -534,18 +248,15 @@
     }
 
     // ---------- VEHICLE SELECTION UI ----------
-function selectVehicle(key){
-  if (!VEHICLES[key]) return;
-  selectedVehicle = key;
-
-  document.querySelectorAll('.vehicle-btn')
-    .forEach(btn => btn.classList.remove('active'));
-
-  const el = document.getElementById('vehicle_' + key);
-  if (el) el.classList.add('active');
-
-  updateCalc();
-}
+    function selectVehicle(key){
+      if (!VEHICLES[key]) return;
+      selectedVehicle = key;
+      // update UI buttons
+      document.querySelectorAll('.vehicle-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('vehicle_' + key).classList.add('active');
+      // recalc fare
+      updateCalc();
+    }
 
     // show estimated fare prominently
     function updateEstFareDisplay(fare){
@@ -603,39 +314,29 @@ function selectVehicle(key){
       }
     }
 
-    // ---------- FARE CALCULATION (FIXED) ----------
-function updateCalc(){
-  const pLoc = pickMarker.getLatLng();
-  const dLoc = dropMarker.getLatLng();
-  if (!pLoc || !dLoc) return;
+    // ---------- FARE CALCULATION ----------
+    function updateCalc(){
+      const pLoc = pickMarker.getLatLng();
+      const dLoc = dropMarker.getLatLng();
+      if (!pLoc || !dLoc) return;
+      if (routeLine) map.removeLayer(routeLine);
+      routeLine = L.polyline([pLoc,dLoc], { color:'rgba(0,0,0,0.9)', weight:4, dashArray:'8,8' }).addTo(map);
 
-  if (routeLine) map.removeLayer(routeLine);
-  routeLine = L.polyline(
-    [pLoc, dLoc],
-    { color:'rgba(0,0,0,0.9)', weight:4, dashArray:'8,8' }
-  ).addTo(map);
+      const meters = pLoc.distanceTo(dLoc);
+      const km = (meters / 1000);
+      const kmText = km.toFixed(2);
 
-  const meters = pLoc.distanceTo(dLoc);
-  const km = meters / 1000;
-  const kmText = km.toFixed(2);
+      const cfg = VEHICLES[selectedVehicle];
+      let calculated = Math.round(km * cfg.rate);
+      if (calculated < cfg.minFare) calculated = cfg.minFare;
+        
+      document.getElementById('distDisplay').innerText = kmText + ' KM';
+      document.getElementById('priceDisplay').innerText = '₹' + calculated;
+      updateEstFareDisplay(calculated);
+    }
 
-  // 🔥 vehicle config (car / auto / bike)
-  const cfg = VEHICLES[selectedVehicle] || VEHICLES.car;
-
-  // calculate fare
-  let calculated = Math.round(km * cfg.rate);
-  if (calculated < cfg.minFare) calculated = cfg.minFare;
-
-  // UI update
-  document.getElementById('distDisplay').innerText = kmText + ' KM';
-  document.getElementById('priceDisplay').innerText = '₹' + calculated;
-
-  // 🔥 estimated / strike / save update
-  updateEstFareDisplay(calculated);
-}
-
-// initialize UI default selection (PAGE LOAD)
-selectVehicle(selectedVehicle);
+    // initialize UI default selection
+    selectVehicle(selectedVehicle);
 
     // ---------- BOOKING ----------
     async function bookRide(){
@@ -707,7 +408,7 @@ selectVehicle(selectedVehicle);
           updateHistoryStatus(userMobile, currentReqKey, 'accepted');
         } else if (data.status === 'started') {
           document.getElementById('driverPanel').style.display = 'none';
-          alert('Trip started -- have a safe journey!');
+          alert('Trip started — have a safe journey!');
           updateHistoryStatus(userMobile, currentReqKey, 'started');
         } else if (data.status === 'completed') {
           document.getElementById('loadingLayer').style.display = 'none';
@@ -760,7 +461,7 @@ selectVehicle(selectedVehicle);
         node.className = 'hist-item';
         node.innerHTML = `
           <div>
-            <div style="font-weight:800">₹${item.price} • ${item.vehicleType || '--'}</div>
+            <div style="font-weight:800">₹${item.price} • ${item.vehicleType || '—'}</div>
             <div class="hist-meta">${when} • ${item.distance}</div>
             <div class="hist-meta">Pickup: ${Number(item.pickupLat||0).toFixed(3)}, ${Number(item.pickupLng||0).toFixed(3)}</div>
           </div>
@@ -803,7 +504,6 @@ selectVehicle(selectedVehicle);
     };
 
     // End of script
-  <script>
-
+  </script>
 </body>
 </html>
