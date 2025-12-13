@@ -72,6 +72,64 @@
 </head>
 <body>
 
+  <!-- ===== ZIGO CAB | TOP BAR ===== -->
+<div id="topBar"
+  style="
+    position:fixed;
+    top:0;left:0;right:0;
+    height:44px;
+    z-index:1800;
+    background:#020617;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 10px;
+  ">
+
+  <!-- USER -->
+  <div id="userLabel"
+    style="font-size:13px;font-weight:800;color:#facc15">
+    +91 99999 99999
+  </div>
+
+  <!-- RIGHT -->
+  <div style="display:flex;gap:8px;align-items:center">
+
+    <!-- HELP -->
+    <button onclick="openHelp()"
+      style="
+        height:26px;
+        padding:0 12px;
+        border-radius:999px;
+        border:1px solid #7f1d1d;
+        background:#7f1d1d;
+        color:#fff;
+        font-size:11px;
+        font-weight:900;
+        cursor:pointer;
+      ">
+      HELP
+    </button>
+
+    <!-- MENU ICON -->
+    <button onclick="toggleMenu()"
+      style="
+        height:26px;
+        width:26px;
+        border-radius:6px;
+        border:1px solid #334155;
+        background:transparent;
+        color:#fff;
+        font-size:16px;
+        cursor:pointer;
+      ">
+      ☰
+    </button>
+
+  </div>
+</div>
+
 <!-- ===== ZIGO CAB | MENU PANEL ===== -->
 <div id="menuPanel"
   style="
