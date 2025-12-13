@@ -829,21 +829,20 @@
     };
 
     // End of script
-  </script>
- <script>
-function setUserLabel(mobile){
-  if(!mobile) return;
-  document.getElementById('userLabel').innerText = '+91 ' + mobile;
+  <script>
+function toggleMenu(){
+  const m = document.getElementById('topMenu');
+  m.style.display = (m.style.display === 'block') ? 'none' : 'block';
 }
 
-/* ---- AUTO SET FROM LOCALSTORAGE ---- */
-document.addEventListener("DOMContentLoaded", () => {
-  const savedMobile = localStorage.getItem('zigoUserMobile'); 
-  if(savedMobile){
-    setUserLabel(savedMobile);
-  }
-});
- </script>
+function openHelp(){
+  window.location.href = "tel:9381667208";
+}
+
+function openPrivacy(){
+  window.open("PASTE_YOUR_PRIVACY_POLICY_URL_HERE", "_blank");
+}
+</script>
   
 </body>
 </html>
