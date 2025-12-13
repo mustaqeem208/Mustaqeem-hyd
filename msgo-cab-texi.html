@@ -802,38 +802,6 @@ selectVehicle(selectedVehicle);
     // End of script
   </script>
   
-  <script>
-let selectedVehicle = 'car';
 
-function selectVehicle(type) {
-  selectedVehicle = type;
-
-  // 1️⃣ sab ka active class hatao
-  ['car','auto','bike'].forEach(v => {
-    const el = document.getElementById('vehicle_' + v);
-    if (!el) return;
-
-    el.classList.remove('active-vehicle');
-    el.style.border = '1px solid #e5e7eb';   // reset
-  });
-
-  // 2️⃣ selected pe active lagao
-  const active = document.getElementById('vehicle_' + type);
-  if (active) {
-    active.classList.add('active-vehicle');
-    active.style.border = '2px solid #16a34a';
-  }
-
-  // 3️⃣ fare recalculation
-  if (typeof updateCalc === 'function') {
-    updateCalc();
-  }
-}
-
-// default car active
-document.addEventListener("DOMContentLoaded", () => {
-  selectVehicle('car');
-});
-  </script>
 </body>
 </html>
