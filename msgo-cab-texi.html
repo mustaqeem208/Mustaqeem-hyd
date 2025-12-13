@@ -221,119 +221,120 @@
   </div>
 
 
-  <!-- ===== MAP ===== -->
+
+
+      
+<!-- ===== MAP ===== -->
 <div id="map"
   style="
     position:fixed;
     inset:0;
     z-index:1;
-    background:#e5e7eb;
-    pointer-events:auto;
+    background:#eef7f1;
   ">
 </div>
 
-<!-- ===== COMPACT BOOKING PANEL ===== -->
+<!-- ===== BOOKING PANEL ===== -->
 <div id="bookingPanel"
-  class="panel"
   style="
     position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    z-index:999; /* IMPORTANT */
-    pointer-events:auto; /* IMPORTANT */
-    background:#0b0b0b;
+    left:0;right:0;bottom:0;
+    z-index:999;
+    background:#e9f6ef;
     border-radius:18px 18px 0 0;
     padding:12px 14px 14px;
-    box-shadow:0 -14px 36px rgba(0,0,0,0.55);
-    border-top:1px solid rgba(255,255,255,0.06);
+    box-shadow:0 -14px 36px rgba(0,0,0,0.35);
+    pointer-events:auto;
   ">
 
   <!-- TOP -->
-  <div style="display:flex;justify-content:space-between;margin-bottom:10px">
+  <div style="display:flex;justify-content:space-between;margin-bottom:6px">
     <div>
-      <div style="font-size:11px;color:#9ca3af">Select vehicle</div>
-      <div style="font-size:15px;font-weight:800;color:#fff">Choose your ride</div>
+      <div style="font-size:11px;color:#4b5563">Select vehicle</div>
+      <div style="font-size:15px;font-weight:800;color:#111">Choose your ride</div>
     </div>
+
     <div style="text-align:right">
-      <div style="font-size:11px;color:#9ca3af">Estimated</div>
-      <div id="estFareDisplay" style="font-size:16px;font-weight:900;color:#22c55e">
+      <div style="font-size:11px;color:#4b5563">Estimated</div>
+      <div style="font-size:12px;color:#9ca3af;text-decoration:line-through">
+        ₹<span id="oldFare">350</span>
+      </div>
+      <div id="estFareDisplay"
+        style="font-size:17px;font-weight:900;color:#15803d">
         ₹250
       </div>
     </div>
   </div>
 
+  <!-- SAVE LINE -->
+  <div style="font-size:11px;color:#166534;margin-bottom:8px">
+    You save ₹<span id="saveAmt">100</span> • Safe & verified ride
+  </div>
+
   <!-- VEHICLES -->
   <div style="display:flex;gap:8px;margin-bottom:10px">
 
-    <!-- CAR -->
     <div id="vehicle_car"
       onclick="selectVehicle('car')"
       style="
         flex:1;
-        background:#111;
+        background:#fff;
         border-radius:12px;
         padding:8px;
         text-align:center;
-        border:2px solid #f5c542;
+        border:2px solid #16a34a;
         cursor:pointer;
       ">
-      <div style="font-size:22px">🚗</div>
-      <div style="font-size:13px;font-weight:800">Car</div>
-      <div style="font-size:10px;color:#9ca3af">₹35/km</div>
+      <div style="font-weight:800">Car</div>
+      <div style="font-size:10px;color:#4b5563">Min ₹250</div>
     </div>
 
-    <!-- AUTO -->
     <div id="vehicle_auto"
       onclick="selectVehicle('auto')"
       style="
         flex:1;
-        background:#0f0f0f;
+        background:#fff;
         border-radius:12px;
         padding:8px;
         text-align:center;
-        border:1px solid #222;
+        border:2px solid transparent;
         cursor:pointer;
       ">
-      <div style="font-size:22px">🛺</div>
-      <div style="font-size:13px;font-weight:800">Auto</div>
-      <div style="font-size:10px;color:#9ca3af">₹20/km</div>
+      <div style="font-weight:800">Auto</div>
+      <div style="font-size:10px;color:#4b5563">Min ₹170</div>
     </div>
 
-    <!-- BIKE -->
     <div id="vehicle_bike"
       onclick="selectVehicle('bike')"
       style="
         flex:1;
-        background:#0f0f0f;
+        background:#fff;
         border-radius:12px;
         padding:8px;
         text-align:center;
-        border:1px solid #222;
+        border:2px solid transparent;
         cursor:pointer;
       ">
-      <div style="font-size:22px">🏍️</div>
-      <div style="font-size:13px;font-weight:800">Bike</div>
-      <div style="font-size:10px;color:#9ca3af">₹16/km</div>
+      <div style="font-weight:800">Bike</div>
+      <div style="font-size:10px;color:#4b5563">Min ₹120</div>
     </div>
 
   </div>
 
   <!-- DIST / FARE -->
   <div style="display:flex;gap:8px;margin-bottom:10px">
-    <div style="flex:1;background:#0f0f0f;border-radius:10px;padding:8px;text-align:center">
-      <div style="font-size:10px;color:#9ca3af">DISTANCE</div>
+    <div style="flex:1;background:#fff;border-radius:10px;padding:8px;text-align:center">
+      <div style="font-size:10px;color:#6b7280">DISTANCE</div>
       <div id="distDisplay" style="font-size:13px;font-weight:800">0.00 KM</div>
     </div>
-    <div style="flex:1;background:#0f0f0f;border-radius:10px;padding:8px;text-align:center">
-      <div style="font-size:10px;color:#9ca3af">FARE</div>
-      <div id="priceDisplay" style="font-size:13px;font-weight:900;color:#22c55e">₹250</div>
+    <div style="flex:1;background:#fff;border-radius:10px;padding:8px;text-align:center">
+      <div style="font-size:10px;color:#6b7280">FARE</div>
+      <div id="priceDisplay" style="font-size:13px;font-weight:900;color:#15803d">₹250</div>
     </div>
   </div>
 
   <!-- BUTTON -->
-  <button
-    onclick="bookRide()"
+  <button onclick="bookRide()"
     style="
       width:100%;
       padding:12px;
@@ -341,14 +342,15 @@
       border:none;
       font-size:15px;
       font-weight:900;
-      cursor:pointer;
-      background:linear-gradient(135deg,#f5c542,#e0aa1a);
+      background:#facc15;
       color:#000;
+      cursor:pointer;
     ">
     Book Now
   </button>
 
 </div>
+
 
         
 
