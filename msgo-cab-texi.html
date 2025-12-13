@@ -127,49 +127,53 @@
   </button>
 </div>
 
-<!-- ===== ZIGO CAB | MENU PANEL ===== -->
-<div id="menuPanel"
+<!-- ===== SIDE MENU ===== -->
+<div id="sideMenu"
   style="
-    display:none;
     position:fixed;
-    top:50px;
-    right:10px;
-    z-index:1900;
-    width:220px;
+    top:0;right:-260px;
+    width:260px;
+    height:100vh;
     background:#020617;
-    border-radius:14px;
-    box-shadow:0 18px 40px rgba(0,0,0,0.6);
-    padding:10px;
+    color:#fff;
+    z-index:2500;
+    padding:16px;
+    transition:0.3s ease;
+    box-shadow:-10px 0 30px rgba(0,0,0,0.5);
   ">
 
-  <!-- USER -->
-  <div
+  <!-- USER NUMBER -->
+  <div id="menuUserNumber"
     style="
-      padding:8px 10px;
-      font-size:12px;
-      font-weight:800;
+      font-size:15px;
+      font-weight:900;
       color:#facc15;
-      border-bottom:1px solid #1e293b;
-      margin-bottom:6px;
-    "
-    id="userLabel">
+      margin-bottom:20px;
+    ">
     +91 99999 99999
   </div>
 
-  <!-- ITEMS -->
-  <div onclick="openHistory()"
-    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
+  <div onclick="openHistory()" style="padding:12px;border-bottom:1px solid #1e293b;cursor:pointer">
     📜 Ride History
   </div>
 
-  <div onclick="openPrivacy()"
-    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
-    🔐 Privacy Policy
+  <div onclick="openPrivacy()" style="padding:12px;border-bottom:1px solid #1e293b;cursor:pointer">
+    🔒 Privacy Policy
   </div>
 
-  <div onclick="logout()"
-    style="padding:10px;border-radius:10px;color:#fca5a5;font-size:13px;font-weight:800;cursor:pointer">
+  <div onclick="logout()" style="padding:12px;color:#f87171;cursor:pointer">
     🚪 Logout
+  </div>
+
+  <div onclick="closeMenu()"
+    style="
+      position:absolute;
+      top:12px;
+      right:12px;
+      font-size:20px;
+      cursor:pointer;
+    ">
+    ✕
   </div>
 </div>
 
@@ -858,5 +862,27 @@ function openPrivacy(){
   window.open("https://your-privacy-policy-url.com","_blank");
 }
   </script>
+<script>
+function openMenu(){
+  document.getElementById('sideMenu').style.right = '0';
+}
+function closeMenu(){
+  document.getElementById('sideMenu').style.right = '-260px';
+}
+
+function openHelp(){
+  window.location.href = "tel:9381667208";
+}
+
+// 🔥 IMPORTANT: SAME NUMBER TOP + MENU ME
+function setUserNumber(num){
+  document.getElementById('userLabel').innerText = num;
+  document.getElementById('menuUserNumber').innerText = num;
+}
+
+/* Example – login ke baad call kar */
+setUserNumber("+91 9381667208");
+</script>
+  
 </body>
 </html>
