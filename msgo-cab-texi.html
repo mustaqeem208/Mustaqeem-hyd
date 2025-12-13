@@ -802,6 +802,37 @@ selectVehicle(selectedVehicle);
     // End of script
   </script>
   
+<script>
+let selectedVehicle = 'car';
 
+function selectVehicle(type) {
+  selectedVehicle = type;
+
+  // sab reset (FORCE)
+  ['car','auto','bike'].forEach(v => {
+    const el = document.getElementById('vehicle_' + v);
+    if (!el) return;
+    el.classList.remove('active','active-vehicle');
+    el.style.cssText = 'border:1px solid #e5e7eb !important;';
+  });
+
+  // active pe FORCE green
+  const active = document.getElementById('vehicle_' + type);
+  if (active) {
+    active.classList.add('active-vehicle');
+    active.style.cssText = 'border:2px solid #16a34a !important;';
+  }
+
+  // fare recalc
+  if (typeof updateCalc === 'function') {
+    updateCalc();
+  }
+}
+
+// default
+document.addEventListener("DOMContentLoaded", () => {
+  selectVehicle('car');
+});
+</script>
 </body>
 </html>
