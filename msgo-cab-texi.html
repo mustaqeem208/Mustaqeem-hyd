@@ -824,5 +824,51 @@ document.addEventListener("DOMContentLoaded", () => {
   selectVehicle('car');
 });
   </script>
+  <script>
+/* ===== MASTER VEHICLE + FARE CONTROL (FINAL) ===== */
+
+let selectedVehicle = 'car';
+
+const vehicleMinFare = {
+  car: 250,
+  auto: 170,
+  bike: 120
+};
+
+// VEHICLE SELECT
+function selectVehicle(type) {
+  selectedVehicle = type;
+
+  // border reset
+  ['car','auto','bike'].forEach(v => {
+    const el = document.getElementById('vehicle_' + v);
+    if (el) el.style.border = '2px solid transparent';
+  });
+
+  // active border
+  const active = document.getElementById('vehicle_' + type);
+  if (active) active.style.border = '2px solid #16a34a';
+
+  updateFareUI(); // 🔥 yahin se fare update
+}
+
+// MASTER FARE UPDATE (sirf yahi function fare set karega)
+function updateFareUI(distanceKm = 0) {
+  const minFare = vehicleMinFare[selectedVehicle];
+  const fare = Math.max(minFare, Math.round(distanceKm * minFare));
+
+  const oldPrice = fare + Math.round(fare * 0.4);
+
+  document.getElementById('oldFare').innerText = oldPrice;
+  document.getElementById('estFareDisplay').innerText = '₹' + fare;
+  document.getElementById('priceDisplay').innerText = '₹' + fare;
+  document.getElementById('saveAmt').innerText = oldPrice - fare;
+}
+
+// PAGE LOAD DEFAULT
+document.addEventListener("DOMContentLoaded", () => {
+  selectVehicle('car');
+});
+  </script>
 </body>
 </html>
