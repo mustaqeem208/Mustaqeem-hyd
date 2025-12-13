@@ -81,126 +81,83 @@
     </div>
   </div>
 
-  <!-- LOGIN PAGE -->
-  <div id="loginPage"
+  
+  <!-- ===== ZIGO CAB | LOGIN PAGE ===== -->
+<div id="loginPage"
   style="
     min-height:100vh;
     display:flex;
     flex-direction:column;
     justify-content:center;
     align-items:center;
-    background:
-      radial-gradient(circle at top, #111 0%, #000 60%);
+    background:linear-gradient(180deg,#0f172a,#020617);
     color:#fff;
     padding:24px;
-    text-align:center;
   ">
 
   <!-- Brand -->
-  <div
-    style="
-      font-size:36px;
-      font-weight:900;
-      letter-spacing:3px;
-      color:#f5c542;
-      margin-bottom:6px;
-    ">
-    ZIGO CAB 
+  <div style="font-size:26px;font-weight:900;letter-spacing:2px;color:#facc15;margin-bottom:6px">
+    ZIGO CAB
   </div>
 
-  <div
-    style="
-      font-size:14px;
-      color:#aaa;
-      margin-bottom:26px;
-      letter-spacing:0.5px;
-    ">
-    Instant Ride Booking
+  <div style="font-size:13px;color:#cbd5f5;margin-bottom:20px">
+    Instant ride booking
   </div>
 
-  <!-- Card -->
-  <div
+  <!-- Input -->
+  <input
+    id="mobileInput"
+    type="tel"
+    placeholder="Enter mobile number"
     style="
       width:100%;
-      max-width:360px;
-      background:rgba(20,20,20,0.95);
-      border-radius:18px;
-      padding:22px 18px 24px;
-      box-shadow:0 18px 50px rgba(0,0,0,0.6);
-      border:1px solid rgba(255,255,255,0.06);
+      max-width:320px;
+      padding:14px;
+      border-radius:14px;
+      border:none;
+      outline:none;
+      font-size:15px;
+      text-align:center;
+      margin-bottom:14px;
+    "
+  />
+
+  <!-- Button -->
+  <button
+    onclick="loginUser()"
+    style="
+      width:100%;
+      max-width:320px;
+      padding:14px;
+      border-radius:14px;
+      border:none;
+      font-size:15px;
+      font-weight:900;
+      background:#facc15;
+      color:#000;
+      cursor:pointer;
     ">
+    Continue
+  </button>
 
-    <div
-      style="
-        font-size:16px;
-        font-weight:700;
-        margin-bottom:14px;
-        color:#f1f1f1;
-      ">
-      Login with Mobile Number
-    </div>
-
-    <input
-      id="mobileInput"
-      class="inp"
-      type="number"
-      placeholder="Enter 10-digit mobile number"
-      style="
-        width:100%;
-        padding:14px;
-        border-radius:14px;
-        border:1px solid #333;
-        background:#000;
-        color:#fff;
-        font-size:16px;
-        text-align:center;
-        margin-bottom:14px;
-        outline:none;
-      "
-    />
-
-    <button
-      class="btn"
-      onclick="loginUser()"
-      style="
-        width:100%;
-        padding:14px;
-        border-radius:14px;
-        border:none;
-        font-size:16px;
-        font-weight:800;
-        cursor:pointer;
-        background:linear-gradient(135deg,#f5c542,#e0aa1a);
-        color:#000;
-        box-shadow:0 6px 18px rgba(245,197,66,0.35);
-      ">
-      CONTINUE
-    </button>
-
-    <p
-      style="
-        font-size:12px;
-        color:#9ca3af;
-        margin-top:14px;
-        line-height:1.4;
-      ">
-      We will request location permission to set pickup automatically.
-      Your mobile number is used only to contact you when a driver accepts your ride.
-    </p>
+  <!-- Note -->
+  <div style="font-size:11px;color:#94a3b8;margin-top:14px;text-align:center;max-width:320px">
+    Location permission is required to set pickup automatically.<br>
+    Your number is used only for ride communication.
   </div>
 
-  <!-- Footer Branding -->
-  <div
-    style="
-      margin-top:26px;
-      font-size:11px;
-      color:#777;
-      letter-spacing:1px;
-    ">
+  <!-- Footer -->
+  <div style="margin-top:26px;font-size:11px;color:#64748b">
     Design by ᗰᑌᔕTᗩᑫEEᗰ
   </div>
 
-  </div>
+</div>
+      
+
+    
+
+    
+    
 
   <!-- HELP -->
   <div class="help-btn" id="helpBtn" style="display:none;position:fixed;top:76px;right:12px;z-index:1700;background:#fff;padding:8px 12px;border-radius:18px;border:1px solid #ffdede;color:#e74c3c;font-weight:800;cursor:pointer" onclick="alert('Call 9381667208 for Help or 100 for Police')">🆘 Help</div>
