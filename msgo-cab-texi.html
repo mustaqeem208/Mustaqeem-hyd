@@ -72,14 +72,83 @@
 </head>
 <body>
 
-  <!-- TOP BAR -->
-  <div id="topBar">
-    <div id="userLabel">+91 99999 99999</div>
-    <div style="display:flex;gap:8px;align-items:center">
-      <button class="smallBtn" onclick="openHistory()">History</button>
-      <button class="smallBtn" onclick="logout()">Logout</button>
-    </div>
+  <!-- ===== ZIGO CAB | TOP BAR ===== -->
+<div id="topBar"
+  style="
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:1800;
+    background:#020617;
+    color:#fff;
+    padding:10px 12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    box-shadow:0 8px 22px rgba(0,0,0,0.45);
+  ">
+
+  <!-- User -->
+  <div id="userLabel"
+    style="font-weight:900;color:#facc15;font-size:14px">
+    +91 99999 99999
   </div>
+
+  <!-- Actions -->
+  <div style="display:flex;gap:8px;align-items:center">
+
+    <!-- SOS -->
+    <button
+      onclick="openSOS()"
+      style="
+        padding:6px 12px;
+        border-radius:999px;
+        border:none;
+        font-size:12px;
+        font-weight:900;
+        background:#dc2626;
+        color:#fff;
+        cursor:pointer;
+        box-shadow:0 4px 14px rgba(220,38,38,0.6);
+      ">
+      🆘 SOS
+    </button>
+
+    <!-- History -->
+    <button
+      class="smallBtn"
+      onclick="openHistory()"
+      style="
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid #334155;
+        background:#020617;
+        color:#fff;
+        font-size:12px;
+        font-weight:800;
+        cursor:pointer;
+      ">
+      History
+    </button>
+
+    <!-- Logout -->
+    <button
+      class="smallBtn"
+      onclick="logout()"
+      style="
+        padding:6px 10px;
+        border-radius:999px;
+        border:1px solid #334155;
+        background:#020617;
+        color:#fff;
+        font-size:12px;
+        font-weight:800;
+        cursor:pointer;
+      ">
+      Logout
+    </button>
+
+  </div>
+</div>
 
   
   <!-- ===== ZIGO CAB | LOGIN PAGE ===== -->
