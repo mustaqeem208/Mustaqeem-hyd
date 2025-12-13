@@ -41,12 +41,51 @@
     .valueCard .label{font-size:0.8rem;color:var(--muted)}
     .valueCard .value{font-size:1.25rem;font-weight:800;margin-top:6px}
 
-    /* Vehicle selector */
-    .vehicle-row{display:flex;gap:8px;margin-bottom:12px;align-items:center;justify-content:center}
-    .vehicle-btn{flex:1;padding:10px;border-radius:10px;border:1px solid #e9e9ee;background:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
-    .vehicle-btn.active{border:2px solid var(--accent);box-shadow:0 6px 18px rgba(16,24,40,0.06)}
-    .vehicle-title{font-weight:800}
-    .vehicle-sub{font-size:0.85rem;color:var(--muted)}
+    /* ===== VEHICLE SELECTOR (FINAL) ===== */
+
+:root{
+  --accent:#16a34a;     /* green */
+  --muted:#6b7280;
+}
+
+.vehicle-row{
+  display:flex;
+  gap:8px;
+  margin-bottom:12px;
+  align-items:center;
+  justify-content:center;
+}
+
+.vehicle-btn{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
+  border:1px solid #e5e7eb;
+  background:#ffffff;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+  transition:border 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.vehicle-btn.active{
+  border:2px solid var(--accent);
+  background:#f0fdf4;
+  box-shadow:0 6px 18px rgba(16,24,40,0.08);
+}
+
+.vehicle-title{
+  font-weight:800;
+  font-size:0.95rem;
+  color:#111;
+}
+
+.vehicle-sub{
+  font-size:0.8rem;
+  color:var(--muted);
+}
 
     .book-btn{width:100%;padding:12px;background:linear-gradient(90deg,var(--accent),#111);color:var(--gold);border:none;border-radius:10px;font-weight:900;font-size:1.05rem;cursor:pointer}
 
