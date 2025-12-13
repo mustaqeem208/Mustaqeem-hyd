@@ -72,10 +72,7 @@
 </head>
 <body>
 
-
-
-
-<!-- ===== ZIGO CAB | TOP BAR ===== -->
+  <!-- ===== ZIGO CAB | TOP BAR ===== -->
 <div id="topBar"
   style="
     position:fixed;
@@ -133,37 +130,52 @@
   </div>
 </div>
 
-<!-- ===== TOP MENU ===== -->
-<div id="topMenu"
+<!-- ===== ZIGO CAB | MENU PANEL ===== -->
+<div id="menuPanel"
   style="
     display:none;
     position:fixed;
-    top:48px;
+    top:50px;
     right:10px;
     z-index:1900;
+    width:220px;
     background:#020617;
-    border:1px solid #334155;
-    border-radius:10px;
-    width:160px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    border-radius:14px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.6);
+    padding:10px;
   ">
 
+  <!-- USER -->
+  <div
+    style="
+      padding:8px 10px;
+      font-size:12px;
+      font-weight:800;
+      color:#facc15;
+      border-bottom:1px solid #1e293b;
+      margin-bottom:6px;
+    "
+    id="userLabel">
+    +91 99999 99999
+  </div>
+
+  <!-- ITEMS -->
   <div onclick="openHistory()"
-    style="padding:10px;color:#e5e7eb;font-size:13px;cursor:pointer">
-    📜 History
+    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
+    📜 Ride History
   </div>
 
   <div onclick="openPrivacy()"
-    style="padding:10px;color:#e5e7eb;font-size:13px;cursor:pointer">
-    🔒 Privacy Policy
+    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
+    🔐 Privacy Policy
   </div>
 
   <div onclick="logout()"
-    style="padding:10px;color:#fca5a5;font-size:13px;cursor:pointer">
+    style="padding:10px;border-radius:10px;color:#fca5a5;font-size:13px;font-weight:800;cursor:pointer">
     🚪 Logout
   </div>
-
 </div>
+
   
   <!-- ===== ZIGO CAB | LOGIN PAGE ===== -->
 <div id="loginPage"
@@ -609,7 +621,629 @@
       geoWatchId = null;
     }
 
-    // ---------- MAP ----------
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>MS CABS — Customer</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    /* ---------- Base / Professional Look ---------- */
+    :root{
+      --bg:#f6f7f9;
+      --accent:#111;
+      --gold:#d4af37;
+      --muted:#6b7280;
+      --card:#ffffff;
+      --radius:12px;
+      --shadow: 0 6px 22px rgba(16,24,40,0.08);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);color:#111}
+    /* Topbar */
+    #topBar{position:fixed;top:0;left:0;right:0;height:64px;background:linear-gradient(90deg,#0b0b0b, #111);color:var(--gold);display:flex;align-items:center;justify-content:space-between;padding:0 14px;z-index:1600;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:none}
+    #userLabel{font-weight:700}
+    .smallBtn{background:transparent;border:1px solid rgba(212,175,55,0.15);color:var(--gold);padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:700}
+    /* Login panel */
+    #loginPage{position:fixed;inset:0;background:var(--card);z-index:9999;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:14px;padding:26px;border-radius:12px}
+    h1{margin:0;font-size:1.6rem}
+    .inp{padding:12px 14px;width:86%;border:1px solid #e6e7ea;border-radius:10px;font-size:1rem;text-align:center}
+    .btn{padding:12px 16px;width:86%;background:var(--accent);color:var(--gold);border:none;border-radius:10px;font-weight:800;cursor:pointer}
+    p.note{color:var(--muted);width:86%;text-align:center;margin:0;font-size:0.95rem}
+
+    /* Map area */
+    #map{flex:1;height:100vh;margin-top:64px}
+
+    /* Booking card */
+    .panel{position:fixed;left:12px;right:12px;bottom:12px;background:var(--card);padding:14px;border-radius:14px;box-shadow:var(--shadow);z-index:1400}
+    .panel-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .small-muted{color:var(--muted);font-size:0.9rem}
+    .values{display:flex;gap:10px}
+    .valueCard{flex:1;background:#fbfbfb;padding:10px;border-radius:10px;text-align:center}
+    .valueCard .label{font-size:0.8rem;color:var(--muted)}
+    .valueCard .value{font-size:1.25rem;font-weight:800;margin-top:6px}
+
+    /* Vehicle selector */
+    .vehicle-row{display:flex;gap:8px;margin-bottom:12px;align-items:center;justify-content:center}
+    .vehicle-btn{flex:1;padding:10px;border-radius:10px;border:1px solid #e9e9ee;background:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+    .vehicle-btn.active{border:2px solid var(--accent);box-shadow:0 6px 18px rgba(16,24,40,0.06)}
+    .vehicle-title{font-weight:800}
+    .vehicle-sub{font-size:0.85rem;color:var(--muted)}
+
+    .book-btn{width:100%;padding:12px;background:linear-gradient(90deg,var(--accent),#111);color:var(--gold);border:none;border-radius:10px;font-weight:900;font-size:1.05rem;cursor:pointer}
+
+    /* Driver panel */
+    #driverPanel{position:fixed;left:12px;right:12px;bottom:110px;background:var(--card);padding:14px;border-radius:12px;display:none;z-index:1500;box-shadow:var(--shadow);text-align:center}
+    .otp-box{font-size:2rem;font-weight:900;color:var(--gold);letter-spacing:6px;margin:8px 0}
+
+    /* Loading overlay */
+    #loadingLayer{position:fixed;inset:0;background:rgba(5,5,10,0.7);display:none;z-index:2000;align-items:center;justify-content:center;color:white;flex-direction:column;gap:14px}
+    .loader{border:5px solid rgba(255,255,255,0.08);border-top:5px solid var(--gold);border-radius:50%;width:56px;height:56px;animation:spin 1s linear infinite}
+    @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+    /* History modal */
+    #historyModal{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;z-index:2200;align-items:center;justify-content:center}
+    #historyContent{width:92%;max-width:720px;background:var(--card);border-radius:12px;padding:14px;max-height:80vh;overflow:auto}
+    .hist-item{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #f2f3f6}
+    .hist-meta{color:var(--muted);font-size:0.9rem}
+
+    /* responsive tweaks */
+    @media(min-width:720px){#loginPage{width:420px;margin:auto;border-radius:16px}}
+  </style>
+</head>
+<body>
+
+  <!-- ===== ZIGO CAB | TOP BAR ===== -->
+<div id="topBar"
+  style="
+    position:fixed;
+    top:0;left:0;right:0;
+    height:44px;
+    z-index:1800;
+    background:#020617;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 10px;
+  ">
+
+  <!-- USER -->
+  <div id="userLabel"
+    style="font-size:13px;font-weight:800;color:#facc15">
+    +91 99999 99999
+  </div>
+
+  <!-- RIGHT -->
+  <div style="display:flex;gap:8px;align-items:center">
+
+    <!-- HELP -->
+    <button onclick="openHelp()"
+      style="
+        height:26px;
+        padding:0 12px;
+        border-radius:999px;
+        border:1px solid #7f1d1d;
+        background:#7f1d1d;
+        color:#fff;
+        font-size:11px;
+        font-weight:900;
+        cursor:pointer;
+      ">
+      HELP
+    </button>
+
+    <!-- MENU ICON -->
+    <button onclick="toggleMenu()"
+      style="
+        height:26px;
+        width:26px;
+        border-radius:6px;
+        border:1px solid #334155;
+        background:transparent;
+        color:#fff;
+        font-size:16px;
+        cursor:pointer;
+      ">
+      ☰
+    </button>
+
+  </div>
+</div>
+
+<!-- ===== ZIGO CAB | MENU PANEL ===== -->
+<div id="menuPanel"
+  style="
+    display:none;
+    position:fixed;
+    top:50px;
+    right:10px;
+    z-index:1900;
+    width:220px;
+    background:#020617;
+    border-radius:14px;
+    box-shadow:0 18px 40px rgba(0,0,0,0.6);
+    padding:10px;
+  ">
+
+  <!-- USER -->
+  <div
+    style="
+      padding:8px 10px;
+      font-size:12px;
+      font-weight:800;
+      color:#facc15;
+      border-bottom:1px solid #1e293b;
+      margin-bottom:6px;
+    "
+    id="userLabel">
+    +91 99999 99999
+  </div>
+
+  <!-- ITEMS -->
+  <div onclick="openHistory()"
+    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
+    📜 Ride History
+  </div>
+
+  <div onclick="openPrivacy()"
+    style="padding:10px;border-radius:10px;color:#e5e7eb;font-size:13px;font-weight:700;cursor:pointer">
+    🔐 Privacy Policy
+  </div>
+
+  <div onclick="logout()"
+    style="padding:10px;border-radius:10px;color:#fca5a5;font-size:13px;font-weight:800;cursor:pointer">
+    🚪 Logout
+  </div>
+</div>
+
+  
+  <!-- ===== ZIGO CAB | LOGIN PAGE ===== -->
+<div id="loginPage"
+  style="
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(180deg,#0f172a,#020617);
+    color:#fff;
+    padding:24px;
+  ">
+
+  <!-- Brand -->
+  <div style="font-size:26px;font-weight:900;letter-spacing:2px;color:#facc15;margin-bottom:6px">
+    ZIGO CAB
+  </div>
+
+  <div style="font-size:13px;color:#cbd5f5;margin-bottom:20px">
+    Instant ride booking
+  </div>
+
+  <!-- Input -->
+  <input
+    id="mobileInput"
+    type="tel"
+    placeholder="Enter mobile number"
+    style="
+      width:100%;
+      max-width:320px;
+      padding:14px;
+      border-radius:14px;
+      border:none;
+      outline:none;
+      font-size:15px;
+      text-align:center;
+      margin-bottom:14px;
+    "
+  />
+
+  <!-- Button -->
+  <button
+    onclick="loginUser()"
+    style="
+      width:100%;
+      max-width:320px;
+      padding:14px;
+      border-radius:14px;
+      border:none;
+      font-size:15px;
+      font-weight:900;
+      background:#facc15;
+      color:#000;
+      cursor:pointer;
+    ">
+    Continue
+  </button>
+
+  <!-- Note -->
+  <div style="font-size:11px;color:#94a3b8;margin-top:14px;text-align:center;max-width:320px">
+    Location permission is required to set pickup automatically.<br>
+    Your number is used only for ride communication.
+  </div>
+
+  <!-- Footer -->
+  <div style="margin-top:26px;font-size:11px;color:#64748b">
+    Design by ᗰᑌᔕTᗩᑫEEᗰ
+  </div>
+
+</div>
+      
+
+    
+<!-- ===== HELP MODAL (PREMIUM) ===== -->
+<div id="helpModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    background:rgba(0,0,0,0.6);
+    align-items:center;
+    justify-content:center;
+  ">
+
+  <div
+    style="
+      background:#ffffff;
+      border-radius:16px;
+      padding:18px;
+      width:90%;
+      max-width:340px;
+      box-shadow:0 20px 50px rgba(0,0,0,0.4);
+    ">
+
+    <div style="font-size:15px;font-weight:900;color:#111;margin-bottom:6px">
+      Need Help?
+    </div>
+
+    <div style="font-size:12px;color:#6b7280;margin-bottom:14px">
+      Choose how you want to get help
+    </div>
+
+    <a href="tel:9381667208"
+      style="
+        display:block;
+        padding:12px;
+        border-radius:12px;
+        background:#f8fafc;
+        border:1px solid #e5e7eb;
+        font-weight:800;
+        color:#111;
+        text-decoration:none;
+        margin-bottom:10px;
+        text-align:center;
+      ">
+      📞 Call ZIGO CAB Support
+    </a>
+
+    <a href="tel:100"
+      style="
+        display:block;
+        padding:12px;
+        border-radius:12px;
+        background:#fff1f2;
+        border:1px solid #fecaca;
+        font-weight:800;
+        color:#b91c1c;
+        text-decoration:none;
+        margin-bottom:12px;
+        text-align:center;
+      ">
+      👮 Call Police (100)
+    </a>
+
+    <button onclick="closeHelp()"
+      style="
+        width:100%;
+        padding:10px;
+        border-radius:12px;
+        border:none;
+        background:#e5e7eb;
+        font-weight:800;
+        cursor:pointer;
+      ">
+      Close
+    </button>
+
+  </div>
+</div>
+    
+    
+
+
+
+  <!-- LOADING -->
+  <div id="loadingLayer">
+    <div class="loader"></div>
+    <div style="font-weight:800">Searching for drivers nearby…</div>
+    <button class="smallBtn" onclick="cancelRequest()" style="background:#b91c1c;border:none;color:white;padding:8px 12px;border-radius:8px">Cancel</button>
+  </div>
+
+  <!-- DRIVER PANEL -->
+  <div id="driverPanel">
+    <h3 style="margin:0;color:green">Driver Assigned</h3>
+    <p style="margin:6px 0">Driver: <b id="dMob">—</b></p>
+    <div class="otp-box" id="otpDisplay">0000</div>
+    <div id="tripStatus" style="color:#0b6bdc;font-weight:700;margin-top:6px"></div>
+    <button class="smallBtn" onclick="cancelRequest()" style="margin-top:10px;background:#ff4d4f;color:white;border:none;padding:10px 12px;border-radius:8px">Cancel Ride</button>
+  </div>
+    <!-- MAP -->
+  <div id="map"></div>
+
+  <!-- BOOKING PANEL -->
+  <div class="panel" id="bookingPanel">
+    <div class="panel-top">
+      <div>
+        <div class="small-muted">Select vehicle</div>
+        <div style="font-weight:800;margin-top:4px">Choose your ride</div>
+      </div>
+      <div style="text-align:right">
+        <div class="small-muted">Estimated</div>
+        <div style="font-weight:900;font-size:1.1rem" id="estFareDisplay">₹250</div>
+      </div>
+    </div>
+
+    <!-- Vehicle selector -->
+    <div class="vehicle-row">
+      <div id="vehicle_car" class="vehicle-btn active" onclick="selectVehicle('car')">
+        <div class="vehicle-title">Car</div>
+        <div class="vehicle-sub">₹35/km • Min ₹250</div>
+      </div>
+      <div id="vehicle_auto" class="vehicle-btn" onclick="selectVehicle('auto')">
+        <div class="vehicle-title">Auto</div>
+        <div class="vehicle-sub">₹20/km • Min ₹170</div>
+      </div>
+      <div id="vehicle_bike" class="vehicle-btn" onclick="selectVehicle('bike')">
+        <div class="vehicle-title">Bike</div>
+        <div class="vehicle-sub">₹16/km • Min ₹120</div>
+      </div>
+    </div>
+
+    <!-- distance/fare -->
+    <div style="display:flex;gap:10px;margin-bottom:12px">
+      <div class="valueCard">
+        <div class="label">DISTANCE</div>
+        <div class="value" id="distDisplay">0.00 KM</div>
+      </div>
+      <div class="valueCard">
+        <div class="label">FARE</div>
+        <div class="value" id="priceDisplay">₹250</div>
+      </div>
+    </div>
+
+    <button class="book-btn" onclick="bookRide()">Book Now — Confirm</button>
+  </div>
+
+
+
+<!-- ===== ZIGO CAB | PREMIUM BILL CARD ===== -->
+<div id="billModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:2200;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.7);
+    backdrop-filter:blur(6px);
+  ">
+
+  <div
+    style="
+      background:#ffffff;
+      width:90%;
+      max-width:420px;
+      border-radius:20px;
+      padding:22px 20px 20px;
+      text-align:center;
+      box-shadow:0 25px 70px rgba(0,0,0,0.45);
+    ">
+
+    <!-- BRAND -->
+    <div
+      style="
+        font-size:12px;
+        font-weight:900;
+        letter-spacing:1.2px;
+        color:#16a34a;
+        margin-bottom:6px;
+      ">
+      ZIGO CAB
+    </div>
+
+    <!-- TITLE -->
+    <div
+      style="
+        font-size:14px;
+        font-weight:700;
+        color:#6b7280;
+        margin-bottom:10px;
+      ">
+      Trip Completed
+    </div>
+
+    <!-- AMOUNT (BIG & CLEAR) -->
+    <div
+      id="finalBill"
+      style="
+        font-size:52px;
+        font-weight:900;
+        color:#15803d;
+        margin:10px 0 6px;
+        letter-spacing:-1px;
+      ">
+      ₹0
+    </div>
+
+    <div
+      style="
+        font-size:13px;
+        color:#4b5563;
+        margin-bottom:16px;
+      ">
+      Please pay the driver in <b>cash</b>
+    </div>
+
+    <!-- ⭐ RATING -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:13px;color:#374151;margin-bottom:6px">
+        Rate your ride
+      </div>
+
+      <div style="font-size:26px;letter-spacing:4px;cursor:pointer">
+        <span onclick="rateRide(1)">⭐</span>
+        <span onclick="rateRide(2)">⭐</span>
+        <span onclick="rateRide(3)">⭐</span>
+        <span onclick="rateRide(4)">⭐</span>
+        <span onclick="rateRide(5)">⭐</span>
+      </div>
+    </div>
+
+    <!-- BUTTON -->
+    <button
+      onclick="closeBill()"
+      style="
+        width:100%;
+        padding:14px;
+        border-radius:16px;
+        border:none;
+        font-size:16px;
+        font-weight:900;
+        background:linear-gradient(135deg,#facc15,#fde047);
+        color:#000;
+        cursor:pointer;
+      ">
+      Done
+    </button>
+
+  </div>
+</div>
+
+  <!-- HISTORY MODAL -->
+  <div id="historyModal">
+    <div id="historyContent">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h3 style="margin:0">Your Trips</h3>
+        <button class="smallBtn" onclick="closeHistory()">Close</button>
+      </div>
+      <div id="historyList"></div>
+      <div style="text-align:center;margin-top:12px"><small style="color:var(--muted)">All rides stored securely</small></div>
+    </div>
+  </div>
+
+  <!-- Paste Part 2 (scripts) below this line -->
+<!-- Leaflet -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Firebase v8 -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <script>
+    // ---------- FIREBASE CONFIG ----------
+    const firebaseConfig = {
+      apiKey: "AIzaSyCJpo25tYCN_fXP8aCckgA4WrD962KCsQ8",
+      authDomain: "hyd-texi.firebaseapp.com",
+      projectId: "hyd-texi",
+      storageBucket: "hyd-texi.firebasestorage.app",
+      messagingSenderId: "807048727786",
+      appId: "1:807048727786:web:7ef03573876c70b76e1b93",
+      databaseURL: "https://hyd-texi-default-rtdb.firebaseio.com"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    // ---------- GLOBALS ----------
+    let map, pickMarker, dropMarker, routeLine;
+    let currentReqKey = null;
+
+    // Vehicle pricing config (professional, editable)
+    const VEHICLES = {
+      car:  { id:'car',  label:'Car',  rate:35, minFare:250 },
+      auto: { id:'auto', label:'Auto', rate:20, minFare:170 },
+      bike: { id:'bike', label:'Bike', rate:16, minFare:120 }
+    };
+    let selectedVehicle = 'car'; // default
+
+    // User & GPS
+    let userMobile = null;
+    let userLat = null;
+    let userLng = null;
+    let geoWatchId = null;
+
+    // ---------- AUTO LOGIN ----------
+    if (localStorage.getItem("msUserMobile")) {
+      userMobile = localStorage.getItem("msUserMobile");
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("topBar").style.display = "flex";
+      document.getElementById("userLabel").innerText = userMobile;
+      initMap();
+      startLocationTracking();
+      loadHistoryOnce();
+    }
+
+    // ---------- LOGIN / LOGOUT ----------
+    function loginUser(){
+      const num = document.getElementById('mobileInput').value.trim();
+      if (!num || num.length < 10) return alert("Please enter a valid 10-digit mobile number.");
+      userMobile = num;
+      localStorage.setItem("msUserMobile", num);
+      document.getElementById("loginPage").style.display = "none";
+      document.getElementById("topBar").style.display = "flex";
+      document.getElementById("userLabel").innerText = userMobile;
+      initMap();
+      startLocationTracking();
+      loadHistoryOnce();
+    }
+
+    function logout(){
+      stopLocationTracking();
+      localStorage.removeItem("msUserMobile");
+      location.reload();
+    }
+
+    // ---------- VEHICLE SELECTION UI ----------
+    function selectVehicle(key){
+      if (!VEHICLES[key]) return;
+      selectedVehicle = key;
+      // update UI buttons
+      document.querySelectorAll('.vehicle-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById('vehicle_' + key).classList.add('active');
+      // recalc fare
+      updateCalc();
+    }
+
+    // show estimated fare prominently
+    function updateEstFareDisplay(fare){
+      document.getElementById('estFareDisplay').innerText = '₹' + fare;
+    }
+
+    // ---------- LOCATION TRACKING ----------
+    function startLocationTracking(){
+      if (!navigator.geolocation) { console.warn('Geolocation not supported'); return; }
+      navigator.geolocation.getCurrentPosition(pos => {
+        userLat = pos.coords.latitude; userLng = pos.coords.longitude;
+        if (pickMarker) { pickMarker.setLatLng([userLat,userLng]); map.setView([userLat,userLng],14); updateCalc(); }
+      }, err => console.warn('getCurrentPosition err', err), { enableHighAccuracy:true, maximumAge:5000, timeout:10000 });
+
+      geoWatchId = navigator.geolocation.watchPosition(pos => {
+        userLat = pos.coords.latitude; userLng = pos.coords.longitude;
+        if (pickMarker) {
+          pickMarker.setLatLng([userLat,userLng]);
+          updateCalc();
+        }
+      }, err => console.warn('watchPosition err', err), { enableHighAccuracy:true, maximumAge:2000, timeout:10000 });
+    }
+
+    function stopLocationTracking(){
+      if (geoWatchId !== null) navigator.geolocation.clearWatch(geoWatchId);
+      geoWatchId = null;
+    }
+
+   // ---------- MAP ----------
     function initMap(){
       map = L.map('map').setView([17.3850,78.4867],13);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -623,212 +1257,4 @@
       pickMarker.on('drag', updateCalc);
       dropMarker.on('drag', updateCalc);
 
-      // if we already have user location, center map there
-      if (userLat && userLng) {
-        pickMarker.setLatLng([userLat,userLng]); map.setView([userLat,userLng],14);
-        updateCalc();
-      } else {
-        if (navigator.geolocation){
-          navigator.geolocation.getCurrentPosition(pos => {
-            pickMarker.setLatLng([pos.coords.latitude,pos.coords.longitude]);
-            map.setView([pos.coords.latitude,pos.coords.longitude],14);
-            updateCalc();
-          }, ()=>{});
-        }
-      }
-    }
-
-    // ---------- FARE CALCULATION ----------
-    function updateCalc(){
-      const pLoc = pickMarker.getLatLng();
-      const dLoc = dropMarker.getLatLng();
-      if (!pLoc || !dLoc) return;
-      if (routeLine) map.removeLayer(routeLine);
-      routeLine = L.polyline([pLoc,dLoc], { color:'rgba(0,0,0,0.9)', weight:4, dashArray:'8,8' }).addTo(map);
-
-      const meters = pLoc.distanceTo(dLoc);
-      const km = (meters / 1000);
-      const kmText = km.toFixed(2);
-
-      const cfg = VEHICLES[selectedVehicle];
-      let calculated = Math.round(km * cfg.rate);
-      if (calculated < cfg.minFare) calculated = cfg.minFare;
-
-      document.getElementById('distDisplay').innerText = kmText + ' KM';
-      document.getElementById('priceDisplay').innerText = '₹' + calculated;
-      updateEstFareDisplay(calculated);
-    }
-
-    // initialize UI default selection
-    selectVehicle(selectedVehicle);
-
-    // ---------- BOOKING ----------
-    async function bookRide(){
-      if (!userMobile) return alert("Please sign in with your mobile number first.");
-      const pLoc = pickMarker.getLatLng();
-      const dLoc = dropMarker.getLatLng();
-      const cfg = VEHICLES[selectedVehicle];
-      const fareText = document.getElementById('priceDisplay').innerText.replace('₹','');
-      const fare = parseInt(fareText);
-
-      const payload = {
-        customerMobile: userMobile,
-        customerLat: userLat || pLoc.lat,
-        customerLng: userLng || pLoc.lng,
-        pickupLat: pLoc.lat,
-        pickupLng: pLoc.lng,
-        dropLat: dLoc.lat,
-        dropLng: dLoc.lng,
-        distance: document.getElementById('distDisplay').innerText,
-        price: fare,
-        vehicleType: cfg.label,
-        ratePerKm: cfg.rate,
-        minFare: cfg.minFare,
-        otp: Math.floor(1000 + Math.random() * 9000),
-        status: "pending",
-        timestamp: Date.now()
-      };
-
-      console.log("Booking payload:", payload);
-
-      document.getElementById('loadingLayer').style.display = 'flex';
-      const newReqRef = db.ref('requests').push();
-      currentReqKey = newReqRef.key;
-      try {
-        await newReqRef.set(payload);
-        // also save to user's history node (keyed by mobile)
-        db.ref('users/' + userMobile + '/history').push({
-          reqId: currentReqKey,
-          vehicleType: cfg.label,
-          price: payload.price,
-          distance: payload.distance,
-          status: 'pending',
-          timestamp: payload.timestamp,
-          pickupLat: payload.pickupLat,
-          pickupLng: payload.pickupLng,
-          dropLat: payload.dropLat,
-          dropLng: payload.dropLng
-        });
-        console.log("Request created:", currentReqKey);
-      } catch (err) {
-        console.error("DB write error:", err);
-        alert("Failed to create booking: " + (err.message || err));
-        document.getElementById('loadingLayer').style.display = 'none';
-        return;
-      }
-    
-
-      // Listen to request updates for driver acceptance / progress
-      db.ref('requests/' + currentReqKey).on('value', snap => {
-        const data = snap.val();
-        if (!data) return;
-        console.log("Request update:", data);
-        if (data.status === 'accepted') {
-          document.getElementById('loadingLayer').style.display = 'none';
-          document.getElementById('driverPanel').style.display = 'block';
-          document.getElementById('dMob').innerText = data.driverMobile || 'Driver number not set';
-          document.getElementById('otpDisplay').innerText = data.otp || payload.otp;
-          document.getElementById('tripStatus').innerText = 'Driver is on the way';
-          // update user's history status
-          updateHistoryStatus(userMobile, currentReqKey, 'accepted');
-        } else if (data.status === 'started') {
-          document.getElementById('driverPanel').style.display = 'none';
-          alert('Trip started — have a safe journey!');
-          updateHistoryStatus(userMobile, currentReqKey, 'started');
-        } else if (data.status === 'completed') {
-          document.getElementById('loadingLayer').style.display = 'none';
-          document.getElementById('finalBill').innerText = '₹' + data.price;
-          document.getElementById('billModal').style.display = 'flex';
-          updateHistoryStatus(userMobile, currentReqKey, 'completed');
-        } else if (data.status === 'cancelled') {
-          alert('Ride cancelled.');
-          updateHistoryStatus(userMobile, currentReqKey, 'cancelled');
-          location.reload();
-        }
-      });
-    }
-
-    function cancelRequest(){
-      if (currentReqKey) {
-        if (!confirm('Do you want to cancel this ride?')) return;
-        db.ref('requests/' + currentReqKey).update({ status: 'cancelled' });
-      } else {
-        location.reload();
-      }
-    }
-
-    function closeBill(){
-      document.getElementById('billModal').style.display = 'none';
-      location.reload();
-    }
-
-    // ---------- HISTORY ----------
-    async function loadHistoryOnce(){
-      if (!userMobile) return;
-      const snap = await db.ref('users/' + userMobile + '/history').orderByChild('timestamp').once('value');
-      const data = snap.val() || {};
-      renderHistoryList(data);
-    }
-
-    function renderHistoryList(dataObj){
-      const list = document.getElementById('historyList');
-      list.innerHTML = '';
-      const keys = Object.keys(dataObj || {}).sort((a,b) => (dataObj[b].timestamp||0) - (dataObj[a].timestamp||0));
-      if (keys.length === 0) {
-        list.innerHTML = '<div style="text-align:center;color:#666;padding:18px">No trips yet</div>';
-        return;
-      }
-      keys.forEach(k => {
-        const item = dataObj[k];
-        const date = new Date(item.timestamp || Date.now());
-        const when = date.toLocaleString();
-        const node = document.createElement('div');
-        node.className = 'hist-item';
-        node.innerHTML = `
-          <div>
-            <div style="font-weight:800">₹${item.price} • ${item.vehicleType || '—'}</div>
-            <div class="hist-meta">${when} • ${item.distance}</div>
-            <div class="hist-meta">Pickup: ${Number(item.pickupLat||0).toFixed(3)}, ${Number(item.pickupLng||0).toFixed(3)}</div>
-          </div>
-          <div style="text-align:right">
-            <div class="status-pill ${statusClass(item.status)}">${(item.status||'pending').toUpperCase()}</div>
-          </div>
-        `;
-        list.appendChild(node);
-      });
-    }
-
-    function statusClass(s){
-      if (!s) return 'status-pending';
-      if (s === 'pending') return 'status-pending';
-      if (s === 'accepted' || s === 'started') return 'status-accepted';
-      if (s === 'completed') return 'status-completed';
-      if (s === 'cancelled') return 'status-cancelled';
-      return 'status-pending';
-    }
-
-    async function updateHistoryStatus(mobile, reqId, newStatus){
-      const ref = db.ref('users/' + mobile + '/history');
-      const snap = await ref.orderByChild('reqId').equalTo(reqId).once('value');
-      const matches = snap.val();
-      if (!matches) return;
-      Object.keys(matches).forEach(childKey => ref.child(childKey).update({ status: newStatus }));
-      // refresh view if open
-      const snap2 = await db.ref('users/' + mobile + '/history').orderByChild('timestamp').once('value');
-      renderHistoryList(snap2.val() || {});
-    }
-
-    function openHistory(){ if (!userMobile) return alert('Please login'); loadHistoryOnce(); document.getElementById('historyModal').style.display='flex'; }
-    function closeHistory(){ document.getElementById('historyModal').style.display='none'; }
-
-    // developer helper
-    window.debugListRequests = async function(){
-      const snap = await db.ref('requests').orderByChild('timestamp').limitToLast(50).once('value');
-      console.log('requests:', snap.val());
-      alert('Check console for last requests (debug).');
-    };
-
-    // End of script
-  <script>
-</body>
-</html>
+      // if we already have user location, center map
