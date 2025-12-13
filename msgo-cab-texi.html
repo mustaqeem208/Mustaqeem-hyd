@@ -792,5 +792,16 @@ function closeHelp(){
   document.getElementById('helpModal').style.display = 'none';
 }
   </script>
+  <script>
+function toggleMenu(){
+  const m = document.getElementById('menuPanel');
+  m.style.display = (m.style.display === 'block') ? 'none' : 'block';
+}
+
+function openPrivacy(){
+  // 👇 yahan apna URL daal dena
+  window.open("https://your-privacy-policy-url.com","_blank");
+}
+  </script>
 </body>
 </html>
