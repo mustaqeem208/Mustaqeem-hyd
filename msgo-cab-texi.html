@@ -534,15 +534,18 @@
     }
 
     // ---------- VEHICLE SELECTION UI ----------
-    function selectVehicle(key){
-      if (!VEHICLES[key]) return;
-      selectedVehicle = key;
-      // update UI buttons
-      document.querySelectorAll('.vehicle-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('vehicle_' + key).classList.add('active');
-      // recalc fare
-      updateCalc();
-    }
+function selectVehicle(key){
+  if (!VEHICLES[key]) return;
+  selectedVehicle = key;
+
+  document.querySelectorAll('.vehicle-btn')
+    .forEach(btn => btn.classList.remove('active'));
+
+  const el = document.getElementById('vehicle_' + key);
+  if (el) el.classList.add('active');
+
+  updateCalc();
+}
 
     // show estimated fare prominently
     function updateEstFareDisplay(fare){
