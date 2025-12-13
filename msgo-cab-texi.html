@@ -375,7 +375,8 @@
   </div>
 
 
-<!-- ===== ZIGO CAB | BILL CARD (UI ONLY) ===== -->
+
+<!-- ===== ZIGO CAB | PREMIUM BILL CARD ===== -->
 <div id="billModal"
   style="
     display:none;
@@ -384,66 +385,82 @@
     z-index:2200;
     align-items:center;
     justify-content:center;
-    background:rgba(0,0,0,0.65);
+    background:rgba(0,0,0,0.7);
     backdrop-filter:blur(6px);
   ">
 
   <div
     style="
+      background:#ffffff;
       width:90%;
       max-width:420px;
-      background:#ffffff;
-      border-radius:22px;
-      padding:24px 20px 22px;
+      border-radius:20px;
+      padding:22px 20px 20px;
       text-align:center;
-      box-shadow:0 25px 70px rgba(0,0,0,0.4);
+      box-shadow:0 25px 70px rgba(0,0,0,0.45);
     ">
 
-    <!-- Brand -->
-    <div style="
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:1.2px;
-      color:#16a34a;
-      margin-bottom:6px;
-    ">
+    <!-- BRAND -->
+    <div
+      style="
+        font-size:12px;
+        font-weight:900;
+        letter-spacing:1.2px;
+        color:#16a34a;
+        margin-bottom:6px;
+      ">
       ZIGO CAB
     </div>
 
-    <!-- Status -->
-    <div style="
-      font-size:13px;
-      color:#6b7280;
-      margin-bottom:14px;
-    ">
-      Trip completed successfully
+    <!-- TITLE -->
+    <div
+      style="
+        font-size:14px;
+        font-weight:700;
+        color:#6b7280;
+        margin-bottom:10px;
+      ">
+      Trip Completed
     </div>
 
-    <!-- Amount -->
+    <!-- AMOUNT (BIG & CLEAR) -->
     <div
       id="finalBill"
       style="
         font-size:52px;
         font-weight:900;
         color:#15803d;
-        margin:10px 0 8px;
-        line-height:1;
+        margin:10px 0 6px;
+        letter-spacing:-1px;
       ">
       ₹0
     </div>
 
-    <!-- Info -->
-    <div style="
-      font-size:14px;
-      color:#374151;
-      margin-bottom:22px;
-      line-height:1.4;
-    ">
-      Please pay the driver in <b>cash</b><br>
-      Thank you for choosing <b>ZIGO CAB</b>
+    <div
+      style="
+        font-size:13px;
+        color:#4b5563;
+        margin-bottom:16px;
+      ">
+      Please pay the driver in <b>cash</b>
     </div>
 
-    <!-- Button -->
+    <!-- ⭐ RATING -->
+    <div style="margin-bottom:18px">
+      <div style="font-size:13px;color:#374151;margin-bottom:6px">
+        Rate your ride
+      </div>
+
+      <div style="font-size:26px;letter-spacing:4px;cursor:pointer">
+        <span onclick="rateRide(1)">⭐</span>
+        <span onclick="rateRide(2)">⭐</span>
+        <span onclick="rateRide(3)">⭐</span>
+        <span onclick="rateRide(4)">⭐</span>
+        <span onclick="rateRide(5)">⭐</span>
+      </div>
+    </div>
+
+    <!-- BUTTON -->
     <button
       onclick="closeBill()"
       style="
@@ -462,7 +479,6 @@
 
   </div>
 </div>
-
 
   <!-- HISTORY MODAL -->
   <div id="historyModal">
