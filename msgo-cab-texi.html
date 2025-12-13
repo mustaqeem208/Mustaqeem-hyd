@@ -801,36 +801,6 @@ selectVehicle(selectedVehicle);
 
     // End of script
   </script>
-  <script>
-/* ===== FINAL BOOKING FIX ===== */
-
-function bookRide() {
-
-  if (!selectedVehicle) {
-    alert("Please select vehicle");
-    return;
-  }
-
-  const fare = vehicleMinFare[selectedVehicle];
-
-  const bookingData = {
-    vehicleType: selectedVehicle,   // 🔥 MOST IMPORTANT
-    price: fare,
-    minFare: fare,
-    status: "pending",
-    createdAt: Date.now()
-  };
-
-  // Firebase booking
-  firebase.database().ref("requests").push(bookingData)
-    .then(() => {
-      alert("Booking sent for " + selectedVehicle.toUpperCase());
-    })
-    .catch(err => {
-      alert("Booking failed");
-      console.error(err);
-    });
-}
-  </script>
+  
 </body>
 </html>
