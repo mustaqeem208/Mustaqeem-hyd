@@ -374,7 +374,6 @@
     <button class="book-btn" onclick="bookRide()">Book Now — Confirm</button>
   </div>
 
-
 <!-- ===== ZIGO CAB | BILL MODAL ===== -->
 <div id="billModal"
   style="
@@ -392,44 +391,40 @@
       width:90%;
       max-width:360px;
       background:#ffffff;
-      border-radius:18px;
-      padding:18px;
+      border-radius:20px;
+      padding:20px;
       text-align:center;
-      box-shadow:0 20px 60px rgba(0,0,0,0.45);
+      box-shadow:0 25px 60px rgba(0,0,0,0.35);
     ">
 
     <!-- Brand -->
-    <div style="font-size:14px;font-weight:900;color:#16a34a;margin-bottom:6px">
+    <div style="font-size:14px;font-weight:900;color:#111;margin-bottom:4px">
       ZIGO CAB
     </div>
 
-    <div style="font-size:12px;color:#6b7280;margin-bottom:12px">
-      Trip completed successfully
+    <div style="font-size:11px;color:#6b7280;margin-bottom:14px">
+      Trip Completed
     </div>
 
     <!-- Amount -->
-    <div
-      id="finalBill"
-      style="
-        font-size:34px;
-        font-weight:900;
-        color:#111827;
-        margin-bottom:10px;
-      ">
+    <div style="font-size:28px;font-weight:900;color:#15803d;margin-bottom:6px"
+         id="finalBill">
       ₹0
     </div>
 
-    <!-- Note -->
-    <div style="font-size:13px;color:#374151;margin-bottom:18px">
+    <div style="font-size:12px;color:#374151;margin-bottom:16px">
       Please pay the driver in cash
     </div>
 
-    <!-- Button -->
+    <!-- Divider -->
+    <div style="height:1px;background:#e5e7eb;margin-bottom:14px"></div>
+
+    <!-- Done -->
     <button
       onclick="closeBill()"
       style="
         width:100%;
-        padding:14px;
+        padding:12px;
         border-radius:14px;
         border:none;
         background:#facc15;
@@ -441,8 +436,13 @@
       Done
     </button>
 
+    <div style="margin-top:10px;font-size:10px;color:#9ca3af">
+      Thank you for riding with ZIGO CAB
+    </div>
+
   </div>
 </div>
+
 
 
   <!-- HISTORY MODAL -->
