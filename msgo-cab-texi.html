@@ -156,15 +156,99 @@
     <button class="book-btn" onclick="bookRide()">Book Now -- Confirm</button>
   </div>
 
-  <!-- BILL MODAL -->
-  <div id="billModal" style="display:none;position:fixed;inset:0;z-index:2200;align-items:center;justify-content:center;background:rgba(0,0,0,0.5)">
-    <div style="background:var(--card);padding:16px;border-radius:12px;width:90%;max-width:420px;text-align:center">
-      <h3 style="margin:6px 0">Payment Due</h3>
-      <div class="value" id="finalBill">₹0</div>
-      <p style="color:var(--muted)">Please pay the driver in cash.</p>
-      <button class="btn" onclick="closeBill()">Done</button>
+<!-- ===== PREMIUM BILL MODAL ===== -->
+<div id="billModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:2200;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(6px);
+  ">
+
+  <div
+    style="
+      background:linear-gradient(180deg,#ffffff,#f7f7f7);
+      padding:22px 20px 24px;
+      border-radius:18px;
+      width:92%;
+      max-width:420px;
+      text-align:center;
+      box-shadow:0 20px 60px rgba(0,0,0,0.45);
+      border:1px solid rgba(0,0,0,0.06);
+      position:relative;
+    ">
+
+    <!-- Header -->
+    <div style="font-size:18px;font-weight:800;color:#111;margin-bottom:6px;">
+      Trip Completed
     </div>
+    <div style="font-size:13px;color:#777;margin-bottom:14px;">
+      Thank you for riding with ZIGO
+    </div>
+
+    <!-- Amount -->
+    <div
+      style="
+        font-size:44px;
+        font-weight:900;
+        color:#16a34a;
+        margin:12px 0 10px;
+        letter-spacing:-1px;
+      "
+      id="finalBill">
+      ₹0
+    </div>
+
+    <!-- Info -->
+    <div
+      style="
+        background:#f1f5f9;
+        padding:12px;
+        border-radius:12px;
+        font-size:14px;
+        color:#444;
+        margin-bottom:18px;
+        line-height:1.4;
+      ">
+      Please pay the <b>exact amount</b> to the driver in <b>cash</b>.
+    </div>
+
+    <!-- Button -->
+    <button
+      class="btn"
+      onclick="closeBill()"
+      style="
+        width:100%;
+        padding:14px;
+        border-radius:14px;
+        border:none;
+        font-size:16px;
+        font-weight:800;
+        cursor:pointer;
+        background:linear-gradient(135deg,#111,#333);
+        color:#fff;
+        box-shadow:0 6px 18px rgba(0,0,0,0.35);
+      ">
+      DONE
+    </button>
+
+    <!-- Footer -->
+    <div
+      style="
+        margin-top:14px;
+        font-size:11px;
+        color:#999;
+        letter-spacing:0.5px;
+      ">
+      Powered by ZIGO • Safe & Reliable
+    </div>
+
   </div>
+</div>
 
   <!-- HISTORY MODAL -->
   <div id="historyModal">
