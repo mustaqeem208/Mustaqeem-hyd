@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -81,7 +82,7 @@
   </div>
 
   <!-- LOGIN PAGE -->
-<div id="loginPage"
+  <div id="loginPage"
   style="
     min-height:100vh;
     display:flex;
@@ -199,15 +200,17 @@
     Design by ᗰᑌᔕTᗩᑫEEᗰ
   </div>
 
-</div>
+  </div>
 
   <!-- HELP -->
   <div class="help-btn" id="helpBtn" style="display:none;position:fixed;top:76px;right:12px;z-index:1700;background:#fff;padding:8px 12px;border-radius:18px;border:1px solid #ffdede;color:#e74c3c;font-weight:800;cursor:pointer" onclick="alert('Call 9381667208 for Help or 100 for Police')">🆘 Help</div>
 
-  
-      
-
-    
+  <!-- LOADING -->
+  <div id="loadingLayer">
+    <div class="loader"></div>
+    <div style="font-weight:800">Searching for drivers nearby…</div>
+    <button class="smallBtn" onclick="cancelRequest()" style="background:#b91c1c;border:none;color:white;padding:8px 12px;border-radius:8px">Cancel</button>
+  </div>
 
   <!-- DRIVER PANEL -->
   <div id="driverPanel">
@@ -217,8 +220,7 @@
     <div id="tripStatus" style="color:#0b6bdc;font-weight:700;margin-top:6px"></div>
     <button class="smallBtn" onclick="cancelRequest()" style="margin-top:10px;background:#ff4d4f;color:white;border:none;padding:10px 12px;border-radius:8px">Cancel Ride</button>
   </div>
-
-  <!-- MAP -->
+    <!-- MAP -->
   <div id="map"></div>
 
   <!-- BOOKING PANEL -->
@@ -234,7 +236,7 @@
       </div>
     </div>
 
-        <!-- Vehicle selector -->
+    <!-- Vehicle selector -->
     <div class="vehicle-row">
       <div id="vehicle_car" class="vehicle-btn active" onclick="selectVehicle('car')">
         <div class="vehicle-title">Car</div>
@@ -265,87 +267,15 @@
     <button class="book-btn" onclick="bookRide()">Book Now — Confirm</button>
   </div>
 
-  <!-- ===== ZIGO CAB | PREMIUM BILL MODAL ===== -->
-<div id="billModal"
-  style="
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:2200;
-    align-items:center;
-    justify-content:center;
-    background:rgba(0,0,0,0.65);
-    backdrop-filter:blur(6px);
-  ">
-
-  <div
-    style="
-      background:#ffffff;
-      padding:22px 18px 18px;
-      border-radius:18px;
-      width:90%;
-      max-width:420px;
-      text-align:center;
-      box-shadow:0 20px 60px rgba(0,0,0,0.35);
-    ">
-
-    <!-- Brand -->
-    <div style="font-size:12px;font-weight:900;letter-spacing:1px;color:#16a34a;margin-bottom:4px">
-      ZIGO CAB
+  <!-- BILL MODAL -->
+  <div id="billModal" style="display:none;position:fixed;inset:0;z-index:2200;align-items:center;justify-content:center;background:rgba(0,0,0,0.5)">
+    <div style="background:var(--card);padding:16px;border-radius:12px;width:90%;max-width:420px;text-align:center">
+      <h3 style="margin:6px 0">Payment Due</h3>
+      <div class="value" id="finalBill">₹0</div>
+      <p style="color:var(--muted)">Please pay the driver in cash.</p>
+      <button class="btn" onclick="closeBill()">Done</button>
     </div>
-
-    <div style="font-size:13px;color:#6b7280;margin-bottom:8px">
-      Trip Completed Successfully
-    </div>
-
-    <!-- Title -->
-    <h3 style="margin:0 0 14px;font-size:18px;font-weight:900;color:#111">
-      Payment Due
-    </h3>
-
-    <!-- Amount -->
-    <div
-      id="finalBill"
-      style="
-        font-size:44px;
-        font-weight:900;
-        color:#15803d;
-        margin:12px 0 6px;
-      ">
-      ₹0
-    </div>
-
-    <!-- Info -->
-    <div
-      style="
-        font-size:13px;
-        color:#4b5563;
-        margin-bottom:18px;
-        line-height:1.4;
-      ">
-      Please pay the driver in <b>cash</b><br>
-      Thank you for choosing <b>ZIGO CAB</b>
-    </div>
-
-    <!-- Button -->
-    <button
-      onclick="closeBill()"
-      style="
-        width:100%;
-        padding:14px;
-        border-radius:14px;
-        border:none;
-        font-size:15px;
-        font-weight:900;
-        background:linear-gradient(135deg,#facc15,#fde047);
-        color:#000;
-        cursor:pointer;
-      ">
-      Done
-    </button>
-
   </div>
-</div>
 
   <!-- HISTORY MODAL -->
   <div id="historyModal">
@@ -512,7 +442,7 @@
       const cfg = VEHICLES[selectedVehicle];
       let calculated = Math.round(km * cfg.rate);
       if (calculated < cfg.minFare) calculated = cfg.minFare;
-        
+
       document.getElementById('distDisplay').innerText = kmText + ' KM';
       document.getElementById('priceDisplay').innerText = '₹' + calculated;
       updateEstFareDisplay(calculated);
@@ -575,6 +505,7 @@
         document.getElementById('loadingLayer').style.display = 'none';
         return;
       }
+    
 
       // Listen to request updates for driver acceptance / progress
       db.ref('requests/' + currentReqKey).on('value', snap => {
