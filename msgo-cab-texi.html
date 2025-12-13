@@ -791,6 +791,38 @@
 
     // End of script
   </script>
-  
+  <script>
+const vehicleMinFare = {
+  car: 250,
+  auto: 170,
+  bike: 120
+};
+
+function selectVehicle(type) {
+
+  // sab ka border hata
+  ['car','auto','bike'].forEach(v => {
+    const el = document.getElementById('vehicle_' + v);
+    if (el) el.style.border = '2px solid transparent';
+  });
+
+  // selected vehicle ka border
+  const active = document.getElementById('vehicle_' + type);
+  if (active) active.style.border = '2px solid #16a34a';
+
+  const minFare = vehicleMinFare[type] || 250;
+  const oldPrice = minFare + Math.round(minFare * 0.4);
+
+  document.getElementById('oldFare').innerText = oldPrice;
+  document.getElementById('estFareDisplay').innerText = '₹' + minFare;
+  document.getElementById('priceDisplay').innerText = '₹' + minFare;
+  document.getElementById('saveAmt').innerText = oldPrice - minFare;
+}
+
+// page load pe car select
+document.addEventListener("DOMContentLoaded", () => {
+  selectVehicle('car');
+});
+  </script>
 </body>
 </html>
