@@ -374,75 +374,94 @@
     <button class="book-btn" onclick="bookRide()">Book Now — Confirm</button>
   </div>
 
-<!-- ===== ZIGO CAB | BILL MODAL ===== -->
+
+<!-- ===== ZIGO CAB | BILL CARD (UI ONLY) ===== -->
 <div id="billModal"
   style="
     display:none;
     position:fixed;
     inset:0;
-    z-index:2500;
-    background:rgba(0,0,0,0.65);
+    z-index:2200;
     align-items:center;
     justify-content:center;
+    background:rgba(0,0,0,0.65);
+    backdrop-filter:blur(6px);
   ">
 
   <div
     style="
       width:90%;
-      max-width:360px;
+      max-width:420px;
       background:#ffffff;
-      border-radius:20px;
-      padding:20px;
+      border-radius:22px;
+      padding:24px 20px 22px;
       text-align:center;
-      box-shadow:0 25px 60px rgba(0,0,0,0.35);
+      box-shadow:0 25px 70px rgba(0,0,0,0.4);
     ">
 
     <!-- Brand -->
-    <div style="font-size:14px;font-weight:900;color:#111;margin-bottom:4px">
+    <div style="
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:1.2px;
+      color:#16a34a;
+      margin-bottom:6px;
+    ">
       ZIGO CAB
     </div>
 
-    <div style="font-size:11px;color:#6b7280;margin-bottom:14px">
-      Trip Completed
+    <!-- Status -->
+    <div style="
+      font-size:13px;
+      color:#6b7280;
+      margin-bottom:14px;
+    ">
+      Trip completed successfully
     </div>
 
     <!-- Amount -->
-    <div style="font-size:28px;font-weight:900;color:#15803d;margin-bottom:6px"
-         id="finalBill">
+    <div
+      id="finalBill"
+      style="
+        font-size:52px;
+        font-weight:900;
+        color:#15803d;
+        margin:10px 0 8px;
+        line-height:1;
+      ">
       ₹0
     </div>
 
-    <div style="font-size:12px;color:#374151;margin-bottom:16px">
-      Please pay the driver in cash
+    <!-- Info -->
+    <div style="
+      font-size:14px;
+      color:#374151;
+      margin-bottom:22px;
+      line-height:1.4;
+    ">
+      Please pay the driver in <b>cash</b><br>
+      Thank you for choosing <b>ZIGO CAB</b>
     </div>
 
-    <!-- Divider -->
-    <div style="height:1px;background:#e5e7eb;margin-bottom:14px"></div>
-
-    <!-- Done -->
+    <!-- Button -->
     <button
       onclick="closeBill()"
       style="
         width:100%;
-        padding:12px;
-        border-radius:14px;
+        padding:14px;
+        border-radius:16px;
         border:none;
-        background:#facc15;
-        color:#000;
-        font-size:15px;
+        font-size:16px;
         font-weight:900;
+        background:linear-gradient(135deg,#facc15,#fde047);
+        color:#000;
         cursor:pointer;
       ">
       Done
     </button>
 
-    <div style="margin-top:10px;font-size:10px;color:#9ca3af">
-      Thank you for riding with ZIGO CAB
-    </div>
-
   </div>
 </div>
-
 
 
   <!-- HISTORY MODAL -->
