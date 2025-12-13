@@ -374,15 +374,96 @@
     <button class="book-btn" onclick="bookRide()">Book Now — Confirm</button>
   </div>
 
-  <!-- BILL MODAL -->
-  <div id="billModal" style="display:none;position:fixed;inset:0;z-index:2200;align-items:center;justify-content:center;background:rgba(0,0,0,0.5)">
-    <div style="background:var(--card);padding:16px;border-radius:12px;width:90%;max-width:420px;text-align:center">
-      <h3 style="margin:6px 0">Payment Due</h3>
-      <div class="value" id="finalBill">₹0</div>
-      <p style="color:var(--muted)">Please pay the driver in cash.</p>
-      <button class="btn" onclick="closeBill()">Done</button>
+  <!-- ===== ZIGO CAB | PREMIUM BILL ===== -->
+<div id="billModal"
+  style="
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:3000;
+    background:rgba(0,0,0,0.65);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  ">
+
+  <div
+    style="
+      background:#ffffff;
+      width:90%;
+      max-width:380px;
+      border-radius:22px;
+      padding:20px;
+      text-align:center;
+      box-shadow:0 30px 80px rgba(0,0,0,0.5);
+      animation:billPop 0.25s ease-out;
+    ">
+
+    <!-- Brand -->
+    <div style="font-size:14px;font-weight:900;color:#facc15;letter-spacing:1px">
+      ZIGO CAB
     </div>
+
+    <div style="font-size:13px;color:#64748b;margin-top:2px">
+      Trip Completed
+    </div>
+
+    <!-- Amount -->
+    <div
+      style="
+        margin:18px 0;
+        font-size:36px;
+        font-weight:900;
+        color:#16a34a;
+      "
+      id="finalBill">
+      ₹0
+    </div>
+
+    <div style="font-size:13px;color:#374151;margin-bottom:14px">
+      Please pay the driver directly in cash
+    </div>
+
+    <!-- Safety note -->
+    <div
+      style="
+        background:#f0fdf4;
+        border:1px solid #bbf7d0;
+        color:#166534;
+        font-size:12px;
+        padding:10px;
+        border-radius:14px;
+        margin-bottom:18px;
+      ">
+      ✔ Safe & verified ride • Thank you for choosing ZIGO CAB
+    </div>
+
+    <!-- Button -->
+    <button
+      onclick="closeBill()"
+      style="
+        width:100%;
+        padding:14px;
+        border-radius:16px;
+        border:none;
+        font-size:15px;
+        font-weight:900;
+        background:#facc15;
+        color:#000;
+        cursor:pointer;
+      ">
+      Done
+    </button>
+
   </div>
+</div>
+
+<style>
+@keyframes billPop {
+  from { transform:scale(0.9); opacity:0; }
+  to { transform:scale(1); opacity:1; }
+}
+</style>
 
   <!-- HISTORY MODAL -->
   <div id="historyModal">
