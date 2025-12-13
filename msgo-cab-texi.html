@@ -230,7 +230,7 @@
   ">
 </div>
 
-<!-- ===== PREMIUM BOOKING PANEL ===== -->
+<!-- ===== COMPACT BOOKING PANEL ===== -->
 <div id="bookingPanel"
   class="panel"
   style="
@@ -239,238 +239,185 @@
     right:0;
     bottom:0;
     z-index:5;
-    background:linear-gradient(180deg,#0f0f0f,#000);
-    border-radius:24px 24px 0 0;
-    padding:18px 16px 20px;
-    box-shadow:0 -22px 60px rgba(0,0,0,0.65);
-    border-top:1px solid rgba(255,255,255,0.08);
+    background:#0b0b0b;
+    border-radius:18px 18px 0 0;
+    padding:12px 14px 14px;
+    box-shadow:0 -14px 36px rgba(0,0,0,0.55);
+    border-top:1px solid rgba(255,255,255,0.06);
   ">
 
-  <!-- Drag Handle -->
-  <div
-    style="
-      width:44px;
-      height:5px;
-      background:#2b2b2b;
-      border-radius:4px;
-      margin:0 auto 14px;
-    ">
-  </div>
-
-  <!-- TOP BAR -->
-  <div
-    class="panel-top"
+  <!-- TOP ROW -->
+  <div class="panel-top"
     style="
       display:flex;
       justify-content:space-between;
       align-items:center;
-      margin-bottom:16px;
+      margin-bottom:10px;
     ">
-
     <div>
-      <div
-        class="small-muted"
-        style="
-          font-size:12px;
-          color:#9ca3af;
-          letter-spacing:0.5px;
-        ">
+      <div class="small-muted"
+        style="font-size:11px;color:#9ca3af">
         Select vehicle
       </div>
-
       <div
-        style="
-          font-weight:900;
-          font-size:18px;
-          margin-top:4px;
-          color:#fff;
-        ">
+        style="font-weight:800;font-size:15px;margin-top:2px;color:#fff">
         Choose your ride
       </div>
     </div>
 
     <div style="text-align:right">
-      <div
-        class="small-muted"
-        style="
-          font-size:12px;
-          color:#9ca3af;
-          letter-spacing:0.5px;
-        ">
-        Estimated fare
+      <div class="small-muted"
+        style="font-size:11px;color:#9ca3af">
+        Estimated
       </div>
-
       <div
         id="estFareDisplay"
-        style="
-          font-weight:900;
-          font-size:22px;
-          color:#22c55e;
-          margin-top:4px;
-        ">
+        style="font-weight:900;font-size:16px;color:#22c55e">
         ₹250
       </div>
     </div>
   </div>
 
-  <!-- ===== VEHICLE SELECTOR ===== -->
-  <div
-    class="vehicle-row"
+  <!-- VEHICLE ROW (COMPACT) -->
+  <div class="vehicle-row"
     style="
       display:flex;
-      gap:12px;
-      margin-bottom:16px;
+      gap:8px;
+      margin-bottom:10px;
     ">
 
-    <!-- CAR -->
-    <div
-      id="vehicle_car"
-      class="vehicle-btn active"
+    <div id="vehicle_car" class="vehicle-btn active"
       onclick="selectVehicle('car')"
       style="
         flex:1;
         background:#111;
-        border-radius:18px;
-        padding:14px 10px;
+        border-radius:12px;
+        padding:8px 6px;
         text-align:center;
         border:2px solid #f5c542;
-        box-shadow:0 10px 26px rgba(0,0,0,0.55);
         cursor:pointer;
       ">
-      <div style="font-size:28px">🚗</div>
-      <div class="vehicle-title" style="font-weight:900;margin-top:6px">Car</div>
-      <div class="vehicle-sub" style="font-size:12px;color:#9ca3af">
+      <div class="vehicle-title"
+        style="font-weight:800;font-size:14px">
+        Car
+      </div>
+      <div class="vehicle-sub"
+        style="font-size:10px;color:#9ca3af">
         ₹35/km • Min ₹250
       </div>
     </div>
 
-    <!-- AUTO -->
-    <div
-      id="vehicle_auto"
-      class="vehicle-btn"
+    <div id="vehicle_auto" class="vehicle-btn"
       onclick="selectVehicle('auto')"
       style="
         flex:1;
-        background:#0b0b0b;
-        border-radius:18px;
-        padding:14px 10px;
+        background:#0f0f0f;
+        border-radius:12px;
+        padding:8px 6px;
         text-align:center;
         border:1px solid #222;
         cursor:pointer;
       ">
-      <div style="font-size:28px">🛺</div>
-      <div class="vehicle-title" style="font-weight:900;margin-top:6px">Auto</div>
-      <div class="vehicle-sub" style="font-size:12px;color:#9ca3af">
+      <div class="vehicle-title"
+        style="font-weight:800;font-size:14px">
+        Auto
+      </div>
+      <div class="vehicle-sub"
+        style="font-size:10px;color:#9ca3af">
         ₹20/km • Min ₹170
       </div>
     </div>
 
-    <!-- BIKE -->
-    <div
-      id="vehicle_bike"
-      class="vehicle-btn"
+    <div id="vehicle_bike" class="vehicle-btn"
       onclick="selectVehicle('bike')"
       style="
         flex:1;
-        background:#0b0b0b;
-        border-radius:18px;
-        padding:14px 10px;
+        background:#0f0f0f;
+        border-radius:12px;
+        padding:8px 6px;
         text-align:center;
         border:1px solid #222;
         cursor:pointer;
       ">
-      <div style="font-size:28px">🏍️</div>
-      <div class="vehicle-title" style="font-weight:900;margin-top:6px">Bike</div>
-      <div class="vehicle-sub" style="font-size:12px;color:#9ca3af">
+      <div class="vehicle-title"
+        style="font-weight:800;font-size:14px">
+        Bike
+      </div>
+      <div class="vehicle-sub"
+        style="font-size:10px;color:#9ca3af">
         ₹16/km • Min ₹120
       </div>
     </div>
-
   </div>
 
-  <!-- ===== DISTANCE & FARE ===== -->
+  <!-- DISTANCE / FARE -->
   <div
     style="
       display:flex;
-      gap:12px;
-      margin-bottom:16px;
+      gap:8px;
+      margin-bottom:10px;
     ">
 
-    <div
-      class="valueCard"
+    <div class="valueCard"
       style="
         flex:1;
-        background:#0b0b0b;
-        border-radius:14px;
-        padding:12px;
+        background:#0f0f0f;
+        border-radius:10px;
+        padding:8px;
         text-align:center;
         border:1px solid #222;
       ">
-      <div class="label" style="font-size:11px;color:#9ca3af">
+      <div class="label"
+        style="font-size:10px;color:#9ca3af">
         DISTANCE
       </div>
-      <div
-        class="value"
+      <div class="value"
         id="distDisplay"
-        style="font-weight:900;font-size:16px;margin-top:4px">
+        style="font-weight:800;font-size:13px;margin-top:2px">
         0.00 KM
       </div>
     </div>
 
-    <div
-      class="valueCard"
+    <div class="valueCard"
       style="
         flex:1;
-        background:#0b0b0b;
-        border-radius:14px;
-        padding:12px;
+        background:#0f0f0f;
+        border-radius:10px;
+        padding:8px;
         text-align:center;
         border:1px solid #222;
       ">
-      <div class="label" style="font-size:11px;color:#9ca3af">
+      <div class="label"
+        style="font-size:10px;color:#9ca3af">
         FARE
       </div>
-      <div
-        class="value"
+      <div class="value"
         id="priceDisplay"
-        style="font-weight:900;font-size:16px;margin-top:4px;color:#22c55e">
+        style="font-weight:900;font-size:13px;margin-top:2px;color:#22c55e">
         ₹250
       </div>
     </div>
   </div>
 
-  <!-- ===== BOOK BUTTON ===== -->
-  <button
-    class="book-btn"
+  <!-- BOOK BUTTON -->
+  <button class="book-btn"
     onclick="bookRide()"
     style="
       width:100%;
-      padding:16px;
-      border-radius:18px;
+      padding:12px;
+      border-radius:14px;
       border:none;
-      font-size:17px;
+      font-size:15px;
       font-weight:900;
       cursor:pointer;
       background:linear-gradient(135deg,#f5c542,#e0aa1a);
       color:#000;
-      box-shadow:0 10px 28px rgba(245,197,66,0.45);
     ">
-    BOOK NOW • CONFIRM RIDE
+    Book Now — Confirm
   </button>
 
-  <!-- FOOT NOTE -->
-  <div
-    style="
-      margin-top:12px;
-      font-size:11px;
-      color:#9ca3af;
-      text-align:center;
-      letter-spacing:0.5px;
-    ">
-    Fare may change based on distance & traffic
-  </div>
+</div>
 
-        </div>
   
 
 <!-- ===== PREMIUM BILL MODAL ===== -->
