@@ -565,6 +565,75 @@
         if (isRequesting || !isOnline) return;
         const data = snap.val();
         if(!data) return;
+        function requestListener(snap) {
+    if (!isOnline) return;
+
+    const data = snap.val();
+    if (!data) return;
+
+    // 🚫 CUSTOMER CANCELLED
+    if (
+        data.status === 'cancelled' ||
+        data.status === 'cancelled_by_customer'
+    ) {
+        if (currentReqKey === snap.key) {
+            try { document.getElementById('ringtone').pause(); } catch(e){}
+            speak("Customer has cancelled the booking.");
+
+            showCustomAlert(
+                "Booking Cancelled",
+                "Customer cancelled the ride."
+            );
+
+            document.getElementById('reqPopup').style.display = 'none';
+            if (pickupMarker) map.removeLayer(pickupMarker);
+
+            currentReqKey = null;
+            currentReqData = null;
+            isRequesting = false;
+
+            if (isOnline) startListening();
+        }
+        return;
+    }
+
+    // ⏳ ONLY PENDING REQUESTS
+    if (isRequesting) return;
+
+    if (data.status === "pending") {
+        if (!driverLat || !driverLng) return;
+
+        const reqVehicle = (data.vehicleType || 'car').toString().toLowerCase();
+        const myVehicle = (partnerObj && partnerObj.vehicleType)
+            ? partnerObj.vehicleType.toString().toLowerCase()
+            : null;
+
+        if (myVehicle && reqVehicle !== myVehicle) return;
+
+        let dist = getDist(
+            driverLat,
+            driverLng,
+            data.pickupLat,
+            data.pickupLng
+        );
+
+        if (dist <= 2.0) {
+            isRequesting = true;
+
+            try {
+                document.getElementById('ringtone').play().catch(()=>{});
+            } catch(e){}
+
+            speak(
+                "New request for " + reqVehicle +
+                ". Fare " + (data.price || 0) +
+                " rupees."
+            );
+
+            showRequest(data, snap.key, dist.toFixed(1), reqVehicle);
+        }
+    }
+        }
         if(data.status === "pending") {
             if (!driverLat || !driverLng) return console.log("Waiting for location.");
             
