@@ -72,59 +72,65 @@
 </head>
 <body>
 
-  <!-- ===== ZIGO CAB | TOP BAR ===== -->
+  <!-- ===== ZIGO CAB | SLIM TOP BAR ===== -->
 <div id="topBar"
   style="
     position:fixed;
     top:0;left:0;right:0;
     z-index:1800;
+    height:44px;                 /* 👈 BARIK */
     background:#020617;
     color:#fff;
-    padding:10px 12px;
+    padding:0 10px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    box-shadow:0 8px 22px rgba(0,0,0,0.45);
+    box-shadow:0 4px 12px rgba(0,0,0,0.35);
   ">
 
   <!-- User -->
   <div id="userLabel"
-    style="font-weight:900;color:#facc15;font-size:14px">
+    style="
+      font-size:13px;
+      font-weight:700;
+      color:#facc15;
+      white-space:nowrap;
+    ">
     +91 99999 99999
   </div>
 
   <!-- Actions -->
-  <div style="display:flex;gap:8px;align-items:center">
+  <div style="display:flex;gap:6px;align-items:center">
 
-    <!-- SOS -->
+    <!-- HELP -->
     <button
-      onclick="openSOS()"
+      onclick="openHelp()"
       style="
-        padding:6px 12px;
+        height:26px;
+        padding:0 10px;
         border-radius:999px;
-        border:none;
-        font-size:12px;
-        font-weight:900;
-        background:#dc2626;
-        color:#fff;
+        border:1px solid #7f1d1d;
+        background:transparent;
+        color:#fca5a5;
+        font-size:11px;
+        font-weight:800;
         cursor:pointer;
-        box-shadow:0 4px 14px rgba(220,38,38,0.6);
       ">
-      🆘 SOS
+      HELP
     </button>
 
     <!-- History -->
     <button
-      class="smallBtn"
       onclick="openHistory()"
       style="
-        padding:6px 10px;
+        height:26px;
+        padding:0 10px;
         border-radius:999px;
         border:1px solid #334155;
-        background:#020617;
-        color:#fff;
-        font-size:12px;
-        font-weight:800;
+        background:transparent;
+        color:#e5e7eb;
+        font-size:11px;
+        font-weight:700;
         cursor:pointer;
       ">
       History
@@ -132,16 +138,16 @@
 
     <!-- Logout -->
     <button
-      class="smallBtn"
       onclick="logout()"
       style="
-        padding:6px 10px;
+        height:26px;
+        padding:0 10px;
         border-radius:999px;
         border:1px solid #334155;
-        background:#020617;
-        color:#fff;
-        font-size:12px;
-        font-weight:800;
+        background:transparent;
+        color:#e5e7eb;
+        font-size:11px;
+        font-weight:700;
         cursor:pointer;
       ">
       Logout
@@ -715,6 +721,15 @@
     };
 
     // End of script
+  </script>
+  <script>
+function openHelp(){
+  if(confirm("Need help?\n\nOK = Call ZIGO CAB Support\nCancel = Call Police (100)")){
+    window.location.href = "tel:9381667208";
+  }else{
+    window.location.href = "tel:100";
+  }
+}
   </script>
 </body>
 </html>
