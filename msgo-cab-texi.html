@@ -600,29 +600,39 @@
       }
     }
 
-    // ---------- FARE CALCULATION ----------
-    function updateCalc(){
-      const pLoc = pickMarker.getLatLng();
-      const dLoc = dropMarker.getLatLng();
-      if (!pLoc || !dLoc) return;
-      if (routeLine) map.removeLayer(routeLine);
-      routeLine = L.polyline([pLoc,dLoc], { color:'rgba(0,0,0,0.9)', weight:4, dashArray:'8,8' }).addTo(map);
+    // ---------- FARE CALCULATION (FIXED) ----------
+function updateCalc(){
+  const pLoc = pickMarker.getLatLng();
+  const dLoc = dropMarker.getLatLng();
+  if (!pLoc || !dLoc) return;
 
-      const meters = pLoc.distanceTo(dLoc);
-      const km = (meters / 1000);
-      const kmText = km.toFixed(2);
+  if (routeLine) map.removeLayer(routeLine);
+  routeLine = L.polyline(
+    [pLoc, dLoc],
+    { color:'rgba(0,0,0,0.9)', weight:4, dashArray:'8,8' }
+  ).addTo(map);
 
-      const cfg = VEHICLES[selectedVehicle];
-      let calculated = Math.round(km * cfg.rate);
-      if (calculated < cfg.minFare) calculated = cfg.minFare;
+  const meters = pLoc.distanceTo(dLoc);
+  const km = meters / 1000;
+  const kmText = km.toFixed(2);
 
-      document.getElementById('distDisplay').innerText = kmText + ' KM';
-      document.getElementById('priceDisplay').innerText = '₹' + calculated;
-      updateEstFareDisplay(calculated);
-    }
+  // 🔥 vehicle config (car / auto / bike)
+  const cfg = VEHICLES[selectedVehicle] || VEHICLES.car;
 
-    // initialize UI default selection
-    selectVehicle(selectedVehicle);
+  // calculate fare
+  let calculated = Math.round(km * cfg.rate);
+  if (calculated < cfg.minFare) calculated = cfg.minFare;
+
+  // UI update
+  document.getElementById('distDisplay').innerText = kmText + ' KM';
+  document.getElementById('priceDisplay').innerText = '₹' + calculated;
+
+  // 🔥 estimated / strike / save update
+  updateEstFareDisplay(calculated);
+}
+
+// initialize UI default selection (PAGE LOAD)
+selectVehicle(selectedVehicle);
 
     // ---------- BOOKING ----------
     async function bookRide(){
