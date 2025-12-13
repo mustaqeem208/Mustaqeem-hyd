@@ -73,55 +73,50 @@
 <body>
 
 
-  <!-- ===== TOP BAR ===== -->
+<!-- ===== ZIGO CAB | TOP BAR ===== -->
 <div id="topBar"
   style="
     position:fixed;
-    top:0;left:0;
-    width:100vw;
-    height:48px;
-    z-index:2000;
+    top:0;left:0;right:0;
+    height:46px;
     background:#020617;
+    color:#fff;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:0 10px;
-    box-sizing:border-box;
+    padding:0 12px;
+    z-index:2000;
+    box-shadow:0 4px 14px rgba(0,0,0,0.4);
   ">
 
   <!-- LEFT : MENU -->
-  <div
-    onclick="toggleMenu()"
+  <button onclick="openMenu()"
     style="
-      width:36px;
-      height:36px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:20px;
+      background:transparent;
+      border:none;
       color:#fff;
+      font-size:20px;
       cursor:pointer;
     ">
     ☰
-  </div>
+  </button>
 
-  <!-- CENTER : NUMBER -->
+  <!-- CENTER : USER NUMBER -->
   <div id="userLabel"
     style="
       font-size:14px;
-      font-weight:900;
+      font-weight:800;
       color:#facc15;
-      white-space:nowrap;
     ">
-    +91 9381667208
+    +91 99999 99999
   </div>
 
-  <!-- RIGHT : HELP -->
-  <div
-    onclick="openHelp()"
+  <!-- RIGHT : SOS -->
+  <button onclick="openHelp()"
     style="
       padding:6px 12px;
       border-radius:999px;
+      border:none;
       background:#dc2626;
       color:#fff;
       font-size:12px;
@@ -129,48 +124,59 @@
       cursor:pointer;
     ">
     HELP
-  </div>
-
+  </button>
 </div>
 
-
-<!-- ===== SIDE MENU ===== -->
+  <!-- ===== SIDE MENU ===== -->
 <div id="sideMenu"
   style="
     position:fixed;
-    top:0;left:-260px;
+    top:0;right:-260px;
     width:260px;
     height:100vh;
     background:#020617;
-    z-index:3000;
+    color:#fff;
+    z-index:2500;
     padding:16px;
-    box-sizing:border-box;
     transition:0.3s ease;
+    box-shadow:-10px 0 30px rgba(0,0,0,0.5);
   ">
 
-  <!-- USER -->
-  <div style="color:#facc15;font-weight:900;font-size:15px;margin-bottom:20px">
-    <span id="menuUserNumber">+91 9381667208</span>
+  <!-- USER NUMBER -->
+  <div id="menuUserNumber"
+    style="
+      font-size:15px;
+      font-weight:900;
+      color:#facc15;
+      margin-bottom:20px;
+    ">
+    +91 99999 99999
   </div>
 
-  <!-- MENU ITEMS -->
-  <div onclick="openHistory()" style="color:#fff;padding:12px 0;font-weight:700;cursor:pointer">
+  <div onclick="openHistory()" style="padding:12px;border-bottom:1px solid #1e293b;cursor:pointer">
     📜 Ride History
   </div>
 
-  <div onclick="openHelp()" style="color:#fff;padding:12px 0;font-weight:700;cursor:pointer">
-    🆘 Help
-  </div>
-
-  <div onclick="openPrivacy()" style="color:#fff;padding:12px 0;font-weight:700;cursor:pointer">
+  <div onclick="openPrivacy()" style="padding:12px;border-bottom:1px solid #1e293b;cursor:pointer">
     🔒 Privacy Policy
   </div>
 
-  <div onclick="logout()" style="color:#ef4444;padding:12px 0;font-weight:900;cursor:pointer">
+  <div onclick="logout()" style="padding:12px;color:#f87171;cursor:pointer">
     🚪 Logout
   </div>
 
+  <div onclick="closeMenu()"
+    style="
+      position:absolute;
+      top:12px;
+      right:12px;
+      font-size:20px;
+      cursor:pointer;
+    ">
+    ✕
+  </div>
 </div>
+
   
   <!-- ===== ZIGO CAB | LOGIN PAGE ===== -->
 <div id="loginPage"
