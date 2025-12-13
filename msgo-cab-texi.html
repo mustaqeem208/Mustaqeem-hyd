@@ -74,47 +74,63 @@
 
 
 
+
 <!-- ===== ZIGO CAB | TOP BAR ===== -->
 <div id="topBar"
   style="
     position:fixed;
     top:0;left:0;right:0;
-    z-index:1800;
     height:44px;
+    z-index:1800;
     background:#020617;
     color:#fff;
-    padding:0 10px;
     display:flex;
     align-items:center;
     justify-content:space-between;
-    box-shadow:0 4px 12px rgba(0,0,0,0.35);
+    padding:0 10px;
   ">
 
-  <!-- USER NUMBER (AUTO) -->
+  <!-- USER -->
   <div id="userLabel"
-    style="
-      font-size:13px;
-      font-weight:800;
-      color:#facc15;
-      white-space:nowrap;
-    ">
-    +91 XXXXXXXX
+    style="font-size:13px;font-weight:800;color:#facc15">
+    +91 99999 99999
   </div>
 
-  <!-- MENU BUTTON -->
-  <button onclick="toggleMenu()"
-    style="
-      height:28px;
-      width:28px;
-      border-radius:8px;
-      border:1px solid #334155;
-      background:transparent;
-      color:#fff;
-      font-size:18px;
-      cursor:pointer;
-    ">
-    ☰
-  </button>
+  <!-- RIGHT -->
+  <div style="display:flex;gap:8px;align-items:center">
+
+    <!-- HELP -->
+    <button onclick="openHelp()"
+      style="
+        height:26px;
+        padding:0 12px;
+        border-radius:999px;
+        border:1px solid #7f1d1d;
+        background:#7f1d1d;
+        color:#fff;
+        font-size:11px;
+        font-weight:900;
+        cursor:pointer;
+      ">
+      HELP
+    </button>
+
+    <!-- MENU ICON -->
+    <button onclick="toggleMenu()"
+      style="
+        height:26px;
+        width:26px;
+        border-radius:6px;
+        border:1px solid #334155;
+        background:transparent;
+        color:#fff;
+        font-size:16px;
+        cursor:pointer;
+      ">
+      ☰
+    </button>
+
+  </div>
 </div>
 
 
