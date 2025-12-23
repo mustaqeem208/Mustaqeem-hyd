@@ -1,0 +1,129 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZIGO App Launch | Mustaqeem Hyd</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family: system-ui, Arial, sans-serif;
+  background:#0f172a;
+  color:#e5e7eb;
+  margin:0;
+  padding:0;
+}
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+.card{
+  background:#020617;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,.4);
+}
+h1{
+  font-size:1.6rem;
+  margin-bottom:10px;
+}
+.meta{
+  color:#94a3b8;
+  font-size:.85rem;
+  margin-bottom:15px;
+}
+.voice-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  border:none;
+  color:#022c22;
+  font-weight:800;
+  padding:10px 16px;
+  border-radius:12px;
+  cursor:pointer;
+  margin-bottom:18px;
+}
+.voice-btn span{
+  font-size:18px;
+}
+.article{
+  line-height:1.7;
+  font-size:1rem;
+  color:#e5e7eb;
+}
+.footer{
+  margin-top:25px;
+  font-size:.8rem;
+  color:#64748b;
+  text-align:center;
+}
+.brand{
+  font-weight:900;
+  color:#22c55e;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="card">
+
+    <h1>ZIGO App Launch: Hyderabad se Digital Safar</h1>
+    <div class="meta">By <b>Mustaqeem Hyd</b> • Startup Story • India</div>
+
+    <button class="voice-btn" onclick="toggleVoice()">
+      <span>🔊</span> Listen Article
+    </button>
+
+    <div class="article" id="articleText">
+      ZIGO ek naya ride coordination platform hai jo Hyderabad se launch ho raha hai.
+      Is app ka maqsad simple aur fast ride coordination dena hai bina heavy system
+      aur bina unnecessary complexity ke.
+
+      ZIGO Partner app specially drivers ke liye design ki gayi hai jahan wo sirf
+      mobile number se login karke nearby ride requests receive kar sakte hain.
+      Isme pickup aur drop location clearly dikhayi jati hai jisse driver aur customer
+      dono ko asani hoti hai.
+
+      Is startup ki khas baat ye hai ke ye bina badi team aur bina funding ke start hua.
+      Mustaqeem Hyd ne is project ko ek vision ke sath banaya jahan technology ka use
+      common logon ke liye simple banaya jaye.
+
+      ZIGO ka focus low data usage, clean interface aur real-time coordination par hai.
+      Ye app future me Hyderabad ke logon ke liye ek trusted digital solution banne ka
+      aim rakhta hai.
+    </div>
+
+    <div class="footer">
+      Designed & Developed by <span class="brand">Mustaqeem Hyd</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let speech;
+let speaking = false;
+
+function toggleVoice(){
+  if(speaking){
+    window.speechSynthesis.cancel();
+    speaking = false;
+    return;
+  }
+  const text = document.getElementById("articleText").innerText;
+  speech = new SpeechSynthesisUtterance(text);
+  speech.lang = "en-IN";
+  speech.rate = 0.95;
+  speech.pitch = 1;
+  speech.onend = () => speaking = false;
+  speaking = true;
+  window.speechSynthesis.speak(speech);
+}
+</script>
+
+</body>
+</html>
