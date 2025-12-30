@@ -192,6 +192,92 @@
             <div class="view-strip"><i class="fas fa-eye"></i> View Details</div>
 </div>
 
+
+<!-- CARD -->
+<div class="card" onclick="showSoldCard()">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj2EtajeMiZTK55BCKF28Iq0ufy27BCDBygPg2B3rG7QdId1T5LBhxcE4sYxf0qLhDFT0nkQP_lquXThd2hb4LvAPkDE6bET30V3tfn0-cbjJ8a5hHCINVJBKGmDAXQEkL_3-u9Rnbe4wSOF9_J86z1CoK1nF8cIi9K1BLTY90m4TGOt0YpcDsJTKYaOXs3/s1600/1000096292.jpg">
+    <div class="card-details">
+        <div class="price">₹2,500</div>
+        <div class="title">Redmi Note 13 5G</div>
+        <div class="card-footer">
+            <span>SOLD</span>
+            <span class="views"><i class="fas fa-eye"></i> 3.5k</span>
+        </div>
+    </div>
+    <div class="view-strip"><i class="fas fa-eye"></i> View Details</div>
+</div>
+
+<!-- SOLD POPUP CARD -->
+<div id="soldPopup">
+  <div class="sold-card">
+    <h3>❌ SOLD</h3>
+    <p>Ye item bik chuka hai.<br>Kripya contact na karein.</p>
+    <button onclick="closeSoldCard()">OK</button>
+  </div>
+</div>
+
+<!-- STYLE -->
+<style>
+.card{
+  position:relative;
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+}
+.card img{width:100%; display:block;}
+.card-details{padding:12px;}
+.price{font-weight:bold;}
+.card-footer{
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+}
+.view-strip{
+  text-align:center;
+  padding:8px;
+  background:#0ea5e9;
+  color:#fff;
+}
+
+/* popup */
+#soldPopup{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.6);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+.sold-card{
+  background:#fff;
+  padding:20px;
+  width:280px;
+  border-radius:14px;
+  text-align:center;
+}
+.sold-card h3{color:#dc2626;}
+.sold-card button{
+  margin-top:12px;
+  padding:8px 20px;
+  border:none;
+  border-radius:8px;
+  background:#16a34a;
+  color:#fff;
+}
+</style>
+
+<!-- SCRIPT -->
+<script>
+function showSoldCard(){
+  document.getElementById("soldPopup").style.display="flex";
+}
+function closeSoldCard(){
+  document.getElementById("soldPopup").style.display="none";
+}
+</script>
+
+        
 <div class="card" onclick="soldMessage()">
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEj2EtajeMiZTK55BCKF28Iq0ufy27BCDBygPg2B3rG7QdId1T5LBhxcE4sYxf0qLhDFT0nkQP_lquXThd2hb4LvAPkDE6bET30V3tfn0-cbjJ8a5hHCINVJBKGmDAXQEkL_3-u9Rnbe4wSOF9_J86z1CoK1nF8cIi9K1BLTY90m4TGOt0YpcDsJTKYaOXs3/s1600/1000096292.jpg">
 
