@@ -1,352 +1,222 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>2025 Ka The End! 😂</title>
+<title>2025 Khatam – Tera Result 😈</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
-:root {
-    --primary: #ff0055; /* Shocking Pink */
-    --secondary: #fbb03b; /* Bright Orange */
-    --dark-bg: #1a0b2e;
-    --glass: rgba(40, 10, 60, 0.7);
-    --border: rgba(255, 100, 150, 0.3);
+:root{
+--p:#ff0055;
+--s:#fbb03b;
+--bg1:#1a0b2e;
+--bg2:#4a1052;
+--glass:rgba(40,10,60,.75);
+--border:rgba(255,100,150,.35);
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:'Poppins',sans-serif;
+background:linear-gradient(45deg,var(--bg1),var(--bg2));
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#fff;
+padding:18px;
 }
 
-* { box-sizing: border-box; }
+.container{
+background:var(--glass);
+backdrop-filter:blur(18px);
+border:2px solid var(--border);
+padding:25px;
+border-radius:28px;
+max-width:420px;
+width:100%;
+text-align:center;
+box-shadow:0 30px 60px -12px rgba(0,0,0,.85);
+animation:pop .6s cubic-bezier(.68,-.55,.27,1.55);
+}
+@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
 
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #1a0b2e, #4a1052);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    padding: 20px;
-    overflow-x: hidden;
+h2{
+font-weight:900;
+font-size:1.8rem;
+margin:10px 0;
+background:linear-gradient(to right,#ff0055,#fbb03b);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+text-transform:uppercase;
 }
 
-/* Floating Emojis Background */
-body::before {
-    content: '😂 🤣 😜 💩 🤡 😂 🤣';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    font-size: 30px;
-    opacity: 0.15;
-    z-index: -1;
-    animation: floatText 15s linear infinite;
-    pointer-events: none;
+.timer{
+margin:12px 0 18px;
+padding:10px;
+border:2px dashed var(--s);
+border-radius:14px;
+font-weight:700;
+color:var(--s);
 }
 
-@keyframes floatText {
-    0% { transform: translateY(100vh) rotate(0deg); }
-    100% { transform: translateY(-100vh) rotate(360deg); }
+input{
+width:100%;
+padding:15px 20px;
+border-radius:50px;
+border:3px solid var(--border);
+background:rgba(255,255,255,.1);
+color:#fff;
+font-size:16px;
+font-weight:bold;
+outline:none;
+margin-bottom:15px;
+}
+input:focus{border-color:var(--s);box-shadow:0 0 15px var(--s)}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:50px;
+font-size:18px;
+font-weight:900;
+cursor:pointer;
+margin-bottom:15px;
+text-transform:uppercase;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+}
+.btn-gen{
+background:linear-gradient(135deg,#ff0055,#ff5e00);
+color:#fff;
+box-shadow:0 10px 25px -5px rgba(255,0,85,.5);
+animation:pulse 2s infinite;
+}
+@keyframes pulse{50%{transform:scale(1.03)}}
+
+#out{
+display:none;
+background:rgba(255,255,255,.12);
+border:2px dotted #fff;
+border-radius:20px;
+padding:18px;
+text-align:left;
+line-height:1.55;
+font-weight:600;
+margin-bottom:15px;
 }
 
-.container {
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 2px solid var(--border);
-    padding: 25px;
-    border-radius: 30px;
-    max-width: 420px;
-    width: 100%;
-    box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
-    text-align: center;
-    position: relative;
-    animation: popIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+.btn-wa{
+display:none;
+background:linear-gradient(135deg,#25D366,#075e54);
+color:#fff;
+box-shadow:0 10px 25px -5px rgba(37,211,102,.5);
 }
 
-@keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-.banner-img {
-    width: 100%;
-    border-radius: 20px;
-    margin-bottom: 15px;
-    border: 3px solid var(--secondary);
-    box-shadow: 0 0 20px rgba(251, 176, 59, 0.5);
-}
-
-h2 {
-    font-weight: 900;
-    font-size: 1.8rem;
-    margin: 10px 0;
-    background: linear-gradient(to right, #ff0055, #fbb03b);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* Timer Styling */
-.timer-box {
-    background: rgba(0, 0, 0, 0.5);
-    padding: 12px;
-    border-radius: 15px;
-    margin: 15px 0;
-    border: 2px dashed var(--secondary);
-}
-.timer-text {
-    font-size: 1.2rem;
-    color: #fbb03b;
-    font-weight: 700;
-    font-variant-numeric: tabular-nums;
-}
-
-/* Input Styling */
-.input-group { position: relative; margin-bottom: 20px; }
-
-input {
-    width: 100%;
-    padding: 15px 15px 15px 50px;
-    border-radius: 50px;
-    border: 3px solid var(--border);
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    outline: none;
-    transition: 0.3s;
-}
-
-input:focus {
-    border-color: var(--secondary);
-    box-shadow: 0 0 15px var(--secondary);
-}
-
-.input-icon {
-    position: absolute;
-    left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--secondary);
-    font-size: 20px;
-}
-
-/* Buttons */
-.btn {
-    width: 100%;
-    padding: 15px;
-    border: none;
-    border-radius: 50px;
-    font-size: 18px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-}
-
-.btn-generate {
-    background: linear-gradient(135deg, #ff0055, #ff5e00);
-    color: white;
-    box-shadow: 0 10px 25px -5px rgba(255, 0, 85, 0.5);
-    animation: pulse 2s infinite;
-}
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.03); }
-    100% { transform: scale(1); }
-}
-
-.btn-whatsapp {
-    background: linear-gradient(135deg, #25D366, #075e54);
-    color: white;
-    display: none; /* Hidden initially */
-    box-shadow: 0 10px 25px -5px rgba(37, 211, 102, 0.5);
-}
-
-.btn:hover { transform: translateY(-3px) scale(1.02); filter: brightness(1.1); }
-.btn:active { transform: translateY(0) scale(0.98); }
-
-/* Output Area */
-#shayari-container {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 0;
-    height: 0;
-    overflow: hidden;
-    border-radius: 20px;
-    transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    opacity: 0;
-    border: 2px dotted #fff;
-}
-
-.shayari-content {
-    padding: 20px;
-    font-size: 17px;
-    line-height: 1.5;
-    color: #fff;
-    text-align: left;
-    white-space: pre-line;
-    font-weight: 600;
-}
-
-.footer {
-    margin-top: 25px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.6);
-    letter-spacing: 2px;
-}
-
-/* Shake Animation for Error */
-.shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; border-color: #ff0000 !important; }
-@keyframes shake {
-  10%, 90% { transform: translate3d(-2px, 0, 0); }
-  20%, 80% { transform: translate3d(4px, 0, 0); }
-  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
-  40%, 60% { transform: translate3d(6px, 0, 0); }
+.footer{
+margin-top:22px;
+font-size:11px;
+letter-spacing:2px;
+opacity:.6;
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
-    <img src="https://i.imgur.com/4M7IWwP.png" alt="Funny 2025 Meme" class="banner-img">
 
-    <h2>🔥 2025 Ka The End! (Aur Tera Bhi? 😂)</h2>
-    
-    <div class="timer-box">
-        <div id="timer" class="timer-text">Loading...</div>
-    </div>
+<h2>🔥 2025 KA FINAL REPORT 🔥</h2>
 
-    <div class="input-group">
-        <i class="fas fa-grin-squint-tears input-icon"></i>
-        <input type="text" id="name" placeholder="Apna shubh naam likho yaro... 😜" autocomplete="off">
-    </div>
+<div class="timer" id="timer">Loading...</div>
 
-    <button class="btn btn-generate" onclick="generate()">
-        <i class="fas fa-bomb"></i> Roast Me Plz! 😂
-    </button>
+<input id="name" placeholder="Naam likh… agar himmat hai 😈">
 
-    <div id="shayari-container">
-        <div class="shayari-content" id="shayari-text"></div>
-    </div>
+<button class="btn btn-gen" onclick="generate()">
+<i class="fas fa-skull"></i> Beizzati Start
+</button>
 
-    <button class="btn btn-whatsapp" id="whatsappBtn" onclick="shareWhatsApp()">
-        <i class="fab fa-whatsapp"></i> Ye Bezzati Share Karo 📲
-    </button>
+<div id="out"></div>
 
-    <div class="footer">
-        🔥 DESIGNED BY <strong style="color:var(--secondary)">MUSTAQEEM</strong> 🔥
-    </div>
+<button class="btn btn-wa" id="wa" onclick="shareWA()">
+<i class="fab fa-whatsapp"></i> WhatsApp Pe Chala
+</button>
+
+<div class="footer">DESIGN BY MUSTAQEEM</div>
 </div>
 
 <script>
-// *** Timer Logic ***
-function updateTimer(){
-    const end = new Date("December 31, 2025 23:59:59").getTime();
-    const now = new Date().getTime();
-    const d = end - now;
-
-    if(d < 0){
-        document.getElementById("timer").innerHTML = "🎉 Khatam Tata Bye Bye! Welcome 2026 🤣";
-        return;
-    }
-
-    const pad = (num) => String(num).padStart(2, '0');
-    const days = Math.floor(d/(1000*60*60*24));
-    const hrs = Math.floor((d%(1000*60*60*24))/(1000*60*60));
-    const mins = Math.floor((d%(1000*60*60))/(1000*60));
-    const sec = Math.floor((d%(1000*60))/1000);
-
-    document.getElementById("timer").innerHTML = 
-        `⏳ ${days}d : ${pad(hrs)}h : ${pad(mins)}m : ${pad(sec)}s Baki Hai!`;
+// TIMER
+function timer(){
+const end=new Date("December 31, 2025 23:59:59").getTime();
+const now=Date.now();
+const d=end-now;
+if(d<0){timerBox.innerHTML="🎆 2025 KHATAM – TATA BYE 😂";return;}
+const h=Math.floor((d%(1000*60*60*24))/(1000*60*60));
+const m=Math.floor((d%(1000*60*60))/(1000*60));
+const s=Math.floor((d%(1000*60))/1000);
+timerBox.innerHTML=`⏳ ${h}h ${m}m ${s}s baki`;
 }
-setInterval(updateTimer, 1000);
-updateTimer();
+const timerBox=document.getElementById("timer");
+setInterval(timer,1000);timer();
 
-// *** Global Voices ***
-let voices = [];
-window.speechSynthesis.onvoiceschanged = () => {
-    voices = window.speechSynthesis.getVoices();
-};
-
-// *** Generator & Cute Voice Function ***
+// GENERATE
 function generate(){
-    const nameInput = document.getElementById("name");
-    const container = document.getElementById("shayari-container");
-    const waBtn = document.getElementById("whatsappBtn");
-    let name = nameInput.value.trim();
+let n=document.getElementById("name").value.trim()||"Bhai";
 
-    if(!name){
-        name = "Bhai"; // Default funny name
-    }
+const text=`
+Sun bey ${n} 🤡
 
-    // 🔥 The Zabardast Funny Roast Text 🔥
-    const text = `
-sun bey 🤡 *${name}*!
+2025 poora khatam ho gaya…
+aur tu abhi bhi wahi ka wahi hai 😂
 
-2025 pack-up ho raha hai, tata bye bye khatam! 👋
-Aur tu? Tu wahi ka wahi hai 🤣.
+Sapne bole: “body banayenge, paisa kamayenge”
+Reality boli: “reels dekho, sojao” 📱💤
 
-Socha tha 2025 me body banayega, paise kamayega...
-*Ghanta!* 🔔 Sirf pet badhaya aur Netflix dekha.
+Arey HOLE hai kya yaro!
+2026 gate pe khada hai 🚪🔥
 
-Arey *Hole hai kya yaro!* 2026 aa raha hai darwaaze pe,
-Thoda sudhar ja nalle! Varna agli saal fir yahi message padhega 😜.
+⚠️ Warning:
+Ye message dost ko nahi bheja
+to 2026 bhi isi tarah nikal jayega 😈
+`;
 
-*Chal ab ye zabardast bezzati apne doston ko bhi bhej aur unki jala!* 😂🔥
-    `;
+const out=document.getElementById("out");
+out.innerText=text;
+out.style.display="block";
+document.getElementById("wa").style.display="flex";
 
-    // Show Content with Animation
-    document.getElementById("shayari-text").innerHTML = text.replace(/\n/g, "<br>");
-    container.style.height = "auto";
-    container.style.opacity = "1";
-    container.style.padding = "10px 0"; 
-    
-    // Show WhatsApp Button
-    waBtn.style.display = "flex";
-    waBtn.classList.add('shake');
-
-    // *** CUTE LADY VOICE SETUP ***
-    window.speechSynthesis.cancel();
-    const speech = new SpeechSynthesisUtterance();
-    
-    // The text needs to be plain for TTS to read correctly without formatting symbols
-    speech.text = `Oye Sun bey ${name}! 2025 pack up ho raha hai, tata bye bye khatam! Aur tu? Tu wahi ka wahi hai. Hahaha. Socha tha 2025 me body banayega, paise kamayega. Ghanta! Sirf pet badhaya aur Netflix dekha. Arey Hole hai kya yaro! 2026 aa raha hai, thoda sudhar ja nalle! Varna agli saal fir yahi message padhega. Chal ab ye zabardast bezzati apne doston ko bhi bhej aur unki jala!`;
-    
-    speech.lang = "hi-IN";
-    
-    // 🔥 CRITICAL SETTINGS FOR CUTE VOICE 🔥
-    speech.rate = 1.1;  // Slightly faster speed
-    speech.pitch = 1.6; // High pitch for chipmunk/cute lady effect
-
-    // Try to grab a female voice if available (works better on some devices)
-    let preferredVoice = voices.find(voice => voice.lang.includes('hi') && voice.name.includes('Female'));
-    if (!preferredVoice) {
-         preferredVoice = voices.find(voice => voice.lang.includes('hi'));
-    }
-    if (preferredVoice) {
-        speech.voice = preferredVoice;
-    }
-
-    window.speechSynthesis.speak(speech);
+// VOICE
+speechSynthesis.cancel();
+let sp=new SpeechSynthesisUtterance(
+`Sun bey ${n}. 2025 khatam ho gaya aur tu wahi ka wahi hai.
+Reels kam, kaam zyada kar.
+Aur haan, ye message dost ko bhej.`
+);
+sp.lang="hi-IN";
+sp.rate=1.1;
+sp.pitch=1.5;
+speechSynthesis.speak(sp);
 }
 
-// *** WhatsApp Share with Specific Link ***
-function shareWhatsApp(){
-    const textDiv = document.getElementById("shayari-text");
-    // Get text content to remove HTML <br> tags for pure text share
-    let textContent = textDiv.textContent || textDiv.innerText;
+// SHORT WHATSAPP SHARE (IMPORTANT FIX)
+function shareWA(){
+const shortMsg=`😈 2025 ka sach dekhne ki himmat hai?
 
-    // Appending the MUSTAQEEM link specifically
-    const shareText = `${textContent}\n\n👇 *Tu bhi apni bezzati karwa le yaha:* \n👉 https://mustaqeem-hyd-news.netlify.app/2026`; 
-    
-    const url = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
-    window.open(url, "_blank");
+👇 Click kar
+https://mustaqeem-hyd-news.netlify.app/2026`;
+
+window.open(
+"https://wa.me/?text="+encodeURIComponent(shortMsg),
+"_blank"
+);
 }
 </script>
 
