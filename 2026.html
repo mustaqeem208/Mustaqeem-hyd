@@ -1,131 +1,176 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>2025 Khatam – Tera Result 😈</title>
+<title>2025 Khatam - Reality Check 😈</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&family=Orbitron:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
 
 <style>
 :root{
---p:#ff0055;
---s:#fbb03b;
---bg1:#1a0b2e;
---bg2:#4a1052;
---glass:rgba(40,10,60,.75);
---border:rgba(255,100,150,.35);
+    --p: #ff0055; /* Pink */
+    --s: #00f3ff; /* Cyan */
+    --bg: #0f172a;
+    --glass: rgba(255, 255, 255, 0.05);
+    --border: rgba(255, 255, 255, 0.1);
 }
+
 *{box-sizing:border-box}
+
 body{
-margin:0;
-font-family:'Poppins',sans-serif;
-background:linear-gradient(45deg,var(--bg1),var(--bg2));
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-color:#fff;
-padding:18px;
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background: radial-gradient(circle at center, #1e1b4b, #020617);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    padding:15px;
+    overflow-x: hidden;
+}
+
+/* Background Particle Effect */
+body::before {
+    content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 30px 30px; opacity: 0.4; z-index: -1;
 }
 
 .container{
-background:var(--glass);
-backdrop-filter:blur(18px);
-border:2px solid var(--border);
-padding:25px;
-border-radius:28px;
-max-width:420px;
-width:100%;
-text-align:center;
-box-shadow:0 30px 60px -12px rgba(0,0,0,.85);
-animation:pop .6s cubic-bezier(.68,-.55,.27,1.55);
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    padding: 30px 20px;
+    border-radius: 25px;
+    max-width: 420px;
+    width: 100%;
+    text-align:center;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
+    position: relative;
+    border-top: 3px solid var(--p);
 }
-@keyframes pop{0%{transform:scale(.5);opacity:0}100%{transform:scale(1);opacity:1}}
 
 h2{
-font-weight:900;
-font-size:1.8rem;
-margin:10px 0;
-background:linear-gradient(to right,#ff0055,#fbb03b);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-text-transform:uppercase;
+    font-family: 'Orbitron', sans-serif;
+    font-weight:900;
+    font-size: 1.8rem;
+    margin: 10px 0 20px;
+    background: linear-gradient(to right, var(--p), var(--s));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 0, 85, 0.3);
 }
 
 .timer{
-margin:12px 0 18px;
-padding:10px;
-border:2px dashed var(--s);
-border-radius:14px;
-font-weight:700;
-color:var(--s);
+    background: rgba(0,0,0,0.4);
+    padding: 15px;
+    border-radius: 12px;
+    font-weight:700;
+    color: var(--s);
+    margin-bottom: 25px;
+    border: 1px dashed var(--s);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
 }
 
 input{
-width:100%;
-padding:15px 20px;
-border-radius:50px;
-border:3px solid var(--border);
-background:rgba(255,255,255,.1);
-color:#fff;
-font-size:16px;
-font-weight:bold;
-outline:none;
-margin-bottom:15px;
+    width:100%;
+    padding:18px;
+    border-radius:50px;
+    border:2px solid var(--border);
+    background:rgba(0,0,0,0.3);
+    color:#fff;
+    font-size:18px;
+    font-weight:bold;
+    outline:none;
+    text-align: center;
+    margin-bottom:20px;
+    transition: 0.3s;
 }
-input:focus{border-color:var(--s);box-shadow:0 0 15px var(--s)}
+input:focus{
+    border-color:var(--s);
+    box-shadow:0 0 15px rgba(0, 243, 255, 0.3);
+}
 
 .btn{
-width:100%;
-padding:15px;
-border:none;
-border-radius:50px;
-font-size:18px;
-font-weight:900;
-cursor:pointer;
-margin-bottom:15px;
-text-transform:uppercase;
-display:flex;
-align-items:center;
-justify-content:center;
-gap:10px;
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:50px;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
+    margin-bottom:15px;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    transition: transform 0.2s;
 }
-.btn-gen{
-background:linear-gradient(135deg,#ff0055,#ff5e00);
-color:#fff;
-box-shadow:0 10px 25px -5px rgba(255,0,85,.5);
-animation:pulse 2s infinite;
-}
-@keyframes pulse{50%{transform:scale(1.03)}}
 
+.btn-gen{
+    background: linear-gradient(90deg, var(--p), #ff5e00);
+    color:#fff;
+    box-shadow:0 10px 30px -5px rgba(255,0,85,.4);
+}
+.btn-gen:active { transform: scale(0.95); }
+
+/* RESULT BOX */
 #out{
-display:none;
-background:rgba(255,255,255,.12);
-border:2px dotted #fff;
-border-radius:20px;
-padding:18px;
-text-align:left;
-line-height:1.55;
-font-weight:600;
-margin-bottom:15px;
+    display:none;
+    background: rgba(255, 0, 85, 0.08);
+    border-left: 4px solid var(--p);
+    border-radius: 8px;
+    padding: 15px;
+    text-align: left;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #ffd1dc;
+    font-size: 15px;
+    animation: fadeIn 0.5s;
+}
+
+/* AD BOX (Perfect Placement) */
+.ad-box {
+    margin: 15px 0;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    overflow: hidden;
+    min-height: 250px; /* Space for Ad */
+    display: none; /* Hidden until generated */
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255,255,255,0.05);
 }
 
 .btn-wa{
-display:none;
-background:linear-gradient(135deg,#25D366,#075e54);
-color:#fff;
-box-shadow:0 10px 25px -5px rgba(37,211,102,.5);
+    display:none;
+    background: #25D366;
+    color:#fff;
+    box-shadow:0 10px 25px -5px rgba(37,211,102,.4);
 }
 
 .footer{
-margin-top:22px;
-font-size:11px;
-letter-spacing:2px;
-opacity:.6;
+    margin-top:25px;
+    font-size:11px;
+    letter-spacing:2px;
+    opacity:.5;
+    font-weight: bold;
+    text-transform: uppercase;
 }
+
+/* Animation */
+.shake { animation: shake 0.5s; border-color: red !important; }
+@keyframes shake { 0%, 100% {transform: translateX(0);} 25% {transform: translateX(-5px);} 75% {transform: translateX(5px);} }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 </style>
 </head>
 
@@ -133,92 +178,151 @@ opacity:.6;
 
 <div class="container">
 
-<h2>🔥 2025 KA FINAL REPORT 🔥</h2>
+    <h2>🔥 2025 RESULT 😈</h2>
+    
+    <div class="timer" id="timer">Calculating Time...</div>
 
-<div class="timer" id="timer">Loading...</div>
+    <input id="name" placeholder="Apna Naam Likho..." autocomplete="off">
 
-<input id="name" placeholder="Naam likh… agar himmat hai 😈">
+    <button class="btn btn-gen" id="genBtn" onclick="generate()">
+        <i class="fas fa-biohazard"></i> Scan & Roast Me
+    </button>
 
-<button class="btn btn-gen" onclick="generate()">
-<i class="fas fa-skull"></i> Beizzati Start
-</button>
+    <div id="out"></div>
 
-<div id="out"></div>
+    <div class="ad-box" id="adArea">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="5526373007"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
 
-<button class="btn btn-wa" id="wa" onclick="shareWA()">
-<i class="fab fa-whatsapp"></i> WhatsApp Pe Chala
-</button>
+    <button class="btn btn-wa" id="wa" onclick="shareWA()">
+        <i class="fab fa-whatsapp"></i> Share on WhatsApp
+    </button>
 
-<div class="footer">DESIGN BY MUSTAQEEM</div>
+    <div class="footer">design by ᗰᑌᔕTᗩᑫEEᗰ</div>
 </div>
 
 <script>
-// TIMER
-function timer(){
-const end=new Date("December 31, 2025 23:59:59").getTime();
-const now=Date.now();
-const d=end-now;
-if(d<0){timerBox.innerHTML="🎆 2025 KHATAM – TATA BYE 😂";return;}
-const h=Math.floor((d%(1000*60*60*24))/(1000*60*60));
-const m=Math.floor((d%(1000*60*60))/(1000*60));
-const s=Math.floor((d%(1000*60))/1000);
-timerBox.innerHTML=`⏳ ${h}h ${m}m ${s}s baki`;
+// --- TIMER LOGIC ---
+function updateTimer(){
+    const end = new Date("December 31, 2025 23:59:59").getTime();
+    const now = Date.now();
+    const d = end - now;
+    
+    if(d < 0){
+        document.getElementById("timer").innerHTML = "🎆 2025 KHATAM!";
+        return;
+    }
+    const days = Math.floor(d / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((d % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((d % (1000 * 60)) / 1000);
+    document.getElementById("timer").innerHTML = `⏳ ${days}d ${hours}h ${minutes}m ${seconds}s`;
 }
-const timerBox=document.getElementById("timer");
-setInterval(timer,1000);timer();
+setInterval(updateTimer, 1000);
+updateTimer();
 
-// GENERATE
+// --- ROAST GENERATOR LOGIC ---
 function generate(){
-let n=document.getElementById("name").value.trim()||"Bhai";
+    const nameInput = document.getElementById("name");
+    const btn = document.getElementById("genBtn");
+    let n = nameInput.value.trim();
 
-const text=`
-Sun bey ${n} 🤡
+    // Validation
+    if(!n) {
+        nameInput.classList.add('shake');
+        setTimeout(()=> nameInput.classList.remove('shake'), 500);
+        return;
+    }
 
-2025 poora khatam ho gaya…
-aur tu abhi bhi wahi ka wahi hai 😂
-
-Sapne bole: “body banayenge, paisa kamayenge”
-Reality boli: “reels dekho, sojao” 📱💤
-
-Arey HOLE hai kya yaro!
-2026 gate pe khada hai 🚪🔥
-
-⚠️ Warning:
-Ye message dost ko nahi bheja
-to 2026 bhi isi tarah nikal jayega 😈
-`;
-
-const out=document.getElementById("out");
-out.innerText=text;
-out.style.display="block";
-document.getElementById("wa").style.display="flex";
-
-// VOICE
-speechSynthesis.cancel();
-let sp=new SpeechSynthesisUtterance(
-`Sun bey ${n}. 2025 khatam ho gaya aur tu wahi ka wahi hai.
-Reels kam, kaam zyada kar.
-Aur haan, ye message dost ko bhej.`
-);
-sp.lang="hi-IN";
-sp.rate=1.1;
-sp.pitch=1.5;
-speechSynthesis.speak(sp);
+    // Suspense Animation
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> SCANNING KUNDLI...';
+    btn.style.background = "#333";
+    
+    setTimeout(() => {
+        btn.style.display = "none"; // Hide button
+        showRandomRoast(n);
+    }, 2000); // 2 Sec Wait
 }
 
-// SHORT WHATSAPP SHARE (IMPORTANT FIX)
+function showRandomRoast(n) {
+    // 🔥 RANDOM JOKES COLLECTION 🔥
+    const roasts = [
+        {
+            // Hyderabadi Style
+            html: `
+            <strong>⚠️ IDENTITY: ${n.toUpperCase()}</strong><br><br>
+            Arey <strong>${n}</strong>, shakal se hi <br>
+            <strong>2025 ka sabse bada scam</strong> dikh raha tu! 🤡<br><br>
+            Log <strong>Chand 🌙</strong> pe pahunch gaye,<br>
+            aur tu abhi bhi bistar mein pada <strong>Reels</strong> scroll karra!<br><br>
+            <strong>Arey Baigan! 🍆</strong><br>
+            2026 aa gaya, ab toh sudhar ja <strong>Nalle!</strong> 😂`,
+            
+            speak: `Arey ${n}! Shakal se hi 2025 ka sabse bada scam dikh raha tu. Log chand pe pahunch gaye aur tu abhi bhi bistar me pada hai. Arey Baigan! Ab toh sudhar ja nalle!`
+        },
+        {
+            // Broke/Ghareeb Style
+            html: `
+            <strong>⚠️ WARNING: ${n.toUpperCase()}</strong><br><br>
+            2025 khatam hone ko aaya,<br>
+            aur tune kya ukhada? <strong>KUCH NAHI!</strong> 🤣<br><br>
+            Log <strong>iPhone 16</strong> le rahe hain,<br>
+            aur tu abhi bhi dost se <strong>Hotspot</strong> maang raha hai! 📶<br><br>
+            Sudhar ja <strong>${n}</strong>, varna 2026 mein bhi<br>
+            sirf 'Happy New Year' ke msg forward karega! 🤡`,
+            
+            speak: `2025 khatam hone ko aaya aur tune kya ukhada? Kuch nahi! Log iPhone le rahe hain aur tu abhi bhi dost se hotspot maang raha hai. Sudhar ja ${n}!`
+        },
+        {
+            // Lazy/Aaloo Style
+            html: `
+            <strong>⚠️ SYSTEM ERROR: ${n.toUpperCase()}</strong><br><br>
+            Mubarak ho! 🎉<br>
+            Tumne safalta-poorvak <strong>365 din waste</strong> kar diye hain! 🏆<br><br>
+            Achievements: <strong>ZERO</strong><br>
+            Lazy-pan: <strong>100%</strong><br><br>
+            Tujhe dekh ke toh AI bhi confuse hai ki,<br>
+            <strong>"Ye insaan hai ya aaloo?"</strong> 🥔😂`,
+            
+            speak: `Mubarak ho! Tumne safalta poorvak 365 din waste kar diye hain. Achievements zero. Tujhe dekh ke toh AI bhi confuse hai ki ye insaan hai ya aaloo?`
+        }
+    ];
+
+    // Pick Random
+    const random = roasts[Math.floor(Math.random() * roasts.length)];
+
+    // Show Elements
+    const out = document.getElementById("out");
+    out.innerHTML = random.html;
+    out.style.display = "block";
+    
+    document.getElementById("adArea").style.display = "flex"; // Show Ads
+    document.getElementById("wa").style.display = "flex"; // Show Share Button
+
+    // Voice
+    window.speechSynthesis.cancel();
+    let sp = new SpeechSynthesisUtterance(random.speak);
+    sp.lang = "hi-IN";
+    sp.rate = 1.1; 
+    sp.pitch = 1.2; 
+    window.speechSynthesis.speak(sp);
+}
+
+// --- WHATSAPP SHARE (SUSPENSE LINK) ---
 function shareWA(){
-const shortMsg=`😈 2025 ka sach dekhne ki himmat hai?
-
-👇 Click kar
-https://mustaqeem-hyd-news.netlify.app/2026`;
-
-window.open(
-"https://wa.me/?text="+encodeURIComponent(shortMsg),
-"_blank"
-);
+    const shortMsg = `😈 2025 ka kadwa sach sunne ki himmat hai?\n\nMere baare mein AI ne kya bola dekh 👇\nhttps://mustaqeem-hyd-news.netlify.app/2026`;
+    window.open("https://wa.me/?text=" + encodeURIComponent(shortMsg), "_blank");
 }
 </script>
 
 </body>
 </html>
+
