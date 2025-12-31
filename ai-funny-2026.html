@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,6 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
 
 <style>
 :root {
@@ -30,10 +33,10 @@ body {
     justify-content: center;
     align-items: center;
     color: #fff;
-    overflow: hidden;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
-/* Intro Overlay (For Auto Voice) */
+/* Intro Overlay */
 #overlay {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -59,7 +62,7 @@ body {
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
     text-align: center;
-    margin: 20px;
+    margin: 20px 10px; /* Small margin for mobile */
 }
 
 /* Corners */
@@ -161,8 +164,20 @@ input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 243, 
     gap: 10px;
 }
 
+/* AD CONTAINER STYLE */
+.ad-container {
+    margin-top: 25px;
+    min-height: 100px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .footer {
-    margin-top: 30px;
+    margin-top: 20px;
     font-size: 12px;
     color: #555;
     text-transform: uppercase;
@@ -203,22 +218,30 @@ input:focus { border-color: var(--neon-blue); box-shadow: 0 0 15px rgba(0, 243, 
         </button>
     </div>
 
+    <div class="ad-container">
+        <ins class="adsbygoogle"
+             style="display:block; width: 100%;"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="5526373007"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
     <div class="footer">design by ᗰᑌᔕTᗩᑫEEᗰ</div>
 </div>
 
-
-
 <script>
-// 1. INTRO VOICE (Triggered on first Tap)
+// 1. INTRO VOICE
 function enableAudio() {
     document.getElementById('overlay').style.display = 'none';
     
-    // Voice Message Intro
     const speech = new SpeechSynthesisUtterance();
     speech.text = "Welcome user. Kripya apna naam likhein. 2025 ka sara kacha chittha, aur sach, abhi samne aane wala hai.";
     speech.lang = "hi-IN";
     speech.rate = 1.0;
-    speech.pitch = 1.1; // Slight robotic tone
+    speech.pitch = 1.1; 
     window.speechSynthesis.speak(speech);
 }
 
@@ -235,7 +258,6 @@ function processScan() {
     scanner.style.display = 'block';
     document.getElementById('result-box').style.display = 'none';
 
-    // 3 Second Delay for Effect
     setTimeout(() => {
         btn.innerHTML = "SCAN COMPLETE";
         btn.style.background = "#333";
@@ -250,7 +272,7 @@ function showRoast(name) {
     const box = document.getElementById('result-box');
     const textDiv = document.getElementById('roast-text');
     
-    // 🔥 PRO MAX BEZZATI TEXT 🔥
+    // Roast Text
     const roast = `
     <strong>IDENTITY:</strong> ${name.toUpperCase()}<br>
     <strong>STATUS:</strong> 2025 FAILURE ❌<br><br>
@@ -265,29 +287,27 @@ function showRoast(name) {
     textDiv.innerHTML = roast;
     box.style.display = 'block';
 
-    // 🔊 ROAST VOICE
+    // Voice
     window.speechSynthesis.cancel();
     const speech = new SpeechSynthesisUtterance();
     
-    // Funny Roast Script
     speech.text = `Scan Complete. Suno ${name}. System ne detect kiya hai ki tumne 2025 mein sirf data aur oxygen waste kiya hai. Tumhara sabse bada achievement ye hai ki tum abhi tak zinda ho. Log 2026 ki planning kar rahe hain aur tum abhi bhi reels scroll kar rahe ho? Sharam karo aur sudhar jao!`;
     
     speech.lang = "hi-IN";
     speech.rate = 1.0;
-    speech.pitch = 0.9; // Serious Sarcastic Tone
+    speech.pitch = 0.9;
     window.speechSynthesis.speak(speech);
 }
 
-// 3. WHATSAPP SHARE (Short & Suspense)
+// 3. WHATSAPP SHARE
 function shareWA() {
-    const msg = `😱 *Mera 2025 ka Sach AI ne pakad liya!* \n\nCheck kar tera kya haal hai 2025 mein! 👇\n\nhttps://mustaqeem-hyd-news.netlify.app/ai-funny-2026`;
+    const msg = `😱 *Mera 2025 ka Sach AI ne pakad liya!* \n\nCheck kar tera kya haal hai 2025 mein! 👇\n\nhttps://mustaqeem-hyd-news.netlify.app/2026`;
     
     const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
     window.open(url, "_blank");
 }
 </script>
 
-    
-
 </body>
 </html>
+
