@@ -1,0 +1,252 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+body{
+  margin:0;font-family:sans-serif;
+  background:#121212;color:#fff;height:100vh;overflow:hidden
+}
+.header{
+  height:55px;background:#000;color:#FFC107;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 15px;border-bottom:1px solid #333
+}
+.menu-btn{font-size:22px;cursor:pointer}
+.switch{position:relative;width:50px;height:26px}
+.switch input{display:none}
+.slider{
+  position:absolute;inset:0;background:#333;border-radius:20px
+}
+.slider:before{
+  content:"";position:absolute;height:20px;width:20px;
+  left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s
+}
+input:checked+.slider{background:#4CAF50}
+input:checked+.slider:before{transform:translateX(24px)}
+
+#map{height:35%}
+.container{padding:12px;height:calc(65% - 55px);overflow:auto}
+.card{
+  background:#1e1e1e;padding:14px;border-radius:10px;
+  margin-bottom:12px;border-left:5px solid #FFC107
+}
+.btn{
+  width:100%;padding:10px;margin-top:6px;
+  border:none;border-radius:6px;font-weight:bold
+}
+.btn-acc{background:#FFC107;color:#000}
+.btn-call{background:#2196F3;color:#fff}
+.btn-map{background:#4CAF50;color:#fff}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+  position:fixed;top:0;left:-260px;width:260px;height:100%;
+  background:#0f0f0f;z-index:9999;padding:15px;transition:.3s
+}
+.sidebar.active{left:0}
+.sidebar h3{margin-top:0;color:#FFC107}
+.sidebar button, .sidebar select{
+  width:100%;margin-top:10px;padding:10px;
+  background:#1e1e1e;color:#fff;border:none;border-radius:6px
+}
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  display:none;z-index:9998
+}
+.overlay.show{display:block}
+
+/* ===== MODAL ===== */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  display:none;justify-content:center;align-items:center
+}
+.receipt{
+  background:#fff;color:#000;padding:20px;
+  width:300px;text-align:center;border-radius:10px
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <h3>MENU</h3>
+
+  <select id="lang" onchange="changeLang(this.value)">
+    <option value="en-IN">English</option>
+    <option value="hi-IN">Hindi</option>
+    <option value="ur-PK">Urdu</option>
+    <option value="te-IN">Telugu</option>
+  </select>
+
+  <button onclick="showHistory()">History</button>
+  <button onclick="logout()">Logout</button>
+</div>
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
+
+<!-- HEADER -->
+<div class="header">
+  <span class="menu-btn" onclick="openMenu()">☰</span>
+  <b>PARTNER</b>
+  <label class="switch">
+    <input type="checkbox" id="onToggle" onchange="toggleOnline()">
+    <span class="slider"></span>
+  </label>
+</div>
+
+<div id="map"></div>
+
+<div class="container">
+  <div id="msg" style="text-align:center;color:#777;margin-top:30px">
+    Go Online
+  </div>
+  <div id="list"></div>
+</div>
+
+<!-- BILL -->
+<div class="modal" id="billModal">
+  <div class="receipt">
+    <h2>RECEIPT</h2>
+    <h1 id="billAmt">₹0</h1>
+    <button class="btn btn-acc" onclick="location.reload()">NEXT</button>
+    <small>design by ᗰᑌᔕTᗩᑫEEᗰ</small>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import {getDatabase,ref,onChildAdded,update} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+/* ===== FIREBASE ===== */
+initializeApp({
+ apiKey:"AIzaSyAYfGEkpcdkUB7qrSK0k8E9s__3b6Xdyw4",
+ databaseURL:"https://apna-bazar-58532-default-rtdb.firebaseio.com"
+});
+const db=getDatabase();
+
+/* ===== GLOBALS ===== */
+let map,marker;
+let drvLat=17.385, drvLng=78.4867;
+let isOnline=false;
+let lang="en-IN";
+
+/* ===== MENU ===== */
+window.openMenu=()=>{
+ sidebar.classList.add("active");
+ overlay.classList.add("show");
+}
+window.closeMenu=()=>{
+ sidebar.classList.remove("active");
+ overlay.classList.remove("show");
+}
+window.logout=()=>{ alert("Logged out"); location.reload(); }
+window.showHistory=()=>{ alert("History coming soon"); }
+window.changeLang=l=>{ lang=l; speak("Language changed"); }
+
+/* ===== VOICE ===== */
+function speak(t){
+ let u=new SpeechSynthesisUtterance(t);
+ u.lang=lang;
+ speechSynthesis.cancel();
+ speechSynthesis.speak(u);
+}
+
+/* ===== MAP + GPS (FIXED) ===== */
+map=L.map("map").setView([drvLat,drvLng],16);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+marker=L.marker([drvLat,drvLng],{
+ draggable:true
+}).addTo(map);
+
+marker.on("dragend",e=>{
+ let p=e.target.getLatLng();
+ drvLat=p.lat; drvLng=p.lng;
+});
+
+/* 🔥 REAL GPS FIX */
+if(navigator.geolocation){
+ navigator.geolocation.watchPosition(
+  p=>{
+   drvLat=p.coords.latitude;
+   drvLng=p.coords.longitude;
+   marker.setLatLng([drvLat,drvLng]);
+   map.setView([drvLat,drvLng],17);
+   console.log("GPS OK",drvLat,drvLng,p.coords.accuracy);
+  },
+  e=>{console.error("GPS ERROR",e.message)},
+  {enableHighAccuracy:true,maximumAge:0,timeout:15000}
+ );
+}else{
+ alert("GPS not supported");
+}
+
+/* ===== ONLINE ===== */
+window.toggleOnline=()=>{
+ isOnline=onToggle.checked;
+ msg.innerText=isOnline?"Searching orders...":"Offline";
+ if(isOnline) speak("You are online");
+};
+
+/* ===== DIST ===== */
+function dist(a,b,c,d){
+ let R=6371;
+ let dLat=(c-a)*Math.PI/180;
+ let dLon=(d-b)*Math.PI/180;
+ let x=Math.sin(dLat/2)**2+
+ Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dLon/2)**2;
+ return (R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))).toFixed(1);
+}
+
+/* ===== ORDERS ===== */
+onChildAdded(ref(db,"orders"),s=>{
+ if(!isOnline) return;
+ let d=s.val();
+ if(d.status!=="Pending") return;
+
+ let km=dist(drvLat,drvLng,d.lat,d.lng);
+ if(km>7) return;
+
+ let c=document.createElement("div");
+ c.className="card";
+ c.id=s.key;
+ c.innerHTML=`
+  <h3>₹${d.total} • ${km} km</h3>
+  <button class="btn btn-acc"
+   onclick="accept('${s.key}',${d.lat},${d.lng},'${d.phone}',${d.total})">
+   ACCEPT
+  </button>`;
+ list.appendChild(c);
+ speak("New order received");
+});
+
+window.accept=(k,lat,lng,ph,amt)=>{
+ update(ref(db,"orders/"+k),{status:"Accepted"});
+ document.getElementById(k)?.remove();
+ let c=document.createElement("div");
+ c.className="card";
+ c.innerHTML=`
+  <button class="btn btn-call" onclick="location.href='tel:${ph}'">CALL</button>
+  <button class="btn btn-map" onclick="open('https://maps.google.com/?q=${lat},${lng}')">MAP</button>
+  <button class="btn btn-map" onclick="done('${k}',${amt})">DONE</button>`;
+ list.appendChild(c);
+};
+
+window.done=(k,amt)=>{
+ update(ref(db,"orders/"+k),{status:"Delivered"});
+ billModal.style.display="flex";
+ billAmt.innerText="₹"+amt;
+};
+</script>
+
+</body>
+</html>
