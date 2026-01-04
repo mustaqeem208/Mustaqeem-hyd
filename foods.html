@@ -1,196 +1,252 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mustaqeem Hyd</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <style>
-        :root { --primary: #E23744; --dark: #121212; --bg: #F9F9F9; }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); height: 100vh; display: flex; flex-direction: column; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner</title>
 
-        /* LOGIN */
-        #login-screen { position: fixed; inset: 0; background: white; z-index: 5000; display: flex; flex-direction: column; justify-content: center; padding: 30px; }
-        .inp { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; box-sizing: border-box; }
-        .btn-main { width: 100%; padding: 15px; background: var(--primary); color: white; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; margin-top: 10px; }
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 
-        /* APP */
-        #app-screen { display: none; height: 100%; flex-direction: column; }
-        .navbar { position: absolute; top: 20px; left: 20px; z-index: 2000; }
-        .menu-btn { background: white; width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 20px; color: var(--dark); cursor: pointer; }
+<style>
+body{
+  margin:0;font-family:sans-serif;
+  background:#121212;color:#fff;height:100vh;overflow:hidden
+}
+.header{
+  height:55px;background:#000;color:#FFC107;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 15px;border-bottom:1px solid #333
+}
+.menu-btn{font-size:22px;cursor:pointer}
+.switch{position:relative;width:50px;height:26px}
+.switch input{display:none}
+.slider{
+  position:absolute;inset:0;background:#333;border-radius:20px
+}
+.slider:before{
+  content:"";position:absolute;height:20px;width:20px;
+  left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.3s
+}
+input:checked+.slider{background:#4CAF50}
+input:checked+.slider:before{transform:translateX(24px)}
 
-        #map-container { height: 40%; width: 100%; position: relative; }
-        #map { height: 100%; width: 100%; }
-        .drag-hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); background: white; padding: 6px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+#map{height:35%}
+.container{padding:12px;height:calc(65% - 55px);overflow:auto}
+.card{
+  background:#1e1e1e;padding:14px;border-radius:10px;
+  margin-bottom:12px;border-left:5px solid #FFC107
+}
+.btn{
+  width:100%;padding:10px;margin-top:6px;
+  border:none;border-radius:6px;font-weight:bold
+}
+.btn-acc{background:#FFC107;color:#000}
+.btn-call{background:#2196F3;color:#fff}
+.btn-map{background:#4CAF50;color:#fff}
 
-        .panel { flex: 1; background: white; border-radius: 25px 25px 0 0; margin-top: -20px; z-index: 2; padding: 25px; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); position: relative; }
-        .food-card { display: flex; gap: 15px; border-bottom: 1px dashed #eee; padding-bottom: 20px; margin-bottom: 15px; }
-        .food-img { width: 90px; height: 90px; border-radius: 15px; background: #FFC107; object-fit: cover; }
-        .qty-row { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
-        .qty-btn { width: 30px; height: 30px; background: #f0f0f0; border: none; border-radius: 5px; font-weight: bold; }
+/* ===== SIDEBAR ===== */
+.sidebar{
+  position:fixed;top:0;left:-260px;width:260px;height:100%;
+  background:#0f0f0f;z-index:9999;padding:15px;transition:.3s
+}
+.sidebar.active{left:0}
+.sidebar h3{margin-top:0;color:#FFC107}
+.sidebar button, .sidebar select{
+  width:100%;margin-top:10px;padding:10px;
+  background:#1e1e1e;color:#fff;border:none;border-radius:6px
+}
+.overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  display:none;z-index:9998
+}
+.overlay.show{display:block}
 
-        /* BILL CARD */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 6000; display: none; justify-content: center; align-items: center; padding: 20px; }
-        .receipt-card { background: white; width: 100%; max-width: 350px; border-radius: 0; position: relative; padding: 20px; text-align: center; background-image: radial-gradient(circle at 0 100%, transparent 10px, white 11px), radial-gradient(circle at 100% 100%, transparent 10px, white 11px); filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); }
-        .receipt-header { border-bottom: 2px dashed #000; padding-bottom: 15px; margin-bottom: 15px; }
-        .paid-stamp { border: 3px solid #4CAF50; color: #4CAF50; font-weight: 900; font-size: 24px; padding: 5px 15px; display: inline-block; transform: rotate(-10deg); margin-bottom: 10px; border-radius: 5px; }
-
-        /* SIDEBAR */
-        .sidebar { height: 100%; width: 0; position: fixed; z-index: 4000; top: 0; left: 0; background: white; overflow-x: hidden; transition: 0.3s; padding-top: 60px; box-shadow: 2px 0 20px rgba(0,0,0,0.1); }
-        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 16px; color: #555; display: block; border-bottom: 1px solid #f9f9f9; }
-    </style>
+/* ===== MODAL ===== */
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  display:none;justify-content:center;align-items:center
+}
+.receipt{
+  background:#fff;color:#000;padding:20px;
+  width:300px;text-align:center;border-radius:10px
+}
+</style>
 </head>
+
 <body>
 
-    <div id="login-screen">
-        <h2 style="color:#E23744; text-align:center;">LOGIN</h2>
-        <div id="step1">
-            <input type="tel" id="regPhone" class="inp" placeholder="Phone Number">
-            <input type="text" id="regName" class="inp" placeholder="Name">
-            <button class="btn-main" onclick="checkUser()">CONTINUE</button>
-        </div>
-        <div id="step2" style="display:none; text-align:center;">
-            <p>Wait for Admin WhatsApp OTP</p>
-            <input type="number" id="otpInput" class="inp" placeholder="OTP">
-            <div style="color:red; margin-bottom:10px;">Expires in <span id="timer">500</span>s</div>
-            <button class="btn-main" onclick="verifyOtp()">LOGIN</button>
-        </div>
-    </div>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <h3>MENU</h3>
 
-    <div id="app-screen">
-        <div class="navbar"><div class="menu-btn" onclick="openNav()"><i class="fas fa-bars"></i></div></div>
-        <div id="mySidebar" class="sidebar">
-            <a href="javascript:void(0)" onclick="closeNav()" style="font-size:30px; text-align:right;">×</a>
-            <div style="padding:20px; font-weight:bold; color:#E23744;" id="sName">User</div>
-            <a href="#">History</a>
-            <a href="#" onclick="logout()" style="color:red;">Logout</a>
-        </div>
+  <select id="lang" onchange="changeLang(this.value)">
+    <option value="en-IN">English</option>
+    <option value="hi-IN">Hindi</option>
+    <option value="ur-PK">Urdu</option>
+    <option value="te-IN">Telugu</option>
+  </select>
 
-        <div id="map-container">
-            <div id="map"></div>
-            <div class="drag-hint">Drag Pin to Adjust Pickup</div>
-        </div>
+  <button onclick="showHistory()">History</button>
+  <button onclick="logout()">Logout</button>
+</div>
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-        <div class="panel">
-            <div class="food-card">
-                <img src="https://via.placeholder.com/150/FFC107/000000?text=Dal+Rice" class="food-img">
-                <div style="flex:1;">
-                    <h2 style="margin:0;">Dal Rice Special</h2>
-                    <p style="font-size:12px; color:#777;">Ghee, Salad, Achar</p>
-                    <div class="qty-row">
-                        <button class="qty-btn" onclick="updQty(-1)">-</button>
-                        <span id="qDisp" style="font-weight:bold;">1</span>
-                        <button class="qty-btn" onclick="updQty(1)">+</button>
-                        <span id="pDisp" style="font-weight:900; font-size:20px; margin-left:auto;">₹59</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="statusBox" style="display:none; text-align:center; padding:15px; background:#fff8e1; border-radius:10px; margin-bottom:10px;">
-                <div id="msg">Finding Partner...</div>
-                <div id="otpArea" style="display:none; margin-top:5px; font-weight:bold;">OTP: <span id="orderOtp"></span></div>
-            </div>
+<!-- HEADER -->
+<div class="header">
+  <span class="menu-btn" onclick="openMenu()">☰</span>
+  <b>PARTNER</b>
+  <label class="switch">
+    <input type="checkbox" id="onToggle" onchange="toggleOnline()">
+    <span class="slider"></span>
+  </label>
+</div>
 
-            <button class="btn-main" id="bookBtn" onclick="book()">BOOK NOW</button>
-            <div style="text-align:center; font-size:10px; color:#aaa; margin-top:20px;">design by ᗰᑌᔕTᗩᑫEEᗰ</div>
-        </div>
-    </div>
+<div id="map"></div>
 
-    <div class="modal-overlay" id="billModal">
-        <div class="receipt-card">
-            <div class="receipt-header">
-                <h2>MUSTAQEEM FOODS</h2>
-                <p style="font-size:12px;">Official Receipt</p>
-            </div>
-            <div class="paid-stamp">PAID</div>
-            <div style="display:flex; justify-content:space-between; margin:10px 0;"><span>Item</span> <span>Dal Rice</span></div>
-            <div style="display:flex; justify-content:space-between; font-weight:900; font-size:20px; border-top:2px solid #000; padding-top:10px;">
-                <span>Total</span> <span id="billTotal">₹59</span>
-            </div>
-            <button onclick="location.reload()" class="btn-main" style="background:#000; margin-top:20px;">CLOSE</button>
-        </div>
-    </div>
+<div class="container">
+  <div id="msg" style="text-align:center;color:#777;margin-top:30px">
+    Go Online
+  </div>
+  <div id="list"></div>
+</div>
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-        import { getDatabase, ref, get, set, update, push, onValue } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+<!-- BILL -->
+<div class="modal" id="billModal">
+  <div class="receipt">
+    <h2>RECEIPT</h2>
+    <h1 id="billAmt">₹0</h1>
+    <button class="btn btn-acc" onclick="location.reload()">NEXT</button>
+    <small>design by ᗰᑌᔕTᗩᑫEEᗰ</small>
+  </div>
+</div>
 
-        const firebaseConfig = { apiKey: "AIzaSyAYfGEkpcdkUB7qrSK0k8E9s__3b6Xdyw4", authDomain: "apna-bazar-58532.firebaseapp.com", databaseURL: "https://apna-bazar-58532-default-rtdb.firebaseio.com", projectId: "apna-bazar-58532", storageBucket: "apna-bazar-58532.firebasestorage.app", messagingSenderId: "888845711810", appId: "1:888845711810:web:dd8e7032a48b521805fe5b" };
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-        let map, marker, userLat=17.3850, userLong=78.4867, qty=1, price=59, tempPh="";
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import {getDatabase,ref,onChildAdded,update} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-        // AUTH
-        window.onload = () => { if(localStorage.getItem("mUser")) startApp(); }
-        window.checkUser = async () => {
-            let p=document.getElementById("regPhone").value, n=document.getElementById("regName").value;
-            if(!p) return;
-            const s = await get(ref(db, 'users/'+p));
-            if(s.exists() && s.val().verified) { localStorage.setItem("mUser", JSON.stringify(s.val())); startApp(); }
-            else { 
-                if(!s.exists()) await set(ref(db, 'users/'+p), {name:n, phone:p, verified:false});
-                tempPh=p; document.getElementById("step1").style.display="none"; document.getElementById("step2").style.display="block";
-                let t=500; setInterval(()=>document.getElementById("timer").innerText=t--,1000);
-            }
-        }
-        window.verifyOtp = async () => {
-            let c = document.getElementById("otpInput").value;
-            let s = await get(ref(db, 'users/'+tempPh));
-            if(s.val().tempOtp == c) {
-                await update(ref(db, 'users/'+tempPh), {verified:true});
-                localStorage.setItem("mUser", JSON.stringify(s.val())); startApp();
-            } else alert("Wrong OTP");
-        }
-        window.logout = () => { localStorage.removeItem("mUser"); location.reload(); }
+/* ===== FIREBASE ===== */
+initializeApp({
+ apiKey:"AIzaSyAYfGEkpcdkUB7qrSK0k8E9s__3b6Xdyw4",
+ databaseURL:"https://apna-bazar-58532-default-rtdb.firebaseio.com"
+});
+const db=getDatabase();
 
-        // APP
-        function startApp() {
-            document.getElementById("login-screen").style.display="none";
-            document.getElementById("app-screen").style.display="flex";
-            document.getElementById("sName").innerText = JSON.parse(localStorage.getItem("mUser")).name;
-            initMap();
-        }
-        function initMap() {
-            map = L.map('map', {zoomControl:false}).setView([userLat, userLong], 13);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-            marker = L.marker([userLat, userLong], {draggable:true}).addTo(map);
-            marker.on('dragend', (e)=>{ let p=marker.getLatLng(); userLat=p.lat; userLong=p.lng; });
-            if(navigator.geolocation) navigator.geolocation.getCurrentPosition(p=>{ userLat=p.coords.latitude; userLong=p.coords.longitude; map.setView([userLat,userLong],16); marker.setLatLng([userLat,userLong]); });
-        }
-        window.updQty = (n) => { if(qty+n>0) { qty+=n; document.getElementById("qDisp").innerText=qty; document.getElementById("pDisp").innerText="₹"+(qty*price); } }
+/* ===== GLOBALS ===== */
+let map,marker;
+let drvLat=17.385, drvLng=78.4867;
+let isOnline=false;
+let lang="en-IN";
 
-        window.book = () => {
-            document.getElementById("bookBtn").style.display="none";
-            document.getElementById("statusBox").style.display="block";
-            const u = JSON.parse(localStorage.getItem("mUser"));
-            const otp = Math.floor(1000+Math.random()*9000);
-            const total = qty*price;
-            const refKey = push(ref(db, 'orders')).key;
-            
-            set(ref(db, 'orders/'+refKey), {
-                customer: u.name, phone: u.phone, lat: userLat, lng: userLong,
-                qty: qty, total: total, otp: otp, status: "Pending", timestamp: Date.now()
-            });
+/* ===== MENU ===== */
+window.openMenu=()=>{
+ sidebar.classList.add("active");
+ overlay.classList.add("show");
+}
+window.closeMenu=()=>{
+ sidebar.classList.remove("active");
+ overlay.classList.remove("show");
+}
+window.logout=()=>{ alert("Logged out"); location.reload(); }
+window.showHistory=()=>{ alert("History coming soon"); }
+window.changeLang=l=>{ lang=l; speak("Language changed"); }
 
-            onValue(ref(db, 'orders/'+refKey), (s) => {
-                const d = s.val();
-                if(d.status === "Accepted") {
-                    document.getElementById("msg").innerHTML = `<b>Partner Accepted!</b><br>Driver is coming.`;
-                    document.getElementById("otpArea").style.display="block";
-                    document.getElementById("orderOtp").innerText = d.otp;
-                }
-                if(d.status === "Delivered") {
-                    document.getElementById("billModal").style.display="flex";
-                    document.getElementById("billTotal").innerText = "₹"+total;
-                }
-            });
-        }
-        window.openNav = () => document.getElementById("mySidebar").style.width="250px";
-        window.closeNav = () => document.getElementById("mySidebar").style.width="0";
-    </script>
+/* ===== VOICE ===== */
+function speak(t){
+ let u=new SpeechSynthesisUtterance(t);
+ u.lang=lang;
+ speechSynthesis.cancel();
+ speechSynthesis.speak(u);
+}
+
+/* ===== MAP + GPS (FIXED) ===== */
+map=L.map("map").setView([drvLat,drvLng],16);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png").addTo(map);
+
+marker=L.marker([drvLat,drvLng],{
+ draggable:true
+}).addTo(map);
+
+marker.on("dragend",e=>{
+ let p=e.target.getLatLng();
+ drvLat=p.lat; drvLng=p.lng;
+});
+
+/* 🔥 REAL GPS FIX */
+if(navigator.geolocation){
+ navigator.geolocation.watchPosition(
+  p=>{
+   drvLat=p.coords.latitude;
+   drvLng=p.coords.longitude;
+   marker.setLatLng([drvLat,drvLng]);
+   map.setView([drvLat,drvLng],17);
+   console.log("GPS OK",drvLat,drvLng,p.coords.accuracy);
+  },
+  e=>{console.error("GPS ERROR",e.message)},
+  {enableHighAccuracy:true,maximumAge:0,timeout:15000}
+ );
+}else{
+ alert("GPS not supported");
+}
+
+/* ===== ONLINE ===== */
+window.toggleOnline=()=>{
+ isOnline=onToggle.checked;
+ msg.innerText=isOnline?"Searching orders...":"Offline";
+ if(isOnline) speak("You are online");
+};
+
+/* ===== DIST ===== */
+function dist(a,b,c,d){
+ let R=6371;
+ let dLat=(c-a)*Math.PI/180;
+ let dLon=(d-b)*Math.PI/180;
+ let x=Math.sin(dLat/2)**2+
+ Math.cos(a*Math.PI/180)*Math.cos(c*Math.PI/180)*Math.sin(dLon/2)**2;
+ return (R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x))).toFixed(1);
+}
+
+/* ===== ORDERS ===== */
+onChildAdded(ref(db,"orders"),s=>{
+ if(!isOnline) return;
+ let d=s.val();
+ if(d.status!=="Pending") return;
+
+ let km=dist(drvLat,drvLng,d.lat,d.lng);
+ if(km>7) return;
+
+ let c=document.createElement("div");
+ c.className="card";
+ c.id=s.key;
+ c.innerHTML=`
+  <h3>₹${d.total} • ${km} km</h3>
+  <button class="btn btn-acc"
+   onclick="accept('${s.key}',${d.lat},${d.lng},'${d.phone}',${d.total})">
+   ACCEPT
+  </button>`;
+ list.appendChild(c);
+ speak("New order received");
+});
+
+window.accept=(k,lat,lng,ph,amt)=>{
+ update(ref(db,"orders/"+k),{status:"Accepted"});
+ document.getElementById(k)?.remove();
+ let c=document.createElement("div");
+ c.className="card";
+ c.innerHTML=`
+  <button class="btn btn-call" onclick="location.href='tel:${ph}'">CALL</button>
+  <button class="btn btn-map" onclick="open('https://maps.google.com/?q=${lat},${lng}')">MAP</button>
+  <button class="btn btn-map" onclick="done('${k}',${amt})">DONE</button>`;
+ list.appendChild(c);
+};
+
+window.done=(k,amt)=>{
+ update(ref(db,"orders/"+k),{status:"Delivered"});
+ billModal.style.display="flex";
+ billAmt.innerText="₹"+amt;
+};
+</script>
+
 </body>
 </html>
-
