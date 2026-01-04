@@ -1,0 +1,453 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mustaqeem Hyd Foods</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        :root { --primary: #E23744; --dark: #121212; --bg: #FAFAFA; --gold: #FFC107; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* LOADING */
+        #loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #eee; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* LOGIN SCREEN */
+        #login-screen { 
+            position: fixed; inset: 0; background: linear-gradient(135deg, #E23744 0%, #FFC107 100%); 
+            z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 30px; 
+        }
+        .login-card {
+            background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; position: relative;
+        }
+        .brand-logo { 
+            width: 80px; height: 80px; background: var(--dark); color: var(--gold); border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; font-size: 35px; margin: -50px auto 20px auto; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 4px solid white;
+        }
+        .inp { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; background: #f9f9f9; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 15px; background: var(--dark); color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+        /* TIMER STYLE */
+        #timer-text { font-size: 13px; color: #E23744; font-weight: bold; margin-bottom: 10px; }
+
+        /* APP UI */
+        #app-screen { display: none; height: 100%; flex-direction: column; }
+        .navbar { position: absolute; top: 20px; left: 20px; z-index: 2000; }
+        .menu-btn { background: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-size: 20px; color: var(--dark); cursor: pointer; }
+
+        /* MAP */
+        #map-container { height: 45%; width: 100%; position: relative; }
+        #map { height: 100%; width: 100%; }
+        .drag-hint { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: white; padding: 8px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 5px; }
+
+        /* PANEL */
+        .panel { flex: 1; background: white; border-radius: 30px 30px 0 0; margin-top: -25px; z-index: 2; padding: 25px; box-shadow: 0 -10px 30px rgba(0,0,0,0.1); display: flex; flex-direction: column; position: relative; overflow-y: auto; }
+        
+        /* TRUST BADGES */
+        .trust-row { display: flex; gap: 10px; margin-bottom: 15px; }
+        .trust-tag { background: #E8F5E9; color: #2E7D32; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; display: flex; align-items: center; gap: 5px; }
+        .rating-tag { background: #FFF8E1; color: #F57F17; }
+
+        .food-card { display: flex; gap: 15px; border-bottom: 1px dashed #eee; padding-bottom: 20px; margin-bottom: 15px; }
+        .food-img { width: 110px; height: 110px; border-radius: 15px; object-fit: cover; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        
+        .qty-row { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
+        .qty-btn { width: 35px; height: 35px; background: #f4f4f4; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
+
+        /* STATUS BOX */
+        #status-box { display: none; background: #FFF8E1; padding: 20px; border-radius: 15px; border: 1px solid #FFC107; margin-top: auto; text-align: center; }
+        .otp-badge { font-size: 24px; font-weight: 900; letter-spacing: 5px; color: var(--dark); background: white; padding: 5px 15px; border-radius: 8px; display: inline-block; margin: 10px 0; }
+        .btn-cancel { width: 100%; padding: 10px; background: white; border: 1px solid #E23744; color: #E23744; border-radius: 10px; font-weight: bold; margin-top: 10px; cursor: pointer; }
+
+        /* CUSTOM MODAL OVERLAY (For Alerts) */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 8000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
+        .modal-box { background: white; width: 85%; max-width: 320px; padding: 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.3); animation: popUp 0.3s; }
+        @keyframes popUp { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+        
+        .modal-title { font-size: 18px; font-weight: bold; color: var(--dark); margin-bottom: 10px; }
+        .modal-desc { font-size: 14px; color: #666; margin-bottom: 20px; }
+        .modal-btn-row { display: flex; gap: 10px; justify-content: center; }
+        .m-btn { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        .m-yes { background: var(--primary); color: white; }
+        .m-no { background: #eee; color: #333; }
+        .m-ok { background: var(--dark); color: white; width: 100%; }
+
+        /* SIDEBAR */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 6000; top: 0; left: 0; background: white; overflow-x: hidden; transition: 0.3s; padding-top: 60px; box-shadow: 2px 0 20px rgba(0,0,0,0.1); }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 16px; color: #555; display: block; border-bottom: 1px solid #f9f9f9; cursor: pointer; }
+        .sidebar select { width: 85%; margin: 10px 25px; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; background: #f9f9f9; }
+
+        .branding { text-align: center; font-family: monospace; font-size: 10px; color: #aaa; margin-top: auto; padding-top: 10px; }
+        
+        /* AD CONTAINER FIXED */
+        .ad-container { width: 100%; overflow: hidden; margin-top: 15px; display: flex; justify-content: center; align-items: center; background: #fafafa; padding: 5px 0; border-radius: 10px; }
+        .ad-container ins { max-width: 100% !important; }
+    </style>
+</head>
+<body>
+
+    <div id="loader"><div class="spinner"></div></div>
+
+    <div id="alertModal" class="modal-overlay">
+        <div class="modal-box">
+            <div id="alertTitle" class="modal-title">Alert</div>
+            <p id="alertMsg" class="modal-desc">Message goes here</p>
+            <button class="m-btn m-ok" onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+
+    <div id="cancelModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title" style="color:var(--primary)">Cancel Request?</div>
+            <p class="modal-desc">Are you sure you want to stop finding a partner?</p>
+            <div class="modal-btn-row">
+                <button class="m-btn m-no" onclick="closeCancelModal()">No</button>
+                <button class="m-btn m-yes" onclick="confirmCancel()">Yes, Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="brand-logo"><i class="fas fa-utensils"></i></div>
+            <h2 style="color:var(--dark); margin:0;">Mustaqeem Hyd</h2>
+            <p style="color:#777; font-size:12px; margin-bottom:20px;">Taste of Hyderabad</p>
+            
+            <div id="step1">
+                <input type="tel" id="regPhone" class="inp" placeholder="Mobile Number">
+                <input type="text" id="regName" class="inp" placeholder="Your Name">
+                <button class="btn-main" onclick="checkUser()">CONTINUE</button>
+            </div>
+
+            <div id="step2" style="display:none;">
+                <p style="font-size:13px; color:#555;">Enter OTP sent by Admin on WhatsApp</p>
+                <input type="number" id="otpInput" class="inp" placeholder="Enter OTP">
+                <div id="timer-text">Valid for: <span id="timer">500</span>s</div>
+                <button class="btn-main" onclick="verifyOtp()">VERIFY LOGIN</button>
+            </div>
+            
+            <div class="branding">design by ᗰᑌᔕTᗩᑫEEᗰ</div>
+        </div>
+    </div>
+
+    <div id="app-screen">
+        <div class="navbar"><div class="menu-btn" onclick="openNav()"><i class="fas fa-bars"></i></div></div>
+        
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" onclick="closeNav()" style="font-size:30px; text-align:right; padding-right:20px;">×</a>
+            <div style="padding:20px; font-weight:bold; color:var(--primary); font-size:20px;" id="sName">User</div>
+            <label style="margin-left:25px; font-size:12px; color:#777; font-weight:bold;">CHANGE LANGUAGE</label>
+            <select id="langSel" onchange="changeLang()">
+                <option value="hi-IN">Hindi (हिंदी)</option>
+                <option value="en-US">English</option>
+                <option value="te-IN">Telugu (తెలుగు)</option>
+                <option value="ur-PK">Urdu (اردو)</option>
+            </select>
+            <a onclick="showHistory()"><i class="fas fa-history"></i> Order History</a>
+            <a href="mailto:helpmsapps@gmail.com"><i class="fas fa-headset"></i> Support</a>
+            <a onclick="logout()" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+
+        <div id="map-container">
+            <div id="map"></div>
+            <div class="drag-hint"><i class="fas fa-map-pin"></i> Drag Map to set Pickup</div>
+        </div>
+
+        <div class="panel">
+            <div class="trust-row">
+                <div class="trust-tag rating-tag"><i class="fas fa-star"></i> 4.8 Rating</div>
+                <div class="trust-tag"><i class="fas fa-shield-alt"></i> 100% Safe</div>
+            </div>
+
+            <div class="food-card">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfGVsfOaV2wjCxcHvVSgNzHiOSWdECLAny1f1HuOdERIqhXfgIoAQnxLQvq0JDSCtlTbWyQo5-5WORoVkMANPGfneFOCBTmWD7BRWDuVRBZ6zxJc1xdDzF9-ET5wkXe256kc8u5bJmegQZywzbOsJqFjEDyCP9KVzs7OZVDgqQbWnk_itow8GRCZTylrTg/s1600/1000612572.jpg" class="food-img">
+                <div style="flex:1;">
+                    <h2 style="margin:0; font-size:20px;">Special Dal Rice</h2>
+                    <p style="font-size:12px; color:#777;">Ghee Tadka, Salad & Achar</p>
+                    <div class="qty-row">
+                        <button class="qty-btn" onclick="updQty(-1)">-</button>
+                        <span id="qDisp" style="font-weight:bold;">1</span>
+                        <button class="qty-btn" onclick="updQty(1)">+</button>
+                        <div style="margin-left:auto; text-align:right;">
+                            <div style="text-decoration: line-through; color: #999; font-size: 14px;">₹99</div>
+                            <div style="font-weight:900; font-size:20px; color:var(--dark);" id="pDisp">₹58</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="status-box">
+                <div id="statusText" style="font-weight:bold; font-size:18px;">Finding Partner...</div>
+                <button id="cancelBtn" class="btn-cancel" onclick="showCancelModal()">Cancel Request</button>
+                <div class="driver-details" id="driverArea" style="display:none; margin-top:10px;">
+                    <div style="font-weight:bold; font-size:16px;" id="dName">Driver Found</div>
+                    <div style="font-size:12px; color:#555;">Share OTP with Driver:</div>
+                    <div class="otp-badge" id="otpVal">----</div>
+                    <a href="#" id="callBtn" style="display:block; background:#333; color:white; text-decoration:none; padding:12px; border-radius:10px; margin-top:10px; text-align:center; font-weight:bold;">CALL PARTNER</a>
+                </div>
+            </div>
+
+            <button class="btn-main" id="bookBtn" style="margin-top:auto;" onclick="book()">BOOK NOW</button>
+            
+            <div class="ad-container">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-1874063367142441"
+                     data-ad-slot="9832164119"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <div class="branding">design by ᗰᑌᔕTᗩᑫEEᗰ</div>
+        </div>
+    </div>
+
+    <div id="billModal" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="color:var(--primary); margin:0;">RECEIPT</h2>
+            <p style="color:green; font-weight:bold;">Delivered Successfully!</p>
+            <div style="border-top:1px dashed #ccc; margin:10px 0;"></div>
+            <p>Please Pay Cash</p>
+            <div style="font-size:40px; font-weight:900; color:#333;" id="billTotal">₹58</div>
+            <button onclick="location.reload()" class="m-btn m-ok" style="margin-top:20px;">OK</button>
+        </div>
+    </div>
+
+    <div id="historyModal" class="modal-overlay">
+        <div class="modal-box" style="text-align:left; padding:20px; height:60%;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h2 style="margin:0; color:var(--primary);">Order History</h2>
+                <i class="fas fa-times" style="font-size:24px; cursor:pointer;" onclick="document.getElementById('historyModal').style.display='none'"></i>
+            </div>
+            <div id="historyList" style="overflow-y:auto; height:80%;">
+                <p style="text-align:center; color:#777;">No previous orders found.</p>
+            </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, set, update, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+        // FIREBASE CONFIG
+        const firebaseConfig = { apiKey: "AIzaSyAYfGEkpcdkUB7qrSK0k8E9s__3b6Xdyw4", authDomain: "apna-bazar-58532.firebaseapp.com", databaseURL: "https://apna-bazar-58532-default-rtdb.firebaseio.com", projectId: "apna-bazar-58532", storageBucket: "apna-bazar-58532.firebasestorage.app", messagingSenderId: "888845711810", appId: "1:888845711810:web:dd8e7032a48b521805fe5b" };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let map, marker, userLat, userLong, qty=1, price=58, tempPh="", currentLang="hi-IN", currentOid=null;
+
+        // LOAD
+        window.onload = () => { 
+            if(localStorage.getItem("mLang")) {
+                currentLang = localStorage.getItem("mLang");
+                document.getElementById("langSel").value = currentLang;
+            }
+            setTimeout(() => {
+                document.getElementById("loader").style.display="none";
+                if(localStorage.getItem("mUser")) { startApp(); }
+                else { 
+                    document.getElementById("login-screen").style.display="flex";
+                    speak("welcome");
+                }
+            }, 800);
+        }
+
+        // AUTH & 500s TIMER
+        window.checkUser = async () => {
+            let p=document.getElementById("regPhone").value, n=document.getElementById("regName").value;
+            if(!p) { showAlert("Error", "Please enter mobile number"); return; }
+            
+            const s = await get(ref(db, 'users/'+p));
+            if(s.exists() && s.val().verified) { 
+                localStorage.setItem("mUser", JSON.stringify(s.val())); 
+                startApp(); 
+            } else { 
+                if(!s.exists()) await set(ref(db, 'users/'+p), {name:n, phone:p, verified:false});
+                tempPh=p; 
+                document.getElementById("step1").style.display="none"; 
+                document.getElementById("step2").style.display="block";
+                
+                // 500s TIMER
+                let timeLeft = 500;
+                setInterval(() => {
+                    if(timeLeft > 0) { timeLeft--; document.getElementById("timer").innerText = timeLeft; }
+                }, 1000);
+
+                speak("otp");
+                showAlert("Check WhatsApp", "Please check your WhatsApp for the OTP code.");
+            }
+        }
+
+        window.verifyOtp = async () => {
+            let c = document.getElementById("otpInput").value;
+            let s = await get(ref(db, 'users/'+tempPh));
+            if(s.val().tempOtp == c) {
+                await update(ref(db, 'users/'+tempPh), {verified:true});
+                localStorage.setItem("mUser", JSON.stringify(s.val())); 
+                startApp();
+            } else {
+                showAlert("Invalid OTP", "The OTP you entered is incorrect. Please try again.");
+                speak("invalid");
+            }
+        }
+        window.logout = () => { localStorage.removeItem("mUser"); location.reload(); }
+
+        function startApp() {
+            document.getElementById("login-screen").style.display="none";
+            document.getElementById("app-screen").style.display="flex";
+            const u = JSON.parse(localStorage.getItem("mUser"));
+            document.getElementById("sName").innerText = u.name;
+            speak("login", {name: u.name});
+            initMap();
+        }
+
+        // MAP
+        function initMap() {
+            let defLat = 17.3850, defLong = 78.4867;
+            map = L.map('map', {zoomControl:false}).setView([defLat, defLong], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            marker = L.marker([defLat, defLong], {draggable:true}).addTo(map);
+            userLat = defLat; userLong = defLong;
+            marker.on('dragend', (e)=>{ let p=marker.getLatLng(); userLat=p.lat; userLong=p.lng; });
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(p=>{ 
+                    userLat=p.coords.latitude; userLong=p.coords.longitude; 
+                    map.setView([userLat,userLong],16); marker.setLatLng([userLat,userLong]); 
+                });
+            }
+        }
+        window.updQty = (n) => { if(qty+n>0) { qty+=n; document.getElementById("qDisp").innerText=qty; document.getElementById("pDisp").innerText="₹"+(qty*price); } }
+
+        // BOOKING
+        window.book = () => {
+            if(!userLat) { showAlert("Location Error", "Detecting Location... Please wait."); return; }
+            document.getElementById("bookBtn").style.display="none";
+            document.getElementById("status-box").style.display="block";
+            document.getElementById("cancelBtn").style.display="block";
+            
+            const u = JSON.parse(localStorage.getItem("mUser"));
+            const otp = Math.floor(1000+Math.random()*9000);
+            const total = qty*price;
+            speak("booking", {name: u.name});
+            
+            const refKey = push(ref(db, 'orders')).key;
+            currentOid = refKey;
+            
+            set(ref(db, 'orders/'+refKey), {
+                customer: u.name, phone: u.phone, lat: userLat, lng: userLong,
+                qty: qty, total: total, otp: otp, status: "Pending", timestamp: Date.now()
+            });
+
+            let h = JSON.parse(localStorage.getItem("cHist") || "[]");
+            h.push({date: new Date().toLocaleDateString(), item: "Dal Rice", price: total});
+            localStorage.setItem("cHist", JSON.stringify(h));
+
+            onValue(ref(db, 'orders/'+refKey), (s) => {
+                if(!s.exists()) { resetUI(); return; }
+                const d = s.val();
+                if(d.status === "Accepted") {
+                    document.getElementById("statusText").innerText = "Partner Found!";
+                    document.getElementById("cancelBtn").style.display="none";
+                    document.getElementById("driverArea").style.display="block";
+                    document.getElementById("dName").innerText = d.driverName + " is coming";
+                    document.getElementById("otpVal").innerText = d.otp;
+                    document.getElementById("callBtn").href = "tel:"+d.driverPhone;
+                    speak("accepted", {driver: d.driverName});
+                }
+                if(d.status === "Delivered") {
+                    document.getElementById("billModal").style.display="flex";
+                    document.getElementById("billTotal").innerText = "₹"+total;
+                    speak("bill", {amount: total});
+                }
+            });
+        }
+
+        // --- MODAL & ALERT LOGIC ---
+        window.showAlert = (title, msg) => {
+            document.getElementById("alertTitle").innerText = title;
+            document.getElementById("alertMsg").innerText = msg;
+            document.getElementById("alertModal").style.display = "flex";
+        }
+        window.closeAlert = () => { document.getElementById("alertModal").style.display = "none"; }
+
+        window.showCancelModal = () => { document.getElementById("cancelModal").style.display = "flex"; }
+        window.closeCancelModal = () => { document.getElementById("cancelModal").style.display = "none"; }
+        
+        window.confirmCancel = () => {
+            if(currentOid) remove(ref(db, 'orders/'+currentOid));
+            closeCancelModal();
+            resetUI();
+            speak("cancelled");
+        }
+
+        function resetUI() {
+            document.getElementById("status-box").style.display="none";
+            document.getElementById("driverArea").style.display="none";
+            document.getElementById("bookBtn").style.display="block";
+            currentOid = null;
+        }
+
+        window.showHistory = () => {
+            document.getElementById("historyModal").style.display="flex";
+            closeNav();
+            let h = JSON.parse(localStorage.getItem("cHist") || "[]");
+            let html = "";
+            h.reverse().forEach(x => {
+                html += `<div style="padding:10px; border-bottom:1px solid #eee; margin-bottom:5px;"><b>${x.item}</b> <span style="float:right; color:green;">₹${x.price}</span><br><span style="font-size:12px; color:#777;">${x.date}</span></div>`;
+            });
+            document.getElementById("historyList").innerHTML = html || "<p style='text-align:center'>No history</p>";
+        }
+
+        // VOICE (FULL IZZAT)
+        window.changeLang = () => { 
+            currentLang = document.getElementById("langSel").value; 
+            localStorage.setItem("mLang", currentLang); 
+            speak("lang"); 
+        }
+
+        function speak(type, data={}) {
+            let t = "";
+            if(currentLang.includes('hi')) {
+                if(type=='welcome') t="आदाब, मुस्तकीम फूड्स में आपका इस्तकबाल है।";
+                if(type=='login') t=`जनाब ${data.name} भाई, आप लॉगिन हो चुके हैं।`;
+                if(type=='otp') t="कृपया व्हाट्सएप्प पर आया हुआ ओटीपी दर्ज करें।";
+                if(type=='invalid') t="माफ़ कीजिये, यह ओटीपी गलत है।";
+                if(type=='booking') t=`जनाब, हम आपके लिए बेहतरीन पार्टनर ढूंढ रहे हैं।`;
+                if(type=='accepted') t=`मुबारक हो! ${data.driver} भाई आपका आर्डर लेकर आ रहे हैं।`;
+                if(type=='bill') t=`जनाब, खाना कैसा लगा? बराए करम ${data.amount} रुपये अदा करें। शुक्रिया।`;
+                if(type=='cancelled') t="आपका आर्डर कैंसिल कर दिया गया है।";
+                if(type=='lang') t="भाषा बदल दी गई है।";
+            } else if(currentLang.includes('ur')) {
+                if(type=='welcome') t="Assalamu Alaikum, Mustaqeem Foods mein khushamdeed.";
+                if(type=='login') t=`Janab ${data.name} Bhai, login kamyab raha.`;
+                if(type=='otp') t="Barae karam WhatsApp par bheja gaya OTP darj karein.";
+                if(type=='invalid') t="Maaf kijiye, ye OTP ghalat hai.";
+                if(type=='booking') t=`Janab, hum aapke liye behtareen partner talash kar rahe hain.`;
+                if(type=='accepted') t=`Mubarak ho! ${data.driver} bhai aa rahe hain.`;
+                if(type=='bill') t=`Janab, khana kaisa laga? Barae karam ${data.amount} rupaye ada karein. Shukriya.`;
+                if(type=='cancelled') t="Aapka order mansookh kar diya gaya hai.";
+            } else {
+                if(type=='welcome') t="Welcome to Mustaqeem Foods.";
+                if(type=='login') t=`Welcome back Mr. ${data.name}.`;
+                if(type=='otp') t="Please check your WhatsApp for OTP.";
+                if(type=='invalid') t="Sorry, incorrect OTP.";
+                if(type=='booking') t="Finding the best partner for you, please wait.";
+                if(type=='accepted') t=`Good news! ${data.driver} is coming.`;
+                if(type=='bill') t=`Please pay ${data.amount} rupees cash. Thank you.`;
+                if(type=='cancelled') t="Order request cancelled.";
+            }
+            let s=new SpeechSynthesisUtterance(t); s.lang=currentLang; window.speechSynthesis.speak(s);
+        }
+
+        window.openNav = () => document.getElementById("mySidebar").style.width="250px";
+        window.closeNav = () => document.getElementById("mySidebar").style.width="0";
+    </script>
+</body>
+</html>
