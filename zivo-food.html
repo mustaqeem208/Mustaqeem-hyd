@@ -1,0 +1,210 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ZIVO – Delivery & Earnings</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --red: #e23744;
+  --gold: #ffb100;
+  --bg: #f4f7f6;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+body { background: var(--bg); color: #1a1a1a; }
+
+/* HEADER */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 65px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+  z-index: 1000;
+}
+
+.logo { font-size: 26px; font-weight: 900; color: var(--red); letter-spacing: -1.5px; }
+
+.back-btn {
+  position: absolute; left: 15px;
+  background: #f0f0f0; border: none;
+  padding: 8px 16px; border-radius: 50px;
+  font-weight: 700; cursor: pointer; display: none;
+}
+
+/* CONTAINER */
+.container { padding: 100px 20px 40px; max-width: 440px; margin: auto; }
+
+/* CARDS */
+.card {
+  background: #fff;
+  border-radius: 24px;
+  padding: 18px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+  transition: 0.3s;
+  border: 1px solid rgba(0,0,0,0.02);
+  position: relative;
+}
+
+.card:active { transform: scale(0.96); }
+
+/* ICON & ANIMATION BOX */
+.img-container {
+  position: relative;
+  width: 75px;
+  height: 75px;
+  flex-shrink: 0;
+}
+
+.app-icon {
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* EARNING ANIMATION (PARTNER) */
+.earn-float {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  display: flex; justify-content: center;
+  pointer-events: none;
+}
+.coin {
+  position: absolute;
+  bottom: 10px;
+  font-size: 20px;
+  opacity: 0;
+  animation: floatUp 2s infinite;
+}
+.coin:nth-child(2) { animation-delay: 0.7s; left: 10px; }
+.coin:nth-child(3) { animation-delay: 1.3s; right: 10px; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-50px); opacity: 0; }
+}
+
+/* FOOD ANIMATION (CUSTOMER) */
+.food-pop {
+  position: absolute;
+  top: -5px; right: -5px;
+  width: 35px; height: 35px;
+  background: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  font-size: 20px;
+  animation: bounceRotate 2.5s infinite;
+}
+
+@keyframes bounceRotate {
+  0%, 100% { transform: scale(1) rotate(0deg); content: "🍕"; }
+  50% { transform: scale(1.2) rotate(15deg); }
+}
+
+/* TEXT */
+.card-info h3 { font-size: 18px; margin-bottom: 4px; color: #000; }
+.card-info p { font-size: 13px; color: #666; font-weight: 500; }
+
+/* VIEWER */
+.viewer { position: fixed; top: 65px; left: 0; right: 0; bottom: 0; display: none; background: #fff; z-index: 999; }
+.viewer iframe { width: 100%; height: 100%; border: none; }
+
+.footer { text-align: center; font-size: 12px; color: #999; margin-top: 20px; }
+.footer b { color: var(--red); }
+</style>
+
+</head>
+<body>
+
+<div class="header">
+  <button class="back-btn" onclick="goHome()">← Back</button>
+  <div class="logo">ZIVO</div>
+</div>
+
+<div class="container">
+
+  <div class="card" onclick="openPartner()">
+    <div class="img-container">
+      <img class="app-icon" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEBQd1F6ocGOPncgujonxPfT-dLKJcJxdcBqOEL3KaACr7ls_S2lJwURierA8CHaZj8L_RE3VFGH76um-K92eMi7dZGnQuLOjxGNl8wiSI_SIywrC9-tL3rrIcMhCdKo03ugYUoFovs_3hXaPBYnYtKI82ifkryg9rCNMZHt443EGwUx_kPqefG62PzASP/s1600/1000615371.png">
+      <div class="earn-float">
+        <span class="coin">💰</span>
+        <span class="coin">💵</span>
+        <span class="coin">💸</span>
+      </div>
+    </div>
+    <div class="card-info">
+      <h3>ZIVO Partner</h3>
+      <p>Drive, deliver & earn big daily!</p>
+    </div>
+  </div>
+
+  <div class="card" onclick="openCustomer()">
+    <div class="img-container">
+      <img class="app-icon" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEili3LF8BEjKcuOd6_ehT80T0Rl98rmBiBGYRJPXVUUorc6ZvqHtS3sCq0DUZNmXpmBrtYbAq1UNC0gAhgqK79OMYXhSA3DHWDAU4iZrjK13kSj2aTa0j79apqk3nJXLrjhpgBv19twH46J_dzRA1WWsfMQVcyWR9iBk06fypxxPH1n75GjpFtY5VgDzFyY/s1600/1000615372.png">
+      <div class="food-pop" id="foodEmoji">🍕</div>
+    </div>
+    <div class="card-info">
+      <h3>ZIVO Customer</h3>
+      <p>Biryani, Pizza & more in 10 mins.</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    Powered by <b>ᗰᑌᔕTᗩᑫEEᗰ</b>
+  </div>
+
+</div>
+
+<div class="viewer">
+  <iframe id="frame" allow="geolocation"></iframe>
+</div>
+
+<script>
+// Customer emoji switcher
+const emojis = ["🍕", "🥘", "🍔", "🍛"];
+let i = 0;
+setInterval(() => {
+  document.getElementById('foodEmoji').innerText = emojis[i];
+  i = (i + 1) % emojis.length;
+}, 2500);
+
+function openCustomer(){
+  document.querySelector(".container").style.display="none";
+  document.querySelector(".viewer").style.display="block";
+  document.querySelector(".back-btn").style.display="block";
+  document.getElementById("frame").src="https://apna-bazar-hyd.netlify.app/";
+}
+
+function openPartner(){
+  document.querySelector(".container").style.display="none";
+  document.querySelector(".viewer").style.display="block";
+  document.querySelector(".back-btn").style.display="block";
+  document.getElementById("frame").src="https://apna-bazar-hyd.netlify.app/partner";
+}
+
+function goHome(){
+  document.getElementById("frame").src="";
+  document.querySelector(".viewer").style.display="none";
+  document.querySelector(".container").style.display="block";
+  document.querySelector(".back-btn").style.display="none";
+}
+</script>
+
+</body>
+</html>
