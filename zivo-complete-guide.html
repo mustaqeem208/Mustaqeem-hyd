@@ -3,84 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZIvo Official - Complete Guide</title>
+    <title>Zivo Official - Complete Guide</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --main-blue: #0a3d62; --gold: #f39c12; --light-bg: #f8fbff; --white: #ffffff; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--light-bg); color: #2c3e50; margin: 0; padding: 0; }
-        .container { max-width: 700px; margin: 50px auto; background: var(--white); border-radius: 25px; box-shadow: 0 15px 50px rgba(0,0,0,0.08); overflow: hidden; }
-
-        /* Banner Section */
-        .top-banner { background: var(--main-blue); color: var(--white); padding: 40px 30px; text-align: center; position: relative; }
-        .top-banner h1 { margin: 0; font-size: 32px; letter-spacing: 2px; text-transform: uppercase; }
-        .top-banner p { opacity: 0.8; font-weight: 300; margin-top: 10px; }
-
-        /* Professional Voice Button */
-        .voice-control { background: var(--gold); color: white; border: none; padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; margin-top: 15px; display: inline-flex; align-items: center; gap: 10px; transition: 0.3s; }
-        .voice-control:hover { transform: scale(1.05); box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4); }
-
-        /* Icon Display */
-        .app-icons { display: flex; justify-content: center; gap: 30px; padding: 40px 20px; background: #fff; }
-        .icon-box { text-align: center; transition: 0.3s; width: 140px; }
-        .icon-box img { width: 100%; border-radius: 28px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 2px solid #f1f1f1; }
-        .icon-box span { display: block; margin-top: 12px; font-weight: 700; font-size: 14px; color: var(--main-blue); }
-
-        /* Full Detail Content */
-        .detail-section { padding: 0 40px 40px; }
-        .heading-line { border-left: 5px solid var(--gold); padding-left: 15px; margin: 30px 0 20px; font-size: 22px; color: var(--main-blue); }
-        .article-text { font-size: 16px; line-height: 1.8; color: #576574; text-align: justify; }
+        :root { 
+            --main-bg: #0b0e11; 
+            --card-bg: #161b22;
+            --neon-blue: #00f2ff;
+            --neon-gold: #f39c12;
+            --white: #ffffff; 
+            --text-gray: #a1b0c0;
+        }
         
-        /* Pricing Cards */
-        .partner-benefits { background: #f1f4f8; border-radius: 20px; padding: 25px; margin-top: 20px; }
-        .benefit-row { display: flex; align-items: center; margin-bottom: 15px; font-weight: 500; }
-        .benefit-row i { color: #27ae60; margin-right: 15px; font-size: 20px; }
-        .benefit-row span { color: #2c3e50; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--main-bg); 
+            color: var(--white); 
+            margin: 0; 
+            padding: 15px; 
+        }
 
-        /* Download Button */
-        .download-btn { display: block; background: var(--main-blue); color: white; text-align: center; padding: 20px; border-radius: 15px; text-decoration: none; font-weight: bold; font-size: 18px; margin-top: 30px; transition: 0.3s; }
-        .download-btn:hover { background: #000; }
+        .container { max-width: 600px; margin: 0 auto; }
+
+        .top-banner { text-align: center; padding: 25px 0; }
+        .top-banner h1 { margin: 0; font-size: 28px; color: var(--neon-blue); text-shadow: 0 0 10px rgba(0, 242, 255, 0.4); }
+        .top-banner p { color: var(--text-gray); font-size: 14px; margin-top: 5px; }
+
+        .app-icons { display: flex; justify-content: center; gap: 20px; margin-bottom: 25px; }
+        .icon-box { text-align: center; width: 100px; }
+        .icon-box img { width: 100%; border-radius: 20px; border: 1px solid #30363d; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .icon-box span { display: block; margin-top: 8px; font-weight: 600; font-size: 11px; color: var(--text-gray); }
+
+        .main-card {
+            background: var(--card-bg);
+            border-radius: 24px;
+            padding: 20px;
+            border: 1px solid #30363d;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .heading-line { 
+            color: var(--neon-gold); 
+            font-size: 19px; 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+        }
+        .heading-line::before { content: "◆"; color: var(--neon-blue); font-size: 14px; }
+
+        .article-text { font-size: 15px; line-height: 1.7; color: var(--text-gray); margin-bottom: 15px; text-align: justify; }
+        .article-text strong { color: var(--white); }
+
+        /* Video Styling */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            background: #000;
+            margin: 15px 0;
+            border: 1px solid #30363d;
+        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+
+        .partner-benefits { background: rgba(255,255,255,0.03); border-radius: 15px; padding: 15px; margin-top: 15px; }
+        .benefit-row { display: flex; align-items: center; margin-bottom: 10px; font-size: 14px; color: var(--text-gray); }
+        .benefit-row i { color: #27ae60; margin-right: 12px; font-size: 16px; }
+
+        .download-btn { 
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5); 
+            color: white; padding: 16px; border-radius: 12px; 
+            text-decoration: none; font-weight: bold; margin-top: 20px;
+        }
         
-        .author-tag { text-align: center; padding: 20px; font-size: 12px; color: #95a5a6; border-top: 1px solid #eee; }
+        .author-tag { text-align: center; padding: 20px; font-size: 11px; color: #484f58; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="top-banner">
-        <h1>ZIvo Services</h1>
-        <p>A Digital Solution by Mustaqeem Hyd</p>
-        <button class="voice-control" onclick="playGuide()">
-            <i class="fas fa-play-circle"></i> Tafseel Suniye (Listen Details)
-        </button>
+        <h1>ZIVO Services</h1>
+        <p>Digital Solution by Mustaqeem Hyd</p>
     </div>
 
     <div class="app-icons">
         <div class="icon-box">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEili3LF8BEjKcuOd6_ehT80T0Rl98rmBiBGYRJPXVUUorc6ZvqHtS3sCq0DUZNmXpmBrtYbAq1UNC0gAhgqK79OMYXhSA3DHWDAU4iZrjK13kSj2aTa0j79apqk3nJXLrjhpgBv19twH46J_dzRA1WWsfMQVcyWR9iBk06fypxxPH1n75GjpFtY5VgDzFyY/s1600/1000615372.png" alt="Zivo User">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEili3LF8BEjKcuOd6_ehT80T0Rl98rmBiBGYRJPXVUUorc6ZvqHtS3sCq0DUZNmXpmBrtYbAq1UNC0gAhgqK79OMYXhSA3DHWDAU4iZrjK13kSj2aTa0j79apqk3nJXLrjhpgBv19twH46J_dzRA1WWsfMQVcyWR9iBk06fypxxPH1n75GjpFtY5VgDzFyY/s1600/1000615372.png">
             <span>Customer App</span>
         </div>
         <div class="icon-box">
-            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEBQd1F6ocGOPncgujonxPfT-dLKJcJxdcBqOEL3KaACr7ls_S2lJwURierA8CHaZj8L_RE3VFGH76um-K92eMi7dZGnQuLOjxGNl8wiSI_SIywrC9-tL3rrIcMhCdKo03ugYUoFovs_3hXaPBYnYtKI82ifkryg9rCNMZHt443EGwUx_kPqefG62PzASP/s1600/1000615371.png" alt="Zivo Partner">
+            <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjEBQd1F6ocGOPncgujonxPfT-dLKJcJxdcBqOEL3KaACr7ls_S2lJwURierA8CHaZj8L_RE3VFGH76um-K92eMi7dZGnQuLOjxGNl8wiSI_SIywrC9-tL3rrIcMhCdKo03ugYUoFovs_3hXaPBYnYtKI82ifkryg9rCNMZHt443EGwUx_kPqefG62PzASP/s1600/1000615371.png">
             <span>Partner App</span>
         </div>
     </div>
 
-    <div class="detail-section">
+    <div class="main-card">
         <h2 class="heading-line">ZIvo App Ki Poori Tafseel</h2>
         <p class="article-text">
-            Janab, <strong>ZIvo App</strong> ek aisi behtareen khidmat hai jise <span style="color:var(--main-blue); font-weight:bold;">Mustaqeem Hyd</span> ne khaas taur par un logo ke liye taiyaar kiya hai jo ghar se bahar ja kar dukan ya bazar se saaman nahi la sakte. Chahe aap masroof hon ya bazar door ho, ZIvo aapki mushkil ko asan banata hai. Is app ke zariye aap <strong>Kirana items aur Bakery products</strong> ki delivery seedha apne ghar par mangwa sakte hain.
+            Janab, <strong>ZIvo App</strong> ek aisi behtareen khidmat hai jise <strong>Mustaqeem Hyd</strong> ne khaas taur par un logo ke liye taiyaar kiya hai jo ghar se bahar nahi ja sakte. Is app ke zariye aap Kirana aur Bakery products seedha apne ghar mangwa sakte hain.
         </p>
-
-        <h2 class="heading-line">Partner Business Guide</h2>
-        <p class="article-text">Agar aap hamare sath jud kar apna rozgaar shuru karna chahte hain, to ZIvo Partner App aapke liye sabse behtareen plateform hai. Hamara model partners ko zyada se zyada munafe ke liye design kiya gaya hai:</p>
-
-        <div class="partner-benefits">
-            <div class="benefit-row"><i class="fas fa-id-card"></i> <span><strong>ID Activation:</strong> Sirf ₹49 (Pura 28 Din)</span></div>
-            <div class="benefit-row"><i class="fas fa-chart-line"></i> <span><strong>Booking:</strong> Unlimited (Koi monthly limit nahi)</span></div>
-            <div class="benefit-row"><i class="fas fa-wallet"></i> <span><strong>Earning:</strong> Har order par ₹40 fix milenge</span></div>
-            <div class="benefit-row"><i class="fas fa-percentage"></i> <span><strong>Commission:</strong> Zero Commission (Aapka pura paisa aapka)</span></div>
-            <div class="benefit-row"><i class="fas fa-map-marker-alt"></i> <span><strong>Distance:</strong> Delivery sirf 3KM ke andar</span></div>
+        
+        <h3 style="font-size: 14px; color: var(--neon-blue); margin-bottom: 5px;">Video Guide Dekhiye:</h3>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/ZdV3mLWdRhs" allowfullscreen></iframe>
         </div>
 
         <a href="https://play.google.com/store/apps/details?id=com.freesekho208" class="download-btn">
@@ -88,27 +119,28 @@
         </a>
     </div>
 
+    <div class="main-card">
+        <h2 class="heading-line">Partner Business Guide</h2>
+        <p class="article-text">
+            Agar aap hamare sath jud kar apna rozgaar shuru karna chahte hain, to ZIvo Partner App behtareen hai. Hamara model partners ke munafe ke liye banaya gaya hai:
+        </p>
+
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/czjGTjUNAp4" allowfullscreen></iframe>
+        </div>
+
+        <div class="partner-benefits">
+            <div class="benefit-row"><i class="fas fa-id-card"></i> <span><strong>ID Activation:</strong> Sirf ₹49 (28 Din)</span></div>
+            <div class="benefit-row"><i class="fas fa-wallet"></i> <span><strong>Earning:</strong> Har order par ₹40 fix</span></div>
+            <div class="benefit-row"><i class="fas fa-percentage"></i> <span><strong>Commission:</strong> Zero Commission</span></div>
+            <div class="benefit-row"><i class="fas fa-map-marker-alt"></i> <span><strong>Distance:</strong> Delivery sirf 3KM ke andar</span></div>
+        </div>
+    </div>
+
     <div class="author-tag">
         Developed & Designed by Mustaqeem Hyd | All Rights Reserved
     </div>
 </div>
-
-<script>
-    function playGuide() {
-        let text = "Adaab! Janab, ye app Z-I-v-o ki mukammal tafseel aur tareef hai. Mustaqeem Hyderabad ne is app ko un logo ke liye design kiya hai jo dukan ya bazaar nahi ja sakte. Ab aap ghar baithe Kirana aur Bakery items mangwa sakte hain. Jo log hamare saath judna chahte hain, woh partner app par sirf un-chas rupaye mein ID activate kar sakte hain, jo atthais din tak valid rahegi. Isme aap unlimited booking kar sakte hain aur har order par chalees rupaye ki fix earning hogi. Sabse achhi baat ye hai ki hum aapse koi commission nahi lete aur delivery ka area sirf teen kilometer ke andar hi rahega. Aaj hi download karein.";
-        
-        let speech = new SpeechSynthesisUtterance();
-        speech.text = text;
-        speech.lang = "hi-IN";
-        speech.rate = 0.9;
-        window.speechSynthesis.speak(speech);
-    }
-    
-    // Auto Voice on Load
-    window.onload = function() {
-        setTimeout(playGuide, 1000);
-    };
-</script>
 
 </body>
 </html>
