@@ -6,10 +6,7 @@
     <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - Premium News</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
     
-
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
-     crossorigin="anonymous"></script>
-
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
         :root { --accent: #ff0033; --link-color: #007bff; --dark: #0f172a; --text: #334155; --bg: #f8fafc; }
@@ -26,7 +23,6 @@
         .article-content { font-size: 19px; color: #1e293b; text-align: center; white-space: pre-wrap; margin-bottom: 40px; word-wrap: break-word; }
         .article-content a { color: var(--link-color); text-decoration: none; font-weight: 600; }
         
-        /* AD SLOT STYLING */
         .ad-slot { margin: 30px 0; padding: 10px; background: #f1f5f9; border-radius: 12px; font-size: 10px; color: #94a3b8; text-align: center; overflow: hidden; }
         
         .wa-premium-btn { background: #25D366; color: #fff; padding: 18px 45px; border-radius: 100px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(37,211,102,0.3); transition: 0.4s; }
@@ -84,11 +80,10 @@
                 const data = snap.val();
                 if(!data) return;
 
-                // 1. TOP AD (TITLE KE NICHE)
-                const adTop = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1312769120188830" data-ad-slot="${data.adSlot || 'default'}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+                // FIXED ADS: Slot ID and Publisher ID are now hardcoded
+                const adTop = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
 
-                // 2. BOTTOM AD (SHARE BUTTON SE UPAR)
-                const adBottom = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1312769120188830" data-ad-slot="${data.adSlot || 'default'}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+                const adBottom = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
 
                 let contentHtml = "";
                 if(pageType) {
