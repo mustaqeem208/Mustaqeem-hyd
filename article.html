@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - Premium News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+    
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+
+
+    <style>
+        :root { --accent: #ff0033; --link-color: #007bff; --dark: #0f172a; --text: #334155; --bg: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: var(--text); line-height: 1.7; }
+        #scrollBar { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: var(--accent); z-index: 2000; transition: 0.1s; }
+        .nav { padding: 12px 20px; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .back-link { text-decoration: none; color: var(--accent); font-weight: 700; font-size: 14px; }
+        .logo-text { font-family: 'Poppins'; font-weight: 900; color: var(--accent); font-size: 18px; letter-spacing: -0.5px; }
+        .container { max-width: 720px; margin: 40px auto; padding: 0 20px; text-align: center; }
+        .hero-img { width: 100%; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); margin-bottom: 35px; aspect-ratio: 16/9; object-fit: cover; }
+        h1 { font-family: 'Poppins'; font-size: 34px; font-weight: 800; color: var(--dark); line-height: 1.2; margin-bottom: 20px; letter-spacing: -1px; }
+        .meta-strip { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; }
+        .meta-strip span { background: #fff; padding: 4px 12px; border-radius: 50px; border: 1px solid #e2e8f0; }
+        .article-content { font-size: 19px; color: #1e293b; text-align: center; white-space: pre-wrap; margin-bottom: 40px; word-wrap: break-word; }
+        .article-content a { color: var(--link-color); text-decoration: none; font-weight: 600; }
+        
+        /* AD SLOT STYLING */
+        .ad-slot { margin: 30px 0; padding: 10px; background: #f1f5f9; border-radius: 12px; font-size: 10px; color: #94a3b8; text-align: center; overflow: hidden; }
+        
+        .wa-premium-btn { background: #25D366; color: #fff; padding: 18px 45px; border-radius: 100px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(37,211,102,0.3); transition: 0.4s; }
+        footer { background: var(--dark); color: #94a3b8; padding: 60px 20px; text-align: center; font-size: 14px; }
+        @media (max-width: 600px) { h1 { font-size: 26px; } .article-content { font-size: 17px; } }
+    </style>
+</head>
+<body>
+    <div id="scrollBar"></div>
+    <div class="nav">
+        <a href="index.html" class="back-link">← BACK</a>
+        <div class="logo-text">ᗰᑌᔕTᗩᑫEEᗰ HYD</div>
+        <div style="width:50px;"></div>
+    </div>
+
+    <div class="container" id="postContainer">
+        <div style="padding:100px 0; font-weight:600; color:#cbd5e1;">CRAFTING YOUR STORY...</div>
+    </div>
+
+    <footer>
+        <p>Premium News Experience by <b>ᗰᑌᔕTᗩᑫEEᗰ</b></p>
+        <div style="margin-top:20px; opacity:0.5; font-size:11px;">© 2026 PREMIUM NEWS NETWORK</div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script>
+        firebase.initializeApp({databaseURL: "https://cab-hyd-default-rtdb.firebaseio.com"});
+        const db = firebase.database();
+        const urlParams = new URLSearchParams(window.location.search);
+        const artId = urlParams.get('id'), pageType = urlParams.get('type');
+
+        window.onscroll = function() {
+            let winScroll = document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.getElementById("scrollBar").style.width = (winScroll / height) * 100 + "%";
+        };
+
+        function formatViews(n) {
+            n = parseInt(n) || 0;
+            return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/, '') + 'k' : n;
+        }
+
+        function processText(text) {
+            if(!text) return "";
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            let processed = text.replace(urlRegex, url => `<a href="${url}" target="_blank">${url}</a>`);
+            const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
+            return processed.replace(emailRegex, email => `<a href="mailto:${email}"><span style="margin-right:5px;">📩</span>${email}</a>`);
+        }
+
+        if(artId || pageType) {
+            let path = pageType ? 'site_settings/' + pageType : 'articles/' + artId;
+            db.ref(path).once('value', snap => {
+                const data = snap.val();
+                if(!data) return;
+
+                // 1. TOP AD (TITLE KE NICHE)
+                const adTop = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1312769120188830" data-ad-slot="${data.adSlot || 'default'}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+
+                // 2. BOTTOM AD (SHARE BUTTON SE UPAR)
+                const adBottom = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1312769120188830" data-ad-slot="${data.adSlot || 'default'}" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
+
+                let contentHtml = "";
+                if(pageType) {
+                    contentHtml = `<h1>${pageType.toUpperCase()}</h1><div class="article-content">${processText(data)}</div>`;
+                } else {
+                    const readTime = Math.ceil(data.content.split(' ').length / 200);
+                    contentHtml = `
+                        <img src="${data.img}" class="hero-img">
+                        <h1>${data.title}</h1>
+                        <div class="meta-strip"><span>👁️ ${formatViews(data.views)} VIEWS</span><span>📅 ${data.date}</span><span>⏱️ ${readTime} MIN READ</span></div>
+                        ${adTop}
+                        <div class="article-content">${processText(data.content)}</div>
+                        ${adBottom}
+                        <div style="margin-bottom:50px;"><a href="https://wa.me/?text=${encodeURIComponent(data.title + " - " + window.location.href)}" class="wa-premium-btn">SHARE ON WHATSAPP</a></div>
+                    `;
+                }
+                document.getElementById('postContainer').innerHTML = contentHtml;
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            });
+        }
+    </script>
+</body>
+</html>
