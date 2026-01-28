@@ -229,50 +229,12 @@
     <div class="search-container">
       <input type="text" placeholder="Search news..." id="searchInput" onkeyup="filterNews()" />
     </div>
-
-<div id="dynamicNewsContainer"></div>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-
-<script>
-    const config = {
-      apiKey: "AIzaSyDkp1YiNbgBxOP7Barn3TL3uej3tuoPtdo",
-      databaseURL: "https://mustaqeem-hyd-default-rtdb.firebaseio.com" 
-    };
-    if (!firebase.apps.length) { firebase.initializeApp(config); }
-    const newsDb = firebase.database();
-
-    newsDb.ref('ms_news_cards').on('value', (snapshot) => {
-        const container = document.getElementById('dynamicNewsContainer');
-        container.innerHTML = ""; 
-        
-        const data = snapshot.val();
-        for (let id in data) {
-            const news = data[id];
             
-            // Bilkul wahi design jo aapne index.html mein banaya hai
-            const cardHtml = `
-            <a href="${news.link}" style="text-decoration:none;">
-              <div style="cursor:pointer; border-radius:16px; overflow:hidden; box-shadow:0 8px 22px rgba(0,0,0,0.18); background:linear-gradient(135deg,#ffffff,#f0f9fa); margin-bottom:22px; transition:0.3s;">
-                <img src="${news.img}" style="width:100%; height:200px; object-fit:cover; display:block; border-radius:16px 16px 0 0;">
-                <div style="padding:16px;">
-                  <h3 style="margin:0 0 10px; font-size:18px; font-weight:bold; color:#0b5f66;">
-                    ${news.title}
-                  </h3>
-                  <p style="margin:0 0 12px; font-size:14px; color:#444;">
-                    ${news.desc}
-                  </p>
-                  <div style="display:flex; justify-content:space-between; font-size:12px; color:#777;">
-                    <span>👁️ ${news.views} Views</span>
-                    <span>🕒 ${news.date}</span>
-                    <span>✍️ By ${news.author}</span>
-                  </div>
-                </div>
-              </div>
-            </a>`;
-          
-    
+            container.insertAdjacentHTML('afterbegin', cardHtml);
+        }
+    });
+</script>
+
 <a href="instant-loan-2026.html" style="text-decoration:none;">
   <div style="cursor:pointer; border-radius:16px; overflow:hidden;
               box-shadow:0 8px 22px rgba(0,0,0,0.18);
@@ -306,7 +268,9 @@
   </div>
 </a>
 
-    
+
+
+
 <a href="https://mustaqeem-hyd-news.netlify.app/zivo-complete-guide" style="text-decoration:none;">
   <div style="cursor:pointer; border-radius:16px; overflow:hidden;
               box-shadow:0 8px 22px rgba(0,0,0,0.18);
@@ -340,41 +304,9 @@
     </div>
   </div>
 </a>
-    
-    <a href="zigo-app-launch.html" style="text-decoration:none;">
-  <div style="cursor:pointer; border-radius:16px; overflow:hidden;
-              box-shadow:0 8px 22px rgba(0,0,0,0.18);
-              background:linear-gradient(135deg,#ffffff,#eef9ff);
-              margin-bottom:22px; transition:0.3s;"
-       onmouseover="this.style.transform='scale(1.03)'"
-       onmouseout="this.style.transform='scale(1)'">
 
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7sF79FgYlIrpRhDmXRi2zyte5lIfUto6mPGqe-t_s75voqL10lWyBfqsPAv7yEIyVQC4JBwQv6rEHWfV0ekUFqXhGanTA-rPlvaJsc-kwhS66gjd-UKUcAYfa44u-M-cOIiJC-sK0mmQMwguvMujppQycpcju7FLMI0qHGi8DpVeYtjySL_E-YX5Fal4/s1600/1000606609.jpg"
-         alt="ZIGO App Launch Hyderabad"
-         style="width:auto; max-width:100%; height:auto; display:block; margin:auto; border-radius:16px;">
 
-    <div style="padding:16px;">
-      <h3 style="margin:0 0 10px; font-size:18px; font-weight:bold; color:#0d6efd;">
-        🚕 ZIGO App Launch – Hyderabad ka Naya Ride Platform
-      </h3>
-
-      <p style="margin:0 0 12px; font-size:14px; color:#444;">
-        ZIGO ek naya ride coordination app hai jo Hyderabad se launch hua hai.
-        Simple login, nearby rides, clean design aur low data usage ke sath…
-      </p>
-
-      <div style="display:flex; justify-content:space-between; font-size:12px; color:#777;">
-        <span>👁️ 16.4k</span>
-        <span>🕒 23/12/2025</span>
-        <span>✍️ By ᗰᑌᔕTᗩᑫEEᗰ HYD</span>
-      </div>
-
-    </div>
-  </div>
-    </a>
-
-    
-    <a href="hyundai-creta-2026-turbo-launch.html" style="text-decoration:none;">
+<a href="hyundai-creta-2026-turbo-launch.html" style="text-decoration:none;">
   <div style="cursor:pointer; border-radius:16px; overflow:hidden;
               box-shadow:0 8px 22px rgba(0,0,0,0.18);
               background:linear-gradient(135deg,#ffffff,#eef9ff);
@@ -404,11 +336,10 @@
 
     </div>
   </div>
-    </a>
+</a>
 
 
-    
-<a href="motorola-moto-g85-5g-launch-infinix-hot-40-pro-6g" style="text-decoration:none;">
+<a href="mmotorola-moto-g85-5g-launch-infinix-hot-40-pro-6g" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 8px 22px rgba(0,0,0,0.18);
               background: linear-gradient(135deg, #ffffff, #eef9ff);
@@ -438,8 +369,7 @@
     </div>
   </div>
 </a>
-    
-    
+
 <a href="Zindagi-ke-do-pehlu.html" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 8px 22px rgba(0,0,0,0.18);
@@ -449,7 +379,7 @@
        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 22px rgba(0,0,0,0.18)'">
 
     <!-- 👍 Aap yahan apna final thumbnail lagayenge -->
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgc49jl4CL_vNzlkQFF_1EaborTU9nUu8e2ehLplNil1PkENz8OgkX0HuXZP75vGLoVQl3O1mj_xcjptSc5jr1GySC3DrrB3sYdjhq8gJqSYLbNgbc810q_UCHo10oNcNs5kfdkD6OyEEJ2Keen-h_Rj-VlP2qRKiewimUeO4TqUj-2Xb7UBWNxoDI3yZM/s1600/1000595120.jpg" 
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgx4-PREMIUM-THUMBNAIL-LINK.jpg" 
          alt="Zindagi Ke Do Pehlu"
          style="width: 100%; height: auto; display: block;">
 
@@ -473,8 +403,9 @@
     </div>
   </div>
 </a>
-    
-    <a href="bank-loan-notice-mustaqeem.html" style="text-decoration:none;">
+
+
+<a href="bank-loan-notice-mustaqeem.html" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 8px 22px rgba(0,0,0,0.18);
               background: linear-gradient(135deg, #ffffff, #eef9ff);
@@ -482,7 +413,7 @@
        onmouseover="this.style.transform='scale(1.03)'; this.style.boxShadow='0 10px 28px rgba(0,0,0,0.25)'"
        onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 8px 22px rgba(0,0,0,0.18)'">
 
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgWcOZbIezfhqEp1Bz3EpEA8FM3DWGSs6ZK7D5yyfuyhlVEw_wK8jwbJ2eGGhy-bMYdtbKvi5yQwfbSuRdIJeXCKttCF_UjigoTg-At1zmeCrTEECraa8IWr4MY-copuNy-y8U-sTS4yZfCapaNUSEd1nxOwLhilh11KFZAp51oUjbLzEsWmtlFStlrmpM/s1600/1000591346.jpg" 
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi449gZem21uFZnnCei4FgqeRzDBvkqyQsRCMJNEtpHmxx0omM2gizqZvfniTuBUT5PKg95EMymickfiowK9REf4slbZbU3yxm1NPqUsPx924g5WgabJOUVyHPBVGVu17AY4mIYk8eie1pCWNzE6CIkwzXNzJE-4H0ERSZbwLGdoFVnisvZ804n9_PkS-M/s1600/1000579532.jpg" 
          alt="Mustaqeem Bank Loan Notice"
          style="width: 100%; height: auto; display: block;">
 
@@ -500,8 +431,9 @@
       </div>
     </div>
   </div>
-    </a>
-    
+</a>
+
+
 <a href="delhi-redfort-blast.html" style="text-decoration:none;">
   <div style="cursor:pointer; border-radius:16px; overflow:hidden;
               box-shadow:0 8px 22px rgba(0,0,0,0.18);
@@ -529,8 +461,8 @@
     </div>
   </div>
 </a>
-    
-   <a href="allah-mohabbat-msnews.html" style="text-decoration:none;">
+
+<a href="allah-mohabbat-msnews.html" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 8px 22px rgba(0,0,0,0.18);
               background: linear-gradient(135deg, #ffffff, #eef9ff);
@@ -557,9 +489,8 @@
       </div>
     </div>
   </div>
-   </a>
-    
-    
+</a>
+
 <a href="har-din-ek-nayi-shuruaat.html" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -587,8 +518,7 @@
     </div>
   </div>
 </a>
-    
-    
+
 <a href="dil-tutne-ke-baad.html" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -616,9 +546,8 @@
     </div>
   </div>
 </a>
-    
-    
-    <a href="makafaat-e-amal-msnews.html" style="text-decoration:none;">
+
+<a href="makafaat-e-amal-msnews.html" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 8px 20px rgba(0,0,0,0.15);
               background: linear-gradient(135deg, #ffffff, #f0f7ff);
@@ -646,8 +575,6 @@
     </div>
   </div>
 </a>
-    
-
 <a href="misr-shadi-msnews.html" style="text-decoration:none;">
   <div style="cursor: pointer; border-radius: 16px; overflow: hidden;
               box-shadow: 0 6px 18px rgba(0,0,0,0.15);
