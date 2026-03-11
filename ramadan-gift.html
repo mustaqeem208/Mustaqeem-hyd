@@ -1,0 +1,246 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quran Tilawat - Ramadan Special</title>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+    
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark-bg: #0b1120;
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #f8fafc;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .container { max-width: 800px; margin: auto; }
+
+        h1 { color: var(--gold); font-size: 2.4rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+        .info-text { color: #94a3b8; font-size: 0.95rem; margin-bottom: 25px; }
+
+        /* Ads */
+        .ad-unit { margin: 20px auto; background: var(--glass); border-radius: 8px; overflow: hidden; }
+
+        /* Para Grid */
+        .para-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .para-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+            padding: 25px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .para-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -5px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Player Screen */
+        #audioPlayerScreen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
+            z-index: 9999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .player-box {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 40px 20px;
+            border-radius: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            width: 85%;
+            max-width: 400px;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .wave-container {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin: 30px 0;
+            height: 50px;
+            align-items: center;
+        }
+
+        .wave-bar {
+            width: 4px;
+            height: 20px;
+            background: var(--gold);
+            border-radius: 10px;
+            animation: wave-anim 1.2s infinite ease-in-out;
+        }
+
+        @keyframes wave-anim {
+            0%, 100% { height: 15px; opacity: 0.5; }
+            50% { height: 45px; opacity: 1; }
+        }
+
+        audio {
+            width: 100%;
+            margin-top: 15px;
+            filter: invert(90%) hue-rotate(150deg) brightness(1.2);
+        }
+
+        .player-brand {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--gold);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .close-btn {
+            margin-top: 35px;
+            background: transparent;
+            border: 1px solid #64748b;
+            color: #f8fafc;
+            padding: 12px 35px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover { background: #f8fafc; color: #020617; }
+
+        /* WhatsApp Button */
+        .wa-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            z-index: 100;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding: 40px 20px;
+            border-top: 1px solid #1e293b;
+            color: var(--gold);
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8rem; }
+            .para-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="ad-unit">
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <h1>Ramadan Ka Tohfa</h1>
+    <p class="info-text">Complete 30 Para Tilawat with Roman Urdu Translation</p>
+
+    <div class="para-grid" id="mainGrid"></div>
+
+    <div class="ad-unit">
+        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119"></ins>
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+    <div class="footer">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
+</div>
+
+<a href="#" id="waShare" class="wa-float">
+    <span>Share On WhatsApp</span>
+</a>
+
+<div id="audioPlayerScreen">
+    <div class="player-box">
+        <h2 id="paraTitle" style="color:var(--gold); margin:0;">Para</h2>
+        <p style="color:#64748b; font-size: 0.9rem;">Al-Quran Kareem</p>
+        
+        <div class="wave-container">
+            <div class="wave-bar"></div>
+            <div class="wave-bar" style="animation-delay: 0.1s"></div>
+            <div class="wave-bar" style="animation-delay: 0.2s"></div>
+            <div class="wave-bar" style="animation-delay: 0.3s"></div>
+            <div class="wave-bar" style="animation-delay: 0.4s"></div>
+        </div>
+
+        <audio id="player" controls autoplay>
+            <source id="audioSrc" src="" type="audio/mpeg">
+        </audio>
+
+        <div class="player-brand">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
+    </div>
+    
+    <button class="close-btn" onclick="closePlayer()">Back to List</button>
+</div>
+
+<script>
+    const links = ["2qpLHGY","2qnS2Ha","2sbSqoq","2r6TOeq","2qzzsYk","2qI4EE2","2rW88HS","2qK0aO4","2rBqzB0","2s3dkdd","2so5po5","2rzgVP9","2rSIJ1l","2sk5Lid","2rKJHw3","2sMTr7y","2r9opp2","2rpK4c8","2rpq1iW","2rAX4Mc","2rBv2Aa","2sbmkft","2rtPXpH","2sfUCOE","2smfZxF","2tLUEvC","2tru5wz","2rXeW98","2s5NLEk","2s1BBB4"];
+
+    const grid = document.getElementById('mainGrid');
+    links.forEach((code, i) => {
+        const div = document.createElement('div');
+        div.className = 'para-card';
+        div.innerText = 'Para ' + (i + 1);
+        div.onclick = () => playAudio(i + 1, code);
+        grid.appendChild(div);
+    });
+
+    function playAudio(num, code) {
+        document.getElementById('paraTitle').innerText = 'Para ' + num;
+        document.getElementById('audioSrc').src = 'https://bit.ly/' + code;
+        const player = document.getElementById('player');
+        player.load();
+        document.getElementById('audioPlayerScreen').style.display = 'flex';
+    }
+
+    function closePlayer() {
+        const player = document.getElementById('player');
+        player.pause();
+        document.getElementById('audioPlayerScreen').style.display = 'none';
+    }
+
+    // Professional WhatsApp Message
+    const shareUrl = window.location.href;
+    const msg = `*🌙 Ramadan Ka Tohfa!* \n\nTamam 30 Pare ki Tilawat Roman English me sunne ke liye niche diye gaye link par click karein. \n\n👉 ${shareUrl} \n\n*Sadqa-e-Jariya samajh kar share karein.*`;
+    document.getElementById('waShare').href = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
+</script>
+
+</body>
+</html>
