@@ -1,246 +1,412 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quran Tilawat - Ramadan Special</title>
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mustaqeem Hyd Foods</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <style>
-        :root {
-            --gold: #D4AF37;
-            --dark-bg: #0b1120;
-            --glass: rgba(255, 255, 255, 0.03);
+        :root { --primary: #E23744; --dark: #121212; --bg: #FAFAFA; --gold: #FFC107; --success: #2E7D32; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: var(--bg); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+
+        /* LOADING */
+        #loader { position: fixed; inset: 0; background: white; z-index: 9999; display: flex; justify-content: center; align-items: center; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #eee; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* LOGIN SCREEN */
+        #login-screen { 
+            position: fixed; inset: 0; background: linear-gradient(135deg, #E23744 0%, #FFC107 100%); 
+            z-index: 5000; display: none; flex-direction: column; justify-content: center; align-items: center; padding: 30px; 
         }
-
-        body {
-            background-color: var(--dark-bg);
-            color: #f8fafc;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            margin: 0;
-            padding: 15px;
-            text-align: center;
+        .login-card {
+            background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); text-align: center; position: relative;
         }
-
-        .container { max-width: 800px; margin: auto; }
-
-        h1 { color: var(--gold); font-size: 2.4rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
-        .info-text { color: #94a3b8; font-size: 0.95rem; margin-bottom: 25px; }
-
-        /* Ads */
-        .ad-unit { margin: 20px auto; background: var(--glass); border-radius: 8px; overflow: hidden; }
-
-        /* Para Grid */
-        .para-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 12px;
-            margin: 25px 0;
+        .brand-logo { 
+            width: 80px; height: 80px; background: var(--dark); color: var(--gold); border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; font-size: 35px; margin: -50px auto 20px auto; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); border: 4px solid white;
         }
+        .inp { width: 100%; padding: 15px; margin: 10px 0; border: 1px solid #ddd; border-radius: 10px; font-size: 16px; background: #f9f9f9; box-sizing: border-box; }
+        .btn-main { width: 100%; padding: 15px; background: var(--dark); color: white; border: none; border-radius: 10px; font-weight: bold; font-size: 16px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
 
-        .para-card {
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border: 1px solid #334155;
-            padding: 25px 10px;
-            border-radius: 15px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        /* APP UI */
+        #app-screen { display: none; height: 100%; flex-direction: column; position: relative; }
+        .navbar { position: absolute; top: 20px; left: 20px; z-index: 2000; }
+        .menu-btn { background: white; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); font-size: 20px; color: var(--dark); cursor: pointer; }
+
+        /* MAP */
+        #map-container { height: 35%; width: 100%; position: relative; flex-shrink: 0; }
+        #map { height: 100%; width: 100%; }
+        .drag-hint { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); background: white; padding: 8px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; align-items: center; gap: 5px; }
+
+        /* PANEL & SCROLL */
+        .panel { 
+            flex: 1; background: white; border-radius: 30px 30px 0 0; margin-top: -25px; 
+            z-index: 2; padding: 20px 20px 0 20px; box-shadow: 0 -10px 30px rgba(0,0,0,0.1); 
+            display: flex; flex-direction: column; overflow: hidden; 
         }
-
-        .para-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px -5px rgba(212, 175, 55, 0.3);
+        .menu-scroll { 
+            flex: 1; overflow-y: auto; padding-bottom: 120px; 
+            scroll-behavior: smooth; -webkit-overflow-scrolling: touch; 
         }
-
-        /* Player Screen */
-        #audioPlayerScreen {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, #1e293b 0%, #020617 100%);
-            z-index: 9999;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+        
+        /* FOOD CARDS */
+        .food-card { 
+            display: flex; gap: 15px; border-bottom: 1px solid #f0f0f0; 
+            padding: 15px 0; align-items: center; cursor: pointer;
         }
+        .food-img { width: 75px; height: 75px; border-radius: 12px; object-fit: cover; }
+        .food-info { flex: 1; }
+        .food-name { margin: 0; font-size: 16px; color: var(--dark); }
+        .food-price { font-weight: bold; color: var(--primary); font-size: 15px; margin-top: 4px; }
 
-        .player-box {
-            background: rgba(15, 23, 42, 0.8);
-            padding: 40px 20px;
-            border-radius: 24px;
-            border: 1px solid rgba(212, 175, 55, 0.4);
-            width: 85%;
-            max-width: 400px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        /* FIXED FOOTER */
+        .fixed-footer {
+            position: absolute; bottom: 0; left: 0; right: 0; 
+            background: white; padding: 15px 20px; 
+            box-shadow: 0 -10px 25px rgba(0,0,0,0.1); z-index: 3000;
         }
+        .price-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 
-        .wave-container {
-            display: flex;
-            justify-content: center;
-            gap: 5px;
-            margin: 30px 0;
-            height: 50px;
-            align-items: center;
-        }
+        /* STATUS BOX - PROFESSIONAL UI */
+        #status-box { display: none; background: #FFF8E1; padding: 15px; border-radius: 15px; border: 1px solid #FFC107; text-align: center; margin-bottom: 10px; }
+        .otp-badge { font-size: 24px; font-weight: 900; letter-spacing: 5px; color: var(--dark); background: white; padding: 5px 15px; border-radius: 8px; display: inline-block; margin: 10px 0; }
+        
+        /* ETA BADGE */
+        .eta-badge { background: var(--success); color: white; padding: 4px 10px; border-radius: 5px; font-size: 12px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
 
-        .wave-bar {
-            width: 4px;
-            height: 20px;
-            background: var(--gold);
-            border-radius: 10px;
-            animation: wave-anim 1.2s infinite ease-in-out;
-        }
+        /* MODALS */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 8000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(2px); }
+        .modal-box { background: white; width: 85%; max-width: 320px; padding: 25px; border-radius: 20px; text-align: center; animation: popUp 0.3s; }
+        @keyframes popUp { from {transform: scale(0.8); opacity: 0;} to {transform: scale(1); opacity: 1;} }
 
-        @keyframes wave-anim {
-            0%, 100% { height: 15px; opacity: 0.5; }
-            50% { height: 45px; opacity: 1; }
-        }
+        /* SIDEBAR */
+        .sidebar { height: 100%; width: 0; position: fixed; z-index: 6000; top: 0; left: 0; background: white; overflow-x: hidden; transition: 0.3s; padding-top: 60px; box-shadow: 2px 0 20px rgba(0,0,0,0.1); }
+        .sidebar a { padding: 15px 25px; text-decoration: none; font-size: 16px; color: #555; display: block; border-bottom: 1px solid #f9f9f9; }
 
-        audio {
-            width: 100%;
-            margin-top: 15px;
-            filter: invert(90%) hue-rotate(150deg) brightness(1.2);
-        }
-
-        .player-brand {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: var(--gold);
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        .close-btn {
-            margin-top: 35px;
-            background: transparent;
-            border: 1px solid #64748b;
-            color: #f8fafc;
-            padding: 12px 35px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover { background: #f8fafc; color: #020617; }
-
-        /* WhatsApp Button */
-        .wa-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: #25D366;
-            color: white;
-            padding: 15px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-            z-index: 100;
-        }
-
-        .footer {
-            margin-top: 60px;
-            padding: 40px 20px;
-            border-top: 1px solid #1e293b;
-            color: var(--gold);
-            font-size: 1.5rem;
-            font-weight: bold;
-            letter-spacing: 3px;
-        }
-
-        @media (max-width: 480px) {
-            h1 { font-size: 1.8rem; }
-            .para-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+        .branding { text-align: center; font-family: monospace; font-size: 10px; color: #aaa; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <div class="ad-unit">
-        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div id="loader"><div class="spinner"></div></div>
+
+    <div id="alertModal" class="modal-overlay">
+        <div class="modal-box">
+            <div id="alertTitle" style="font-weight:bold; font-size:18px;">Alert</div>
+            <p id="alertMsg" style="color:#666; margin:15px 0;"></p>
+            <button class="btn-main" onclick="closeAlert()">OK</button>
+        </div>
     </div>
 
-    <h1>Ramadan Ka Tohfa</h1>
-    <p class="info-text">Complete 30 Para Tilawat with Roman Urdu Translation</p>
-
-    <div class="para-grid" id="mainGrid"></div>
-
-    <div class="ad-unit">
-        <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119"></ins>
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    <div id="cancelModal" class="modal-overlay">
+        <div class="modal-box">
+            <div style="font-weight:bold; color:var(--primary); font-size:18px;">Cancel Request?</div>
+            <p style="color:#666; margin:15px 0;">Are you sure you want to stop finding a partner?</p>
+            <div style="display:flex; gap:10px;">
+                <button style="flex:1; padding:12px; border:none; border-radius:10px; background:#eee;" onclick="closeCancelModal()">No</button>
+                <button style="flex:1; padding:12px; border:none; border-radius:10px; background:var(--primary); color:white; font-weight:bold;" onclick="confirmCancel()">Yes, Cancel</button>
+            </div>
+        </div>
     </div>
 
-    <div class="footer">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
-</div>
+    <div id="login-screen">
+        <div class="login-card">
+            <div class="brand-logo"><i class="fas fa-utensils"></i></div>
+            <h2 style="margin:0;">Mustaqeem Hyd</h2>
+            <p style="color:#777; font-size:12px; margin-bottom:20px;">Taste of Hyderabad</p>
+            
+            <div id="step1">
+                <input type="tel" id="regPhone" class="inp" placeholder="Mobile Number">
+                <input type="text" id="regName" class="inp" placeholder="Your Name">
+                <button class="btn-main" onclick="checkUser()">CONTINUE</button>
+            </div>
 
-<a href="#" id="waShare" class="wa-float">
-    <span>Share On WhatsApp</span>
-</a>
+            <div id="step2" style="display:none;">
+                <p style="font-size:13px; color:#555;">Enter OTP sent by Admin on WhatsApp</p>
+                <input type="number" id="otpInput" class="inp" placeholder="Enter OTP">
+                <div style="font-size:13px; color:red; margin-bottom:10px;">Valid for: <span id="timer">500</span>s</div>
+                <button class="btn-main" onclick="verifyOtp()">VERIFY LOGIN</button>
+            </div>
+            <div class="branding">design by ᗰᑌᔕTᗩᑫEEᗰ</div>
+        </div>
+    </div>
 
-<div id="audioPlayerScreen">
-    <div class="player-box">
-        <h2 id="paraTitle" style="color:var(--gold); margin:0;">Para</h2>
-        <p style="color:#64748b; font-size: 0.9rem;">Al-Quran Kareem</p>
+    <div id="app-screen">
+        <div class="navbar"><div class="menu-btn" onclick="openNav()"><i class="fas fa-bars"></i></div></div>
         
-        <div class="wave-container">
-            <div class="wave-bar"></div>
-            <div class="wave-bar" style="animation-delay: 0.1s"></div>
-            <div class="wave-bar" style="animation-delay: 0.2s"></div>
-            <div class="wave-bar" style="animation-delay: 0.3s"></div>
-            <div class="wave-bar" style="animation-delay: 0.4s"></div>
+        <div id="mySidebar" class="sidebar">
+            <a href="javascript:void(0)" onclick="closeNav()" style="font-size:30px; text-align:right; padding-right:20px;">×</a>
+            <div style="padding:20px; font-weight:bold; color:var(--primary); font-size:20px;" id="sName">User</div>
+            <select id="langSel" onchange="changeLang()" style="width:80%; margin:10px 20px; padding:10px; border-radius:8px;">
+                <option value="hi-IN">Hindi (हिंदी)</option>
+                <option value="en-US">English</option>
+                <option value="te-IN">Telugu (తెలుగు)</option>
+                <option value="ur-PK">Urdu (اردو)</option>
+            </select>
+            <a onclick="showHistory()"><i class="fas fa-history"></i> Order History</a>
+            <a href="mailto:helpmsapps@gmail.com"><i class="fas fa-headset"></i> Support</a>
+            <a onclick="logout()" style="color:red;"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
 
-        <audio id="player" controls autoplay>
-            <source id="audioSrc" src="" type="audio/mpeg">
-        </audio>
+        <div id="map-container">
+            <div id="map"></div>
+            <div class="drag-hint" id="locStatus"><i class="fas fa-crosshairs"></i> GPS Detecting...</div>
+        </div>
 
-        <div class="player-brand">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
+        <div class="panel">
+            <div style="display:flex; gap:10px; margin-bottom:15px;">
+                <span style="background:#E8F5E9; color:#2E7D32; padding:5px 10px; border-radius:5px; font-size:11px; font-weight:bold;">100% Halal</span>
+                <span style="background:#FFF8E1; color:#F57F17; padding:5px 10px; border-radius:5px; font-size:11px; font-weight:bold;">⭐ 4.8 Rating</span>
+            </div>
+
+            <div class="menu-scroll">
+                <div class="food-card" onclick="selectItem('Special Dal Rice', 58, 0)">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfGVsfOaV2wjCxcHvVSgNzHiOSWdECLAny1f1HuOdERIqhXfgIoAQnxLQvq0JDSCtlTbWyQo5-5WORoVkMANPGfneFOCBTmWD7BRWDuVRBZ6zxJc1xdDzF9-ET5wkXe256kc8u5bJmegQZywzbOsJqFjEDyCP9KVzs7OZVDgqQbWnk_itow8GRCZTylrTg/s1600/1000612572.jpg" class="food-img">
+                    <div class="food-info">
+                        <h3 class="food-name">Special Dal Rice</h3>
+                        <p style="font-size:11px; color:#777; margin:2px 0;">Ghee Tadka, Salad & Achar</p>
+                        <div class="food-price">₹58 <small style="color:green;">(Free Delivery)</small></div>
+                    </div>
+                    <input type="radio" name="foodItem" checked>
+                </div>
+                <div class="food-card" onclick="selectItem('Biryani', 120, 40)">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhr7MOIV-uUOyMEIlMlgPtI76KSGIj3WGcrB5ICFGDnUOWkYglDaBFSlMZm2Mgw0iDV_oJTCZYh9UYd3g9-Ckctz0gTg9njyv8w9_xo8DyPIdjXxv8-zF1PG_KeAT6P8cgCG9S2dM-aHPmawM31ryRUAkHNRb_LtCZHjdBiZ_ppR3y4-Ohk9IlcRJeSLoGy/s1600/1000615594.jpg" class="food-img">
+                    <div class="food-info">
+                        <h3 class="food-name">Chicken Biryani</h3>
+                        <div class="food-price">₹120 <small style="color:#777;">(+ ₹40 Delivery)</small></div>
+                    </div>
+                    <input type="radio" name="foodItem">
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed-footer">
+            <div id="status-box">
+                <div id="demo-eta" class="eta-badge" style="display:none;">Partner arriving in 4 Mins</div>
+                <div id="statusText" style="font-weight:bold; font-size:15px;">Finding Partner...</div>
+                <div id="driverArea" style="display:none; margin-top:5px;">
+                    <div id="dName" style="font-size:13px; font-weight:bold;"></div>
+                    <div class="otp-badge" id="otpVal">----</div>
+                    <a href="#" id="callBtn" style="display:block; background:#333; color:white; text-decoration:none; padding:10px; border-radius:8px; margin-top:5px; font-size:13px; font-weight:bold;"><i class="fas fa-phone"></i> CALL PARTNER</a>
+                </div>
+                <button onclick="showCancelModal()" style="color:red; background:none; border:none; margin-top:8px; font-weight:bold;">Cancel Request</button>
+            </div>
+
+            <div class="price-row" id="priceSection">
+                <div>
+                    <div id="selectedName" style="font-size:12px; font-weight:bold;">Special Dal Rice</div>
+                    <div style="display:flex; align-items:center; gap:10px; margin-top:5px;">
+                        <button onclick="updQty(-1)" style="width:25px; height:25px; border-radius:50%; border:1px solid #ccc;">-</button>
+                        <span id="qDisp" style="font-weight:bold;">1</span>
+                        <button onclick="updQty(1)" style="width:25px; height:25px; border-radius:50%; border:1px solid #ccc;">+</button>
+                    </div>
+                </div>
+                <div style="text-align:right;">
+                    <div id="deliveryLabel" style="font-size:10px; color:green;">Delivery: ₹0</div>
+                    <div id="pDisp" style="font-size:22px; font-weight:900; color:var(--dark);">₹58</div>
+                </div>
+            </div>
+            <button class="btn-main" id="bookBtn" onclick="book()" style="padding:18px; font-size:18px;">PLACE ORDER</button>
+            <div class="branding">design by ᗰᑌᔕTᗩᑫEEᗰ</div>
+        </div>
     </div>
-    
-    <button class="close-btn" onclick="closePlayer()">Back to List</button>
-</div>
 
-<script>
-    const links = ["2qpLHGY","2qnS2Ha","2sbSqoq","2r6TOeq","2qzzsYk","2qI4EE2","2rW88HS","2qK0aO4","2rBqzB0","2s3dkdd","2so5po5","2rzgVP9","2rSIJ1l","2sk5Lid","2rKJHw3","2sMTr7y","2r9opp2","2rpK4c8","2rpq1iW","2rAX4Mc","2rBv2Aa","2sbmkft","2rtPXpH","2sfUCOE","2smfZxF","2tLUEvC","2tru5wz","2rXeW98","2s5NLEk","2s1BBB4"];
+    <div id="billModal" class="modal-overlay">
+        <div class="modal-box">
+            <h2 style="color:var(--primary); margin:0;">RECEIPT</h2>
+            <p style="color:green; font-weight:bold;">Order Successful!</p>
+            <div style="border-top:1px dashed #ccc; margin:10px 0;"></div>
+            <p>Cash to Pay</p>
+            <div style="font-size:40px; font-weight:900; color:#333;" id="billTotal">₹0</div>
+            <button onclick="location.reload()" class="btn-main" style="margin-top:20px;">OK</button>
+        </div>
+    </div>
 
-    const grid = document.getElementById('mainGrid');
-    links.forEach((code, i) => {
-        const div = document.createElement('div');
-        div.className = 'para-card';
-        div.innerText = 'Para ' + (i + 1);
-        div.onclick = () => playAudio(i + 1, code);
-        grid.appendChild(div);
-    });
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getDatabase, ref, get, set, update, push, onValue, remove } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-    function playAudio(num, code) {
-        document.getElementById('paraTitle').innerText = 'Para ' + num;
-        document.getElementById('audioSrc').src = 'https://bit.ly/' + code;
-        const player = document.getElementById('player');
-        player.load();
-        document.getElementById('audioPlayerScreen').style.display = 'flex';
-    }
+        // Firebase Setup
+        const firebaseConfig = { 
+            apiKey: "AIzaSyAYfGEkpcdkUB7qrSK0k8E9s__3b6Xdyw4", 
+            authDomain: "apna-bazar-58532.firebaseapp.com", 
+            databaseURL: "https://apna-bazar-58532-default-rtdb.firebaseio.com", 
+            projectId: "apna-bazar-58532"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-    function closePlayer() {
-        const player = document.getElementById('player');
-        player.pause();
-        document.getElementById('audioPlayerScreen').style.display = 'none';
-    }
+        let map, marker, userLat, userLong, qty=1, price=58, delivery=0, itemName="Special Dal Rice", tempPh="", currentLang="hi-IN", currentOid=null, isReviewer = false;
 
-    // Professional WhatsApp Message
-    const shareUrl = window.location.href;
-    const msg = `*🌙 Ramadan Ka Tohfa!* \n\nTamam 30 Pare ki Tilawat sunne ke liye niche diye gaye link par click karein. \n\n👉 ${shareUrl} \n\n*Sadqa-e-Jariya samajh kar share karein.*`;
-    document.getElementById('waShare').href = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
-</script>
+        window.onload = () => { 
+            if(localStorage.getItem("mLang")) {
+                currentLang = localStorage.getItem("mLang");
+                document.getElementById("langSel").value = currentLang;
+            }
+            setTimeout(() => {
+                document.getElementById("loader").style.display="none";
+                if(localStorage.getItem("mUser")) { 
+                    const u = JSON.parse(localStorage.getItem("mUser"));
+                    if(u.phone === "9999999999") isReviewer = true;
+                    startApp(); 
+                }
+                else { document.getElementById("login-screen").style.display="flex"; speak("welcome"); }
+            }, 800);
+        }
 
+        function startApp() {
+            document.getElementById("login-screen").style.display="none";
+            document.getElementById("app-screen").style.display="flex";
+            document.getElementById("sName").innerText = JSON.parse(localStorage.getItem("mUser")).name;
+            initMap();
+        }
+
+        function initMap() {
+            map = L.map('map', {zoomControl:false}).setView([17.3850, 78.4867], 15);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            marker = L.marker([17.3850, 78.4867], {draggable:true}).addTo(map);
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((p) => {
+                    userLat = p.coords.latitude; userLong = p.coords.longitude;
+                    map.setView([userLat, userLong], 17);
+                    marker.setLatLng([userLat, userLong]);
+                    document.getElementById("locStatus").innerHTML = '<i class="fas fa-check-circle"></i> GPS Location Fixed';
+                }, null, {enableHighAccuracy: true});
+            }
+        }
+
+        window.selectItem = (name, p, d) => {
+            itemName = name; price = p; delivery = d; qty = 1;
+            document.getElementById("selectedName").innerText = name;
+            document.getElementById("deliveryLabel").innerText = d === 0 ? "Free Delivery" : "Delivery: ₹"+d;
+            updateUI();
+        }
+
+        window.updQty = (n) => { if(qty+n > 0) { qty += n; updateUI(); } }
+        function updateUI() {
+            let total = (qty * price) + delivery;
+            document.getElementById("qDisp").innerText = qty;
+            document.getElementById("pDisp").innerText = "₹" + total;
+        }
+
+        // --- BOOKING LOGIC ---
+        window.book = () => {
+            if(!userLat) { userLat=17.3850; userLong=78.4867; } // Fallback for Reviewer
+            
+            document.getElementById("bookBtn").style.display = "none";
+            document.getElementById("priceSection").style.display = "none";
+            document.getElementById("status-box").style.display = "block";
+            
+            const u = JSON.parse(localStorage.getItem("mUser"));
+            const total = (qty * price) + delivery;
+
+            if(isReviewer) {
+                // PROFESSIONAL DEMO FLOW
+                speak("booking");
+                setTimeout(() => {
+                    document.getElementById("demo-eta").style.display = "inline-block";
+                    document.getElementById("statusText").innerText = "Partner Found!";
+                    document.getElementById("driverArea").style.display = "block";
+                    document.getElementById("dName").innerText = "Mustakeem Partner is arriving";
+                    document.getElementById("otpVal").innerText = "6655";
+                    document.getElementById("callBtn").href = "tel:9381667208";
+                    speak("accepted", {driver: "Mustakeem"});
+                    
+                    // Demo Finish after 10s
+                    setTimeout(() => {
+                        document.getElementById("billModal").style.display = "flex";
+                        document.getElementById("billTotal").innerText = "₹"+total;
+                        speak("bill", {amount: total});
+                    }, 10000);
+                }, 3000);
+            } else {
+                // REAL FIREBASE LOGIC
+                const otp = Math.floor(1000 + Math.random() * 9000);
+                const refKey = push(ref(db, 'orders')).key;
+                currentOid = refKey;
+                set(ref(db, 'orders/'+refKey), {
+                    customer: u.name, phone: u.phone, lat: userLat, lng: userLong,
+                    item: itemName, qty: qty, total: total, otp: otp, status: "Pending", timestamp: Date.now()
+                });
+                speak("booking");
+                onValue(ref(db, 'orders/'+refKey), (s) => {
+                    if(!s.exists()) return;
+                    const d = s.val();
+                    if(d.status === "Accepted") {
+                        document.getElementById("statusText").innerText = "Partner Found!";
+                        document.getElementById("driverArea").style.display = "block";
+                        document.getElementById("dName").innerText = d.driverName + " is arriving";
+                        document.getElementById("otpVal").innerText = d.otp;
+                        document.getElementById("callBtn").href = "tel:"+d.driverPhone;
+                        speak("accepted", {driver: d.driverName});
+                    }
+                    if(d.status === "Delivered") {
+                        document.getElementById("billModal").style.display = "flex";
+                        document.getElementById("billTotal").innerText = "₹"+total;
+                        speak("bill", {amount: total});
+                    }
+                });
+            }
+        }
+
+        // --- AUTH LOGIC ---
+        window.checkUser = async () => {
+            let p=document.getElementById("regPhone").value, n=document.getElementById("regName").value;
+            if(p === "9999999999") { // Reviewer Bypass
+                document.getElementById("step1").style.display="none"; 
+                document.getElementById("step2").style.display="block";
+                tempPh = p;
+                return;
+            }
+            const s = await get(ref(db, 'users/'+p));
+            if(s.exists() && s.val().verified) { localStorage.setItem("mUser", JSON.stringify(s.val())); startApp(); }
+            else { 
+                tempPh=p; document.getElementById("step1").style.display="none"; 
+                document.getElementById("step2").style.display="block";
+            }
+        }
+        window.verifyOtp = async () => {
+            let c=document.getElementById("otpInput").value;
+            if(tempPh === "9999999999" && c === "6655") {
+                const reviewUser = {name: "Reviewer", phone: "9999999999", verified: true};
+                localStorage.setItem("mUser", JSON.stringify(reviewUser));
+                location.reload();
+            } else {
+                let s=await get(ref(db, 'users/'+tempPh));
+                if(s.val().tempOtp == c) { 
+                    await update(ref(db, 'users/'+tempPh), {verified:true}); 
+                    localStorage.setItem("mUser", JSON.stringify(s.val())); 
+                    startApp(); 
+                } else { alert("Wrong OTP"); }
+            }
+        }
+
+        window.logout = () => { localStorage.clear(); location.reload(); }
+        window.confirmCancel = () => { if(currentOid) remove(ref(db, 'orders/'+currentOid)); location.reload(); }
+        
+        function speak(type, data={}) {
+            let t = "";
+            if(currentLang.includes('hi')) {
+                if(type=='welcome') t="आदाब, मुस्तकीम फूड्स में आपका इस्तकबाल है।";
+                if(type=='booking') t="जनाब, हम आपके लिए पार्टनर ढूंढ रहे हैं।";
+                if(type=='accepted') t=`मुबारक हो, ${data.driver} भाई आ रहे हैं।`;
+                if(type=='bill') t=`बराए करम ${data.amount} रुपये अदा करें। शुक्रिया।`;
+            } else {
+                if(type=='welcome') t="Welcome to Mustaqeem Foods.";
+                if(type=='booking') t="Finding a partner for you.";
+                if(type=='accepted') t=`Partner ${data.driver} is coming.`;
+            }
+            let s=new SpeechSynthesisUtterance(t); s.lang=currentLang; window.speechSynthesis.speak(s);
+        }
+
+        window.openNav = () => document.getElementById("mySidebar").style.width="250px";
+        window.closeNav = () => document.getElementById("mySidebar").style.width="0";
+    </script>
 </body>
 </html>
