@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -10,7 +10,7 @@
   
   html, body { 
     width:100%; height:100%; 
-    background-color: #030008; /* Deep Space Dark Purple/Black */
+    background-color: #030008; 
     overflow:hidden; 
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     touch-action: none; 
@@ -82,12 +82,12 @@
     backdrop-filter: blur(12px);
     animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     padding: 20px;
-    text-align: center; /* Ensures everything inside is centered */
+    text-align: center; 
   }
 
   /* CENTERED AND FIXED RED TEXT */
   .game-over-text {
-    font-size: 48px; /* Slightly smaller to fit mobile screens perfectly */
+    font-size: 48px; 
     color: #ff0044; 
     font-weight: 900; 
     text-shadow: 0 0 20px #ff0044, 0 0 40px #aa0022; 
@@ -109,17 +109,35 @@
   #finalScore { color:#fff; font-size:28px; font-weight:bold; text-shadow: 0 0 10px #fff; }
   #bestScoreText { color:#ffdd00; font-size:16px; margin-top:5px; text-shadow: 0 0 10px #ffdd00; font-weight:600; letter-spacing: 1px;}
 
-  /* PROFESSIONAL AD CARD */
+  /* --- PROFESSIONAL AD CARD (FIXED) --- */
   .ad-card {
     background: rgba(0, 238, 255, 0.03);
     border: 1px solid rgba(0, 238, 255, 0.2);
     border-radius: 15px;
-    padding: 10px;
-    margin: 15px auto 25px auto; /* Auto margins to keep it dead center */
+    margin: 20px auto 25px auto; 
     box-shadow: 0 0 25px rgba(0, 238, 255, 0.1);
-    display: flex; justify-content: center; align-items: center;
-    overflow: hidden; position: relative;
-    max-width: 100%;
+    position: relative;
+    overflow: hidden;
+    /* Box size fixed for mobile */
+    width: 320px; 
+    height: 100px;
+    /* User request: Scale to 1.1x */
+    transform: scale(1.1);
+  }
+
+  .ad-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    /* Exact dimensions of the Ad */
+    width: 728px;
+    height: 90px;
+    /* Centering and scaling down safely inside the box */
+    transform: translate(-50%, -50%) scale(0.42);
+    transform-origin: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .ad-card::before {
@@ -131,10 +149,6 @@
     content: ''; position: absolute; inset: 2px; background: #050508; border-radius: 13px; z-index: -1;
   }
 
-  @media (max-width: 768px) {
-    .ad-card { transform: scale(0.48); margin: -30px auto; }
-  }
-
   button.retry-btn {
     padding: 16px 50px; font-size: 20px; font-weight: 900;
     background: linear-gradient(45deg, #00eeff, #0055ff);
@@ -142,7 +156,7 @@
     box-shadow: 0 8px 20px rgba(0, 119, 255, 0.4); cursor: pointer;
     text-transform: uppercase; transition: all 0.2s ease;
     letter-spacing: 2px;
-    margin-top: 15px;
+    margin-top: 20px; /* Adjusted spacing for 1.1x ad */
   }
   button.retry-btn:active { transform: translateY(4px) scale(0.95); box-shadow: 0 4px 10px rgba(0, 119, 255, 0.4); }
 
@@ -187,7 +201,6 @@
 </div>
 
 <div id="gameOverScreen">
-    <!-- TEXT IS NOW GAME OVER AND PERFECTLY CENTERED -->
     <div class="game-over-text">GAME OVER</div>
     
     <div class="score-container">
@@ -195,21 +208,22 @@
         <div id="bestScoreText">Best: 0</div>
     </div>
     
-    <!-- PROFESSIONAL AD CARD CONTAINER (UNTOUCHED CODE) -->
+    <!-- PROFESSIONAL AD CARD CONTAINER -->
     <div class="ad-card">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
-             crossorigin="anonymous"></script>
-        <!-- Ms -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="9832164119"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <!-- New Wrapper to perfectly center and scale the 728px Ad -->
+        <div class="ad-wrapper">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+            <!-- Ms -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
 
-    <!-- BUTTON UPDATED -->
     <button class="retry-btn" onclick="restartGame()">RETRY</button>
 </div>
 
