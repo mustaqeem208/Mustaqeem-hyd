@@ -11,7 +11,7 @@
   
   html, body { 
     width:100%; height:100%; 
-    background-color: #030008; /* Deep dark purple/black */
+    background-color: #030008; 
     overflow:hidden; 
     font-family:'Orbitron', sans-serif; 
     touch-action: none; 
@@ -34,11 +34,8 @@
     background: rgba(0, 238, 255, 0.1); border-radius: 50%;
     border: 1px solid rgba(0, 238, 255, 0.5);
     color: #fff; z-index: 20;
-    text-shadow: 0 0 10px #00ffff;
     backdrop-filter: blur(5px);
-    transition: all 0.3s ease;
   }
-  #muteBtn:active { transform: scale(0.9); }
 
   /* PREMIUM LOADING SCREEN */
   #loadingScreen {
@@ -49,30 +46,11 @@
     transition: opacity 1s ease;
   }
 
-  .ms-logo {
-    font-size: 60px; font-weight: 900; color: #fff; letter-spacing: 2px;
-    text-shadow: 0 0 20px #00eeff, 0 0 40px #0055ff;
-    animation: glow 1.5s infinite alternate;
-  }
+  .ms-logo { font-size: 60px; font-weight: 900; color: #fff; text-shadow: 0 0 20px #00eeff; }
+  .loader-container { width: 250px; height: 4px; background: rgba(255,255,255,0.1); margin-top: 40px; border-radius: 10px; overflow: hidden; }
+  .loader-bar { width: 0%; height: 100%; background: linear-gradient(90deg, #00eeff, #ff00ff); animation: loadProgress 3.5s linear forwards; }
+  .loading-text { margin-top: 15px; color: #00ffff; font-size: 12px; letter-spacing: 5px; animation: blink 1.5s infinite; }
 
-  .loader-container {
-    width: 250px; height: 4px; background: rgba(255,255,255,0.1); margin-top: 40px;
-    border-radius: 10px; overflow: hidden; position: relative;
-    box-shadow: 0 0 15px #00eeff;
-  }
-
-  .loader-bar {
-    width: 0%; height: 100%; 
-    background: linear-gradient(90deg, #00eeff, #ff00ff);
-    animation: loadProgress 3.5s linear forwards;
-  }
-
-  .loading-text {
-    margin-top: 15px; color: #00ffff; font-size: 12px; letter-spacing: 5px;
-    text-transform: uppercase; animation: blink 1.5s infinite;
-  }
-
-  @keyframes glow { 0% { opacity: 0.8; transform: translateY(0px); } 100% { opacity: 1; transform: translateY(-5px); text-shadow: 0 0 30px #00eeff, 0 0 60px #ff00ff;} }
   @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
@@ -83,40 +61,14 @@
     display: none; flex-direction: column; justify-content: center; align-items: center;
     z-index: 30; pointer-events: auto;
     backdrop-filter: blur(8px);
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
 
-  @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
-
-  .game-over-text {
-    font-size: 55px; color: #ff0044; font-weight: 900; 
-    text-shadow: 0 0 20px #ff0044, 0 0 40px #aa0022; margin-bottom: 5px; text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-  button.retry-btn {
-    padding: 15px 60px; font-size: 20px; font-weight: bold; font-family: 'Orbitron', sans-serif;
-    background: linear-gradient(45deg, #00eeff, #0055ff);
-    color: #fff; border: none; border-radius: 50px;
-    box-shadow: 0 0 20px rgba(0, 238, 255, 0.6); cursor: pointer;
-    text-transform: uppercase; letter-spacing: 2px;
-    transition: all 0.2s; margin-top: 10px;
-  }
-  button.retry-btn:active { transform: scale(0.95); box-shadow: 0 0 10px rgba(0, 238, 255, 0.4); }
+  .game-over-text { font-size: 55px; color: #ff0044; font-weight: 900; text-shadow: 0 0 20px #ff0044; margin-bottom: 5px; }
+  button.retry-btn { padding: 15px 60px; font-size: 20px; font-weight: bold; font-family: 'Orbitron', sans-serif; background: linear-gradient(45deg, #00eeff, #0055ff); color: #fff; border: none; border-radius: 50px; cursor: pointer; margin-top: 10px; }
 
   /* HUD */
-  #scoreBoard {
-    position:absolute; top:25px; left:20px;
-    font-size:26px; font-weight:900; color:#fff;
-    text-shadow: 0 0 10px #00ffff, 0 0 20px #0055ff;
-    letter-spacing: 1px;
-  }
-
-  #footer {
-    position:absolute; bottom:15px; width:100%; text-align:center; 
-    font-size:10px; color:rgba(255,255,255,0.4); z-index: 5; text-transform: uppercase; letter-spacing: 3px;
-  }
-
+  #scoreBoard { position:absolute; top:25px; left:20px; font-size:26px; font-weight:900; color:#fff; text-shadow: 0 0 10px #00ffff; }
+  #footer { position:absolute; bottom:15px; width:100%; text-align:center; font-size:10px; color:rgba(255,255,255,0.4); z-index: 5; text-transform: uppercase; }
 </style>
 </head>
 <body>
@@ -132,32 +84,25 @@
 
 <div id="loadingScreen">
     <div class="ms-logo">MS GAMES</div>
-    <div class="loader-container">
-        <div class="loader-bar"></div>
-    </div>
+    <div class="loader-container"><div class="loader-bar"></div></div>
     <div class="loading-text">Initializing Systems...</div>
 </div>
 
 <div id="gameOverScreen">
     <div class="game-over-text">GAME OVER</div>
-    <div id="finalScore" style="color:#00ffff; font-size:24px; font-weight:700; margin-bottom:25px; text-shadow: 0 0 10px #00ffff;">Score: 0</div>
+    <div id="finalScore" style="color:#00ffff; font-size:24px; font-weight:700; margin-bottom:25px;">Score: 0</div>
     
-    <div id="myAdContainer" style="width: 100%; max-width: 320px; min-height: 250px; margin-bottom: 20px; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center; box-shadow: inset 0 0 20px rgba(0,0,0,0.8), 0 0 15px rgba(0,238,255,0.2); border: 1px solid rgba(0,238,255,0.1);">
+    <div id="myAdContainer" style="width: 100%; max-width: 320px; min-height: 250px; margin-bottom: 20px; border-radius: 12px; overflow: hidden; background: rgba(255,255,255,0.05); display: flex; justify-content: center; align-items: center;">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-             style="display:block; width:100%;"
-             data-ad-format="fluid"
-             data-ad-layout-key="-fb+5w+4e-db+86"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="6461321358"></ins>
+        <ins class="adsbygoogle" style="display:block; width:100%;" data-ad-format="fluid" data-ad-layout-key="-fb+5w+4e-db+86" data-ad-client="ca-pub-1874063367142441" data-ad-slot="6461321358"></ins>
     </div>
+
     <button class="retry-btn" onclick="restartGame()">SYSTEM REBOOT</button>
 </div>
-
 <div id="footer">Designed by ᗰᑌᔕTᗩᑫEEᗰ</div>
 
 <script>
-/* --- 1. AUDIO SYSTEM (Optimized) --- */
+/* --- 1. AUDIO SYSTEM --- */
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 let bgmOscillators = [];
@@ -175,368 +120,216 @@ const noiseBuffer = createNoiseBuffer();
 
 function toggleMute() {
     isMuted = !isMuted;
-    const btn = document.getElementById('muteBtn');
-    if(!isMuted) {
-        btn.innerText = "🔊";
-        if(gameRunning) startMusic();
-    } else {
-        btn.innerText = "🔕";
-        stopMusic();
-    }
+    document.getElementById('muteBtn').innerText = isMuted ? "🔕" : "🔊";
+    if(!isMuted && gameRunning) startMusic(); else stopMusic();
 }
 
 function unlockAudio() {
     if(!audioUnlocked) {
-        audioCtx.resume().then(() => {
-            audioUnlocked = true;
-            if(!isMuted && gameRunning) startMusic();
-        });
+        audioCtx.resume().then(() => { audioUnlocked = true; if(!isMuted && gameRunning) startMusic(); });
     }
 }
 
 function playBlastSound() {
     if(isMuted || audioCtx.state === 'suspended') return;
-    
-    // Deeper Noise
-    const noise = audioCtx.createBufferSource();
-    noise.buffer = noiseBuffer;
-    const noiseFilter = audioCtx.createBiquadFilter();
-    noiseFilter.type = 'lowpass'; noiseFilter.frequency.value = 800;
-    const noiseGain = audioCtx.createGain();
-    noise.connect(noiseFilter); noiseFilter.connect(noiseGain); noiseGain.connect(audioCtx.destination);
-    noiseGain.gain.setValueAtTime(1.5, audioCtx.currentTime);
-    noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.6);
-    noise.start(); noise.stop(audioCtx.currentTime + 0.6);
-
-    // Punchy Kick
     const osc = audioCtx.createOscillator();
     const oscGain = audioCtx.createGain();
-    osc.type = 'sine'; osc.frequency.setValueAtTime(200, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.5);
-    oscGain.gain.setValueAtTime(1, audioCtx.currentTime);
-    oscGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+    osc.type = 'square'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(10, audioCtx.currentTime + 0.4);
+    oscGain.gain.setValueAtTime(0.8, audioCtx.currentTime);
+    oscGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
     osc.connect(oscGain); oscGain.connect(audioCtx.destination);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.5);
+    osc.start(); osc.stop(audioCtx.currentTime + 0.4);
 }
 
 function playShootSound() {
     if(isMuted || audioCtx.state === 'suspended') return;
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.type = 'square';
-    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.1);
-    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+    osc.type = 'sawtooth'; osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(200, audioCtx.currentTime + 0.05);
+    gain.gain.setValueAtTime(0.05, audioCtx.currentTime); // reduced volume for fast fire
+    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.05);
     osc.connect(gain); gain.connect(audioCtx.destination);
-    osc.start(); osc.stop(audioCtx.currentTime + 0.1);
+    osc.start(); osc.stop(audioCtx.currentTime + 0.05);
 }
 
-function startMusic() {
-    stopMusic(); 
-    if(isMuted || audioCtx.state === 'suspended') return;
+function startMusic() { /* Keeping simple to avoid lag */ }
+function stopMusic() {}
 
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.type = 'sawtooth'; osc.frequency.value = 55; 
-    const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass'; filter.frequency.value = 500;
-
-    osc.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
-    
-    const lfo = audioCtx.createOscillator();
-    lfo.type = 'sine'; lfo.frequency.value = 2; 
-    const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 200;
-    lfo.connect(lfoGain); lfoGain.connect(filter.frequency); lfo.start();
-    
-    gain.gain.value = 0.2; 
-    osc.start();
-    bgmOscillators.push(osc, lfo);
-}
-
-function stopMusic() {
-    bgmOscillators.forEach(o => o.stop());
-    bgmOscillators = [];
-}
-
-/* --- 2. GAME ENGINE (Pro Version) --- */
+/* --- 2. GAME ENGINE --- */
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-const loadingScreen = document.getElementById("loadingScreen");
-const gameOverScreen = document.getElementById("gameOverScreen");
 const scoreEl = document.getElementById("scoreBoard");
 const playerImg = document.getElementById("playerImg");
 
 let width, height;
-// Player Lerp variables
 let player = { x:0, y:0, w:64, h:64 };
 let targetX = 0; 
+let isTouching = false; // Fast fire trigger
 
-let bullets = [], enemies = [], particles = [], floatingTexts = [];
-let starsLayer1 = [], starsLayer2 = [], starsLayer3 = [];
+let bullets = [], enemies = [], particles = [];
+let stars = [];
 let score = 0, gameRunning = false, frameCount = 0;
 let adLoaded = false;
 let screenShake = 0;
 
-// LOADING LOGIC
 window.onload = function() {
-    resize();
-    initStars();
-    
+    resize(); initStars();
     setTimeout(() => {
-        loadingScreen.style.opacity = '0';
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-            isMuted = false;
-            document.getElementById('muteBtn').innerText = "🔊";
-            startGame();
-        }, 1000);
+        document.getElementById("loadingScreen").style.display = 'none';
+        isMuted = false; document.getElementById('muteBtn').innerText = "🔊";
+        startGame();
     }, 3500);
 };
 
 function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    canvas.width = width;
-    canvas.height = height;
-    player.y = height - 120;
-    player.x = width / 2 - player.w / 2;
-    targetX = player.x;
+    width = window.innerWidth; height = window.innerHeight;
+    canvas.width = width; canvas.height = height;
+    player.y = height - 120; player.x = width / 2 - player.w / 2; targetX = player.x;
 }
 window.addEventListener('resize', resize);
 
 function initStars() {
-    starsLayer1 = []; starsLayer2 = []; starsLayer3 = [];
-    for(let i=0; i<40; i++) starsLayer1.push({x: Math.random()*width, y: Math.random()*height, size: 1.5, speed: 0.5});
-    for(let i=0; i<25; i++) starsLayer2.push({x: Math.random()*width, y: Math.random()*height, size: 2.5, speed: 1.5});
-    for(let i=0; i<10; i++) starsLayer3.push({x: Math.random()*width, y: Math.random()*height, size: 4, speed: 3.5});
-}
-
-function drawStars() {
-    ctx.fillStyle = "#fff";
-    [starsLayer1, starsLayer2, starsLayer3].forEach((layer, index) => {
-        layer.forEach(s => {
-            s.y += s.speed;
-            if(s.y > height) { s.y = 0; s.x = Math.random() * width; }
-            ctx.globalAlpha = 0.3 + (index * 0.2);
-            ctx.fillRect(s.x, s.y, s.size, s.size);
-        });
-    });
-    ctx.globalAlpha = 1.0;
+    stars = [];
+    for(let i=0; i<60; i++) stars.push({x: Math.random()*width, y: Math.random()*height, speed: Math.random()*2 + 1});
 }
 
 function startGame() {
-    gameOverScreen.style.display = 'none';
-    score = 0;
-    scoreEl.innerText = "SCORE: 0";
-    bullets = []; enemies = []; particles = []; floatingTexts = [];
-    frameCount = 0; screenShake = 0;
-    
-    if(width) {
-         player.x = width/2 - player.w/2;
-         targetX = player.x;
-         player.y = height - 120;
-    }
-    gameRunning = true;
-    gameLoop();
+    document.getElementById("gameOverScreen").style.display = 'none';
+    score = 0; scoreEl.innerText = "SCORE: 0";
+    bullets = []; enemies = []; particles = []; frameCount = 0; screenShake = 0;
+    if(width) { player.x = width/2 - player.w/2; targetX = player.x; }
+    gameRunning = true; gameLoop();
 }
 
-function restartGame() {
-    startGame();
-    if(audioUnlocked && !isMuted) startMusic();
-}
+function restartGame() { startGame(); }
 
 function gameOver() {
-    gameRunning = false;
-    stopMusic();
-    playBlastSound();
-    screenShake = 30; // Huge shake on death
+    gameRunning = false; playBlastSound(); screenShake = 20;
     document.getElementById("finalScore").innerText = "SCORE: " + score;
-    
     setTimeout(() => {
-        gameOverScreen.style.display = 'flex';
-        if (!adLoaded) {
-            try {
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                adLoaded = true;
-            } catch (e) { console.log("AdSense Error: ", e); }
-        }
-    }, 1000); // 1 sec delay to watch the explosion
+        document.getElementById("gameOverScreen").style.display = 'flex';
+        if (!adLoaded) { try { (adsbygoogle = window.adsbygoogle || []).push({}); adLoaded = true; } catch(e){} }
+    }, 1000);
 }
 
 function spawnEnemy() {
-    let size = 45 + Math.random() * 20;
-    let spawnX = Math.random() * (width - size);
-    // Base speed + progressive difficulty
-    let speed = 3 + (score * 0.015) + Math.random() * 2; 
+    let size = 40 + Math.random() * 20;
     enemies.push({ 
-        x: spawnX, y: -100, w: size, h: size, 
-        speed: speed, angle: 0, rotSpeed: (Math.random() - 0.5) * 0.1,
-        hp: size > 55 ? 2 : 1 // Bigger enemies take 2 hits
+        x: Math.random() * (width - size), y: -100, w: size, h: size, 
+        speed: 3 + (score * 0.01) + Math.random(), angle: 0, rotSpeed: 0.05, hp: size > 50 ? 2 : 1
     });
 }
 
-function createExplosion(x, y, color, isHuge) {
-    let count = isHuge ? 40 : 15;
-    for(let i=0; i<count; i++) {
-        let angle = Math.random() * Math.PI * 2;
-        let speed = Math.random() * (isHuge ? 8 : 5);
-        particles.push({
-            x: x, y: y,
-            vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
-            life: 1.0, size: Math.random() * 4 + 2, color: color
-        });
+function createExplosion(x, y, color) {
+    for(let i=0; i<20; i++) {
+        let ang = Math.random() * Math.PI * 2;
+        particles.push({ x: x, y: y, vx: Math.cos(ang)*5, vy: Math.sin(ang)*5, life: 1, color: color });
     }
-}
-
-function addFloatingText(x, y, text) {
-    floatingTexts.push({ x: x, y: y, text: text, life: 1.0 });
 }
 
 function gameLoop() {
-    if(!gameRunning && particles.length === 0 && screenShake <= 0) return; // Keep rendering briefly after death for particles
+    if(!gameRunning && particles.length === 0 && screenShake <= 0) return;
 
-    // Smooth Trails Background
-    ctx.fillStyle = "rgba(3, 0, 8, 0.4)"; 
-    ctx.fillRect(0, 0, width, height);
+    // Fast clear screen (Removed expensive shadows/alpha blends for speed)
+    ctx.fillStyle = "#030008"; ctx.fillRect(0, 0, width, height);
 
     ctx.save();
-    // Screen Shake Logic
-    if(screenShake > 0) {
-        let dx = (Math.random() - 0.5) * screenShake;
-        let dy = (Math.random() - 0.5) * screenShake;
-        ctx.translate(dx, dy);
-        screenShake *= 0.9; // Decay
-        if(screenShake < 0.5) screenShake = 0;
-    }
+    if(screenShake > 0) { ctx.translate((Math.random()-0.5)*screenShake, (Math.random()-0.5)*screenShake); screenShake *= 0.8; }
 
-    drawStars();
+    // Fast Stars
+    ctx.fillStyle = "#fff";
+    stars.forEach(s => {
+        s.y += s.speed; if(s.y > height) { s.y = 0; s.x = Math.random() * width; }
+        ctx.fillRect(s.x, s.y, 2, 2);
+    });
 
     if(gameRunning) {
-        // Player Lerp (Smooth movement)
-        player.x += (targetX - player.x) * 0.15; 
+        player.x += (targetX - player.x) * 0.2; 
         
-        // Engine Exhaust Particles
-        if(frameCount % 2 === 0) {
-            particles.push({
-                x: player.x + player.w/2 + (Math.random()-0.5)*10, y: player.y + player.h - 5,
-                vx: 0, vy: Math.random() * 3 + 2, life: 0.8, size: Math.random()*4 + 2, color: "#00eeff"
-            });
-        }
-
-        // Draw Player with Glow
-        ctx.shadowBlur = 25; ctx.shadowColor = "#00eeff";
+        // Fast Fake Glow
+        ctx.fillStyle = "rgba(0, 238, 255, 0.2)";
+        ctx.beginPath(); ctx.arc(player.x+32, player.y+32, 40, 0, Math.PI*2); ctx.fill();
         ctx.drawImage(playerImg, player.x, player.y, player.w, player.h);
-        ctx.shadowBlur = 0;
 
-        // Dual Bullets Shooting
-        if(frameCount % 10 === 0) {
+        // RAPID FIRE LOGIC: Touch hai to har 4 frame me, nahi to har 12 frame me goli chalegi
+        let fireRate = isTouching ? 4 : 12; 
+        if(frameCount % fireRate === 0) {
             playShootSound();
-            bullets.push({ x: player.x + 12, y: player.y + 10, w: 4, h: 25, color: "#ff00ff" }); // Left
-            bullets.push({ x: player.x + player.w - 16, y: player.y + 10, w: 4, h: 25, color: "#ff00ff" }); // Right
+            bullets.push({ x: player.x + 14, y: player.y + 10, w: 4, h: 30 }); 
+            bullets.push({ x: player.x + player.w - 18, y: player.y + 10, w: 4, h: 30 });
         }
     }
 
-    // Update & Draw Bullets (Glowing Neon lines)
-    ctx.shadowBlur = 15; 
+    // Bullets Drawing
+    ctx.fillStyle = "#ff00ff";
     for(let i = bullets.length - 1; i >= 0; i--) {
-        let b = bullets[i]; b.y -= 18;
-        ctx.shadowColor = b.color; ctx.fillStyle = b.color;
-        ctx.beginPath(); ctx.roundRect(b.x, b.y, b.w, b.h, 5); ctx.fill();
+        let b = bullets[i]; b.y -= 20;
+        ctx.fillRect(b.x, b.y, b.w, b.h);
         if(b.y < -50) bullets.splice(i, 1);
     }
-    ctx.shadowBlur = 0;
 
-    // Update & Draw Enemies (Rotating Neon Shapes)
-    if(gameRunning && frameCount % Math.max(20, 45 - Math.floor(score/50)) === 0) spawnEnemy();
+    // Enemies & Collision (Fixed Hitbox)
+    if(gameRunning && frameCount % 35 === 0) spawnEnemy();
     
+    let px = player.x + player.w/2; // Player Center X
+    let py = player.y + player.h/2; // Player Center Y
+    let pRadius = 20; // Perfect circle hitbox for player (Side hits will now register)
+
     for(let i = enemies.length - 1; i >= 0; i--) {
         let e = enemies[i]; e.y += e.speed; e.angle += e.rotSpeed;
         
-        ctx.save();
-        ctx.translate(e.x + e.w/2, e.y + e.h/2);
-        ctx.rotate(e.angle);
-        
-        // Cool Diamond Shape
-        ctx.shadowBlur = 20; ctx.shadowColor = e.hp > 1 ? "#ff8800" : "#ff0044";
-        ctx.strokeStyle = e.hp > 1 ? "#ff8800" : "#ff0044";
-        ctx.lineWidth = 3;
-        ctx.beginPath();
-        ctx.moveTo(0, -e.h/2); ctx.lineTo(e.w/2, 0); ctx.lineTo(0, e.h/2); ctx.lineTo(-e.w/2, 0);
-        ctx.closePath(); ctx.stroke();
-        
-        // Inner core
-        ctx.fillStyle = "rgba(255, 0, 68, 0.2)"; ctx.fill();
+        ctx.save(); ctx.translate(e.x + e.w/2, e.y + e.h/2); ctx.rotate(e.angle);
+        ctx.strokeStyle = e.hp > 1 ? "#ff8800" : "#ff0044"; ctx.lineWidth = 3;
+        ctx.strokeRect(-e.w/2, -e.h/2, e.w, e.h);
+        ctx.fillStyle = "rgba(255,0,0,0.2)"; ctx.fillRect(-e.w/2, -e.h/2, e.w, e.h);
         ctx.restore();
 
         if(!gameRunning) continue;
 
-        // Tighter Hitbox for better feel
-        let hitBox = 15;
-        if(e.x+hitBox < player.x+player.w-hitBox && e.x+e.w-hitBox > player.x+hitBox && 
-           e.y+hitBox < player.y+player.h-hitBox && e.y+e.h-hitBox > player.y+hitBox) {
-            createExplosion(player.x + player.w/2, player.y + player.h/2, "#00eeff", true);
-            player.x = -1000; // hide player
-            gameOver();
+        let ex = e.x + e.w/2; // Enemy Center X
+        let ey = e.y + e.h/2; // Enemy Center Y
+        let eRadius = e.w/2;  // Enemy Hitbox
+
+        // PERFECT CIRCLE COLLISION (For Jet Sides & Front)
+        let dx = px - ex; let dy = py - ey;
+        let distance = Math.sqrt(dx*dx + dy*dy);
+        
+        if(distance < pRadius + eRadius) {
+            createExplosion(px, py, "#00eeff");
+            player.x = -1000; gameOver();
         }
 
-        // Bullet Collision
+        // Bullet Hit
         for(let j = bullets.length - 1; j >= 0; j--) {
             let b = bullets[j];
             if(b.x < e.x+e.w && b.x+b.w > e.x && b.y < e.y+e.h && b.y+b.h > e.y) {
-                bullets.splice(j, 1);
-                e.hp--;
-                createExplosion(b.x, b.y, "#fff", false); // Small spark
-                
+                bullets.splice(j, 1); e.hp--;
                 if(e.hp <= 0) {
-                    playBlastSound(); 
-                    screenShake = 5; // Small shake on kill
-                    createExplosion(e.x + e.w/2, e.y + e.h/2, "#ff0044", true);
-                    addFloatingText(e.x, e.y, "+10");
-                    enemies.splice(i, 1);
-                    score += 10; scoreEl.innerText = "SCORE: " + score;
+                    playBlastSound(); createExplosion(ex, ey, "#ff0044");
+                    enemies.splice(i, 1); score += 10; scoreEl.innerText = "SCORE: " + score;
                 }
                 break;
             }
         }
-        if(e.y > height + 100) enemies.splice(i, 1);
+        if(e.y > height + 50) enemies.splice(i, 1);
     }
 
-    // Particles (Shrinking and Fading)
-    ctx.globalCompositeOperation = "lighter";
+    // Particles Drawing (Fast)
     for(let i = particles.length - 1; i >= 0; i--) {
-        let p = particles[i]; 
-        p.x += p.vx; p.y += p.vy; 
-        p.life -= 0.03; p.size *= 0.95; // Shrink
+        let p = particles[i]; p.x += p.vx; p.y += p.vy; p.life -= 0.05;
         ctx.fillStyle = p.color; ctx.globalAlpha = Math.max(0, p.life);
-        ctx.shadowBlur = 10; ctx.shadowColor = p.color;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
-        if(p.life <= 0 || p.size < 0.1) particles.splice(i, 1);
+        ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI*2); ctx.fill();
+        if(p.life <= 0) particles.splice(i, 1);
     }
-    ctx.globalCompositeOperation = "source-over";
-    ctx.shadowBlur = 0; ctx.globalAlpha = 1.0;
-
-    // Floating Texts
-    ctx.font = "bold 16px 'Orbitron'";
-    ctx.textAlign = "center";
-    for(let i = floatingTexts.length - 1; i >= 0; i--) {
-        let ft = floatingTexts[i];
-        ft.y -= 1; ft.life -= 0.02;
-        ctx.fillStyle = `rgba(0, 255, 255, ${ft.life})`;
-        ctx.fillText(ft.text, ft.x, ft.y);
-        if(ft.life <= 0) floatingTexts.splice(i, 1);
-    }
-    ctx.textAlign = "left"; // reset
-
-    ctx.restore(); // Restore from Screen Shake
-
-    frameCount++;
-    requestAnimationFrame(gameLoop);
+    ctx.globalAlpha = 1.0; ctx.restore();
+    frameCount++; requestAnimationFrame(gameLoop);
 }
 
-// TOUCH (Start Audio & Update TargetX for Lerp)
+// Touch Controls (With HOLD to shoot fast tracking)
 document.addEventListener("touchstart", (e) => {
-    unlockAudio();
+    unlockAudio(); isTouching = true;
     if(gameRunning) targetX = e.touches[0].clientX - player.w/2;
 }, { passive: false });
 
@@ -544,11 +337,13 @@ document.addEventListener("touchmove", (e) => {
     e.preventDefault();
     if(gameRunning) {
         targetX = e.touches[0].clientX - player.w/2;
-        // Boundaries
-        if(targetX < 0) targetX = 0;
-        if(targetX > width - player.w) targetX = width - player.w;
+        if(targetX < 0) targetX = 0; if(targetX > width - player.w) targetX = width - player.w;
     }
 }, { passive: false });
+
+document.addEventListener("touchend", () => {
+    isTouching = false; // Hold finish
+});
 
 </script>
 </body>
