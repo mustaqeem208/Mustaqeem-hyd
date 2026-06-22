@@ -132,17 +132,14 @@
     <div class="game-over-text">GAME OVER</div>
     <div id="finalScore" style="color:#fff; font-size:20px; margin-bottom:20px;">Score: 0</div>
     
-    <div style="width: 100%; max-width: 320px; margin-bottom: 20px; border-radius: 10px; overflow: hidden; background: rgba(0,0,0,0.3);">
+    <div id="myAdContainer" style="width: 100%; max-width: 320px; min-height: 250px; margin-bottom: 20px; border-radius: 10px; overflow: hidden; background: rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center;">
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:block; width:100%;"
              data-ad-format="fluid"
              data-ad-layout-key="-fb+5w+4e-db+86"
              data-ad-client="ca-pub-1874063367142441"
              data-ad-slot="6461321358"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
     </div>
     <button class="retry-btn" onclick="restartGame()">RETRY</button>
 </div>
@@ -183,7 +180,6 @@ function unlockAudio() {
     if(!audioUnlocked) {
         audioCtx.resume().then(() => {
             audioUnlocked = true;
-            // If user has unmuted (or auto-unmute logic), start music
             if(!isMuted && gameRunning) startMusic();
         });
     }
@@ -255,6 +251,7 @@ let width, height;
 let player = { x:0, y:0, w:60, h:60 };
 let bullets = [], enemies = [], particles = [], nebulas = [];
 let score = 0, gameRunning = false, frameCount = 0;
+let adLoaded = false; // Adsense tracking ke liye
 
 // LOADING LOGIC
 window.onload = function() {
@@ -263,15 +260,11 @@ window.onload = function() {
     
     // 3.5s Delay for Premium Loading
     setTimeout(() => {
-        // Fade out loader
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
             loadingScreen.style.display = 'none';
-            
-            // Visual Unmute (User still needs to touch screen to hear)
             isMuted = false;
             document.getElementById('muteBtn').innerText = "🔊";
-            
             startGame();
         }, 1000);
     }, 3500);
@@ -300,7 +293,6 @@ function createNebula() {
 }
 
 function startGame() {
-    // Reset Everything cleanly
     gameOverScreen.style.display = 'none';
     score = 0;
     scoreEl.innerText = "SCORE: 0";
@@ -309,7 +301,6 @@ function startGame() {
     particles = [];
     frameCount = 0;
     
-    // Position player correctly
     if(width) {
          player.x = width/2 - player.w/2;
          player.y = height - 100;
@@ -329,7 +320,19 @@ function gameOver() {
     stopMusic();
     playBlastSound();
     document.getElementById("finalScore").innerText = "Score: " + score;
+    
+    // Yahan "Game Over" screen visible hogi
     gameOverScreen.style.display = 'flex';
+    
+    // Adsense Request (Jab screen visible ho jaye, aur sirf pehli baar)
+    if (!adLoaded) {
+        try {
+            (adsbygoogle = window.adsbygoogle || []).push({});
+            adLoaded = true;
+        } catch (e) {
+            console.log("AdSense Error: ", e);
+        }
+    }
 }
 
 function spawnEnemy() {
