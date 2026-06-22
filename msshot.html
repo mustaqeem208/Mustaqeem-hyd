@@ -10,9 +10,9 @@
   
   html, body { 
     width:100%; height:100%; 
-    background-color: #030008; 
+    background-color: #000;
     overflow:hidden; 
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-family:'Segoe UI', sans-serif; 
     touch-action: none; 
   }
 
@@ -28,155 +28,84 @@
   /* MUTE BUTTON */
   #muteBtn {
     position: absolute; top: 20px; right: 20px;
-    font-size: 24px; cursor: pointer; pointer-events: auto;
-    width: 45px; height: 45px; line-height: 45px; text-align: center;
-    background: rgba(255, 255, 255, 0.05); border-radius: 50%;
-    border: 1px solid rgba(0, 238, 255, 0.4);
+    font-size: 28px; cursor: pointer; pointer-events: auto;
+    width: 50px; height: 50px; line-height: 50px; text-align: center;
+    background: rgba(255, 255, 255, 0.1); border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
     color: #fff; z-index: 20;
-    box-shadow: 0 0 15px rgba(0,238,255,0.2);
-    backdrop-filter: blur(8px);
-    transition: transform 0.2s, background 0.2s;
+    text-shadow: 0 0 10px #00ffff;
+    backdrop-filter: blur(5px);
   }
-  #muteBtn:active { transform: scale(0.9); background: rgba(0, 238, 255, 0.2); }
 
   /* PREMIUM LOADING SCREEN */
   #loadingScreen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at center, #110022 0%, #000000 100%);
+    background: #000;
     display: flex; flex-direction: column; justify-content: center; align-items: center;
     z-index: 100; pointer-events: auto;
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    transition: opacity 1s ease;
   }
 
   .ms-logo {
-    font-size: 65px; font-weight: 900; color: #fff; letter-spacing: -2px;
+    font-size: 60px; font-weight: 900; color: #fff; letter-spacing: -2px;
     text-shadow: 0 0 20px #00eeff, 0 0 40px #0000ff;
-    animation: pulseLogo 2s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+    animation: glow 1.5s infinite alternate;
   }
 
   .loader-container {
-    width: 280px; height: 8px; background: rgba(255,255,255,0.1); margin-top: 40px;
-    border-radius: 20px; overflow: hidden; position: relative;
-    box-shadow: 0 0 15px rgba(0,238,255,0.3) inset;
+    width: 250px; height: 6px; background: #333; margin-top: 30px;
+    border-radius: 10px; overflow: hidden; position: relative;
+    box-shadow: 0 0 10px #00eeff;
   }
 
   .loader-bar {
     width: 0%; height: 100%; 
-    background: linear-gradient(90deg, #00eeff, #0055ff, #00eeff);
-    background-size: 200% 100%;
-    animation: loadProgress 3.5s cubic-bezier(0.4, 0, 0.2, 1) forwards, gradientShift 2s infinite linear;
-    border-radius: 20px;
+    background: linear-gradient(90deg, #00eeff, #0000ff);
+    animation: loadProgress 3.5s linear forwards;
   }
 
   .loading-text {
-    margin-top: 20px; color: #00ffff; font-size: 13px; letter-spacing: 5px;
-    text-transform: uppercase; animation: blink 1.5s infinite; opacity: 0.8;
+    margin-top: 15px; color: #00ffff; font-size: 14px; letter-spacing: 4px;
+    text-transform: uppercase; animation: blink 1s infinite;
   }
+
+  @keyframes glow { 0% { opacity: 0.8; transform: scale(1); } 100% { opacity: 1; transform: scale(1.05); } }
+  @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
+  @keyframes blink { 50% { opacity: 0.5; } }
 
   /* GAME OVER SCREEN */
   #gameOverScreen {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 5, 0.9);
+    background: rgba(0,0,0,0.9);
     display: none; flex-direction: column; justify-content: center; align-items: center;
     z-index: 30; pointer-events: auto;
-    backdrop-filter: blur(12px);
-    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    padding: 20px;
-    text-align: center; 
+    backdrop-filter: blur(5px);
   }
 
-  /* CENTERED AND FIXED RED TEXT */
   .game-over-text {
-    font-size: 48px; 
-    color: #ff0044; 
-    font-weight: 900; 
-    text-shadow: 0 0 20px #ff0044, 0 0 40px #aa0022; 
-    margin-bottom: 20px; 
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    text-align: center;
-    line-height: 1.1;
-  }
-
-  .score-container {
-    background: rgba(255,255,255,0.05); padding: 15px 40px; border-radius: 15px;
-    text-align: center; border: 1px solid rgba(255,255,255,0.1);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    margin-bottom: 10px;
-    min-width: 250px;
-  }
-
-  #finalScore { color:#fff; font-size:28px; font-weight:bold; text-shadow: 0 0 10px #fff; }
-  #bestScoreText { color:#ffdd00; font-size:16px; margin-top:5px; text-shadow: 0 0 10px #ffdd00; font-weight:600; letter-spacing: 1px;}
-
-  /* --- PROFESSIONAL AD CARD (FIXED) --- */
-  .ad-card {
-    background: rgba(0, 238, 255, 0.03);
-    border: 1px solid rgba(0, 238, 255, 0.2);
-    border-radius: 15px;
-    margin: 20px auto 25px auto; 
-    box-shadow: 0 0 25px rgba(0, 238, 255, 0.1);
-    position: relative;
-    overflow: hidden;
-    /* Box size fixed for mobile */
-    width: 320px; 
-    height: 100px;
-    /* User request: Scale to 1.1x */
-    transform: scale(1.1);
-  }
-
-  .ad-wrapper {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    /* Exact dimensions of the Ad */
-    width: 728px;
-    height: 90px;
-    /* Centering and scaling down safely inside the box */
-    transform: translate(-50%, -50%) scale(0.42);
-    transform-origin: center center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .ad-card::before {
-    content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-    background: conic-gradient(transparent, rgba(0,238,255,0.3), transparent 30%);
-    animation: rotateAdGlow 4s linear infinite; z-index: -1;
-  }
-  .ad-card::after {
-    content: ''; position: absolute; inset: 2px; background: #050508; border-radius: 13px; z-index: -1;
+    font-size: 50px; color: #ff0044; font-weight: 900; 
+    text-shadow: 0 0 30px #ff0044; margin-bottom: 10px; text-transform: uppercase;
   }
 
   button.retry-btn {
-    padding: 16px 50px; font-size: 20px; font-weight: 900;
-    background: linear-gradient(45deg, #00eeff, #0055ff);
-    color: #fff; border: none; border-radius: 50px;
-    box-shadow: 0 8px 20px rgba(0, 119, 255, 0.4); cursor: pointer;
-    text-transform: uppercase; transition: all 0.2s ease;
-    letter-spacing: 2px;
-    margin-top: 20px; /* Adjusted spacing for 1.1x ad */
+    padding: 15px 50px; font-size: 22px; font-weight: bold;
+    background: linear-gradient(90deg, #00eeff, #0077ff);
+    color: #000; border: none; border-radius: 50px;
+    box-shadow: 0 0 20px #00eeff; cursor: pointer;
+    text-transform: uppercase;
   }
-  button.retry-btn:active { transform: translateY(4px) scale(0.95); box-shadow: 0 4px 10px rgba(0, 119, 255, 0.4); }
 
   /* HUD */
-  #hudContainer { position:absolute; top:20px; left:20px; }
-  #scoreBoard { font-size:26px; font-weight:900; color:#fff; font-style: italic; text-shadow:0 0 15px #00ffff; }
-  #highScoreBoard { font-size:14px; font-weight:700; color:#ffdd00; text-transform: uppercase; letter-spacing: 1px; text-shadow:0 0 10px #ffdd00; margin-top: 5px; }
+  #scoreBoard {
+    position:absolute; top:20px; left:20px;
+    font-size:24px; font-weight:900; color:#fff; font-style: italic;
+    text-shadow:0 0 15px #00ffff;
+  }
 
   #footer {
     position:absolute; bottom:15px; width:100%; text-align:center; 
-    font-size:11px; color:rgba(255,255,255,0.2); z-index: 5; text-transform: uppercase; letter-spacing: 3px;
+    font-size:12px; color:rgba(255,255,255,0.3); z-index: 5; text-transform: uppercase; letter-spacing: 2px;
   }
-
-  /* Animations */
-  @keyframes pulseLogo { 0% { transform: scale(1); filter: hue-rotate(0deg); } 100% { transform: scale(1.05); filter: hue-rotate(30deg); } }
-  @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
-  @keyframes gradientShift { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
-  @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-  @keyframes popIn { 0% { opacity: 0; transform: scale(0.9); } 100% { opacity: 1; transform: scale(1); } }
-  @keyframes rotateAdGlow { 100% { transform: rotate(360deg); } }
 
 </style>
 </head>
@@ -187,43 +116,34 @@
 <canvas id="gameCanvas"></canvas>
 
 <div id="uiLayer">
-    <div id="hudContainer">
-        <div id="scoreBoard">0000</div>
-        <div id="highScoreBoard">BEST: 0</div>
-    </div>
+    <div id="scoreBoard">SCORE: 0</div>
     <div id="muteBtn" onclick="toggleMute()">🔕</div>
 </div>
 
 <div id="loadingScreen">
     <div class="ms-logo">MS GAMES</div>
-    <div class="loader-container"><div class="loader-bar"></div></div>
-    <div class="loading-text">Initializing Systems...</div>
+    <div class="loader-container">
+        <div class="loader-bar"></div>
+    </div>
+    <div class="loading-text">Loading Assets...</div>
 </div>
 
 <div id="gameOverScreen">
     <div class="game-over-text">GAME OVER</div>
+    <div id="finalScore" style="color:#fff; font-size:20px; margin-bottom:20px;">Score: 0</div>
     
-    <div class="score-container">
-        <div id="finalScore">Score: 0</div>
-        <div id="bestScoreText">Best: 0</div>
+    <div style="width: 100%; max-width: 320px; margin-bottom: 20px; border-radius: 10px; overflow: hidden; background: rgba(0,0,0,0.3);">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-format="fluid"
+             data-ad-layout-key="-fb+5w+4e-db+86"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="6461321358"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
-    
-    <!-- PROFESSIONAL AD CARD CONTAINER -->
-    <div class="ad-card">
-        <!-- New Wrapper to perfectly center and scale the 728px Ad -->
-        <div class="ad-wrapper">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
-            <!-- Ms -->
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:728px;height:90px"
-                 data-ad-client="ca-pub-1874063367142441"
-                 data-ad-slot="9832164119"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-    </div>
-
     <button class="retry-btn" onclick="restartGame()">RETRY</button>
 </div>
 
@@ -234,9 +154,10 @@
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 let bgmOscillators = [];
-let isMuted = true; 
+let isMuted = true; // Start muted (icon state)
 let audioUnlocked = false;
 
+// Create Noise Buffer
 function createNoiseBuffer() {
     const bufferSize = audioCtx.sampleRate * 2; 
     const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
@@ -262,25 +183,36 @@ function unlockAudio() {
     if(!audioUnlocked) {
         audioCtx.resume().then(() => {
             audioUnlocked = true;
+            // If user has unmuted (or auto-unmute logic), start music
             if(!isMuted && gameRunning) startMusic();
         });
     }
 }
 
-function playBlastSound(type = 'enemy') {
+function playBlastSound() {
     if(isMuted) return;
     if(audioCtx.state === 'suspended') audioCtx.resume();
     
+    // Noise
     const noise = audioCtx.createBufferSource();
     noise.buffer = noiseBuffer;
     const noiseFilter = audioCtx.createBiquadFilter();
-    noiseFilter.type = 'lowpass'; noiseFilter.frequency.value = type === 'player' ? 500 : 1500;
+    noiseFilter.type = 'lowpass'; noiseFilter.frequency.value = 1000;
     const noiseGain = audioCtx.createGain();
-    
     noise.connect(noiseFilter); noiseFilter.connect(noiseGain); noiseGain.connect(audioCtx.destination);
-    noiseGain.gain.setValueAtTime(type === 'player' ? 1.5 : 0.5, audioCtx.currentTime);
-    noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + (type === 'player' ? 0.8 : 0.3));
-    noise.start(); noise.stop(audioCtx.currentTime + 1);
+    noiseGain.gain.setValueAtTime(1, audioCtx.currentTime);
+    noiseGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+    noise.start(); noise.stop(audioCtx.currentTime + 0.5);
+
+    // Kick
+    const osc = audioCtx.createOscillator();
+    const oscGain = audioCtx.createGain();
+    osc.type = 'triangle'; osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+    oscGain.gain.setValueAtTime(0.8, audioCtx.currentTime);
+    oscGain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+    osc.connect(oscGain); oscGain.connect(audioCtx.destination);
+    osc.start(); osc.stop(audioCtx.currentTime + 0.5);
 }
 
 function startMusic() {
@@ -290,23 +222,26 @@ function startMusic() {
 
     const osc = audioCtx.createOscillator();
     const gain = audioCtx.createGain();
-    osc.type = 'sawtooth'; osc.frequency.value = 55; 
+    osc.type = 'sawtooth'; osc.frequency.value = 60; 
     const filter = audioCtx.createBiquadFilter();
-    filter.type = 'lowpass'; filter.frequency.value = 600;
+    filter.type = 'lowpass'; filter.frequency.value = 400;
 
     osc.connect(filter); filter.connect(gain); gain.connect(audioCtx.destination);
     
     const lfo = audioCtx.createOscillator();
-    lfo.type = 'sine'; lfo.frequency.value = 3; 
-    const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 400;
+    lfo.type = 'square'; lfo.frequency.value = 4; 
+    const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 300;
     lfo.connect(lfoGain); lfoGain.connect(filter.frequency); lfo.start();
     
-    gain.gain.value = 0.2; 
+    gain.gain.value = 0.25; 
     osc.start();
     bgmOscillators.push(osc, lfo);
 }
 
-function stopMusic() { bgmOscillators.forEach(o => o.stop()); bgmOscillators = []; }
+function stopMusic() {
+    bgmOscillators.forEach(o => o.stop());
+    bgmOscillators = [];
+}
 
 /* --- 2. GAME ENGINE --- */
 const canvas = document.getElementById("gameCanvas");
@@ -314,72 +249,74 @@ const ctx = canvas.getContext("2d");
 const loadingScreen = document.getElementById("loadingScreen");
 const gameOverScreen = document.getElementById("gameOverScreen");
 const scoreEl = document.getElementById("scoreBoard");
-const highScoreEl = document.getElementById("highScoreBoard");
 const playerImg = document.getElementById("playerImg");
 
 let width, height;
-let player = { x:0, y:0, w:65, h:65 };
-let bullets = [], enemies = [], particles = [], nebulas = [], stars = [], floatingTexts = [];
+let player = { x:0, y:0, w:60, h:60 };
+let bullets = [], enemies = [], particles = [], nebulas = [];
 let score = 0, gameRunning = false, frameCount = 0;
-let screenShake = 0;
-let highScore = localStorage.getItem("msPremiumHighScore") || 0; 
 
 // LOADING LOGIC
 window.onload = function() {
     resize();
     createNebula();
-    createStars();
-    highScoreEl.innerText = "BEST: " + String(highScore).padStart(4, '0');
     
+    // 3.5s Delay for Premium Loading
     setTimeout(() => {
-        loadingScreen.style.transform = 'scale(1.1)';
+        // Fade out loader
         loadingScreen.style.opacity = '0';
         setTimeout(() => {
             loadingScreen.style.display = 'none';
-            isMuted = false; document.getElementById('muteBtn').innerText = "🔊";
+            
+            // Visual Unmute (User still needs to touch screen to hear)
+            isMuted = false;
+            document.getElementById('muteBtn').innerText = "🔊";
+            
             startGame();
-        }, 800);
+        }, 1000);
     }, 3500);
 };
 
 function resize() {
-    width = window.innerWidth; height = window.innerHeight;
-    canvas.width = width; canvas.height = height;
-    player.y = height - 120; player.x = width / 2 - player.w / 2;
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    player.y = height - 100;
+    player.x = width / 2 - player.w / 2;
 }
 window.addEventListener('resize', resize);
 
-function createStars() {
-    stars = [];
-    for(let i=0; i<80; i++) {
-        stars.push({
-            x: Math.random() * width, y: Math.random() * height,
-            size: Math.random() * 2.5 + 0.5, speed: Math.random() * 3 + 1,
-            opacity: Math.random()
-        });
-    }
-}
-
 function createNebula() {
     nebulas = [];
-    for(let i=0; i<6; i++) {
+    for(let i=0; i<10; i++) {
         nebulas.push({
             x: Math.random() * width, y: Math.random() * height,
-            r: Math.random() * 250 + 150,
-            color: Math.random() > 0.5 ? 'rgba(0, 80, 255, 0.05)' : 'rgba(200, 0, 255, 0.05)',
-            vx: (Math.random() - 0.5) * 0.3, vy: (Math.random() - 0.5) * 0.3
+            r: Math.random() * 200 + 100,
+            color: Math.random() > 0.5 ? 'rgba(0, 50, 255, 0.1)' : 'rgba(150, 0, 255, 0.1)',
+            vx: (Math.random() - 0.5) * 0.2, vy: (Math.random() - 0.5) * 0.2
         });
     }
 }
 
 function startGame() {
+    // Reset Everything cleanly
     gameOverScreen.style.display = 'none';
-    score = 0; updateScore();
-    bullets = []; enemies = []; particles = []; floatingTexts = [];
-    frameCount = 0; screenShake = 0;
+    score = 0;
+    scoreEl.innerText = "SCORE: 0";
+    bullets = [];
+    enemies = [];
+    particles = [];
+    frameCount = 0;
     
-    if(width) { player.x = width/2 - player.w/2; player.y = height - 120; }
-    gameRunning = true; gameLoop();
+    // Position player correctly
+    if(width) {
+         player.x = width/2 - player.w/2;
+         player.y = height - 100;
+    }
+    
+    gameRunning = true;
+    gameLoop();
 }
 
 function restartGame() {
@@ -387,56 +324,36 @@ function restartGame() {
     if(audioUnlocked && !isMuted) startMusic();
 }
 
-function updateScore() {
-    scoreEl.innerText = String(score).padStart(4, '0');
-}
-
 function gameOver() {
-    gameRunning = false; stopMusic(); playBlastSound('player');
-    screenShake = 25; // Big shake
-    
+    gameRunning = false;
+    stopMusic();
+    playBlastSound();
     document.getElementById("finalScore").innerText = "Score: " + score;
-    document.getElementById("bestScoreText").innerText = "Best: " + highScore;
-    
-    setTimeout(() => { gameOverScreen.style.display = 'flex'; }, 800);
+    gameOverScreen.style.display = 'flex';
 }
 
 function spawnEnemy() {
-    let size = Math.random() * 20 + 35;
-    let spawnX = Math.random() * (width - size);
-    enemies.push({ x: spawnX, y: -50, w: size, h: size, speed: 4 + (score * 0.015), hp: size > 45 ? 2 : 1 });
+    let spawnX = Math.random() * (width - 50);
+    enemies.push({ x: spawnX, y: -50, w: 50, h: 50, speed: 5 + (score * 0.02) });
 }
 
-function createExplosion(x, y, color, count=20) {
-    for(let i=0; i<count; i++) {
+function createExplosion(x, y, color) {
+    for(let i=0; i<20; i++) {
         particles.push({
             x: x, y: y,
-            vx: (Math.random() - 0.5) * 12, vy: (Math.random() - 0.5) * 12,
-            life: 1.0, color: color, size: Math.random() * 4 + 2
+            vx: (Math.random() - 0.5) * 15, vy: (Math.random() - 0.5) * 15,
+            life: 1.0, color: color
         });
     }
 }
 
-function addFloatingText(x, y, text) {
-    floatingTexts.push({ x: x, y: y, text: text, life: 1.0 });
-}
-
 function gameLoop() {
-    if(!gameRunning && particles.length === 0 && screenShake === 0) return; // Keep rendering explosions/shake
+    if(!gameRunning) return;
 
-    ctx.fillStyle = "#030008"; ctx.fillRect(0, 0, width, height);
+    // Clear
+    ctx.fillStyle = "#050505"; ctx.fillRect(0, 0, width, height);
 
-    // Screen Shake apply
-    ctx.save();
-    if(screenShake > 0) {
-        let dx = (Math.random() - 0.5) * screenShake;
-        let dy = (Math.random() - 0.5) * screenShake;
-        ctx.translate(dx, dy);
-        screenShake *= 0.9; // decay
-        if(screenShake < 0.5) screenShake = 0;
-    }
-
-    // Galaxy/Nebula
+    // Galaxy
     nebulas.forEach(n => {
         n.x += n.vx; n.y += n.vy;
         if(n.x > width + n.r) n.x = -n.r; if(n.x < -n.r) n.x = width + n.r;
@@ -446,119 +363,73 @@ function gameLoop() {
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, Math.PI*2); ctx.fill();
     });
 
-    // Parallax Stars
-    stars.forEach(s => {
-        s.y += s.speed;
-        if(s.y > height) { s.y = 0; s.x = Math.random() * width; }
-        ctx.fillStyle = `rgba(255, 255, 255, ${s.opacity})`;
-        ctx.beginPath(); ctx.arc(s.x, s.y, s.size, 0, Math.PI*2); ctx.fill();
-    });
-
-    if(gameRunning) {
-        // Player Thruster Particles
-        if(frameCount % 2 === 0) {
-            particles.push({
-                x: player.x + player.w/2 + (Math.random()-0.5)*10, y: player.y + player.h - 5,
-                vx: (Math.random() - 0.5) * 2, vy: Math.random() * 5 + 3,
-                life: 0.6, color: "#00eeff", size: Math.random() * 3 + 2
-            });
-        }
-
-        // Draw Player
-        ctx.shadowBlur = 25; ctx.shadowColor = "#00eeff";
-        ctx.drawImage(playerImg, player.x, player.y, player.w, player.h);
-        ctx.shadowBlur = 0;
-
-        // Bullets
-        if(frameCount % 7 === 0) bullets.push({ x: player.x+player.w/2-3, y: player.y, w: 6, h: 25 });
+    // Stars
+    ctx.fillStyle = "#fff";
+    for(let i=0; i<30; i++) { 
+        let sx = (Math.sin(frameCount*0.01 + i)*width + width)/2; 
+        let sy = (frameCount * 2 + i * 50) % height;
+        ctx.fillRect(sx, sy, 2, 2);
     }
 
-    // Draw & Move Bullets
-    ctx.fillStyle = "#fff"; ctx.shadowBlur = 15; ctx.shadowColor = "#00ff88";
+    // Player
+    ctx.shadowBlur = 20; ctx.shadowColor = "#00eeff";
+    ctx.drawImage(playerImg, player.x, player.y, player.w, player.h);
+    ctx.shadowBlur = 0;
+
+    // Bullets
+    if(frameCount % 8 === 0) bullets.push({ x: player.x+27, y: player.y, w: 6, h: 20 });
+    ctx.fillStyle = "#0f0"; ctx.shadowBlur = 10; ctx.shadowColor = "#0f0";
     for(let i = bullets.length - 1; i >= 0; i--) {
-        let b = bullets[i]; b.y -= 25;
-        ctx.beginPath(); ctx.roundRect(b.x, b.y, b.w, b.h, 3); ctx.fill();
-        if(b.y < -50) bullets.splice(i, 1);
+        let b = bullets[i]; b.y -= 20;
+        ctx.fillRect(b.x, b.y, b.w, b.h);
+        if(b.y < 0) bullets.splice(i, 1);
     }
     ctx.shadowBlur = 0;
 
-    if(gameRunning) {
-        // Enemies
-        if(frameCount % Math.max(20, 40 - Math.floor(score/50)) === 0) spawnEnemy();
-        for(let i = enemies.length - 1; i >= 0; i--) {
-            let e = enemies[i]; e.y += e.speed;
-            
-            // Draw Enemy (Neon Pulsing Octagon)
-            let pulse = Math.abs(Math.sin(frameCount * 0.1));
-            ctx.shadowBlur = 15 + (pulse * 10); ctx.shadowColor = "#ff0044";
-            ctx.fillStyle = "#110000"; ctx.strokeStyle = "#ff0044"; ctx.lineWidth = 3;
-            
-            ctx.beginPath();
-            ctx.arc(e.x + e.w/2, e.y + e.h/2, e.w/2, 0, Math.PI*2);
-            ctx.fill(); ctx.stroke();
-            ctx.fillStyle = "#ff0044"; ctx.globalAlpha = 0.5 + (pulse * 0.5);
-            ctx.arc(e.x + e.w/2, e.y + e.h/2, e.w/4, 0, Math.PI*2); ctx.fill();
-            ctx.globalAlpha = 1.0; ctx.shadowBlur = 0;
+    // Enemies
+    if(frameCount % 30 === 0) spawnEnemy();
+    for(let i = enemies.length - 1; i >= 0; i--) {
+        let e = enemies[i]; e.y += e.speed;
+        const g = ctx.createRadialGradient(e.x+25, e.y+25, 5, e.x+25, e.y+25, 25);
+        g.addColorStop(0, "#ff0044"); g.addColorStop(1, "#500");
+        ctx.fillStyle = g; ctx.shadowBlur = 20; ctx.shadowColor = "#ff0044";
+        ctx.beginPath(); ctx.arc(e.x+25, e.y+25, 25, 0, Math.PI*2); ctx.fill();
+        ctx.shadowBlur = 0;
 
-            // Collision: Player
-            if(e.x < player.x+player.w-10 && e.x+e.w > player.x+10 && e.y < player.y+player.h-10 && e.y+e.h > player.y+10) {
-                createExplosion(player.x+player.w/2, player.y+player.h/2, "#00eeff", 50);
-                gameOver();
-            }
-
-            // Collision: Bullet
-            for(let j = bullets.length - 1; j >= 0; j--) {
-                let b = bullets[j];
-                if(b.x < e.x+e.w && b.x+b.w > e.x && b.y < e.y+e.h && b.y+b.h > e.y) {
-                    playBlastSound('enemy');
-                    createExplosion(b.x, b.y, "#ffdd00", 10);
-                    e.hp--;
-                    bullets.splice(j, 1);
-                    
-                    if(e.hp <= 0) {
-                        createExplosion(e.x+e.w/2, e.y+e.h/2, "#ff0044", 25);
-                        addFloatingText(e.x, e.y, "+10");
-                        enemies.splice(i, 1);
-                        score += 10; updateScore();
-                        screenShake = 3; // Micro shake on kill
-                        
-                        if(score > highScore) {
-                            highScore = score;
-                            localStorage.setItem("msPremiumHighScore", highScore);
-                            highScoreEl.innerText = "BEST: " + String(highScore).padStart(4, '0');
-                        }
-                    }
-                    break;
-                }
-            }
-            if(e.y > height + 100) enemies.splice(i, 1);
+        // Collision: Player
+        if(e.x < player.x+player.w && e.x+e.w > player.x && e.y < player.y+player.h && e.y+e.h > player.y) {
+            createExplosion(player.x+30, player.y+30, "#00eeff");
+            gameOver();
         }
+
+        // Collision: Bullet
+        for(let j = bullets.length - 1; j >= 0; j--) {
+            let b = bullets[j];
+            if(b.x < e.x+e.w && b.x+b.w > e.x && b.y < e.y+e.h && b.y+b.h > e.y) {
+                playBlastSound(); 
+                createExplosion(e.x+25, e.y+25, "#ff8800");
+                enemies.splice(i, 1); bullets.splice(j, 1);
+                score += 10; scoreEl.innerText = "SCORE: " + score;
+                break;
+            }
+        }
+        if(e.y > height) enemies.splice(i, 1);
     }
 
-    // Render Particles
+    // Particles
     for(let i = particles.length - 1; i >= 0; i--) {
-        let p = particles[i]; p.x += p.vx; p.y += p.vy; p.life -= 0.03;
+        let p = particles[i]; p.x += p.vx; p.y += p.vy; p.life -= 0.05;
         ctx.fillStyle = p.color; ctx.globalAlpha = p.life;
-        ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2); ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, 4, 0, Math.PI*2); ctx.fill();
         if(p.life <= 0) particles.splice(i, 1);
     }
-    
-    // Render Floating Text
-    ctx.font = "bold 20px Arial"; ctx.textAlign = "center";
-    for(let i = floatingTexts.length - 1; i >= 0; i--) {
-        let ft = floatingTexts[i];
-        ft.y -= 1.5; ft.life -= 0.02;
-        ctx.fillStyle = `rgba(0, 255, 136, ${ft.life})`;
-        ctx.fillText(ft.text, ft.x, ft.y);
-        if(ft.life <= 0) floatingTexts.splice(i, 1);
-    }
+    ctx.globalAlpha = 1.0;
 
-    ctx.globalAlpha = 1.0; ctx.restore(); // Restore shake transform
     frameCount++;
     requestAnimationFrame(gameLoop);
 }
 
-// CONTROLS
+// TOUCH (Start Audio & Move)
 document.addEventListener("touchstart", (e) => {
     unlockAudio();
     if(gameRunning) player.x = e.touches[0].clientX - player.w/2;
@@ -573,6 +444,7 @@ document.addEventListener("touchmove", (e) => {
         if(player.x > width - player.w) player.x = width - player.w;
     }
 }, { passive: false });
+
 </script>
 </body>
 </html>
