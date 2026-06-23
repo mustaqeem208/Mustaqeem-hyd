@@ -252,7 +252,6 @@ let player = { x:0, y:0, w:60, h:60 };
 let bullets = [], enemies = [], particles = [], nebulas = [];
 let score = 0, gameRunning = false, frameCount = 0;
 let adLoaded = false; // Adsense tracking ke liye
-let autoRetryTimeout; // Auto retry tracking ke liye
 
 // LOADING LOGIC
 window.onload = function() {
@@ -312,7 +311,6 @@ function startGame() {
 }
 
 function restartGame() {
-    clearTimeout(autoRetryTimeout); // Agar button dabaya gaya toh timer cancel karo
     startGame();
     if(audioUnlocked && !isMuted) startMusic();
 }
@@ -335,14 +333,6 @@ function gameOver() {
             console.log("AdSense Error: ", e);
         }
     }
-
-    // --- AUTO RETRY SYSTEM ---
-    // Game over hone ke 3 seconds (3000ms) baad khud restart ho jayega
-    autoRetryTimeout = setTimeout(() => {
-        if(!gameRunning) {
-            restartGame();
-        }
-    }, 3000); 
 }
 
 function spawnEnemy() {
