@@ -53,6 +53,9 @@
       max-width: 95%;
       border-radius: 15px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      /* Ek loading animation laga diya taki jab tak net se load ho, achha lage */
+      min-height: 200px;
+      background: #e2e8f0;
     }
     .share-box {
       text-align: center;
@@ -91,16 +94,23 @@
       font-weight: bold;
       letter-spacing: 1px;
       box-shadow: 0 -3px 10px rgba(0,0,0,0.2);
+      z-index: 1000;
     }
     .footer marquee {
       font-size: 15px;
       font-weight: bold;
       color: #fff;
     }
+    
+    /* Pushes content up so footer doesn't hide ads */
+    .content-wrapper {
+        padding-bottom: 60px; 
+    }
   </style>
 </head>
 <body>
 
+<div class="content-wrapper">
   <!-- Header with updated back button -->
   <div class="header">
     <a href="https://mustaqeem-hyd-news.netlify.app/" class="back-btn">← Back</a>
@@ -110,21 +120,19 @@
     </div>
   </div>
 
-  <!-- Image -->
+  <!-- Image (ID add kar diya gaya hai) -->
   <div class="image-box">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg34o-_BXfqKmz34WFLtLhwCeugc1h06TBw4yRkj9HrUsPRgctb3aRPc9VG63S15a9Llb7pWmAuVTNcOMlotdscGvpsq-gVWr3IvUgf6IPkkRd-lb7DrNFtxAVyqnK9Mw275f81k1eMaGybyvZRhkIg04ze5unUuMtK_2qpwHx2oEbJsg8Nf0SoDXcpmudU/s1600/1000610675.jpg" alt="Namaz Timing Hyderabad">
+    <img id="namazImage" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjs9UhbM7PB5nOl530Kmc3XWh0ofWcDltRtrYi43Bja_3g1p_1chl1RRBm6HOnd7B1oXI3CCf3dFuq_ZjgwywyTKA47ZU3wYzV_Aa6aYwgQK8U2RyhCVCooT4s-aW3LgYSq2Amp6GtjZrU-QzsQK7BsOxoUWtRLBCT55qlCUtDh3nNf7m8yQ-oUXxs-zZ4/s1600/1000503742.jpg" alt="Namaz Timing Hyderabad">
   </div>
 
- 
-<!-- Share Button -->
-<div class="share-box" style="margin:20px;">
-  <a href="https://wa.me/?text=Hyderabad%20Today%20Namaz%20Timing%20here%20%3A%20https%3A%2F%2Fmustaqeem-hyd-news.netlify.app%2Fnamaz-timing"
-     class="share-btn"
-     style="display:inline-block; background:#00b894; color:white; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:16px;">
-     📤 Share Now
-  </a>
-</div>
-
+  <!-- Share Button -->
+  <div class="share-box" style="margin:20px;">
+    <a href="https://wa.me/?text=Hyderabad%20Today%20Namaz%20Timing%20here%20%3A%20https%3A%2F%2Fmustaqeem-hyd-news.netlify.app%2Fnamaz-timing"
+       class="share-btn"
+       style="display:inline-block; background:#00b894; color:white; padding:10px 18px; border-radius:8px; text-decoration:none; font-weight:bold; font-size:16px;">
+       📤 Share Now
+    </a>
+  </div>
 
   <!-- Ads -->
   <div class="ads">
@@ -137,14 +145,20 @@
          data-ad-slot="9145858043"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
+</div>
 
   <!-- Footer -->
   <div class="footer">
     <marquee behavior="scroll" direction="left">✨ Premium Page | Created by Mustaqeem ✨</marquee>
   </div>
 
-  <!-- JS: live time and date -->
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <!-- JS: Firebase connection and live time/date -->
   <script>
+    // --- LIVE TIME SCRIPT ---
     function updateTimeDate() {
       const now = new Date();
       document.getElementById('liveTime').textContent = now.toLocaleTimeString('en-GB');
@@ -152,6 +166,20 @@
     }
     setInterval(updateTimeDate, 1000);
     updateTimeDate();
+
+    // --- FIREBASE SCRIPT FOR NAMAZ IMAGE ---
+    // Same admin API
+    firebase.initializeApp({databaseURL: "https://cab-hyd-default-rtdb.firebaseio.com"});
+    const db = firebase.database();
+
+    // Real-time listener for the namaz image URL
+    db.ref('site_settings/namaz_time_img').on('value', (snapshot) => {
+        const imgUrl = snapshot.val();
+        // Agar Firebase me URL hai, toh yahan image update ho jayegi instantly
+        if (imgUrl) {
+            document.getElementById('namazImage').src = imgUrl;
+        }
+    });
   </script>
 
 </body>
