@@ -1,59 +1,276 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - Premium News</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@700;800&display=swap" rel="stylesheet" />
+    <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - mustaqeem hyd.site</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    
+    <!-- Google AdSense Script 1 -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1312769120188830" crossorigin="anonymous"></script>
+    <!-- Google AdSense Script 2 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
-        :root { --accent: #ff0033; --link-color: #007bff; --dark: #0f172a; --text: #334155; --bg: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; color: var(--text); line-height: 1.7; }
-        #scrollBar { position: fixed; top: 0; left: 0; width: 0%; height: 4px; background: var(--accent); z-index: 2000; transition: 0.1s; }
-        .nav { padding: 12px 20px; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .back-link { text-decoration: none; color: var(--accent); font-weight: 700; font-size: 14px; }
-        .logo-text { font-family: 'Poppins'; font-weight: 900; color: var(--accent); font-size: 18px; letter-spacing: -0.5px; }
-        .container { max-width: 720px; margin: 40px auto; padding: 0 20px; text-align: center; }
-        .hero-img { width: 100%; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); margin-bottom: 35px; aspect-ratio: 16/9; object-fit: cover; }
-        h1 { font-family: 'Poppins'; font-size: 34px; font-weight: 800; color: var(--dark); line-height: 1.2; margin-bottom: 20px; letter-spacing: -1px; }
-        .meta-strip { display: flex; justify-content: center; align-items: center; gap: 15px; font-size: 11px; font-weight: 600; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 30px; }
-        .meta-strip span { background: #fff; padding: 4px 12px; border-radius: 50px; border: 1px solid #e2e8f0; }
-        .article-content { font-size: 19px; color: #1e293b; text-align: center; white-space: pre-wrap; margin-bottom: 40px; word-wrap: break-word; }
-        .article-content a { color: var(--link-color); text-decoration: none; font-weight: 600; }
+        :root { 
+            --accent: #ff0033; 
+            --link-color: #2563eb; 
+            --dark: #0f172a; 
+            --text: #1e293b; 
+            --bg: #f1f5f9; 
+            --card-bg: #ffffff;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            color: var(--text); 
+            line-height: 1.7; 
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- PROFESSIONAL ADSENSE STYLING --- */
+        .ad-box {
+            width: 100%;
+            max-width: 800px;
+            margin: 25px auto;
+            padding: 10px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            text-align: center;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .ad-box::before {
+            content: "ADVERTISEMENT";
+            display: block;
+            font-size: 10px;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        /* --- PROFESSIONAL RED SCROLL LINE --- */
+        #scrollBar { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 0%; 
+            height: 4px; 
+            background: linear-gradient(to right, var(--accent), #ff4d4d); 
+            z-index: 2001; 
+            transition: width 0.1s ease-out;
+            box-shadow: 0 1px 10px rgba(255, 0, 51, 0.4);
+        }
         
-        .ad-slot { margin: 30px 0; padding: 10px; background: #f1f5f9; border-radius: 12px; font-size: 10px; color: #94a3b8; text-align: center; overflow: hidden; }
+        .nav { 
+            padding: 18px 25px; 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+
+        .back-link { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 12px; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
+        .logo-text { font-family: 'Outfit'; font-weight: 900; color: var(--accent); font-size: 22px; letter-spacing: -0.5px; }
+
+        .container { max-width: 800px; margin: 20px auto; padding: 0 24px; text-align: center; }
         
-        .wa-premium-btn { background: #25D366; color: #fff; padding: 18px 45px; border-radius: 100px; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(37,211,102,0.3); transition: 0.4s; }
-        footer { background: var(--dark); color: #94a3b8; padding: 60px 20px; text-align: center; font-size: 14px; }
-        @media (max-width: 600px) { h1 { font-size: 26px; } .article-content { font-size: 17px; } }
+        .hero-img { 
+            width: 100%; 
+            border-radius: 24px; 
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); 
+            margin-bottom: 40px; 
+            aspect-ratio: 16/9; 
+            object-fit: cover; 
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        h1 { 
+            font-family: 'Outfit'; 
+            font-size: clamp(28px, 5vw, 42px); 
+            font-weight: 800; 
+            color: var(--dark); 
+            line-height: 1.2; 
+            margin-bottom: 25px; 
+            letter-spacing: -1px; 
+        }
+
+        .meta-strip { 
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap; 
+            gap: 12px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            color: #64748b; 
+            margin-bottom: 40px; 
+        }
+
+        .meta-strip span { 
+            background: #fff; 
+            padding: 8px 16px; 
+            border-radius: 50px; 
+            border: 1px solid #e2e8f0; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .article-content { 
+            font-size: 19px; 
+            color: var(--text); 
+            white-space: pre-wrap; 
+            margin: 30px 0; 
+            word-wrap: break-word;
+            text-align: center;
+        }
+
+        /* --- DYNAMIC BUTTON STYLING --- */
+        .dynamic-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            padding: 12px 24px;
+            border-radius: 14px;
+            text-decoration: none !important;
+            font-weight: 700;
+            color: var(--dark) !important;
+            margin: 10px 5px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
+            transition: 0.3s;
+        }
+        .dynamic-link:hover { 
+            transform: translateY(-3px); 
+            border-color: var(--accent);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
+        }
+
+        /* --- SKELETON LOADER --- */
+        .skeleton-loader { display: block; }
+        .sk-img { width: 100%; aspect-ratio: 16/9; background: #e2e8f0; border-radius: 24px; margin-bottom: 30px; }
+        .sk-title { width: 80%; height: 40px; background: #e2e8f0; border-radius: 8px; margin: 0 auto 20px; }
+        .sk-strip { width: 60%; height: 30px; background: #e2e8f0; border-radius: 50px; margin: 0 auto 40px; }
+        
+        .skeleton-animate {
+            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        .wa-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
+        
+        .wa-premium-btn { 
+            background: #25D366; 
+            color: #fff; 
+            padding: 18px 35px; 
+            width: fit-content;
+            min-width: 280px;
+            border-radius: 50px; 
+            text-decoration: none; 
+            font-weight: 800; 
+            font-size: 15px;
+            display: flex; 
+            justify-content: center;
+            align-items: center; 
+            gap: 12px; 
+            box-shadow: 0 10px 25px rgba(37,211,102,0.3); 
+            transition: 0.4s; 
+        }
+
+        footer { 
+            background: var(--dark); 
+            color: #94a3b8; 
+            padding: 60px 24px; 
+            text-align: center; 
+            margin-top: 60px;
+        }
     </style>
 </head>
 <body>
     <div id="scrollBar"></div>
     <div class="nav">
-        <a href="index.html" class="back-link">← BACK</a>
+        <a href="index.html" class="back-link"><i class="fa-solid fa-chevron-left"></i> BACK</a>
         <div class="logo-text">ᗰᑌᔕTᗩᑫEEᗰ HYD</div>
         <div style="width:50px;"></div>
     </div>
 
+    <!-- TOP AD UNIT -->
+    <div class="ad-box">
+        <!-- Ms-job Ad Block -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="8079692181"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <div class="container" id="postContainer">
-        <div style="padding:100px 0; font-weight:600; color:#cbd5e1;">CRAFTING YOUR STORY...</div>
+        <div class="skeleton-loader" id="mainLoader">
+            <div class="sk-img skeleton-animate"></div>
+            <div class="sk-title skeleton-animate"></div>
+            <div class="sk-strip skeleton-animate"></div>
+        </div>
+    </div>
+
+    <!-- BOTTOM AD UNIT -->
+    <div class="ad-box">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1312769120188830"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
     <footer>
-        <p>Premium News Experience by <b>ᗰᑌᔕTᗩᑫEEᗰ</b></p>
-        <div style="margin-top:20px; opacity:0.5; font-size:11px;">© 2026 PREMIUM NEWS NETWORK</div>
+        <p style="color:var(--accent); font-weight:900; font-size:24px;">ᗰᑌᔕTᗩᑫEEᗰ</p>
+        <div style="margin-top:25px; opacity:0.4; font-size:10px; letter-spacing:2px;">© 2026 PREMIUM NEWS NETWORK • HYDERABAD</div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
     <script>
         firebase.initializeApp({databaseURL: "https://cab-hyd-default-rtdb.firebaseio.com"});
         const db = firebase.database();
         const urlParams = new URLSearchParams(window.location.search);
         const artId = urlParams.get('id'), pageType = urlParams.get('type');
+
+        const cacheKey = artId ? `art_${artId}` : `page_${pageType}`;
+
+        // Instant Load from Cache
+        const cachedContent = localStorage.getItem(cacheKey);
+        if(cachedContent) {
+            document.getElementById('postContainer').innerHTML = cachedContent;
+        }
 
         window.onscroll = function() {
             let winScroll = document.documentElement.scrollTop;
@@ -66,43 +283,78 @@
             return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/, '') + 'k' : n;
         }
 
-        function processText(text) {
+        function processText(text, format) {
             if(!text) return "";
-            const urlRegex = /(https?:\/\/[^\s]+)/g;
-            let processed = text.replace(urlRegex, url => `<a href="${url}" target="_blank">${url}</a>`);
-            const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
-            return processed.replace(emailRegex, email => `<a href="mailto:${email}"><span style="margin-right:5px;">📩</span>${email}</a>`);
+            
+            const isHTML = format === 'html' || (format === undefined && /<\/?[\w\s="/.':;#-\/\?]+>/gi.test(text));
+
+            if (isHTML) {
+                return `<div style="white-space: normal; text-align: left; margin-top: 15px;">${text}</div>`;
+            }
+
+            const urlRegex = /(https?:\/\/[^\s]+|mailto:[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+            
+            return text.replace(urlRegex, url => {
+                let icon = '<i class="fa-solid fa-link"></i>';
+                let label = "Explore Link";
+                let finalUrl = url;
+
+                if (url.includes("youtube.com") || url.includes("youtu.be")) {
+                    icon = '<i class="fa-brands fa-youtube" style="color:#ff0000;"></i>';
+                    label = "Watch Video";
+                } else if (url.includes("wa.me") || url.includes("whatsapp.com")) {
+                    icon = '<i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>';
+                    label = "WhatsApp";
+                } else if (url.includes("play.google.com")) {
+                    icon = '<i class="fa-brands fa-google-play" style="color:#34a853;"></i>';
+                    label = "Play Store";
+                } else if (url.startsWith("mailto:") || (url.includes("@") && !url.includes("://"))) {
+                    icon = '<i class="fa-solid fa-envelope" style="color:var(--accent);"></i>';
+                    label = "Email Us";
+                    finalUrl = url.startsWith("mailto:") ? url : `mailto:${url}`;
+                } else {
+                    icon = '<i class="fa-solid fa-globe" style="color:#2563eb;"></i>';
+                    label = "Visit Website";
+                }
+                
+                return `<a href="${finalUrl}" target="_blank" class="dynamic-link">${icon} ${label}</a>`;
+            });
         }
 
         if(artId || pageType) {
             let path = pageType ? 'site_settings/' + pageType : 'articles/' + artId;
-            db.ref(path).once('value', snap => {
+            db.ref(path).on('value', snap => {
                 const data = snap.val();
                 if(!data) return;
-
-                // FIXED ADS: Slot ID and Publisher ID are now hardcoded
-                const adTop = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
-
-                const adBottom = `<div class="ad-slot">ADVERTISEMENT<br><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-1874063367142441" data-ad-slot="9832164119" data-ad-format="auto" data-full-width-responsive="true"></ins></div>`;
 
                 let contentHtml = "";
                 if(pageType) {
                     contentHtml = `<h1>${pageType.toUpperCase()}</h1><div class="article-content">${processText(data)}</div>`;
                 } else {
-                    const readTime = Math.ceil(data.content.split(' ').length / 200);
+                    const readTime = Math.ceil((data.content || "").split(' ').length / 200);
                     contentHtml = `
-                        <img src="${data.img}" class="hero-img">
+                        <img src="${data.img}" class="hero-img" loading="lazy">
                         <h1>${data.title}</h1>
-                        <div class="meta-strip"><span>👁️ ${formatViews(data.views)} VIEWS</span><span>📅 ${data.date}</span><span>⏱️ ${readTime} MIN READ</span></div>
-                        ${adTop}
-                        <div class="article-content">${processText(data.content)}</div>
-                        ${adBottom}
-                        <div style="margin-bottom:50px;"><a href="https://wa.me/?text=${encodeURIComponent(data.title + " - " + window.location.href)}" class="wa-premium-btn">SHARE ON WHATSAPP</a></div>
+                        <div class="meta-strip">
+                            <span><i class="fa-solid fa-eye"></i> ${formatViews(data.views)}</span>
+                            <span><i class="fa-solid fa-calendar"></i> ${data.date}</span>
+                            <span><i class="fa-solid fa-clock"></i> ${readTime} MIN</span>
+                        </div>
+                        <div class="article-content">${processText(data.content, data.format)}</div>
+                        <div class="wa-container">
+                            <a href="https://wa.me/?text=${encodeURIComponent(data.title + " - " + window.location.href)}" class="wa-premium-btn">
+                                <i class="fa-brands fa-whatsapp"></i> SHARE WITH FRIENDS
+                            </a>
+                        </div>
                     `;
                 }
                 document.getElementById('postContainer').innerHTML = contentHtml;
-                (adsbygoogle = window.adsbygoogle || []).push({});
-                (adsbygoogle = window.adsbygoogle || []).push({});
+                localStorage.setItem(cacheKey, contentHtml);
+                
+                // Refresh AdSense Ads after dynamic content load
+                try {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                } catch (e) {}
             });
         }
     </script>
