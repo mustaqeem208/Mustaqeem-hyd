@@ -30,36 +30,31 @@
             min-height: 100vh;
         }
 
-        /* --- High Revenue Ad Containers --- */
-        .ad-container {
-            width: 100%;
-            max-width: 360px;
-            margin: 15px auto;
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+        /* --- Strict Premium Box For Ads (Kachra Rokne Ke Liye) --- */
+        .ad-box-premium {
+            width: 320px; /* Fixed width to prevent bleeding */
+            margin: 20px auto;
+            background: #0f172a; /* Matching dark theme */
+            border: 1px solid var(--deep-gold);
             border-radius: 16px;
             padding: 10px;
             text-align: center;
+            overflow: hidden; /* Very Important: Cuts off any extra ad size */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
         
-        .ad-container::before {
+        .ad-box-premium::before {
             content: "SPONSORED";
             display: block;
-            font-size: 9px;
+            font-size: 10px;
             color: var(--deep-gold);
             letter-spacing: 2px;
             margin-bottom: 8px;
             font-weight: 800;
         }
-
-        /* Prevent 0 height issues in hidden overlays */
-        .tasbeeh-ad-wrapper { min-height: 250px; }
-        .player-ad-wrapper { min-height: 100px; padding: 5px; }
 
         /* --- Header --- */
         header { padding: 40px 25px 15px; text-align: left; }
@@ -79,7 +74,7 @@
         .nav-item.active { color: var(--deep-gold); }
 
         /* --- Grid Layout --- */
-        .container { padding: 0 20px 120px; }
+        .container { padding: 0 20px 140px; } /* Increased padding for bottom ad */
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
 
         .card {
@@ -113,11 +108,11 @@
             position: fixed; inset: 0; background: rgba(2,6,23,0.98); z-index: 7000;
             display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
         }
-        .player-disk { width: 100%; max-width: 360px; background: #111827; border-radius: 35px; border: 1px solid var(--glass); padding: 35px 20px 20px 20px; text-align: center; }
+        .player-disk { width: 100%; max-width: 350px; background: #111827; border-radius: 35px; border: 1px solid var(--glass); padding: 30px 20px; text-align: center; }
         audio { width: 100%; margin: 25px 0 10px 0; filter: invert(1); }
 
         .btn-close { background: white; color: black; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; }
-        .footer-brand { margin: 40px 0; text-align: center; opacity: 0.4; }
+        .footer-brand { margin: 20px 0; text-align: center; opacity: 0.4; }
 
         @media (max-width: 500px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
@@ -130,23 +125,20 @@
     <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Listen to Holy Recitation</p>
 </header>
 
-<!-- TOP NATIVE AD (High Revenue for Home Page) -->
-<div style="padding: 0 20px;">
-    <div class="ad-container">
+<div class="container">
+    <div class="grid" id="mainGrid"></div>
+    
+    <!-- HOME PAGE BOTTOM AD (Strict Box, Display Style 300x250) -->
+    <div class="ad-box-premium" style="margin-top: 30px;">
         <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="fluid"
-             data-ad-layout-key="-6t+ed+2i-1n-4w"
+             style="display:inline-block;width:300px;height:250px"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="1669311442"></ins>
+             data-ad-slot="3862927574"></ins>
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
-</div>
 
-<div class="container">
-    <div class="grid" id="mainGrid"></div>
     <div class="footer-brand">
         <div class="brand-text">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
     </div>
@@ -166,17 +158,18 @@
         <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-top: 10px;">TAP TO ZIKR</span>
     </div>
     
-    <!-- TASBEEH AD (Display ms 1 - Optimized for Medium Rectangle / High Revenue) -->
-    <div class="ad-container tasbeeh-ad-wrapper" style="margin-top: 30px;">
+    <!-- TASBEEH OVERLAY AD (Strict Box, Display Style 300x250) -->
+    <div class="ad-box-premium" style="margin-top: 30px;">
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:inline-block;width:300px;height:250px"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="3862927574"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+             data-ad-slot="3862927574"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
-    <div style="display: flex; gap: 15px; margin-top: 20px;">
+    <div style="display: flex; gap: 15px; margin-top: 10px;">
         <button class="btn-close" style="background:transparent; border:1px solid #334155; color:white;" onclick="resetCount()">RESET</button>
         <button class="btn-close" onclick="toggleTasbeeh(false)">HOME</button>
     </div>
@@ -189,12 +182,15 @@
         <p style="color: #64748b; margin-bottom: 5px;">Digital Tilawat Library</p>
         <audio id="mainAudio" controls></audio>
         
-        <!-- PLAYER AD (Large Mobile Banner 320x100 - High Revenue but fits Player perfectly) -->
-        <div class="ad-container player-ad-wrapper" style="margin: 10px auto;">
+        <!-- PLAYER OVERLAY AD (Strict Box, Fixed Banner Style 300x100) -->
+        <div class="ad-box-premium" style="padding: 5px; max-width: 310px; margin: 10px auto;">
             <ins class="adsbygoogle"
-                 style="display:inline-block;width:320px;height:100px"
+                 style="display:inline-block;width:300px;height:100px"
                  data-ad-client="ca-pub-1874063367142441"
                  data-ad-slot="3862927574"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
 
         <button class="btn-close" style="margin-top: 15px; width: 100%;" onclick="closePlayer()">CLOSE PLAYER</button>
@@ -203,10 +199,6 @@
 </div>
 
 <script>
-    // Flag to ensure AdSense only loads once per overlay opening
-    let tasbeehAdLoaded = false;
-    let playerAdLoaded = false;
-
     // Tasbeeh logic
     let counter = localStorage.getItem('tCount') || 0;
     document.getElementById('tDigit').innerText = counter;
@@ -229,14 +221,6 @@
     
     function toggleTasbeeh(show) { 
         document.getElementById('tasbeehOverlay').style.display = show ? 'flex' : 'none'; 
-        
-        // Load AdSense safely AFTER the overlay is visible (fixes blank ad issue)
-        if(show && !tasbeehAdLoaded) {
-            try { 
-                (adsbygoogle = window.adsbygoogle || []).push({}); 
-                tasbeehAdLoaded = true;
-            } catch(e) {}
-        }
     }
 
     // Quran Logic
@@ -262,14 +246,6 @@
         
         document.getElementById('playerOverlay').style.display = 'flex';
         audio.play();
-        
-        // Load AdSense safely AFTER the player is visible (fixes blank ad issue)
-        if(!playerAdLoaded) {
-            try { 
-                (adsbygoogle = window.adsbygoogle || []).push({}); 
-                playerAdLoaded = true;
-            } catch(e) {}
-        }
     }
 
     function closePlayer() {
