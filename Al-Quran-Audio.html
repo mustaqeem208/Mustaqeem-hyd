@@ -30,7 +30,7 @@
             min-height: 100vh;
         }
 
-        /* --- Premium Ad Container --- */
+        /* --- Premium Ad Container (For Tasbeeh) --- */
         .premium-ad-box {
             width: calc(100% - 40px);
             max-width: 400px;
@@ -54,24 +54,26 @@
             font-weight: 800;
         }
 
-        /* --- Admin Popup (Center Screen) --- */
-        #adminPopup {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
-            z-index: 10000; display: flex; justify-content: center; align-items: center;
-            backdrop-filter: blur(10px);
+        /* --- Banner Ad Container (For Player) --- */
+        .banner-ad-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 15px auto 0 auto;
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--deep-gold);
+            border-radius: 12px;
+            padding: 5px;
+            text-align: center;
+            overflow: hidden;
         }
-        .popup-card {
-            width: 85%; max-width: 360px; background: #111827;
-            border-radius: 30px; border: 1px solid var(--deep-gold);
-            position: relative; overflow: hidden; animation: zoomIn 0.4s ease;
-        }
-        @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
-        .popup-card img { width: 100%; display: block; cursor: pointer; border-bottom: 2px solid var(--deep-gold); }
-        .close-popup {
-            position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.5);
-            color: white; width: 35px; height: 35px; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; font-weight: bold; cursor: pointer;
+        .banner-ad-box::before {
+            content: "SPONSORED";
+            display: block;
+            font-size: 8px;
+            color: var(--deep-gold);
+            letter-spacing: 2px;
+            margin-bottom: 3px;
+            font-weight: 800;
         }
 
         /* --- Header --- */
@@ -125,7 +127,7 @@
             display: none; flex-direction: column; align-items: center; justify-content: center; padding: 30px;
         }
         .player-disk { width: 100%; max-width: 320px; background: #111827; border-radius: 40px; border: 1px solid var(--glass); padding: 40px 20px; text-align: center; }
-        audio { width: 100%; margin: 30px 0; filter: invert(1); }
+        audio { width: 100%; margin: 30px 0 10px 0; filter: invert(1); }
 
         .btn-close { margin-top: 30px; background: white; color: black; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; }
 
@@ -136,36 +138,11 @@
 </head>
 <body>
 
-<div id="adminPopup">
-    <div class="popup-card">
-        <div class="close-popup" onclick="closePopup()">✕</div>
-        <a href="https://wa.me/your-link-here" target="_blank">
-            <img src="https://images.unsplash.com/photo-1590076215667-873d96c8ab13?auto=format&fit=crop&w=600&q=80" alt="Admin Ad">
-        </a>
-        <div style="padding: 15px; text-align: center;">
-            <p style="margin: 0; font-size: 13px; color: var(--deep-gold); font-weight: 700;">ADMIN ANNOUNCEMENT</p>
-            <p style="margin: 5px 0 0; font-size: 11px; color: #94a3b8;">Click the image to visit our link</p>
-        </div>
-    </div>
-</div>
-
 <header>
     <div class="brand-text">ᗰᑌᔕTᗩᑫEEᗰ DIGITAL</div>
     <h1>Quran <span>Pro</span></h1>
     <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Listen to Holy Recitation</p>
 </header>
-
-<!-- TOP MAIN AD (Premium Look) -->
-<div class="premium-ad-box">
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-1874063367142441"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>
-         (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
 
 <div class="container">
     <div class="grid" id="mainGrid"></div>
@@ -208,15 +185,15 @@
     <div class="player-disk">
         <div class="brand-text" style="margin-bottom: 20px;">NOW PLAYING</div>
         <h2 id="pTitle" style="font-size: 32px; color: var(--deep-gold); margin: 0;">Para 01</h2>
-        <p style="color: #64748b; margin-bottom: 30px;">Digital Tilawat Library</p>
+        <p style="color: #64748b; margin-bottom: 10px;">Digital Tilawat Library</p>
         <audio id="mainAudio" controls></audio>
         
-        <!-- PLAYER OVERLAY AD -->
-        <div class="premium-ad-box" style="margin: 20px auto 0 auto; width: 100%; box-shadow: none;">
+        <!-- PLAYER OVERLAY AD (BANNER LOOK) -->
+        <div class="banner-ad-box">
             <ins class="adsbygoogle"
-                 style="display:block"
+                 style="display:block; height: 90px;"
                  data-ad-client="ca-pub-1874063367142441"
-                 data-ad-format="auto"
+                 data-ad-format="horizontal"
                  data-full-width-responsive="true"></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
@@ -229,9 +206,6 @@
 </div>
 
 <script>
-    // Popup Close
-    function closePopup() { document.getElementById('adminPopup').style.display = 'none'; }
-
     // Tasbeeh logic
     let counter = localStorage.getItem('tCount') || 0;
     document.getElementById('tDigit').innerText = counter;
@@ -283,7 +257,7 @@
         document.getElementById('playerOverlay').style.display = 'none';
     }
 
-    // SHARE LOGIC UPDATED TO GOOGLE PLAY STORE
+    // SHARE LOGIC TO GOOGLE PLAY STORE
     function shareApp() {
         const appUrl = "https://play.google.com/store/apps/details?id=com.mustaqeemhyd.quran30para";
         const msg = `*Assalamu Alaikum!* ✨\nAl-Quran Pro par 30 Pare ki Tilawat suniye. Design by Mustaqeem.\n🔗 App Download Karein:\n${appUrl}`;
