@@ -30,50 +30,31 @@
             min-height: 100vh;
         }
 
-        /* --- Premium Ad Container (For Tasbeeh) --- */
-        .premium-ad-box {
-            width: calc(100% - 40px);
-            max-width: 400px;
-            margin: 15px auto 25px auto;
-            background: rgba(30, 41, 59, 0.6);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--deep-gold);
-            border-radius: 20px;
+        /* --- Perfectly Sized Ad Containers --- */
+        .ad-container {
+            width: 100%;
+            max-width: 340px;
+            margin: 20px auto;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
             padding: 10px;
             text-align: center;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .premium-ad-box::before {
+        
+        .ad-container::before {
             content: "SPONSORED";
             display: block;
-            font-size: 10px;
-            color: var(--deep-gold);
+            font-size: 9px;
+            color: rgba(212, 175, 55, 0.8);
             letter-spacing: 2px;
             margin-bottom: 8px;
-            font-weight: 800;
-        }
-
-        /* --- Banner Ad Container (For Player) --- */
-        .banner-ad-box {
-            width: 100%;
-            max-width: 400px;
-            margin: 15px auto 0 auto;
-            background: rgba(30, 41, 59, 0.6);
-            border: 1px solid var(--deep-gold);
-            border-radius: 12px;
-            padding: 5px;
-            text-align: center;
-            overflow: hidden;
-        }
-        .banner-ad-box::before {
-            content: "SPONSORED";
-            display: block;
-            font-size: 8px;
-            color: var(--deep-gold);
-            letter-spacing: 2px;
-            margin-bottom: 3px;
-            font-weight: 800;
+            font-weight: 700;
         }
 
         /* --- Header --- */
@@ -110,6 +91,7 @@
         #tasbeehOverlay {
             position: fixed; inset: 0; background: var(--bg); z-index: 6000;
             display: none; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px;
         }
         .t-btn {
             width: 220px; height: 220px; border-radius: 50%;
@@ -124,13 +106,12 @@
         /* --- Player Overlay --- */
         #playerOverlay {
             position: fixed; inset: 0; background: rgba(2,6,23,0.98); z-index: 7000;
-            display: none; flex-direction: column; align-items: center; justify-content: center; padding: 30px;
+            display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
         }
-        .player-disk { width: 100%; max-width: 320px; background: #111827; border-radius: 40px; border: 1px solid var(--glass); padding: 40px 20px; text-align: center; }
-        audio { width: 100%; margin: 30px 0 10px 0; filter: invert(1); }
+        .player-disk { width: 100%; max-width: 340px; background: #111827; border-radius: 35px; border: 1px solid var(--glass); padding: 35px 20px; text-align: center; }
+        audio { width: 100%; margin: 25px 0 10px 0; filter: invert(1); }
 
-        .btn-close { margin-top: 30px; background: white; color: black; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; }
-
+        .btn-close { margin-top: 25px; background: white; color: black; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; }
         .footer-brand { margin: 40px 0; text-align: center; opacity: 0.4; }
 
         @media (max-width: 500px) { .grid { grid-template-columns: repeat(2, 1fr); } }
@@ -158,43 +139,42 @@
 </div>
 
 <div id="tasbeehOverlay">
-    <h2 style="color: var(--deep-gold); letter-spacing: 2px;">TASBEEH COUNTER</h2>
+    <h2 style="color: var(--deep-gold); letter-spacing: 2px; margin-bottom: 30px;">TASBEEH COUNTER</h2>
     <div class="t-btn" onclick="vibrate(); countUp()">
         <span class="t-count" id="tDigit">0</span>
         <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-top: 10px;">TAP TO ZIKR</span>
     </div>
     
-    <!-- TASBEEH OVERLAY AD -->
-    <div class="premium-ad-box" style="margin-top: 30px;">
+    <!-- TASBEEH AD (Responsive but constrained height) -->
+    <div class="ad-container" style="min-height: 120px; margin-top: 30px;">
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:block; max-height: 100px; width: 100%;"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-format="auto"
+             data-ad-format="horizontal"
              data-full-width-responsive="true"></ins>
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
 
-    <button class="btn-close" style="background:transparent; border:1px solid #334155; color:white;" onclick="resetCount()">RESET</button>
-    <button class="btn-close" onclick="toggleTasbeeh(false)">BACK TO HOME</button>
-    <div class="brand-text" style="margin-top: 40px;">ᗰᑌᔕTᗩᑫEEᗰ</div>
+    <div style="display: flex; gap: 15px; margin-top: 10px;">
+        <button class="btn-close" style="background:transparent; border:1px solid #334155; color:white; margin-top:0;" onclick="resetCount()">RESET</button>
+        <button class="btn-close" style="margin-top:0;" onclick="toggleTasbeeh(false)">HOME</button>
+    </div>
 </div>
 
 <div id="playerOverlay">
     <div class="player-disk">
         <div class="brand-text" style="margin-bottom: 20px;">NOW PLAYING</div>
         <h2 id="pTitle" style="font-size: 32px; color: var(--deep-gold); margin: 0;">Para 01</h2>
-        <p style="color: #64748b; margin-bottom: 10px;">Digital Tilawat Library</p>
+        <p style="color: #64748b; margin-bottom: 5px;">Digital Tilawat Library</p>
         <audio id="mainAudio" controls></audio>
         
-        <!-- PLAYER OVERLAY AD (BANNER LOOK) -->
-        <div class="banner-ad-box">
+        <!-- PLAYER AD (Fixed 320x50 Exact Mobile Banner Look) -->
+        <div class="ad-container" style="margin: 10px auto 0 auto; padding: 8px; min-height: 85px;">
             <ins class="adsbygoogle"
-                 style="display:block; height: 90px;"
-                 data-ad-client="ca-pub-1874063367142441"
-                 data-ad-format="horizontal"
-                 data-full-width-responsive="true"></ins>
+                 style="display:inline-block;width:320px;height:50px"
+                 data-ad-client="ca-pub-1874063367142441"></ins>
             <script>
                  (adsbygoogle = window.adsbygoogle || []).push({});
             </script>
@@ -220,7 +200,6 @@
     
     function toggleTasbeeh(show) { 
         document.getElementById('tasbeehOverlay').style.display = show ? 'flex' : 'none'; 
-        // Trigger ad reload if opening the overlay
         if(show) {
             try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
         }
@@ -248,7 +227,6 @@
         audio.src = 'https://bit.ly/' + code;
         document.getElementById('playerOverlay').style.display = 'flex';
         audio.play();
-        // Trigger ad reload for player overlay
         try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
     }
 
