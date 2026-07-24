@@ -1,4 +1,4 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     
-    <!-- Google AdSense Script 1 -->
+    <!-- Google AdSense Scripts -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1312769120188830" crossorigin="anonymous"></script>
-    <!-- Google AdSense Script 2 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
@@ -36,7 +35,7 @@
         .ad-box {
             width: 100%;
             max-width: 800px;
-            margin: 25px auto;
+            margin: 20px auto;
             padding: 10px;
             background: #ffffff;
             border-radius: 12px;
@@ -44,6 +43,7 @@
             text-align: center;
             overflow: hidden;
             border: 1px solid #e2e8f0;
+            box-sizing: border-box;
         }
         .ad-box::before {
             content: "ADVERTISEMENT";
@@ -69,8 +69,8 @@
         }
         
         .nav { 
-            padding: 18px 25px; 
-            background: rgba(255, 255, 255, 0.85); 
+            padding: 15px 20px; 
+            background: rgba(255, 255, 255, 0.95); 
             backdrop-filter: blur(20px); 
             -webkit-backdrop-filter: blur(20px);
             position: sticky; 
@@ -81,10 +81,37 @@
             justify-content: space-between; 
             align-items: center;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .back-link { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 12px; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
-        .logo-text { font-family: 'Outfit'; font-weight: 900; color: var(--accent); font-size: 22px; letter-spacing: -0.5px; }
+        .logo-text { font-family: 'Outfit'; font-weight: 900; color: var(--accent); font-size: 20px; letter-spacing: -0.5px; text-decoration: none; }
+
+        .menu-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .menu-links a {
+            text-decoration: none;
+            color: #475569;
+            font-size: 13px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+        .menu-links a:hover {
+            color: var(--accent);
+        }
+        .namaz-btn {
+            background: var(--accent);
+            color: #fff !important;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-weight: 700 !important;
+            box-shadow: 0 4px 10px rgba(255,0,51,0.2);
+        }
 
         .container { max-width: 800px; margin: 20px auto; padding: 0 24px; text-align: center; }
         
@@ -139,7 +166,6 @@
             text-align: center;
         }
 
-        /* --- DYNAMIC BUTTON STYLING --- */
         .dynamic-link {
             display: inline-flex;
             align-items: center;
@@ -161,7 +187,6 @@
             box-shadow: 0 10px 15px rgba(0,0,0,0.08);
         }
 
-        /* --- SKELETON LOADER --- */
         .skeleton-loader { display: block; }
         .sk-img { width: 100%; aspect-ratio: 16/9; background: #e2e8f0; border-radius: 24px; margin-bottom: 30px; }
         .sk-title { width: 80%; height: 40px; background: #e2e8f0; border-radius: 8px; margin: 0 auto 20px; }
@@ -212,19 +237,21 @@
     <div id="scrollBar"></div>
     <div class="nav">
         <a href="https://mustaqeem-hyd-news.netlify.app/mustaqeemhyd" class="back-link"><i class="fa-solid fa-chevron-left"></i> BACK</a>
-        <div class="logo-text">ᗰᑌᔕTᗩᑫEEᗰ HYD</div>
-        <div style="width:50px;"></div>
+        <a href="https://mustaqeem-hyd-news.netlify.app/mustaqeemhyd" class="logo-text">ᗰᑌᔕTᗩᑫEEᗰ HYD</a>
+        <div class="menu-links">
+            <a href="article.html?type=about">About</a>
+            <a href="article.html?type=policy">Policy</a>
+            <a href="article.html?type=contact">Contact</a>
+            <a href="https://mustaqeemhyd.site/namaz-hyd" class="namaz-btn">🕌 Namaz Time</a>
+        </div>
     </div>
 
-    <!-- TOP AD UNIT -->
+    <!-- TOP BANNER AD (Mus2) -->
     <div class="ad-box">
-        <!-- Ms-job Ad Block -->
         <ins class="adsbygoogle"
-             style="display:block"
+             style="display:inline-block;width:100%;max-width:728px;height:90px"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="8079692181"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+             data-ad-slot="7947508205"></ins>
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
@@ -238,11 +265,25 @@
         </div>
     </div>
 
-    <!-- BOTTOM AD UNIT -->
+    <!-- NATIVE AD UNIT -->
     <div class="ad-box">
         <ins class="adsbygoogle"
              style="display:block"
-             data-ad-client="ca-pub-1312769120188830"
+             data-ad-format="fluid"
+             data-ad-layout-key="-6t+ed+2i-1n-4w"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="1669311442"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- BOTTOM AUTO AD UNIT -->
+    <div class="ad-box">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="8079692181"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
         <script>
@@ -266,7 +307,6 @@
 
         const cacheKey = artId ? `art_${artId}` : `page_${pageType}`;
 
-        // Instant Load from Cache
         const cachedContent = localStorage.getItem(cacheKey);
         if(cachedContent) {
             document.getElementById('postContainer').innerHTML = cachedContent;
@@ -351,7 +391,6 @@
                 document.getElementById('postContainer').innerHTML = contentHtml;
                 localStorage.setItem(cacheKey, contentHtml);
                 
-                // Refresh AdSense Ads after dynamic content load
                 try {
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 } catch (e) {}
