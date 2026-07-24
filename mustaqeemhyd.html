@@ -9,11 +9,9 @@
         :root { --main: #ff0033; --bg: #fdfdfd; --card: #ffffff; }
         body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; color: #333; }
         .navbar { background: #fff; padding: 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
-        .nav-content { max-width: 800px; margin: auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+        .nav-content { max-width: 800px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
         .logo { font-size: 20px; font-weight: 900; color: var(--main); text-decoration: none; }
-        .menu { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-        .menu a { text-decoration: none; color: #444; font-size: 12px; font-weight: 600; }
-        .namaz-link { background: var(--main); color: #fff !important; padding: 5px 12px; border-radius: 20px; }
+        .menu a { text-decoration: none; color: #444; font-size: 12px; font-weight: 600; margin-left: 12px; }
         .search-area { padding: 15px; max-width: 800px; margin: auto; }
         .search-area input { width: 100%; padding: 12px 20px; border-radius: 50px; border: 1px solid #eee; background: #f1f1f1; outline: none; box-sizing: border-box; }
         #sponsorArea { max-width: 800px; margin: 10px auto; padding: 0 15px; }
@@ -32,7 +30,6 @@
             border: 1px solid #f0f0f0;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
             text-align: center;
-            box-sizing: border-box;
         }
         .main-ad-wrapper::before {
             content: "SPONSORED";
@@ -44,6 +41,7 @@
             font-weight: 700;
         }
 
+        /* FASTAG LOADING (SKELETON) CSS */
         .skeleton { background: #eee; border-radius: 16px; margin-bottom: 22px; height: 320px; position: relative; overflow: hidden; display: none; }
         .skeleton::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: loading 1.5s infinite; }
         @keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
@@ -57,12 +55,11 @@
 <body>
     <div class="navbar">
         <div class="nav-content">
-            <a href="https://mustaqeem-hyd-news.netlify.app/mustaqeemhyd" class="logo">ᗰᑌᔕTᗩᑫEEᗰ HYD</a>
+            <a href="index.html" class="logo">ᗰᑌᔕTᗩᑫEEᗰ HYD</a>
             <div class="menu">
                 <a href="article.html?type=about">About</a>
                 <a href="article.html?type=policy">Policy</a>
                 <a href="article.html?type=contact">Contact</a>
-                <a href="https://mustaqeemhyd.site/namaz-hyd" class="namaz-link">🕌 Namaz Time</a>
             </div>
         </div>
     </div>
@@ -71,25 +68,14 @@
         <input type="text" id="searchInput" placeholder="Search articles..." onkeyup="filterNews()">
     </div>
 
-    <!-- TOP BANNER AD (Mus2) -->
-    <div class="main-ad-wrapper">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:100%;max-width:728px;height:90px"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="7947508205"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
-    <!-- NATIVE AD -->
+    <!-- MAIN HOMEPAGE AD BLOCK -->
     <div class="main-ad-wrapper">
         <ins class="adsbygoogle"
              style="display:block"
-             data-ad-format="fluid"
-             data-ad-layout-key="-6t+ed+2i-1n-4w"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="1669311442"></ins>
+             data-ad-slot="8079692181"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
