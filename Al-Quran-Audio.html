@@ -6,6 +6,9 @@
     <title>Quran Pro | Mustaqeem Digital</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     
+    <!-- Google AdSense Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+
     <style>
         :root {
             --gold: #fccb90;
@@ -25,6 +28,30 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             margin: 0; padding: 0;
             min-height: 100vh;
+        }
+
+        /* --- Premium Ad Container --- */
+        .premium-ad-box {
+            width: calc(100% - 40px);
+            max-width: 400px;
+            margin: 15px auto 25px auto;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--deep-gold);
+            border-radius: 20px;
+            padding: 10px;
+            text-align: center;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .premium-ad-box::before {
+            content: "SPONSORED";
+            display: block;
+            font-size: 10px;
+            color: var(--deep-gold);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            font-weight: 800;
         }
 
         /* --- Admin Popup (Center Screen) --- */
@@ -109,13 +136,36 @@
 </head>
 <body>
 
-
+<div id="adminPopup">
+    <div class="popup-card">
+        <div class="close-popup" onclick="closePopup()">✕</div>
+        <a href="https://wa.me/your-link-here" target="_blank">
+            <img src="https://images.unsplash.com/photo-1590076215667-873d96c8ab13?auto=format&fit=crop&w=600&q=80" alt="Admin Ad">
+        </a>
+        <div style="padding: 15px; text-align: center;">
+            <p style="margin: 0; font-size: 13px; color: var(--deep-gold); font-weight: 700;">ADMIN ANNOUNCEMENT</p>
+            <p style="margin: 5px 0 0; font-size: 11px; color: #94a3b8;">Click the image to visit our link</p>
+        </div>
+    </div>
+</div>
 
 <header>
     <div class="brand-text">ᗰᑌᔕTᗩᑫEEᗰ DIGITAL</div>
     <h1>Quran <span>Pro</span></h1>
     <p style="color: #64748b; font-size: 14px; margin-top: 5px;">Listen to Holy Recitation</p>
 </header>
+
+<!-- TOP MAIN AD (Premium Look) -->
+<div class="premium-ad-box">
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-1874063367142441"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
 
 <div class="container">
     <div class="grid" id="mainGrid"></div>
@@ -136,6 +186,19 @@
         <span class="t-count" id="tDigit">0</span>
         <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-top: 10px;">TAP TO ZIKR</span>
     </div>
+    
+    <!-- TASBEEH OVERLAY AD -->
+    <div class="premium-ad-box" style="margin-top: 30px;">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
     <button class="btn-close" style="background:transparent; border:1px solid #334155; color:white;" onclick="resetCount()">RESET</button>
     <button class="btn-close" onclick="toggleTasbeeh(false)">BACK TO HOME</button>
     <div class="brand-text" style="margin-top: 40px;">ᗰᑌᔕTᗩᑫEEᗰ</div>
@@ -147,7 +210,20 @@
         <h2 id="pTitle" style="font-size: 32px; color: var(--deep-gold); margin: 0;">Para 01</h2>
         <p style="color: #64748b; margin-bottom: 30px;">Digital Tilawat Library</p>
         <audio id="mainAudio" controls></audio>
-        <div class="brand-text">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
+        
+        <!-- PLAYER OVERLAY AD -->
+        <div class="premium-ad-box" style="margin: 20px auto 0 auto; width: 100%; box-shadow: none;">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <div class="brand-text" style="margin-top: 20px;">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
     </div>
     <button class="btn-close" onclick="closePlayer()">CLOSE PLAYER</button>
 </div>
@@ -167,7 +243,14 @@
     }
     function resetCount() { counter = 0; document.getElementById('tDigit').innerText = 0; localStorage.setItem('tCount', 0); }
     function vibrate() { if(navigator.vibrate) navigator.vibrate(50); }
-    function toggleTasbeeh(show) { document.getElementById('tasbeehOverlay').style.display = show ? 'flex' : 'none'; }
+    
+    function toggleTasbeeh(show) { 
+        document.getElementById('tasbeehOverlay').style.display = show ? 'flex' : 'none'; 
+        // Trigger ad reload if opening the overlay
+        if(show) {
+            try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
+        }
+    }
 
     // Quran Logic
     const links = ["2qpLHGY","2qnS2Ha","2sbSqoq","2r6TOeq","2qzzsYk","2qI4EE2","2rW88HS","2qK0aO4","2rBqzB0","2s3dkdd","2so5po5","2rzgVP9","2rSIJ1l","2sk5Lid","2rKJHw3","2sMTr7y","2r9opp2","2rpK4c8","2rpq1iW","2rAX4Mc","2rBv2Aa","2sbmkft","2rtPXpH","2sfUCOE","2smfZxF","2tLUEvC","2tru5wz","2rXeW98","2s5NLEk","2s1BBB4"];
@@ -191,6 +274,8 @@
         audio.src = 'https://bit.ly/' + code;
         document.getElementById('playerOverlay').style.display = 'flex';
         audio.play();
+        // Trigger ad reload for player overlay
+        try { (adsbygoogle = window.adsbygoogle || []).push({}); } catch(e) {}
     }
 
     function closePlayer() {
@@ -198,9 +283,10 @@
         document.getElementById('playerOverlay').style.display = 'none';
     }
 
+    // SHARE LOGIC UPDATED TO GOOGLE PLAY STORE
     function shareApp() {
-        const url = window.location.href;
-        const msg = `*Assalamu Alaikum!* ✨\nAl-Quran Pro par 30 Pare ki Tilawat suniye. Design by Mustaqeem.\n🔗 ${url}`;
+        const appUrl = "https://play.google.com/store/apps/details?id=com.mustaqeemhyd.quran30para";
+        const msg = `*Assalamu Alaikum!* ✨\nAl-Quran Pro par 30 Pare ki Tilawat suniye. Design by Mustaqeem.\n🔗 App Download Karein:\n${appUrl}`;
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
     }
 </script>
