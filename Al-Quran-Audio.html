@@ -32,14 +32,14 @@
 
         /* --- Strict Premium Box For Ads (Kachra Rokne Ke Liye) --- */
         .ad-box-premium {
-            width: 320px; /* Fixed width to prevent bleeding */
+            width: 320px; /* Fixed width */
             margin: 20px auto;
-            background: #0f172a; /* Matching dark theme */
+            background: #0f172a; 
             border: 1px solid var(--deep-gold);
             border-radius: 16px;
             padding: 10px;
             text-align: center;
-            overflow: hidden; /* Very Important: Cuts off any extra ad size */
+            overflow: hidden; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
             display: flex;
             flex-direction: column;
@@ -91,15 +91,16 @@
         /* --- Tasbeeh Overlay --- */
         #tasbeehOverlay {
             position: fixed; inset: 0; background: var(--bg); z-index: 6000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            padding: 20px;
+            display: none; flex-direction: column; align-items: center; justify-content: space-between;
+            padding: 40px 20px 20px 20px; overflow-y: auto;
         }
         .t-btn {
-            width: 220px; height: 220px; border-radius: 50%;
+            width: 200px; height: 200px; border-radius: 50%;
             background: linear-gradient(145deg, #1e293b, #020617);
             border: 8px solid var(--deep-gold); display: flex; flex-direction: column;
             align-items: center; justify-content: center; cursor: pointer;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 30px rgba(212,175,55,0.1);
+            margin: 20px 0;
         }
         .t-btn:active { transform: scale(0.92); }
         .t-count { font-size: 4rem; font-weight: 800; color: var(--deep-gold); margin: 0; }
@@ -107,9 +108,10 @@
         /* --- Player Overlay --- */
         #playerOverlay {
             position: fixed; inset: 0; background: rgba(2,6,23,0.98); z-index: 7000;
-            display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
+            display: none; flex-direction: column; align-items: center; justify-content: space-between; 
+            padding: 30px 20px 20px 20px; overflow-y: auto;
         }
-        .player-disk { width: 100%; max-width: 350px; background: #111827; border-radius: 35px; border: 1px solid var(--glass); padding: 30px 20px; text-align: center; }
+        .player-disk { width: 100%; max-width: 350px; background: #111827; border-radius: 35px; border: 1px solid var(--glass); padding: 30px 20px; text-align: center; margin-bottom: 20px; }
         audio { width: 100%; margin: 25px 0 10px 0; filter: invert(1); }
 
         .btn-close { background: white; color: black; border: none; padding: 15px 40px; border-radius: 50px; font-weight: 800; cursor: pointer; }
@@ -129,14 +131,12 @@
 <div class="container">
     <div class="grid" id="mainGrid"></div>
     
-    <!-- HOME PAGE BOTTOM AD (Native Ad Format) -->
-    <div class="ad-box-premium" style="margin-top: 30px; width: 100%; max-width: 360px;">
+    <!-- 1. HOME PAGE BOTTOM AD (300x250 Niche) -->
+    <div class="ad-box-premium" style="margin-top: 40px; margin-bottom: 20px;">
         <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="fluid"
-             data-ad-layout-key="-6t+ed+2i-1n-4w"
+             style="display:inline-block;width:300px;height:250px"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="1669311442"></ins>
+             data-ad-slot="3862927574"></ins>
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
@@ -154,15 +154,20 @@
 </div>
 
 <div id="tasbeehOverlay">
-    <h2 style="color: var(--deep-gold); letter-spacing: 2px; margin-bottom: 25px;">TASBEEH COUNTER</h2>
-    
-    <div class="t-btn" onclick="vibrate(); countUp()">
-        <span class="t-count" id="tDigit">0</span>
-        <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-top: 10px;">TAP TO ZIKR</span>
+    <div style="text-align: center;">
+        <h2 style="color: var(--deep-gold); letter-spacing: 2px; margin-bottom: 10px;">TASBEEH COUNTER</h2>
+        <div class="t-btn" onclick="vibrate(); countUp()" style="margin: 0 auto;">
+            <span class="t-count" id="tDigit">0</span>
+            <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-top: 10px;">TAP TO ZIKR</span>
+        </div>
+        <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px;">
+            <button class="btn-close" style="background:transparent; border:1px solid #334155; color:white;" onclick="resetCount()">RESET</button>
+            <button class="btn-close" onclick="toggleTasbeeh(false)">HOME</button>
+        </div>
     </div>
     
-    <!-- TASBEEH OVERLAY AD (Strict Box, Fixed Display Size 300x250) -->
-    <div class="ad-box-premium" style="margin-top: 30px;">
+    <!-- 2. TASBEEH OVERLAY BOTTOM AD (300x250 Niche) -->
+    <div class="ad-box-premium" style="margin-top: auto;">
         <ins class="adsbygoogle"
              style="display:inline-block;width:300px;height:250px"
              data-ad-client="ca-pub-1874063367142441"
@@ -170,11 +175,6 @@
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
-    </div>
-
-    <div style="display: flex; gap: 15px; margin-top: 10px;">
-        <button class="btn-close" style="background:transparent; border:1px solid #334155; color:white;" onclick="resetCount()">RESET</button>
-        <button class="btn-close" onclick="toggleTasbeeh(false)">HOME</button>
     </div>
 </div>
 
@@ -185,19 +185,19 @@
         <p style="color: #64748b; margin-bottom: 5px;">Digital Tilawat Library</p>
         <audio id="mainAudio" controls></audio>
         
-        <!-- PLAYER OVERLAY AD (Strict Box, Fixed Display Size 300x100) -->
-        <div class="ad-box-premium" style="padding: 5px; max-width: 315px; margin: 10px auto;">
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:300px;height:100px"
-                 data-ad-client="ca-pub-1874063367142441"
-                 data-ad-slot="3862927574"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
+        <button class="btn-close" style="margin-top: 10px; width: 100%;" onclick="closePlayer()">CLOSE PLAYER</button>
+        <div class="brand-text" style="margin-top: 20px;">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
+    </div>
 
-        <button class="btn-close" style="margin-top: 15px; width: 100%;" onclick="closePlayer()">CLOSE PLAYER</button>
-        <div class="brand-text" style="margin-top: 15px;">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
+    <!-- 3. PLAYER OVERLAY BOTTOM AD (300x250 Bada Ad Niche) -->
+    <div class="ad-box-premium" style="margin-top: auto;">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:300px;height:250px"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="3862927574"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 </div>
 
