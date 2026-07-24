@@ -1,8 +1,8 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - mustaqeem hyd.site</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
@@ -12,6 +12,11 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
+        /* --- FIX FOR MOBILE RESPONSIVENESS --- */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         :root { 
             --accent: #ff0033; 
             --link-color: #2563eb; 
@@ -25,14 +30,16 @@
             font-family: 'Inter', sans-serif; 
             background: var(--bg); 
             margin: 0; 
+            padding: 0;
             color: var(--text); 
             line-height: 1.7; 
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden; /* Prevents horizontal scroll */
         }
 
         /* --- PROFESSIONAL ADSENSE STYLING --- */
         .ad-box {
-            width: 100%;
+            width: calc(100% - 30px);
             max-width: 800px;
             margin: 25px auto;
             padding: 10px;
@@ -51,6 +58,7 @@
             letter-spacing: 1px;
             margin-bottom: 8px;
             font-weight: 600;
+            text-transform: uppercase;
         }
 
         /* --- PROFESSIONAL RED SCROLL LINE --- */
@@ -67,7 +75,7 @@
         }
         
         .nav { 
-            padding: 18px 25px; 
+            padding: 18px 20px; 
             background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(20px); 
             -webkit-backdrop-filter: blur(20px);
@@ -79,18 +87,25 @@
             justify-content: space-between; 
             align-items: center;
             box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            width: 100%;
         }
 
         .back-link { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 12px; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
-        .logo-text { font-family: 'Outfit'; font-weight: 900; color: var(--accent); font-size: 22px; letter-spacing: -0.5px; }
+        .logo-text { font-family: 'Outfit'; font-weight: 900; color: var(--accent); font-size: 20px; letter-spacing: -0.5px; }
 
-        .container { max-width: 800px; margin: 20px auto; padding: 0 24px; text-align: center; }
+        .container { 
+            max-width: 800px; 
+            margin: 20px auto; 
+            padding: 0 20px; 
+            text-align: center; 
+            width: 100%;
+        }
         
         .hero-img { 
             width: 100%; 
-            border-radius: 24px; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); 
-            margin-bottom: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px -10px rgba(0,0,0,0.1); 
+            margin-bottom: 30px; 
             aspect-ratio: 16/9; 
             object-fit: cover; 
             border: 1px solid rgba(255,255,255,0.2);
@@ -98,28 +113,28 @@
 
         h1 { 
             font-family: 'Outfit'; 
-            font-size: clamp(28px, 5vw, 42px); 
+            font-size: clamp(24px, 5vw, 38px); 
             font-weight: 800; 
             color: var(--dark); 
-            line-height: 1.2; 
+            line-height: 1.25; 
             margin-bottom: 25px; 
-            letter-spacing: -1px; 
+            letter-spacing: -0.5px; 
         }
 
         .meta-strip { 
             display: flex; 
             justify-content: center; 
             flex-wrap: wrap; 
-            gap: 12px; 
-            font-size: 12px; 
+            gap: 10px; 
+            font-size: 11px; 
             font-weight: 600; 
             color: #64748b; 
-            margin-bottom: 40px; 
+            margin-bottom: 35px; 
         }
 
         .meta-strip span { 
             background: #fff; 
-            padding: 8px 16px; 
+            padding: 8px 14px; 
             border-radius: 50px; 
             border: 1px solid #e2e8f0; 
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
@@ -129,12 +144,12 @@
         }
 
         .article-content { 
-            font-size: 19px; 
+            font-size: 17px; 
             color: var(--text); 
             white-space: pre-wrap; 
-            margin: 30px 0; 
+            margin: 20px 0; 
             word-wrap: break-word;
-            text-align: center;
+            text-align: left; /* Changed to left for better reading on mobile */
         }
 
         /* --- DYNAMIC BUTTON STYLING --- */
@@ -143,10 +158,11 @@
             align-items: center;
             gap: 10px;
             background: #ffffff;
-            padding: 12px 24px;
-            border-radius: 14px;
+            padding: 12px 20px;
+            border-radius: 12px;
             text-decoration: none !important;
             font-weight: 700;
+            font-size: 14px;
             color: var(--dark) !important;
             margin: 10px 5px;
             border: 1px solid #e2e8f0;
@@ -161,7 +177,7 @@
 
         /* --- SKELETON LOADER --- */
         .skeleton-loader { display: block; }
-        .sk-img { width: 100%; aspect-ratio: 16/9; background: #e2e8f0; border-radius: 24px; margin-bottom: 30px; }
+        .sk-img { width: 100%; aspect-ratio: 16/9; background: #e2e8f0; border-radius: 20px; margin-bottom: 30px; }
         .sk-title { width: 80%; height: 40px; background: #e2e8f0; border-radius: 8px; margin: 0 auto 20px; }
         .sk-strip { width: 60%; height: 30px; background: #e2e8f0; border-radius: 50px; margin: 0 auto 40px; }
         
@@ -177,22 +193,23 @@
             justify-content: center;
             margin-top: 40px;
             padding-bottom: 20px;
+            width: 100%;
         }
         
         .wa-premium-btn { 
             background: #25D366; 
             color: #fff; 
-            padding: 18px 35px; 
-            width: fit-content;
-            min-width: 280px;
+            padding: 16px 30px; 
+            width: 100%;
+            max-width: 320px;
             border-radius: 50px; 
             text-decoration: none; 
             font-weight: 800; 
-            font-size: 15px;
+            font-size: 14px;
             display: flex; 
             justify-content: center;
             align-items: center; 
-            gap: 12px; 
+            gap: 10px; 
             box-shadow: 0 10px 25px rgba(37,211,102,0.3); 
             transition: 0.4s; 
         }
@@ -200,9 +217,10 @@
         footer { 
             background: var(--dark); 
             color: #94a3b8; 
-            padding: 60px 24px; 
+            padding: 50px 20px; 
             text-align: center; 
-            margin-top: 60px;
+            margin-top: 40px;
+            width: 100%;
         }
     </style>
 </head>
@@ -235,21 +253,9 @@
         </div>
     </div>
 
-    <!-- BOTTOM AD UNIT (Multiple ads 1) -->
-    <div class="ad-box">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="autorelaxed"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="9232805765"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
     <footer>
-        <p style="color:var(--accent); font-weight:900; font-size:24px;">ᗰᑌᔕTᗩᑫEEᗰ</p>
-        <div style="margin-top:25px; opacity:0.4; font-size:10px; letter-spacing:2px;">© 2026 PREMIUM NEWS NETWORK • HYDERABAD</div>
+        <p style="color:var(--accent); font-weight:900; font-size:22px; margin: 0 0 15px 0;">ᗰᑌᔕTᗩᑫEEᗰ</p>
+        <div style="opacity:0.4; font-size:10px; letter-spacing:2px;">© 2026 PREMIUM NEWS NETWORK • HYDERABAD</div>
     </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
@@ -340,7 +346,7 @@
                         <div class="article-content">${processText(data.content, data.format)}</div>
                         
                         <!-- Article ads inside content -->
-                        <div style="margin: 30px auto;">
+                        <div style="margin: 30px auto; width: 100%;">
                             <ins class="adsbygoogle"
                                  style="display:block; text-align:center;"
                                  data-ad-layout="in-article"
@@ -361,7 +367,6 @@
                 
                 // Refresh AdSense Ads after dynamic content load
                 try {
-                    // Ye dono push method newly added Article ad aur pehle wale ads ko load karenge
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 } catch (e) {}
             });
