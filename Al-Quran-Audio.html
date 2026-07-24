@@ -15,6 +15,7 @@
             --deep-gold: #d4af37;
             --bg: #020617;
             --card-bg: rgba(30, 41, 59, 0.4);
+            --solid-card: #111827;
             --glass: rgba(255, 255, 255, 0.03);
         }
 
@@ -43,8 +44,8 @@
             border: 1px solid var(--glass); border-radius: 25px;
             display: flex; justify-content: space-around; padding: 15px; z-index: 5000;
         }
-        .nav-item { cursor: pointer; text-align: center; color: #94a3b8; font-size: 12px; font-weight: 600; }
-        .nav-item.active { color: var(--deep-gold); }
+        .nav-item { cursor: pointer; text-align: center; color: #94a3b8; font-size: 12px; font-weight: 600; transition: 0.3s; }
+        .nav-item.active { color: var(--deep-gold); transform: translateY(-2px); }
 
         /* --- Grid Layout --- */
         .container { padding: 0 20px 120px; }
@@ -60,62 +61,77 @@
         .card-title { font-size: 18px; font-weight: 700; color: #f8fafc; }
         .card-sub { font-size: 11px; color: var(--deep-gold); letter-spacing: 1px; font-weight: 600; }
 
-        /* --- Tasbeeh Overlay --- */
-        #tasbeehOverlay {
-            position: fixed; inset: 0; background: var(--bg); z-index: 6000;
-            display: none; flex-direction: column; align-items: center; justify-content: center;
-            overflow-y: auto; padding: 20px;
+        /* --- Professional Animations --- */
+        @keyframes smoothPopUp {
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .animated-card {
+            animation: smoothPopUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        .animated-ad {
+            opacity: 0;
+            animation: smoothPopUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.2s; /* Ad thoda baad aayega professional look ke liye */
+        }
+
+        /* --- Overlays (Tasbeeh & Player) --- */
+        .overlay-screen {
+            position: fixed; inset: 0; background: rgba(2,6,23,0.95); z-index: 6000;
+            display: none; flex-direction: column; align-items: center; justify-content: flex-start; 
+            overflow-y: auto; padding: 40px 20px 100px; backdrop-filter: blur(15px);
+        }
+
+        /* --- Tasbeeh Container --- */
+        .tasbeeh-container {
+            width: 100%; max-width: 360px; background: var(--solid-card);
+            border-radius: 35px; border: 1px solid var(--glass);
+            padding: 30px 20px; text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
         .t-btn {
-            width: 200px; height: 200px; border-radius: 50%;
+            width: 200px; height: 200px; border-radius: 50%; margin: 20px auto;
             background: linear-gradient(145deg, #1e293b, #020617);
             border: 8px solid var(--deep-gold); display: flex; flex-direction: column;
             align-items: center; justify-content: center; cursor: pointer;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5), inset 0 0 30px rgba(212,175,55,0.1);
-            margin: 20px 0;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 0 20px rgba(212,175,55,0.1);
+            transition: transform 0.1s;
         }
         .t-btn:active { transform: scale(0.92); }
         .t-count { font-size: 3.5rem; font-weight: 800; color: var(--deep-gold); margin: 0; }
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
 
-        /* --- Player Overlay --- */
-        #playerOverlay {
-            position: fixed; inset: 0; background: rgba(2,6,23,0.98); z-index: 7000;
-            display: none; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
-            overflow-y: auto;
-        }
+        /* --- Player Disk --- */
         .player-disk { 
-            width: 100%; max-width: 340px; background: #111827; border-radius: 40px; 
-            border: 1px solid var(--glass); padding: 30px 20px; text-align: center; 
+            width: 100%; max-width: 360px; background: var(--solid-card); 
+            border-radius: 35px; border: 1px solid var(--glass); 
+            padding: 40px 25px; text-align: center; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
-        audio { width: 100%; margin: 20px 0; filter: invert(1); }
+        audio { width: 100%; margin: 25px 0; filter: invert(1); outline: none; }
 
         .btn-close { 
-            margin-top: 15px; background: white; color: black; border: none; 
-            padding: 12px 30px; border-radius: 50px; font-weight: 800; cursor: pointer; 
+            background: white; color: black; border: none; 
+            padding: 12px 30px; border-radius: 50px; font-weight: 800; cursor: pointer;
+            transition: 0.3s; 
+        }
+        .btn-close:active { transform: scale(0.95); }
+        .btn-outline { background: transparent; border: 1px solid #334155; color: white; }
+
+        /* --- Professional Ad Box Styling (Below Cards) --- */
+        .ad-container {
+            width: 100%; max-width: 360px;
+            background: #ffffff; /* Bheje gaye screenshot jaisa bright/clean look */
+            border-radius: 20px; padding: 15px; margin-top: 20px;
+            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .ad-label {
+            font-size: 10px; color: #94a3b8; letter-spacing: 1.5px;
+            margin-bottom: 10px; display: block; text-transform: uppercase;
+            font-weight: 700;
         }
 
         .footer-brand { margin: 40px 0; text-align: center; opacity: 0.4; }
-
-        /* --- Professional Ad Box Styling --- */
-        .ad-box {
-            width: 100%;
-            max-width: 320px;
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid var(--deep-gold);
-            border-radius: 16px;
-            padding: 10px;
-            margin: 15px auto;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.05);
-        }
-        .ad-label {
-            font-size: 9px;
-            color: #64748b;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            display: block;
-            text-transform: uppercase;
-        }
 
         @media (max-width: 500px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
@@ -141,16 +157,26 @@
     <div class="nav-item" onclick="shareApp()">📤<br>Share</div>
 </div>
 
-<div id="tasbeehOverlay">
-    <h2 style="color: var(--deep-gold); letter-spacing: 2px; font-size: 20px;">TASBEEH COUNTER</h2>
+<!-- ================= TASBEEH OVERLAY ================= -->
+<div id="tasbeehOverlay" class="overlay-screen">
     
-    <div class="t-btn" onclick="vibrate(); countUp()">
-        <span class="t-count" id="tDigit">0</span>
-        <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-top: 10px;">TAP TO ZIKR</span>
+    <!-- Tasbeeh Card (Animated) -->
+    <div class="tasbeeh-container animated-card">
+        <h2 style="color: var(--deep-gold); letter-spacing: 2px; font-size: 20px; margin-top: 0;">TASBEEH COUNTER</h2>
+        
+        <div class="t-btn" onclick="vibrate(); countUp()">
+            <span class="t-count" id="tDigit">0</span>
+            <span style="font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-top: 10px;">TAP TO ZIKR</span>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-close btn-outline" onclick="resetCount()">RESET</button>
+            <button class="btn-close" onclick="toggleTasbeeh(false)">BACK</button>
+        </div>
     </div>
 
-    <!-- Professional Ad Box for Tasbeeh Page -->
-    <div class="ad-box">
+    <!-- Ad Box Below Tasbeeh Card (Animated) -->
+    <div class="ad-container animated-ad">
         <span class="ad-label">Advertisement</span>
         <!-- Mus 1 -->
         <ins class="adsbygoogle"
@@ -164,38 +190,37 @@
         </script>
     </div>
 
-    <div style="display: flex; gap: 10px; margin-top: 10px;">
-        <button class="btn-close" style="background:transparent; border:1px solid #334155; color:white;" onclick="resetCount()">RESET</button>
-        <button class="btn-close" onclick="toggleTasbeeh(false)">BACK</button>
-    </div>
 </div>
 
-<div id="playerOverlay">
-    <div class="player-disk">
+<!-- ================= PLAYER OVERLAY ================= -->
+<div id="playerOverlay" class="overlay-screen">
+    
+    <!-- Player Card (Animated) -->
+    <div class="player-disk animated-card">
         <div class="brand-text" style="margin-bottom: 15px;">NOW PLAYING</div>
         <h2 id="pTitle" style="font-size: 28px; color: var(--deep-gold); margin: 0;">Para 01</h2>
         <p style="color: #64748b; margin-bottom: 20px; font-size: 13px;">Digital Tilawat Library</p>
         
         <audio id="mainAudio" controls></audio>
         
-        <!-- Professional Ad Box inside Audio Player -->
-        <div class="ad-box">
-            <span class="ad-label">Advertisement</span>
-            <!-- Mus 1 -->
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-1874063367142441"
-                 data-ad-slot="3862927574"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-
-        <div class="brand-text" style="margin-top: 15px;">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
+        <button class="btn-close" style="width: 100%; margin-top: 10px;" onclick="closePlayer()">CLOSE PLAYER</button>
     </div>
-    <button class="btn-close" style="margin-top: 25px;" onclick="closePlayer()">CLOSE PLAYER</button>
+
+    <!-- Ad Box Below Player Card (Animated) -->
+    <div class="ad-container animated-ad">
+        <span class="ad-label">Advertisement</span>
+        <!-- Mus 1 -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="3862927574"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
 </div>
 
 <script>
@@ -210,7 +235,23 @@
     }
     function resetCount() { counter = 0; document.getElementById('tDigit').innerText = 0; localStorage.setItem('tCount', 0); }
     function vibrate() { if(navigator.vibrate) navigator.vibrate(50); }
-    function toggleTasbeeh(show) { document.getElementById('tasbeehOverlay').style.display = show ? 'flex' : 'none'; }
+    
+    // Toggle Tasbeeh Overlay with Animation Reset
+    function toggleTasbeeh(show) { 
+        const overlay = document.getElementById('tasbeehOverlay');
+        if(show) {
+            overlay.style.display = 'flex';
+            // Trigger reflow to restart animation
+            const cards = overlay.querySelectorAll('.animated-card, .animated-ad');
+            cards.forEach(card => {
+                card.style.animation = 'none';
+                card.offsetHeight; /* trigger reflow */
+                card.style.animation = null; 
+            });
+        } else {
+            overlay.style.display = 'none';
+        }
+    }
 
     // Quran Logic
     const links = ["2qpLHGY","2qnS2Ha","2sbSqoq","2r6TOeq","2qzzsYk","2qI4EE2","2rW88HS","2qK0aO4","2rBqzB0","2s3dkdd","2so5po5","2rzgVP9","2rSIJ1l","2sk5Lid","2rKJHw3","2sMTr7y","2r9opp2","2rpK4c8","2rpq1iW","2rAX4Mc","2rBv2Aa","2sbmkft","2rtPXpH","2sfUCOE","2smfZxF","2tLUEvC","2tru5wz","2rXeW98","2s5NLEk","2s1BBB4"];
@@ -232,7 +273,18 @@
         document.getElementById('pTitle').innerText = 'Para ' + (num < 10 ? '0'+num : num);
         const audio = document.getElementById('mainAudio');
         audio.src = 'https://bit.ly/' + code;
-        document.getElementById('playerOverlay').style.display = 'flex';
+        
+        const overlay = document.getElementById('playerOverlay');
+        overlay.style.display = 'flex';
+        
+        // Trigger reflow to restart animation
+        const cards = overlay.querySelectorAll('.animated-card, .animated-ad');
+        cards.forEach(card => {
+            card.style.animation = 'none';
+            card.offsetHeight; /* trigger reflow */
+            card.style.animation = null; 
+        });
+
         audio.play();
     }
 
@@ -242,7 +294,6 @@
     }
 
     function shareApp() {
-        // Updated Play Store URL
         const url = "https://play.google.com/store/apps/details?id=com.mustaqeemhyd.quran30para";
         const msg = `*Assalamu Alaikum!* ✨\nAl-Quran Pro par 30 Pare ki Tilawat suniye. Design by Mustaqeem.\n🔗 ${url}`;
         window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`, '_blank');
