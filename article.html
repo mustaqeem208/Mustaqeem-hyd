@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,9 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     
-    <!-- Google AdSense Script 1 -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1312769120188830" crossorigin="anonymous"></script>
-    <!-- Google AdSense Script 2 -->
+    <!-- Google AdSense Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
@@ -212,17 +210,16 @@
     <div id="scrollBar"></div>
     <div class="nav">
         <a href="https://mustaqeem-hyd-news.netlify.app/mustaqeemhyd" class="back-link"><i class="fa-solid fa-chevron-left"></i> BACK</a>
-        <div class="logo-text">ᗰᑌᔕTᗩᑫEEᗰ HYD</div>
+        <a href="https://mustaqeem-hyd-news.netlify.app/mustaqeemhyd" style="text-decoration: none;"><div class="logo-text">ᗰᑌᔕTᗩᑫEEᗰ HYD</div></a>
         <div style="width:50px;"></div>
     </div>
 
-    <!-- TOP AD UNIT -->
+    <!-- TOP AD UNIT (Display ms 1) -->
     <div class="ad-box">
-        <!-- Ms-job Ad Block -->
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="8079692181"
+             data-ad-slot="3862927574"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
         <script>
@@ -238,13 +235,13 @@
         </div>
     </div>
 
-    <!-- BOTTOM AD UNIT -->
+    <!-- BOTTOM AD UNIT (Multiple ads 1) -->
     <div class="ad-box">
         <ins class="adsbygoogle"
              style="display:block"
-             data-ad-client="ca-pub-1312769120188830"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
+             data-ad-format="autorelaxed"
+             data-ad-client="ca-pub-1874063367142441"
+             data-ad-slot="9232805765"></ins>
         <script>
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
@@ -341,6 +338,17 @@
                             <span><i class="fa-solid fa-clock"></i> ${readTime} MIN</span>
                         </div>
                         <div class="article-content">${processText(data.content, data.format)}</div>
+                        
+                        <!-- Article ads inside content -->
+                        <div style="margin: 30px auto;">
+                            <ins class="adsbygoogle"
+                                 style="display:block; text-align:center;"
+                                 data-ad-layout="in-article"
+                                 data-ad-format="fluid"
+                                 data-ad-client="ca-pub-1874063367142441"
+                                 data-ad-slot="4503115461"></ins>
+                        </div>
+
                         <div class="wa-container">
                             <a href="https://wa.me/?text=${encodeURIComponent(data.title + " - " + window.location.href)}" class="wa-premium-btn">
                                 <i class="fa-brands fa-whatsapp"></i> SHARE WITH FRIENDS
@@ -353,6 +361,7 @@
                 
                 // Refresh AdSense Ads after dynamic content load
                 try {
+                    // Ye dono push method newly added Article ad aur pehle wale ads ko load karenge
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 } catch (e) {}
             });
