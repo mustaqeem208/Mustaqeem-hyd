@@ -2,284 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - mustaqeem hyd.site</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-    
-    <!-- Google AdSense Scripts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - Premium News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root { --main: #ff0033; --bg: #fdfdfd; --card: #ffffff; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; color: #333; }
+        .navbar { background: #fff; padding: 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+        .nav-content { max-width: 800px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 20px; font-weight: 900; color: var(--main); text-decoration: none; }
+        .menu a { text-decoration: none; color: #444; font-size: 12px; font-weight: 600; margin-left: 12px; }
+        .search-area { padding: 15px; max-width: 800px; margin: auto; }
+        .search-area input { width: 100%; padding: 12px 20px; border-radius: 50px; border: 1px solid #eee; background: #f1f1f1; outline: none; box-sizing: border-box; }
+        #sponsorArea { max-width: 800px; margin: 10px auto; padding: 0 15px; }
+        .sponsor-card { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 15px; display: block; }
+        .container { padding: 10px 15px 80px; max-width: 800px; margin: auto; }
+        footer { text-align: center; padding: 30px; background: #fff; border-top: 1px solid #eee; font-size: 13px; }
+        .badge-featured { position: absolute; top: 10px; left: 10px; background: #ff0033; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; z-index: 10; }
+
+        /* PROFESSIONAL AD CONTAINER */
+        .main-ad-wrapper {
+            max-width: 800px;
+            margin: 15px auto;
+            padding: 10px;
+            background: #ffffff;
+            border-radius: 16px;
+            border: 1px solid #f0f0f0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+        .main-ad-wrapper::before {
+            content: "SPONSORED";
+            display: block;
+            font-size: 9px;
+            color: #aaa;
+            letter-spacing: 1.2px;
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+
+        /* FASTAG LOADING (SKELETON) CSS */
+        .skeleton { background: #eee; border-radius: 16px; margin-bottom: 22px; height: 320px; position: relative; overflow: hidden; display: none; }
+        .skeleton::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); animation: loading 1.5s infinite; }
+        @keyframes loading { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+    </style>
+
+    <!-- AdSense Scripts -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1312769120188830" crossorigin="anonymous"></script>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
-    <style>
-        :root { 
-            --accent: #ff0033; 
-            --link-color: #2563eb; 
-            --dark: #0f172a; 
-            --text: #1e293b; 
-            --bg: #f1f5f9; 
-            --card-bg: #ffffff;
-        }
-
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background: var(--bg); 
-            margin: 0; 
-            color: var(--text); 
-            line-height: 1.7; 
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* --- PROFESSIONAL ADSENSE STYLING --- */
-        .ad-box {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 10px;
-            background: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            text-align: center;
-            overflow: hidden;
-            border: 1px solid #e2e8f0;
-            box-sizing: border-box;
-        }
-        .ad-box::before {
-            content: "ADVERTISEMENT";
-            display: block;
-            font-size: 10px;
-            color: #94a3b8;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        /* --- PROFESSIONAL RED SCROLL LINE --- */
-        #scrollBar { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 0%; 
-            height: 4px; 
-            background: linear-gradient(to right, var(--accent), #ff4d4d); 
-            z-index: 2001; 
-            transition: width 0.1s ease-out;
-            box-shadow: 0 1px 10px rgba(255, 0, 51, 0.4);
-        }
-        
-        .nav { 
-            padding: 15px 20px; 
-            background: rgba(255, 255, 255, 0.95); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
-            position: sticky; 
-            top: 0; 
-            z-index: 1000; 
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .back-link { text-decoration: none; color: var(--dark); font-weight: 700; font-size: 12px; letter-spacing: 1.5px; display: flex; align-items: center; gap: 8px; }
-        .logo-text { font-family: 'Outfit'; font-weight: 900; color: var(--accent); font-size: 20px; letter-spacing: -0.5px; text-decoration: none; }
-
-        .menu-links {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .menu-links a {
-            text-decoration: none;
-            color: #475569;
-            font-size: 13px;
-            font-weight: 600;
-            transition: 0.2s;
-        }
-        .menu-links a:hover {
-            color: var(--accent);
-        }
-        .namaz-btn {
-            background: var(--accent);
-            color: #fff !important;
-            padding: 6px 14px;
-            border-radius: 50px;
-            font-weight: 700 !important;
-            box-shadow: 0 4px 10px rgba(255,0,51,0.2);
-        }
-
-        .container { max-width: 800px; margin: 20px auto; padding: 0 24px; text-align: center; }
-        
-        .hero-img { 
-            width: 100%; 
-            border-radius: 24px; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); 
-            margin-bottom: 40px; 
-            aspect-ratio: 16/9; 
-            object-fit: cover; 
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        h1 { 
-            font-family: 'Outfit'; 
-            font-size: clamp(28px, 5vw, 42px); 
-            font-weight: 800; 
-            color: var(--dark); 
-            line-height: 1.2; 
-            margin-bottom: 25px; 
-            letter-spacing: -1px; 
-        }
-
-        .meta-strip { 
-            display: flex; 
-            justify-content: center; 
-            flex-wrap: wrap; 
-            gap: 12px; 
-            font-size: 12px; 
-            font-weight: 600; 
-            color: #64748b; 
-            margin-bottom: 40px; 
-        }
-
-        .meta-strip span { 
-            background: #fff; 
-            padding: 8px 16px; 
-            border-radius: 50px; 
-            border: 1px solid #e2e8f0; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .article-content { 
-            font-size: 19px; 
-            color: var(--text); 
-            white-space: pre-wrap; 
-            margin: 30px 0; 
-            word-wrap: break-word;
-            text-align: center;
-        }
-
-        .dynamic-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: #ffffff;
-            padding: 12px 24px;
-            border-radius: 14px;
-            text-decoration: none !important;
-            font-weight: 700;
-            color: var(--dark) !important;
-            margin: 10px 5px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.04);
-            transition: 0.3s;
-        }
-        .dynamic-link:hover { 
-            transform: translateY(-3px); 
-            border-color: var(--accent);
-            box-shadow: 0 10px 15px rgba(0,0,0,0.08);
-        }
-
-        .skeleton-loader { display: block; }
-        .sk-img { width: 100%; aspect-ratio: 16/9; background: #e2e8f0; border-radius: 24px; margin-bottom: 30px; }
-        .sk-title { width: 80%; height: 40px; background: #e2e8f0; border-radius: 8px; margin: 0 auto 20px; }
-        .sk-strip { width: 60%; height: 30px; background: #e2e8f0; border-radius: 50px; margin: 0 auto 40px; }
-        
-        .skeleton-animate {
-            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
-
-        .wa-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 40px;
-            padding-bottom: 20px;
-        }
-        
-        .wa-premium-btn { 
-            background: #25D366; 
-            color: #fff; 
-            padding: 18px 35px; 
-            width: fit-content;
-            min-width: 280px;
-            border-radius: 50px; 
-            text-decoration: none; 
-            font-weight: 800; 
-            font-size: 15px;
-            display: flex; 
-            justify-content: center;
-            align-items: center; 
-            gap: 12px; 
-            box-shadow: 0 10px 25px rgba(37,211,102,0.3); 
-            transition: 0.4s; 
-        }
-
-        footer { 
-            background: var(--dark); 
-            color: #94a3b8; 
-            padding: 60px 24px; 
-            text-align: center; 
-            margin-top: 60px;
-        }
-    </style>
 </head>
 <body>
-    <div id="scrollBar"></div>
-    <div class="nav">
-        <a href="https://mustaqeem-hyd-news.netlify.app/mustaqeemhyd" class="back-link"><i class="fa-solid fa-chevron-left"></i> BACK</a>
-        <a href="https://mustaqeem-hyd-news.netlify.app/mustaqeemhyd" class="logo-text">ᗰᑌᔕTᗩᑫEEᗰ HYD</a>
-        <div class="menu-links">
-            <a href="article.html?type=about">About</a>
-            <a href="article.html?type=policy">Policy</a>
-            <a href="article.html?type=contact">Contact</a>
-            <a href="https://mustaqeemhyd.site/namaz-hyd" class="namaz-btn">🕌 Namaz Time</a>
+    <div class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">ᗰᑌᔕTᗩᑫEEᗰ HYD</a>
+            <div class="menu">
+                <a href="article.html?type=about">About</a>
+                <a href="article.html?type=policy">Policy</a>
+                <a href="article.html?type=contact">Contact</a>
+            </div>
         </div>
     </div>
-
-    <!-- TOP BANNER AD (Mus2) -->
-    <div class="ad-box">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:100%;max-width:728px;height:90px"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="7947508205"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    
+    <div class="search-area">
+        <input type="text" id="searchInput" placeholder="Search articles..." onkeyup="filterNews()">
     </div>
 
-    <div class="container" id="postContainer">
-        <div class="skeleton-loader" id="mainLoader">
-            <div class="sk-img skeleton-animate"></div>
-            <div class="sk-title skeleton-animate"></div>
-            <div class="sk-strip skeleton-animate"></div>
-        </div>
-    </div>
-
-    <!-- NATIVE AD UNIT -->
-    <div class="ad-box">
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-format="fluid"
-             data-ad-layout-key="-6t+ed+2i-1n-4w"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="1669311442"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
-    <!-- BOTTOM AUTO AD UNIT -->
-    <div class="ad-box">
+    <!-- MAIN HOMEPAGE AD BLOCK -->
+    <div class="main-ad-wrapper">
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-1874063367142441"
@@ -290,111 +80,93 @@
              (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
     </div>
+    
+    <div id="sponsorArea"></div>
 
-    <footer>
-        <p style="color:var(--accent); font-weight:900; font-size:24px;">ᗰᑌᔕTᗩᑫEEᗰ</p>
-        <div style="margin-top:25px; opacity:0.4; font-size:10px; letter-spacing:2px;">© 2026 PREMIUM NEWS NETWORK • HYDERABAD</div>
-    </footer>
+    <div class="container" id="dynamicNews">
+        <div class="skeleton" id="s1" style="display:block;"></div>
+        <div class="skeleton" id="s2" style="display:block;"></div>
+    </div>
+
+    <footer>Design by <b style="color:var(--main);">ᗰᑌᔕTᗩᑫEEᗰ</b></footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    
     <script>
         firebase.initializeApp({databaseURL: "https://cab-hyd-default-rtdb.firebaseio.com"});
         const db = firebase.database();
-        const urlParams = new URLSearchParams(window.location.search);
-        const artId = urlParams.get('id'), pageType = urlParams.get('type');
+        const newsContainer = document.getElementById('dynamicNews');
 
-        const cacheKey = artId ? `art_${artId}` : `page_${pageType}`;
-
-        const cachedContent = localStorage.getItem(cacheKey);
-        if(cachedContent) {
-            document.getElementById('postContainer').innerHTML = cachedContent;
+        function nFormat(num) {
+            if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+            return num;
         }
 
-        window.onscroll = function() {
-            let winScroll = document.documentElement.scrollTop;
-            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            document.getElementById("scrollBar").style.width = (winScroll / height) * 100 + "%";
-        };
-
-        function formatViews(n) {
-            n = parseInt(n) || 0;
-            return n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/, '') + 'k' : n;
+        const cachedNews = localStorage.getItem('news_cache');
+        if(cachedNews) {
+            renderUI(JSON.parse(cachedNews));
         }
 
-        function processText(text, format) {
-            if(!text) return "";
-            
-            const isHTML = format === 'html' || (format === undefined && /<\/?[\w\s="/.':;#-\/\?]+>/gi.test(text));
-
-            if (isHTML) {
-                return `<div style="white-space: normal; text-align: left; margin-top: 15px;">${text}</div>`;
+        db.ref('articles').on('value', snap => {
+            const data = snap.val();
+            if(data) {
+                localStorage.setItem('news_cache', JSON.stringify(data));
+                renderUI(data);
             }
+        });
 
-            const urlRegex = /(https?:\/\/[^\s]+|mailto:[^\s]+|[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+        function renderUI(data) {
+            let html = "";
+            let arr = [];
+            for(let id in data) arr.push({ id, ...data[id] });
             
-            return text.replace(urlRegex, url => {
-                let icon = '<i class="fa-solid fa-link"></i>';
-                let label = "Explore Link";
-                let finalUrl = url;
+            arr.reverse().forEach(item => {
+                let featuredTag = item.isFeatured ? `<div class="badge-featured">🔥 FEATURED</div>` : '';
+                html += `
+                <a href="article.html?id=${item.id}" style="text-decoration:none;" class="news-item">
+                  <div style="cursor:pointer; border-radius:16px; overflow:hidden; position:relative;
+                              box-shadow:0 8px 22px rgba(0,0,0,0.18);
+                              background:linear-gradient(135deg,#ffffff,#f0f9fa);
+                              margin-bottom:22px; transition:0.3s;"
+                       onmouseover="this.style.transform='scale(1.02)'"
+                       onmouseout="this.style.transform='scale(1)'">
+                    
+                    ${featuredTag}
 
-                if (url.includes("youtube.com") || url.includes("youtu.be")) {
-                    icon = '<i class="fa-brands fa-youtube" style="color:#ff0000;"></i>';
-                    label = "Watch Video";
-                } else if (url.includes("wa.me") || url.includes("whatsapp.com")) {
-                    icon = '<i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>';
-                    label = "WhatsApp";
-                } else if (url.includes("play.google.com")) {
-                    icon = '<i class="fa-brands fa-google-play" style="color:#34a853;"></i>';
-                    label = "Play Store";
-                } else if (url.startsWith("mailto:") || (url.includes("@") && !url.includes("://"))) {
-                    icon = '<i class="fa-solid fa-envelope" style="color:var(--accent);"></i>';
-                    label = "Email Us";
-                    finalUrl = url.startsWith("mailto:") ? url : `mailto:${url}`;
-                } else {
-                    icon = '<i class="fa-solid fa-globe" style="color:#2563eb;"></i>';
-                    label = "Visit Website";
-                }
-                
-                return `<a href="${finalUrl}" target="_blank" class="dynamic-link">${icon} ${label}</a>`;
+                    <img src="${item.img}" alt="${item.title}" loading="lazy"
+                         style="width:100%; height:200px; object-fit:cover; display:block; border-radius:16px 16px 0 0;">
+
+                    <div style="padding:16px;">
+                      <h3 style="margin:0 0 10px; font-size:18px; font-weight:bold; color:#0b5f66; font-family:'Poppins', sans-serif;">
+                        ${item.title}
+                      </h3>
+
+                      <p style="margin:0 0 12px; font-size:14px; color:#444; line-height:1.5;">
+                        ${item.shortDesc || ''}
+                      </p>
+
+                      <div style="display:flex; justify-content:space-between; font-size:11px; color:#777;">
+                        <span>👁️ ${nFormat(item.views || 0)} Views</span>
+                        <span>🕒 ${item.date}</span>
+                        <span>✍️ By ᗰᑌᔕTᗩᑫEEᗰ HYD</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>`;
             });
+            newsContainer.innerHTML = html;
         }
 
-        if(artId || pageType) {
-            let path = pageType ? 'site_settings/' + pageType : 'articles/' + artId;
-            db.ref(path).on('value', snap => {
-                const data = snap.val();
-                if(!data) return;
+        db.ref('site_settings/sponsors').on('value', s => {
+            const data = s.val(); document.getElementById('sponsorArea').innerHTML = "";
+            for(let id in data) {
+                document.getElementById('sponsorArea').innerHTML += `<a href="${data[id].link}" class="sponsor-card" target="_blank"><img src="${data[id].img}" style="width:100%; display:block;" loading="lazy"></a>`;
+            }
+        });
 
-                let contentHtml = "";
-                if(pageType) {
-                    contentHtml = `<h1>${pageType.toUpperCase()}</h1><div class="article-content">${processText(data)}</div>`;
-                } else {
-                    const readTime = Math.ceil((data.content || "").split(' ').length / 200);
-                    contentHtml = `
-                        <img src="${data.img}" class="hero-img" loading="lazy">
-                        <h1>${data.title}</h1>
-                        <div class="meta-strip">
-                            <span><i class="fa-solid fa-eye"></i> ${formatViews(data.views)}</span>
-                            <span><i class="fa-solid fa-calendar"></i> ${data.date}</span>
-                            <span><i class="fa-solid fa-clock"></i> ${readTime} MIN</span>
-                        </div>
-                        <div class="article-content">${processText(data.content, data.format)}</div>
-                        <div class="wa-container">
-                            <a href="https://wa.me/?text=${encodeURIComponent(data.title + " - " + window.location.href)}" class="wa-premium-btn">
-                                <i class="fa-brands fa-whatsapp"></i> SHARE WITH FRIENDS
-                            </a>
-                        </div>
-                    `;
-                }
-                document.getElementById('postContainer').innerHTML = contentHtml;
-                localStorage.setItem(cacheKey, contentHtml);
-                
-                try {
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                } catch (e) {}
-            });
+        function filterNews() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.news-item').forEach(c => c.style.display = c.innerText.toLowerCase().includes(input) ? "block" : "none");
         }
     </script>
 </body>
