@@ -6,7 +6,7 @@
     <title>Quran Pro | Mustaqeem Digital</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     
-    <!-- Google AdSense Script (Ek baar head me) -->
+    <!-- Google AdSense Main Script (Ek hi baar lagega) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
@@ -37,7 +37,7 @@
         header span { color: var(--deep-gold); }
         .brand-text { font-size: 10px; letter-spacing: 4px; color: var(--deep-gold); font-weight: 800; margin-top: 5px; opacity: 0.8; }
 
-        /* --- Custom Navigation Bar --- */
+        /* --- Bottom Nav --- */
         .bottom-nav {
             position: fixed; bottom: 20px; left: 20px; right: 20px;
             background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px);
@@ -50,47 +50,28 @@
         /* --- Grid Layout --- */
         .container { padding: 0 20px 120px; }
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-
-        .card {
-            background: var(--card-bg); backdrop-filter: blur(10px);
-            border: 1px solid var(--glass); padding: 30px 20px; border-radius: 28px;
-            transition: 0.3s; position: relative; overflow: hidden;
-        }
+        .card { background: var(--card-bg); backdrop-filter: blur(10px); border: 1px solid var(--glass); padding: 30px 20px; border-radius: 28px; transition: 0.3s; position: relative; overflow: hidden; cursor: pointer; }
         .card:active { transform: scale(0.95); background: rgba(255,255,255,0.05); }
         .card-num { position: absolute; right: -10px; bottom: -10px; font-size: 60px; font-weight: 900; opacity: 0.05; }
         .card-title { font-size: 18px; font-weight: 700; color: #f8fafc; }
         .card-sub { font-size: 11px; color: var(--deep-gold); letter-spacing: 1px; font-weight: 600; }
 
-        /* --- AdSense Fix: Overlays (No display: none trick) --- */
+        /* --- Overlays (Centered) --- */
         .overlay-screen {
-            position: fixed; inset: 0; background: rgba(2,6,23,0.97); 
-            display: flex; flex-direction: column; align-items: center; 
-            justify-content: center; overflow-y: auto; padding: 20px; backdrop-filter: blur(15px);
-            
-            /* Hidden without breaking ad sizes */
-            opacity: 0; visibility: hidden; z-index: -1; pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-        
-        .overlay-screen.show-overlay {
-            opacity: 1; visibility: visible; z-index: 6000; pointer-events: auto;
+            position: fixed; inset: 0; background: rgba(2,6,23,0.97); z-index: 6000;
+            display: none; flex-direction: column; align-items: center; justify-content: center; 
+            overflow-y: auto; padding: 20px; backdrop-filter: blur(15px);
         }
 
-        /* --- Animations --- */
+        /* --- Entry Animations --- */
         @keyframes smoothPopUp {
             0% { opacity: 0; transform: translateY(40px) scale(0.95); }
             100% { opacity: 1; transform: translateY(0) scale(1); }
         }
-        .animated-card {
-            animation: smoothPopUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        }
-        .animated-ad {
-            opacity: 0;
-            animation: smoothPopUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            animation-delay: 0.2s;
-        }
+        .animated-card { animation: smoothPopUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        .animated-ad { opacity: 0; animation: smoothPopUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; animation-delay: 0.2s; }
 
-        /* Player Disco Animation */
+        /* --- Player Disco Animation --- */
         @keyframes discoLight {
             0% { box-shadow: 0 0 25px #ff0055, inset 0 0 10px #ff0055; border-color: #ff0055; }
             25% { box-shadow: 0 0 25px #00ffcc, inset 0 0 10px #00ffcc; border-color: #00ffcc; }
@@ -100,7 +81,7 @@
         }
         .disco-active { animation: discoLight 1.5s infinite alternate !important; }
 
-        /* Tasbeeh Default Pulse & Click Disco */
+        /* --- Tasbeeh Pulse & Click Disco --- */
         @keyframes tasbeehPulse {
             0% { box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 20px rgba(212,175,55,0.1); transform: scale(1); }
             50% { box-shadow: 0 10px 40px rgba(212,175,55,0.4), inset 0 0 35px rgba(212,175,55,0.3); transform: scale(1.02); }
@@ -113,59 +94,23 @@
         }
         .tasbeeh-click-active { animation: tasbeehClickDisco 0.4s ease-out !important; }
 
-        /* --- Tasbeeh Container --- */
-        .tasbeeh-container {
-            width: 100%; max-width: 360px; background: var(--solid-card);
-            border-radius: 35px; border: 1px solid var(--glass);
-            padding: 40px 20px; text-align: center;
-        }
-        .t-btn {
-            width: 220px; height: 220px; border-radius: 50%; margin: 30px auto;
-            background: linear-gradient(145deg, #1e293b, #020617);
-            border: 8px solid var(--deep-gold); display: flex; flex-direction: column;
-            align-items: center; justify-content: center; cursor: pointer;
-            animation: tasbeehPulse 2.5s infinite ease-in-out; 
-            transition: all 0.1s;
-        }
+        .tasbeeh-container { width: 100%; max-width: 360px; background: var(--solid-card); border-radius: 35px; border: 1px solid var(--glass); padding: 40px 20px; text-align: center; }
+        .t-btn { width: 220px; height: 220px; border-radius: 50%; margin: 30px auto; background: linear-gradient(145deg, #1e293b, #020617); border: 8px solid var(--deep-gold); display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; animation: tasbeehPulse 2.5s infinite ease-in-out; transition: all 0.1s; }
         .t-count { font-size: 4rem; font-weight: 800; color: var(--deep-gold); margin: 0; line-height: 1; }
         .btn-group { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
 
-        /* --- Player Disk --- */
-        .player-disk { 
-            width: 100%; max-width: 360px; background: var(--solid-card); 
-            border-radius: 35px; border: 1px solid var(--glass); 
-            padding: 40px 25px; text-align: center; 
-            transition: all 0.3s ease;
-        }
+        .player-disk { width: 100%; max-width: 360px; background: var(--solid-card); border-radius: 35px; border: 1px solid var(--glass); padding: 40px 25px; text-align: center; transition: all 0.3s ease; }
         audio { width: 100%; margin: 30px 0; filter: invert(1); outline: none; }
 
-        .btn-close { 
-            background: white; color: black; border: none; 
-            padding: 14px 35px; border-radius: 50px; font-weight: 800; cursor: pointer;
-            transition: 0.3s; font-size: 13px; letter-spacing: 1px;
-        }
+        .btn-close { background: white; color: black; border: none; padding: 14px 35px; border-radius: 50px; font-weight: 800; cursor: pointer; transition: 0.3s; font-size: 13px; letter-spacing: 1px; }
         .btn-close:active { transform: scale(0.95); }
         .btn-outline { background: transparent; border: 1px solid #475569; color: white; }
 
-        /* --- Ad Box Styling (Fixed Min-Height for Adsense) --- */
-        .ad-container {
-            width: 100%; max-width: 360px;
-            background: #ffffff;
-            border-radius: 20px; 
-            padding: 15px; margin-top: 25px;
-            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            min-height: 120px; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            overflow: hidden;
-        }
-        .ad-label {
-            font-size: 10px; color: #94a3b8; letter-spacing: 2px;
-            margin-bottom: 5px; display: block; text-transform: uppercase;
-            font-weight: 800;
-        }
-
+        /* --- Ad Box Setup --- */
+        .ad-container { width: 100%; max-width: 360px; background: #ffffff; border-radius: 20px; padding: 15px; margin-top: 25px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); min-height: 120px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; }
+        .ad-label { font-size: 10px; color: #94a3b8; letter-spacing: 2px; margin-bottom: 5px; display: block; text-transform: uppercase; font-weight: 800; }
+        
         .footer-brand { margin: 40px 0; text-align: center; opacity: 0.4; }
-
         @media (max-width: 500px) { .grid { grid-template-columns: repeat(2, 1fr); } }
     </style>
 </head>
@@ -179,9 +124,7 @@
 
 <div class="container">
     <div class="grid" id="mainGrid"></div>
-    <div class="footer-brand">
-        <div class="brand-text">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div>
-    </div>
+    <div class="footer-brand"><div class="brand-text">DESIGN BY ᗰᑌᔕTᗩᑫEEᗰ</div></div>
 </div>
 
 <div class="bottom-nav">
@@ -190,73 +133,70 @@
     <div class="nav-item" onclick="shareApp()">📤<br>Share</div>
 </div>
 
-<!-- ================= TASBEEH OVERLAY (CENTERED) ================= -->
+<!-- ================= TASBEEH OVERLAY ================= -->
 <div id="tasbeehOverlay" class="overlay-screen">
-    
     <div class="tasbeeh-container animated-card">
         <h2 style="color: var(--deep-gold); letter-spacing: 2px; font-size: 18px; margin: 0 0 10px 0;">TASBEEH COUNTER</h2>
-        
-        <!-- Tasbeeh Button with Click Disco Animation -->
         <div class="t-btn" id="tasbeehBtn" onclick="vibrate(); countUp()">
             <span class="t-count" id="tDigit">0</span>
             <span style="font-size: 11px; color: #94a3b8; letter-spacing: 2px; margin-top: 15px;">TAP TO ZIKR</span>
         </div>
-
         <div class="btn-group">
             <button class="btn-close btn-outline" onclick="resetCount()">RESET</button>
             <button class="btn-close" onclick="toggleTasbeeh(false)">BACK</button>
         </div>
     </div>
 
-    <!-- AdSense for Tasbeeh -->
-    <div class="ad-container animated-ad">
+    <!-- Ad Box (Dynamic Injection) -->
+    <div class="ad-container animated-ad" id="tasbeeh-ad-box">
         <span class="ad-label">ADVERTISEMENT</span>
-        <!-- Mus 1 -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="3862927574"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <!-- JS Code Ad Yahan Inject Karega -->
     </div>
-
 </div>
 
-<!-- ================= PLAYER OVERLAY (CENTERED) ================= -->
+<!-- ================= PLAYER OVERLAY ================= -->
 <div id="playerOverlay" class="overlay-screen">
-    
     <div class="player-disk animated-card" id="playerDisk">
         <div class="brand-text" style="margin-bottom: 15px;">NOW PLAYING</div>
         <h2 id="pTitle" style="font-size: 32px; color: var(--deep-gold); margin: 0;">Para 01</h2>
         <p style="color: #64748b; margin-bottom: 20px; font-size: 13px;">Digital Tilawat Library</p>
         
         <audio id="mainAudio" controls></audio>
-        
         <button class="btn-close" style="width: 100%; margin-top: 10px;" onclick="closePlayer()">CLOSE PLAYER</button>
     </div>
 
-    <!-- AdSense for Player -->
-    <div class="ad-container animated-ad">
+    <!-- Ad Box (Dynamic Injection) -->
+    <div class="ad-container animated-ad" id="player-ad-box">
         <span class="ad-label">ADVERTISEMENT</span>
-        <!-- Mus 1 -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="3862927574"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <!-- JS Code Ad Yahan Inject Karega -->
     </div>
-
 </div>
 
 <script>
-    // Tasbeeh logic
+    // --- DYNAMIC AD INJECTION SCRIPT ---
+    // Jab Box khulega, tabhi ad script HTML insert karke Google ko call karega
+    function injectAd(boxId) {
+        let box = document.getElementById(boxId);
+        if(box.getAttribute('data-ad-loaded') !== 'true') {
+            let ins = document.createElement('ins');
+            ins.className = 'adsbygoogle';
+            ins.style.display = 'block';
+            ins.setAttribute('data-ad-client', 'ca-pub-1874063367142441');
+            ins.setAttribute('data-ad-slot', '3862927574');
+            ins.setAttribute('data-ad-format', 'auto');
+            ins.setAttribute('data-full-width-responsive', 'true');
+            box.appendChild(ins);
+            
+            try {
+                (adsbygoogle = window.adsbygoogle || []).push({});
+                box.setAttribute('data-ad-loaded', 'true'); // Taaki baar baar reload na ho
+            } catch(e) {
+                console.error("AdSense Error: ", e);
+            }
+        }
+    }
+
+    // --- TASBEEH LOGIC ---
     let counter = localStorage.getItem('tCount') || 0;
     document.getElementById('tDigit').innerText = counter;
 
@@ -265,11 +205,11 @@
         document.getElementById('tDigit').innerText = counter;
         localStorage.setItem('tCount', counter);
         
-        // Tasbeeh Click Disco Animation Trigger
+        // Tasbeeh Click Disco Trigger
         const tBtn = document.getElementById('tasbeehBtn');
-        tBtn.classList.remove('tasbeeh-click-active'); // Reset animation
-        void tBtn.offsetWidth; // Trigger reflow
-        tBtn.classList.add('tasbeeh-click-active'); // Add disco animation
+        tBtn.classList.remove('tasbeeh-click-active'); 
+        void tBtn.offsetWidth; // Refresh animation
+        tBtn.classList.add('tasbeeh-click-active');
     }
     
     function resetCount() { counter = 0; document.getElementById('tDigit').innerText = 0; localStorage.setItem('tCount', 0); }
@@ -278,30 +218,26 @@
     function toggleTasbeeh(show) { 
         const overlay = document.getElementById('tasbeehOverlay');
         if(show) {
-            overlay.classList.add('show-overlay'); // Changed from display:flex to class toggle
+            overlay.style.display = 'flex';
+            // Animation Reset
             const cards = overlay.querySelectorAll('.animated-card, .animated-ad');
-            cards.forEach(card => {
-                card.style.animation = 'none';
-                card.offsetHeight;
-                card.style.animation = null; 
-            });
+            cards.forEach(c => { c.style.animation = 'none'; c.offsetHeight; c.style.animation = null; });
+            
+            // Box open hone ke theek baad Ad call karna (Zero Size error fix)
+            setTimeout(() => { injectAd('tasbeeh-ad-box'); }, 200);
         } else {
-            overlay.classList.remove('show-overlay');
+            overlay.style.display = 'none';
         }
     }
 
-    // Quran Logic
+    // --- QURAN PLAYER LOGIC ---
     const links = ["2qpLHGY","2qnS2Ha","2sbSqoq","2r6TOeq","2qzzsYk","2qI4EE2","2rW88HS","2qK0aO4","2rBqzB0","2s3dkdd","2so5po5","2rzgVP9","2rSIJ1l","2sk5Lid","2rKJHw3","2sMTr7y","2r9opp2","2rpK4c8","2rpq1iW","2rAX4Mc","2rBv2Aa","2sbmkft","2rtPXpH","2sfUCOE","2smfZxF","2tLUEvC","2tru5wz","2rXeW98","2s5NLEk","2s1BBB4"];
     const grid = document.getElementById('mainGrid');
 
     links.forEach((code, i) => {
         const div = document.createElement('div');
         div.className = 'card';
-        div.innerHTML = `
-            <div class="card-sub">PARA</div>
-            <div class="card-title">Number ${i+1}</div>
-            <div class="card-num">${i+1}</div>
-        `;
+        div.innerHTML = `<div class="card-sub">PARA</div><div class="card-title">Number ${i+1}</div><div class="card-num">${i+1}</div>`;
         div.onclick = () => playPara(i + 1, code);
         grid.appendChild(div);
     });
@@ -318,21 +254,20 @@
         audioEl.src = 'https://bit.ly/' + code;
         
         const overlay = document.getElementById('playerOverlay');
-        overlay.classList.add('show-overlay'); // Changed from display:flex to class toggle
+        overlay.style.display = 'flex';
         
         const cards = overlay.querySelectorAll('.animated-card, .animated-ad');
-        cards.forEach(card => {
-            card.style.animation = 'none';
-            card.offsetHeight;
-            card.style.animation = null; 
-        });
+        cards.forEach(c => { c.style.animation = 'none'; c.offsetHeight; c.style.animation = null; });
 
+        // Box open hone ke theek baad Ad call karna (Zero Size error fix)
+        setTimeout(() => { injectAd('player-ad-box'); }, 200);
+        
         audioEl.play();
     }
 
     function closePlayer() {
         audioEl.pause();
-        document.getElementById('playerOverlay').classList.remove('show-overlay');
+        document.getElementById('playerOverlay').style.display = 'none';
     }
 
     function shareApp() {
