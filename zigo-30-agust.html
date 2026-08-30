@@ -1,0 +1,388 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1324">
+    <title>Zigo Partner App - Drive More, Earn More in Hyderabad</title>
+    <meta name="description" content="Join Zigo Partner App in Hyderabad. 0% Commission, highest earnings, and trusted by 5000+ drivers. Download the Zigo Cab driver app today!">
+    
+    <!-- Google Fonts for Professional Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Google AdSense Main Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0b1324;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ================= HEADER & HERO ================= */
+        header {
+            text-align: center;
+            padding: 30px 0 10px;
+        }
+
+        .logo-text {
+            font-size: 42px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span.white { color: #ffffff; }
+        .logo-text span.gold { color: #facc15; }
+
+        .tagline {
+            font-size: 15px;
+            color: #94a3b8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 15px;
+            background: radial-gradient(circle at center, #1e293b, #0b1324);
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .trust-badge {
+            display: inline-block;
+            background: #1e293b;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #facc15;
+            border: 1px solid #334155;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* ================= ANIMATIONS & BUTTON ================= */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .click-pointer {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            margin: 10px 0 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: bounce 1.2s infinite ease-in-out;
+        }
+
+        .click-pointer span {
+            color: #facc15;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(250, 204, 21, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+        }
+
+        /* Shine effect running across the button */
+        @keyframes shine {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .play-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #facc15, #eab308, #f59e0b);
+            color: #000;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 30px;
+            border-radius: 12px;
+            font-weight: 800;
+            font-size: 19px;
+            width: 100%;
+            max-width: 320px;
+            border: none;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            margin: 0 auto;
+        }
+
+        .play-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; 
+            left: -100%; 
+            width: 50%; 
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 3s infinite;
+        }
+
+        .play-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-2px);
+        }
+
+        .play-btn:active {
+            transform: scale(0.95);
+        }
+
+        .play-btn svg {
+            width: 26px;
+            height: 26px;
+            margin-right: 12px;
+            z-index: 1; /* Keep icon above shine */
+        }
+        
+        .play-btn span {
+            z-index: 1; /* Keep text above shine */
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        /* ================= ADVERTISEMENT WRAPPER ================= */
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            background: #131c31;
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow-x: auto;
+            border: 1px dashed #334155;
+            min-height: 114px; 
+        }
+
+        .ad-label {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* ================= FEATURE CARDS ================= */
+        .card {
+            background: linear-gradient(145deg, #131c31, #0f172a);
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #facc15;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #facc15;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        /* ================= SEO ARTICLE SECTION ================= */
+        .article-content {
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 10px;
+            border: 1px solid #1e293b;
+        }
+
+        .article-content h3 {
+            color: #facc15;
+            font-size: 20px;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .article-content h3:first-child { margin-top: 0; }
+        
+        .article-content p {
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .article-content ul {
+            margin-left: 20px;
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 20px;
+            border-top: 1px solid #1e293b;
+            font-size: 12px;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            color: #facc15;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <div class="logo-text">
+                <span class="white">ZIGO</span><span class="gold">PARTNER</span>
+            </div>
+            <div class="tagline">Drive More. Earn More.</div>
+        </header>
+
+        <!-- TOP HERO & INSTANT DOWNLOAD SECTION -->
+        <div class="hero-section">
+            <div class="trust-badge">★★★★★ Trusted by 5,000+ Drivers</div>
+            
+            <div class="click-pointer">👇 <span>Click Here To Download</span> 👇</div>
+            
+            <!-- Standard Anchor Tag for Instant Redirect -->
+            <a href="https://play.google.com/store/apps/details?id=com.zigo.partner" class="play-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M4 2.69127C4 1.93067 4.81547 1.44851 5.48192 1.81506L22.4069 11.1238C23.0977 11.5037 23.0977 12.4963 22.4069 12.8762L5.48192 22.1849C4.81546 22.5515 4 22.0693 4 21.3087V2.69127Z"/>
+                </svg>
+                <span>GET IT ON<br>GOOGLE PLAY</span>
+            </a>
+        </div>
+
+        <!-- TOP AD SENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- Ms -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- FEATURE CARDS -->
+        <div class="card">
+            <div class="card-icon">💰</div>
+            <h2>0% Commission</h2>
+            <p>Whatever the customer pays, goes directly into your pocket. <strong>No cuts, no hidden fees!</strong> Keep 100% of your hard-earned money.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">⭐</div>
+            <h2>Hyderabad's Best</h2>
+            <p>Proudly designed for our local drivers with a seamless, high-earning booking experience. Drive in your city with pride and respect.</p>
+        </div>
+
+        <!-- MIDDLE AD SENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <!-- Ms -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- SEO ARTICLE FOR ADSENSE COMPLIANCE -->
+        <article class="article-content">
+            <h3>Why Join the Zigo Cab Network?</h3>
+            <p>The ride-hailing industry is growing rapidly, but drivers often struggle with high commission rates taken by aggregators. <strong>Zigo Partner App</strong> changes the game completely. We believe that the driver who owns the car and burns the fuel deserves the full reward. That is why we operate on a strict Zero Commission model.</p>
+            
+            <h3>Benefits of Driving with Zigo</h3>
+            <ul>
+                <li><strong>Direct Payments:</strong> Customers pay you directly via UPI or Cash. We do not hold your money in virtual wallets.</li>
+                <li><strong>Flexible Working Hours:</strong> You are your own boss. Log in and log out whenever you want.</li>
+                <li><strong>High Volume Bookings:</strong> With our growing customer base in Hyderabad, you will experience back-to-back booking requests.</li>
+                <li><strong>Local Support:</strong> Designed by locals, for locals. Our support team understands the routes and challenges of Hyderabad perfectly.</li>
+            </ul>
+        </article>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms & Conditions</a> | 
+                <a href="#">Contact Us</a>
+            </div>
+            BY MUSTAQEEM • ZIGO CAB
+        </footer>
+
+    </div>
+
+</body>
+</html>
