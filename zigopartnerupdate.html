@@ -1,0 +1,172 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZIGO PARTNER | Important Notification</title>
+    
+    <!-- Zigo Required Libraries -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        body { 
+            background: radial-gradient(circle at 50% 0%, #1e293b 0%, #05070a 70%); 
+            color: white; 
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif; 
+            min-height: 100vh;
+            margin: 0;
+            padding-bottom: 40px;
+        }
+        .brand-logo { font-size: 2.5rem; font-weight: 900; font-style: italic; text-transform: uppercase; text-align: center; margin-top: 25px; letter-spacing: -1px; text-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        .brand-logo span { color: #facc15; font-weight: 300; }
+        .premium-card { 
+            background: rgba(15, 23, 42, 0.75); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(250, 204, 21, 0.25); 
+            border-radius: 30px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.9), inset 0 0 0 1px rgba(255,255,255,0.05); 
+        }
+        .ad-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col items-center justify-start p-5 relative overflow-x-hidden">
+
+    <!-- Header Logo -->
+    <div class="brand-logo mb-6">ZIGO<span>CAB</span></div>
+
+    <!-- Main Content Container -->
+    <div class="premium-card w-full max-w-lg p-6 md:p-8 relative overflow-hidden">
+        
+        <!-- Background Glow -->
+        <div class="absolute -top-20 -right-20 w-40 h-40 bg-yellow-400/10 rounded-full blur-[50px] pointer-events-none"></div>
+
+        <!-- Top Badge & Icon -->
+        <div class="text-center mb-6 relative z-10">
+            <div class="w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-amber-600/10 border border-yellow-400/40 rounded-2xl flex items-center justify-center mx-auto mb-4 text-3xl shadow-[0_0_25px_rgba(250,204,21,0.15)]">
+                📢
+            </div>
+            <span class="inline-block bg-gradient-to-r from-yellow-400 to-yellow-500 text-black text-[10px] font-black uppercase tracking-[0.2em] px-4 py-1.5 rounded-full shadow-lg">
+                Official Partner Update
+            </span>
+        </div>
+
+        <!-- Language Toggle Buttons -->
+        <div class="flex gap-3 mb-8 relative z-10 bg-black/40 p-1.5 rounded-2xl border border-white/5">
+            <button id="btn-hi" onclick="switchLanguage('hi')" class="flex-1 py-2.5 bg-yellow-400 text-black font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all">
+                Roman Hindi
+            </button>
+            <button id="btn-te" onclick="switchLanguage('te')" class="flex-1 py-2.5 bg-transparent text-gray-400 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all">
+                తెలుగు
+            </button>
+        </div>
+
+        <!-- ROMAN HINDI BLOG CONTENT -->
+        <div id="content-hi" class="relative z-10 animate-fade-in">
+            <h2 class="text-xl font-black text-yellow-400 mb-4 leading-snug tracking-wide border-b border-white/10 pb-4">
+                Zigo Partner Par Bookings Kam Kyun Hain? Janiye Asli Wajah Aur Bada Fayda.
+            </h2>
+            
+            <div class="space-y-4 text-gray-300 text-sm leading-relaxed font-medium">
+                <p>
+                    Zigo parivar mein aapka swagat hai! Hum jante hain ki kaafi partners ye soch rahe hain ki abhi ride requests thodi kam kyun aa rahi hain. Hum aapke sath 100% transparency rakhna chahte hain.
+                </p>
+                <p>
+                    Zigo ek bilkul <b class="text-white">naya aur modern platform</b> hai. Kisi bhi naye business ki tarah, shuruwat mein customers ko platform par laane mein thoda waqt lagta hai. Lekin hamari marketing team lagaatar bade campaigns chala rahi hai taaki aapko din bhar non-stop bookings mil sakein.
+                </p>
+                <div class="bg-black/50 border border-green-500/30 p-4 rounded-2xl my-5 shadow-inner">
+                    <h3 class="text-green-400 font-black text-base uppercase mb-2"><i class="fa fa-sack-dollar mr-1"></i> Sabse Bada Fayda Aapka Hai!</h3>
+                    <p class="text-xs text-gray-300">
+                        Market ki dusri badi companiyan aapki mehnat ki kamai ka 30% se 40% hissa commission ke naam par kaat leti hain. Lekin Zigo specifically drivers ke fayde ke liye banaya gaya hai. 
+                        <br><br>
+                        Hum aapse <b class="text-white">0% Commission</b> lete hain! Aapko sirf ek baar <b class="text-yellow-400">₹49 ID Activation Fee</b> deni hoti hai. Customer se milne wala 100% paisa direct aapki jeb mein jayega.
+                    </p>
+                </div>
+                <p>
+                    Thoda sabar rakhein aur apni duty ko ON rakhein. Jo partners is shuruwati daur mein Zigo ke sath jude rahenge, unhe aage chal kar sabse zyada fayda hone wala hai. 100% kamai aapki, kyunki Zigo driver ka apna app hai!
+                </p>
+            </div>
+        </div>
+
+        <!-- TELUGU BLOG CONTENT (Hidden by default) -->
+        <div id="content-te" class="hidden relative z-10 animate-fade-in">
+            <h2 class="text-xl font-black text-yellow-400 mb-4 leading-snug tracking-wide border-b border-white/10 pb-4">
+                Zigo Partner లో బుకింగ్స్ ఎందుకు తక్కువగా వస్తున్నాయి? అసలు కారణం మరియు మీ లాభం తెలుసుకోండి.
+            </h2>
+            
+            <div class="space-y-4 text-gray-300 text-sm leading-relaxed font-medium">
+                <p>
+                    జిగో కుటుంబంలోకి మీకు స్వాగతం! ప్రస్తుతం రైడ్ రిక్వెస్ట్‌లు ఎందుకు తక్కువగా ఉన్నాయని చాలా మంది భాగస్వాములు ఆలోచిస్తున్నారని మాకు తెలుసు. మేము మీతో 100% పారదర్శకతతో ఉండాలనుకుంటున్నాము.
+                </p>
+                <p>
+                    Zigo అనేది బ్రాండ్ న్యూ మరియు అధునాతన ప్లాట్‌ఫాం. ఏదైనా కొత్త వ్యాపారం లాగానే, కస్టమర్లను ప్లాట్‌ఫారమ్‌కి తీసుకురావడానికి ప్రారంభంలో కొంత సమయం పడుతుంది. కానీ మీకు రోజంతా నాన్‌స్టాప్ బుకింగ్‌లు అందించడానికి మా మార్కెటింగ్ బృందం నిరంతరం ప్రచారాలు చేస్తోంది.
+                </p>
+                <div class="bg-black/50 border border-green-500/30 p-4 rounded-2xl my-5 shadow-inner">
+                    <h3 class="text-green-400 font-black text-base uppercase mb-2"><i class="fa fa-sack-dollar mr-1"></i> అతిపెద్ద ప్రయోజనం మీదే!</h3>
+                    <p class="text-xs text-gray-300">
+                        మార్కెట్‌లోని ఇతర పెద్ద కంపెనీలు కమీషన్ పేరుతో మీరు కష్టపడి సంపాదించిన డబ్బులో 30% నుండి 40% కట్ చేసుకుంటాయి. కానీ Zigo ప్రత్యేకంగా డ్రైవర్ల ప్రయోజనం కోసం రూపొందించబడింది.
+                        <br><br>
+                        మేము మీ నుండి ఖచ్చితంగా <b class="text-white">0% కమీషన్</b> తీసుకుంటాము! మీరు కేవలం ఒకసారి <b class="text-yellow-400">₹49 ID యాక్టివేషన్ ఫీజు</b> మాత్రమే చెల్లించాలి. కస్టమర్ ఇచ్చే 100% డబ్బు నేరుగా మీ జేబులోకే వెళుతుంది.
+                    </p>
+                </div>
+                <p>
+                    కొంచెం ఓపికపట్టి మీ డ్యూటీని ON లో ఉంచండి. ఈ ప్రారంభ దశలో Zigo తో ఉండే భాగస్వాములు భవిష్యత్తులో అత్యధిక లాభాలను పొందుతారు. 100% సంపాదన మీదే, ఎందుకంటే Zigo డ్రైవర్ల సొంత యాప్!
+                </p>
+            </div>
+        </div>
+
+        <hr class="border-white/5 my-8">
+
+        <!-- STRICTLY COMPLIANT ADSENSE SECTION -->
+        <div class="ad-box p-3 relative z-10 w-full overflow-hidden">
+            <div class="flex items-center justify-between mb-3 border-b border-white/5 pb-2">
+                <span class="text-[9px] text-gray-500 font-bold uppercase tracking-[0.2em]"><i class="fa fa-ad mr-1"></i> Sponsored</span>
+                <span class="text-[8px] text-gray-600 font-bold uppercase">Advertisement</span>
+            </div>
+            
+            <!-- User Provided AdSense Code -->
+            <div style="width: 100%; min-height: 250px; display: flex; justify-content: center; align-items: center;">
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+                <!-- Ads2 -->
+                <ins class="adsbygoogle"
+                     style="display:block; width: 100%;"
+                     data-ad-client="ca-pub-1874063367142441"
+                     data-ad-slot="5526373007"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        
+    </div>
+
+    <!-- Script for Language Toggle -->
+    <script>
+        function switchLanguage(lang) {
+            // Toggle Content Visibility
+            document.getElementById('content-hi').classList.toggle('hidden', lang !== 'hi');
+            document.getElementById('content-te').classList.toggle('hidden', lang !== 'te');
+            
+            // Toggle Button Styling
+            const btnHi = document.getElementById('btn-hi');
+            const btnTe = document.getElementById('btn-te');
+            
+            if (lang === 'hi') {
+                btnHi.className = "flex-1 py-2.5 bg-yellow-400 text-black font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all";
+                btnTe.className = "flex-1 py-2.5 bg-transparent text-gray-400 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all";
+            } else {
+                btnTe.className = "flex-1 py-2.5 bg-yellow-400 text-black font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-all";
+                btnHi.className = "flex-1 py-2.5 bg-transparent text-gray-400 hover:text-white font-bold text-xs uppercase tracking-wider rounded-xl transition-all";
+            }
+        }
+    </script>
+
+</body>
+</html>
