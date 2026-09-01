@@ -3,174 +3,315 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1324">
     <title>About & Privacy Policy | ZIGO PARTNER</title>
     
-    <!-- Google AdSense Auto Ads Script (Sirf ek baar Head mein) -->
+    <!-- Google Fonts for Professional Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Google AdSense Main Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9fafb;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-        .header {
-            background-color: #111827;
-            color: #facc15;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 24px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+
+        body {
+            background-color: #0b1324;
+            color: #ffffff;
+            line-height: 1.6;
         }
+
         .container {
             max-width: 800px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e5e7eb;
+            margin: 0 auto;
+            padding: 20px;
         }
-        h1 {
-            color: #111827;
-            font-size: 26px;
-            font-weight: 800;
-            border-bottom: 3px solid #facc15;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            margin-top: 40px;
-        }
-        h2 {
-            color: #1f2937;
-            font-size: 18px;
-            font-weight: 700;
-            margin-top: 30px;
-            margin-bottom: 12px;
-        }
-        p, li {
-            font-size: 15px;
-            color: #4b5563;
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        .highlight {
-            background-color: #fef9c3;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #854d0e;
-        }
-        .ad-container {
-            margin: 30px 0;
+
+        /* ================= HEADER ================= */
+        header {
             text-align: center;
-            background: #f3f4f6;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px dashed #d1d5db;
+            padding: 30px 0 10px;
         }
-        .ad-label {
-            font-size: 10px;
-            color: #9ca3af;
+
+        .logo-text {
+            font-size: 38px;
+            font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 5px;
-            display: block;
         }
-        .footer {
-            margin-top: 40px;
-            text-align: center;
+
+        .logo-text span.white { color: #ffffff; }
+        .logo-text span.gold { color: #facc15; }
+
+        .tagline {
+            font-size: 14px;
+            color: #94a3b8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        /* ================= NOTICE & BADGES ================= */
+        .trust-badge {
+            display: inline-block;
+            background: #1e293b;
+            padding: 6px 15px;
+            border-radius: 20px;
             font-size: 13px;
-            color: #9ca3af;
-            border-top: 1px solid #e5e7eb;
-            padding-top: 20px;
+            color: #facc15;
+            border: 1px solid #334155;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .notice-box {
+            background: rgba(250, 204, 21, 0.08);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #e2e8f0;
+        }
+
+        .notice-box strong.title {
+            color: #facc15;
+            display: block;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .notice-box ul {
+            padding-left: 20px;
+            margin-top: 8px;
+        }
+
+        .notice-box li {
+            margin-bottom: 8px;
+            color: #cbd5e1;
+        }
+
+        .highlight-alert {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid #facc15;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 15px 0;
+            color: #fef08a;
+            font-size: 14px;
+        }
+
+        /* ================= CARDS & CONTENT ================= */
+        .card {
+            background: linear-gradient(145deg, #131c31, #0f172a);
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #facc15;
+        }
+
+        .card h1 {
+            font-size: 24px;
+            color: #facc15;
+            margin-bottom: 12px;
+            font-weight: 800;
+        }
+
+        .card h2 {
+            font-size: 18px;
+            color: #facc15;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 12px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .card li {
+            font-size: 14px;
+            color: #cbd5e1;
+            margin-bottom: 8px;
+        }
+
+        .card li strong {
+            color: #ffffff;
+        }
+
+        /* ================= ADVERTISEMENT WRAPPER ================= */
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            background: #131c31;
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow-x: auto;
+            border: 1px dashed #334155;
+            min-height: 100px;
+        }
+
+        .ad-label {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 20px;
+            border-top: 1px solid #1e293b;
+            font-size: 12px;
+            color: #64748b;
+            letter-spacing: 1px;
         }
     </style>
 </head>
 <body>
 
-<div class="header">
-    ZIGO CAB PARTNER
-</div>
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <div class="logo-text">
+                <span class="white">ZIGO</span> <span class="gold">PARTNER</span>
+            </div>
+            <div class="tagline">Official Partner Portal & Legal Disclosures</div>
+        </header>
 
-<div class="container">
-    
-    <!-- APP DESCRIPTION SECTION -->
-    <h1>About ZIGO Partner</h1>
-    <p><strong>ZIGO Partner – Driver App & Ride Coordination</strong></p>
-    <p>ZIGO Partner is a lightweight, zero-commission driver app designed to help drivers easily connect with nearby customers for seamless ride coordination.</p>
-    <p>The app is built to provide a simple, efficient, and transparent experience. Receive nearby ride requests, view exact pickup and drop-off locations, and manage your daily trips smoothly—all while keeping 100% of your earnings.</p>
-    
-    <h2>Key Features:</h2>
-    <ul>
-        <li><strong>Easy Access:</strong> Quick and secure login using your mobile number.</li>
-        <li><strong>Nearby Rides:</strong> Instantly receive ride requests from customers around you.</li>
-        <li><strong>Clear Navigation:</strong> View pickup and drop-off locations clearly before accepting a ride.</li>
-        <li><strong>Flexible Work:</strong> Toggle your status Online or Offline anytime—be your own boss.</li>
-        <li><strong>Simple UI:</strong> A clean, easy-to-use interface designed specifically for drivers.</li>
-        <li><strong>Optimised Performance:</strong> Built to consume very low mobile data and battery power.</li>
-    </ul>
+        <!-- TOP AD SENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="5526373007"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
 
-    <p>ZIGO Partner is the perfect solution for drivers seeking a straightforward, minimal app to coordinate rides without heavy commission cuts.</p>
+        <!-- ABOUT SECTION -->
+        <div class="card">
+            <div class="card-icon">🚖</div>
+            <h1>About ZIGO Partner</h1>
+            <p><strong>ZIGO Partner – Driver App & Ride Coordination</strong></p>
+            <p>ZIGO Partner is a lightweight, zero-commission driver app designed to help drivers easily connect with nearby customers for seamless ride coordination.</p>
+            <p>The app is built to provide a simple, efficient, and transparent experience. Receive nearby ride requests, view exact pickup and drop-off locations, and manage your daily trips smoothly—all while keeping 100% of your earnings.</p>
+            
+            <h2>Key Features</h2>
+            <ul>
+                <li><strong>Easy Access:</strong> Quick and secure login using your mobile number.</li>
+                <li><strong>Nearby Rides:</strong> Instantly receive ride requests from customers around you.</li>
+                <li><strong>Clear Navigation:</strong> View pickup and drop-off locations clearly before accepting a ride.</li>
+                <li><strong>Flexible Work:</strong> Toggle your status Online or Offline anytime—be your own boss.</li>
+                <li><strong>Simple UI:</strong> A clean, easy-to-use interface designed specifically for drivers.</li>
+                <li><strong>Optimised Performance:</strong> Built to consume very low mobile data and battery power.</li>
+            </ul>
 
-    <!-- MANUAL AD UNIT PLACEMENT -->
-    <div class="ad-container">
-        <span class="ad-label">Advertisement</span>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="5526373007"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+            <p>ZIGO Partner is the perfect solution for drivers seeking a straightforward, minimal app to coordinate rides without heavy commission cuts.</p>
+        </div>
+
+        <!-- MIDDLE AD SENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- PRIVACY POLICY & TERMS -->
+        <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h1>Privacy Policy & Terms</h1>
+            <p><strong>Effective Date:</strong> June 28, 2026</p>
+            <p>Welcome to <strong>ZIGO PARTNER</strong> (operated under ZIGO CAB). We are committed to protecting the privacy and personal data of our delivery and driver partners. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application and partner portal.</p>
+
+            <h2>1. Information We Collect</h2>
+            <p>To provide core ride-hailing services, verification, and identity management, we collect the following personal and sensitive data from our partners during registration and app usage:</p>
+            <ul>
+                <li><strong>Personal Identity Information:</strong> Full Name, Profile Image, and Date of Birth (DOB) for statutory verification.</li>
+                <li><strong>Contact Information:</strong> Active WhatsApp/Mobile Number for account login, communications, and emergency verification alerts.</li>
+                <li><strong>Vehicle Details:</strong> Vehicle Type (Car, Auto, or Bike) and Vehicle Registration Number to accurately map requests.</li>
+                <li><strong>Government-Issued Documents:</strong> Driving License (DL) Number and clear photo uploads of your Driving License for verification.</li>
+                <li><strong>Financial Data:</strong> Transaction records and payment confirmation IDs tied to Razorpay and Cashfree gateway platforms.</li>
+            </ul>
+
+            <h2>2. Background Location Access (Critical Disclosure)</h2>
+            <div class="highlight-alert">
+                ⚠️ <strong>ZIGO PARTNER collects real-time location data, including background location coordinates</strong>, even when the application is closed or not explicitly in use. This background location collection begins immediately when a partner toggles their status to <strong>"ON DUTY"</strong>.
+            </div>
+            
+            <p><strong>Why we track Background Location:</strong></p>
+            <ul>
+                <li>To dynamically calculate the physical distance between you and the customer's pickup zone.</li>
+                <li>To live-track and animate your route line on the map structure during active trips.</li>
+                <li>To enable structural automated SOS tracking updates for high-alert safety protocols.</li>
+            </ul>
+            <p>Background location access automatically pauses or stops tracking the moment you toggle your device status back to <strong>"OFF DUTY"</strong>.</p>
+        </div>
+
+        <!-- IMPORTANT TERMS NOTICE BOX -->
+        <div class="notice-box">
+            <strong class="title">⚡ 3. Important Information & Terms</strong>
+            <ul>
+                <li><strong>Platform Activation Fee:</strong> To cover digital account setup, server hosting, and map validation services, a nominal Platform Activation Fee of ₹49 is required.</li>
+                <li><strong>Strictly Non-Refundable:</strong> Once the payment is processed and your partner account is activated, this subscription fee is strictly non-refundable under any circumstances.</li>
+                <li><strong>Booking Volume Notice:</strong> ZIGO is a newly launched, fast-growing platform. The activation fee provides access to the platform but does not guarantee immediate or high-volume ride bookings.</li>
+            </ul>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            &copy; 2026 ZIGO CAB | BY MUSTAQEEM • Designed for Secure Operational Excellence.
+        </footer>
+
     </div>
-
-    <!-- PRIVACY POLICY SECTION -->
-    <h1>Privacy Policy & Terms</h1>
-    <p><strong>Effective Date:</strong> June 28, 2026[span_0](start_span)[span_0](end_span)</p>
-    <p>Welcome to <strong>ZIGO PARTNER</strong> (operated under ZIGO CAB). We are committed to protecting the privacy and personal data of our delivery and driver partners. This Privacy Policy explains how we collect, use, and safeguard your information when you use our mobile application and partner portal.[span_1](start_span)[span_1](end_span)</p>
-
-    <h2>1. Information We Collect</h2>
-    <p>To provide core ride-hailing services, verification, and identity management, we collect the following personal and sensitive data from our partners during registration and app usage:[span_2](start_span)[span_2](end_span)</p>
-    <ul>
-        <li><strong>Personal Identity Information:</strong> Full Name, Profile Image, and Date of Birth (DOB) for statutory verification.[span_3](start_span)[span_3](end_span)</li>
-        <li><strong>Contact Information:</strong> Active WhatsApp/Mobile Number for account login, communications, and emergency verification alerts.[span_4](start_span)[span_4](end_span)</li>
-        <li><strong>Vehicle Details:</strong> Vehicle Type (Car, Auto, or Bike) and Vehicle Registration Number to accurately map requests.[span_5](start_span)[span_5](end_span)</li>
-        <li><strong>Government-Issued Documents:</strong> Driving License (DL) Number and clear photo uploads of your Driving License for verification.[span_6](start_span)[span_6](end_span)</li>
-        <li><strong>Financial Data:</strong> Transaction records and payment confirmation IDs tied to Razorpay and Cashfree gateway platforms.[span_7](start_span)[span_7](end_span)</li>
-    </ul>
-
-    <h2>2. Background Location Access (Critical Disclosure)</h2>
-    <p><span class="highlight">ZIGO PARTNER collects real-time location data, including background location coordinates</span>, even when the application is closed or not explicitly in use. This background location collection begins immediately when a partner toggles their status to <strong>"ON DUTY"</strong>.[span_8](start_span)[span_8](end_span)</p>
-    <p><strong>Why we track Background Location:</strong>[span_9](start_span)[span_9](end_span)</p>
-    <ul>
-        <li>To dynamically calculate the physical distance between you and the customer's pickup zone.[span_10](start_span)[span_10](end_span)</li>
-        <li>To live-track and animate your route line on the map structure during active trips.[span_11](start_span)[span_11](end_span)</li>
-        <li>To enable structural automated SOS tracking updates for high-alert safety protocols.[span_12](start_span)[span_12](end_span)</li>
-    </ul>
-    <p>Background location access automatically pauses or stops tracking the moment you toggle your device status back to <strong>"OFF DUTY"</strong>.[span_13](start_span)[span_13](end_span)</p>
-
-    <h2>3. Important Information & Terms</h2>
-    <ul>
-        <li><strong>Platform Activation Fee:</strong> To cover digital account setup, server hosting, and map validation services, a nominal Platform Activation Fee of ₹49 is required.</li>
-        <li><strong>Strictly Non-Refundable:</strong> Once the payment is processed and your partner account is activated, this subscription fee is strictly non-refundable under any circumstances.</li>
-        <li><strong>Booking Volume Notice:</strong> ZIGO is a newly launched, fast-growing platform. The activation fee provides access to the platform but does not guarantee immediate or high-volume ride bookings.</li>
-    </ul>
-
-    <div class="footer">
-        &copy; 2026 ZIGO CAB | Designed for Secure Operational Excellence.[span_14](start_span)[span_14](end_span)
-    </div>
-</div>
 
 </body>
 </html>
