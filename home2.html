@@ -3,827 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zigo Premium Shayari Generator</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts for All Languages -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;700&family=Poppins:wght@400;600;800&family=Noto+Sans+Devanagari:wght@400;700&family=Noto+Sans+Telugu:wght@400;700&display=swap" rel="stylesheet">
-    <!-- html2canvas for Download Feature -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- Razorpay Checkout SDK -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <title>ᗰᑌᔕTᗩᑫEEᗰ HYD - Premium News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
     
-    <!-- Firebase Integration -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
-        import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAdRqz_iigIksNKwS2zNMGkJJ_AtM1eLB0",
-            authDomain: "shayari-pe-photo.firebaseapp.com",
-            projectId: "shayari-pe-photo",
-            storageBucket: "shayari-pe-photo.firebasestorage.app",
-            messagingSenderId: "231726049362",
-            appId: "1:231726049362:web:88434c342addb6a1c7578b",
-            measurementId: "G-F0J04KTK1G",
-            databaseURL: "https://shayari-pe-photo-default-rtdb.firebaseio.com"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-        const db = getDatabase(app);
-
-        window.firebaseDb = db;
-        window.firebaseRef = ref;
-        window.firebaseSet = set;
-        window.firebaseGet = get;
-        window.firebaseChild = child;
-        window.firebaseOnValue = onValue; 
-    </script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
 
     <style>
-        body { background-color: #05070a; color: white; font-family: 'Poppins', sans-serif; min-height: 100vh; overflow-x: hidden; }
-        
-        /* Typography */
-        .urdu-font { font-family: 'Noto Nastaliq Urdu', serif; direction: rtl; line-height: 2.2; }
-        .hindi-font { font-family: 'Noto Sans Devanagari', sans-serif; }
-        .telugu-font { font-family: 'Noto Sans Telugu', sans-serif; }
-        .eng-font { font-family: 'Poppins', sans-serif; }
-        
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255,255,255,0.05);
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-        }
-        
-        .btn-premium {
-            background: linear-gradient(135deg, #facc15, #d4af37);
-            color: black; font-weight: 900; transition: all 0.3s ease; text-transform: uppercase;
-        }
-        .btn-premium:active { transform: scale(0.96); box-shadow: 0 5px 15px rgba(250, 204, 21, 0.4); }
-
-        /* ================= FRAME STYLES ================= */
-        #final-card { position: relative; transition: all 0.3s ease; }
-        #final-card::before {
-            content: ''; position: absolute; inset: 0;
-            background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
-            opacity: 0.1; mix-blend-mode: overlay;
-        }
-
-        .frame-1 { background: radial-gradient(circle at top, #1e293b, #000000); border-color: rgba(250, 204, 21, 0.5); box-shadow: 0 0 30px rgba(250,204,21,0.15); }
-        .frame-1 .profile-ring { border-color: #facc15; box-shadow: 0 0 20px rgba(250,204,21,0.5); }
-        .frame-1 .quote-icon { color: rgba(250,204,21,0.2); }
-        .frame-1 .name-badge { border-color: #facc15; color: #facc15; background: rgba(0,0,0,0.8); }
-        .frame-1 .text-color { color: #ffffff; }
-
-        .frame-2 { background: radial-gradient(circle at top, #450a0a, #000000); border-color: rgba(248, 113, 113, 0.5); box-shadow: 0 0 30px rgba(248,113,113,0.15); }
-        .frame-2 .profile-ring { border-color: #e5e7eb; box-shadow: 0 0 20px rgba(229,231,235,0.5); }
-        .frame-2 .quote-icon { color: rgba(248,113,113,0.2); }
-        .frame-2 .name-badge { border-color: #e5e7eb; color: #e5e7eb; background: rgba(0,0,0,0.8); }
-        .frame-2 .text-color { color: #fecaca; }
-
-        .frame-3 { background: radial-gradient(circle at top, #064e3b, #022c22); border-color: rgba(52, 211, 153, 0.5); box-shadow: 0 0 30px rgba(52,211,153,0.15); }
-        .frame-3 .profile-ring { border-color: #fcd34d; box-shadow: 0 0 20px rgba(252,211,77,0.5); }
-        .frame-3 .quote-icon { color: rgba(52,211,153,0.2); }
-        .frame-3 .name-badge { border-color: #fcd34d; color: #fcd34d; background: rgba(0,0,0,0.8); }
-        .frame-3 .text-color { color: #ffffff; }
-
-        .frame-4 { background: radial-gradient(circle at top, #1e3a8a, #020617); border-color: rgba(56, 189, 248, 0.5); box-shadow: 0 0 30px rgba(56,189,248,0.15); }
-        .frame-4 .profile-ring { border-color: #38bdf8; box-shadow: 0 0 20px rgba(56,189,248,0.5); }
-        .frame-4 .quote-icon { color: rgba(56,189,248,0.2); }
-        .frame-4 .name-badge { border-color: #38bdf8; color: #38bdf8; background: rgba(0,0,0,0.8); }
-        .frame-4 .text-color { color: #e0f2fe; }
-
-        .frame-5 { background: radial-gradient(circle at top, #ffffff, #e2e8f0); border-color: rgba(0, 0, 0, 0.2); box-shadow: 0 0 30px rgba(0,0,0,0.1); }
-        .frame-5 .profile-ring { border-color: #0f172a; box-shadow: 0 0 20px rgba(0,0,0,0.2); }
-        .frame-5 .quote-icon { color: rgba(0,0,0,0.1); }
-        .frame-5 .name-badge { border-color: #0f172a; color: #ffffff; background: #0f172a; }
-        .frame-5 .text-color { color: #0f172a; }
-
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #facc15; border-radius: 10px; }
-        
-        .fade-img { animation: fadeInOut 3s infinite; }
-        @keyframes fadeInOut { 0% {opacity: 0.7;} 50% {opacity: 1;} 100% {opacity: 0.7;} }
-
-        /* Menu Dropdown */
-        #dropdown-menu { display: none; }
-        #dropdown-menu.active { display: block; }
-        
-        /* Custom Modal Animations */
-        .modal-enter { animation: modalFadeIn 0.3s ease-out forwards; }
-        @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-
-        /* Pay Button Strong Animation */
-        .pay-btn-animate {
-            animation: pulse-shadow 2s infinite;
-        }
-
-        @keyframes pulse-shadow {
-            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); transform: scale(1); }
-            50% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); transform: scale(1.02); }
-            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); transform: scale(1); }
-        }
-    </style>
-</head>
-<body class="p-4 flex flex-col items-center justify-start py-8">
-
-    <!-- Custom Toast Notification -->
-    <div id="custom-toast" class="fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-[150] font-bold text-sm transition-all hidden w-max">
-        <span id="toast-msg"></span>
-    </div>
-
-    <!-- Custom Professional Modal -->
-    <div id="custom-modal" class="fixed inset-0 bg-black/80 z-[200] hidden flex items-center justify-center p-4 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-slate-700 rounded-[25px] p-6 w-full max-w-sm text-center shadow-[0_10px_40px_rgba(0,0,0,0.8)] modal-enter relative overflow-hidden">
-            <div class="absolute top-0 left-0 w-full h-1 bg-yellow-400"></div>
-            <h3 id="modal-title" class="text-xl font-black text-yellow-400 mb-4 uppercase tracking-wider mt-2"></h3>
-            <p id="modal-content" class="text-sm text-gray-300 mb-6 whitespace-pre-line text-left leading-relaxed px-2"></p>
-            <div id="modal-actions" class="flex gap-4 justify-center">
-                <!-- Buttons injected via JS -->
+        :root { --main: #ff0033; --bg: #fdfdfd; --card: #ffffff; }
+        body { font-family: 'Poppins', sans-serif; background: var(--bg); margin: 0; color: #333; }
+        .navbar { background: #fff; padding: 15px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
+        .nav-content { max-width: 800px; margin: auto; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 20px; font-weight: 900; color: var(--main); text-decoration: none; }
+        .menu a { text-decoration: none; color: #444; font-size: 12px; font-weight: 600; margin-left: 12px; }
+        .search-area { padding: 15px; max-width: 800px; margin: auto; }
+        .search-area input { width: 100%; padding: 12px 20px; border-radius: 50px; border: 1px solid #eee; background: #f1f1f1; outline: none; box-sizing: border-box; }
+        #sponsorArea { max-width: 800px; margin: 10px auto; padding: 0 15px; }
+        .sponsor-card { border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 15px; display: block; }
+        .container { padding: 10px 15px 80px; max-width: 800px; margin: auto; }
+        footer { text-align: center; padding: 30px; background: #fff; border-top: 1px solid #eee; font-size: 13px; }
+        .badge-featured { position: absolute; top: 10px; left: 10px; background: #ff0033; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 10px; font-weight: bold; z-index: 10; }
+    </style> </head>
+<body>
+    <div class="navbar">
+        <div class="nav-content">
+            <a href="Home2.html" class="logo">ᗰᑌᔕTᗩᑫEEᗰ HYD</a>
+            <div class="menu">
+                <a href="article.html?type=about">About</a>
+                <a href="article.html?type=policy">Policy</a>
+                <a href="article.html?type=contact">Contact</a>
             </div>
         </div>
     </div>
-
-    <!-- Top Menu -->
-    <div id="top-nav" class="hidden absolute top-4 right-4 z-50">
-        <button onclick="toggleMenu()" class="text-white hover:text-yellow-400 text-2xl drop-shadow-md">
-            <i class="fa fa-bars"></i>
-        </button>
-        <div id="dropdown-menu" class="absolute right-0 mt-2 w-48 bg-slate-900 border border-slate-700 rounded-xl shadow-xl overflow-hidden">
-            <button onclick="showPolicy()" class="w-full text-left px-4 py-3 text-sm text-gray-300 hover:bg-slate-800 hover:text-yellow-400 border-b border-slate-700 transition-colors">
-                <i class="fa fa-file-contract mr-2"></i> Privacy Policy
-            </button>
-            <button onclick="confirmLogout()" class="w-full text-left px-4 py-3 text-sm text-red-400 hover:bg-slate-800 hover:text-red-300 transition-colors">
-                <i class="fa fa-sign-out-alt mr-2"></i> Logout
-            </button>
-        </div>
+    
+    <div class="search-area">
+        <input type="text" id="searchInput" placeholder="Search articles..." onkeyup="filterNews()">
     </div>
+    
+    <div id="sponsorArea"></div>
+    <div class="container" id="dynamicNews">Loading...</div>
+    
+    <footer>Design by <b style="color:var(--main);">ᗰᑌᔕTᗩᑫEEᗰ</b></footer>
 
-    <!-- Header -->
-    <div id="main-header" class="text-center mb-8 w-full mt-4">
-        <h1 class="text-4xl font-black italic tracking-tighter text-white drop-shadow-lg">
-            ZIGO<span class="text-yellow-400 font-bold">STUDIO</span>
-        </h1>
-        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-[0.3em] mt-1">Professional Creator</p>
-    </div>
-
-    <div class="w-full max-w-md relative">
-        
-        <!-- ================= STEP 0: LOGIN PAGE ================= -->
-        <div id="screen-login" class="glass-panel p-8 rounded-[35px] text-center transition-all">
-            <div class="mb-8">
-                <div class="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4 shadow-[0_0_20px_rgba(250,204,21,0.4)]">
-                    <i class="fa fa-user-circle text-4xl text-black"></i>
-                </div>
-                <h2 class="text-2xl font-black text-white uppercase tracking-wider">Welcome Back</h2>
-                <p class="text-xs text-gray-400 mt-2">Login to create premium shayari images</p>
-            </div>
-            
-            <div class="space-y-4 mb-8">
-                <div class="relative">
-                    <i class="fa fa-user absolute left-4 top-4 text-gray-400"></i>
-                    <input type="text" id="login-name" placeholder="Enter Your Name" class="w-full bg-slate-900/80 border border-slate-700 rounded-2xl py-3 pl-12 pr-4 text-white focus:border-yellow-400 outline-none transition-all font-bold">
-                </div>
-                <div class="relative">
-                    <i class="fa fa-phone absolute left-4 top-4 text-gray-400"></i>
-                    <input type="tel" id="login-phone" placeholder="Mobile Number (10 digits)" maxlength="10" class="w-full bg-slate-900/80 border border-slate-700 rounded-2xl py-3 pl-12 pr-4 text-white focus:border-yellow-400 outline-none transition-all font-bold">
-                </div>
-                <!-- Password Field for Demo Account Access -->
-                <div class="relative">
-                    <i class="fa fa-lock absolute left-4 top-4 text-gray-400"></i>
-                    <input type="password" id="login-pass" placeholder="Password (Any 4 digits)" class="w-full bg-slate-900/80 border border-slate-700 rounded-2xl py-3 pl-12 pr-4 text-white focus:border-yellow-400 outline-none transition-all font-bold">
-                </div>
-            </div>
-
-            <button onclick="loginUser()" id="login-btn" class="btn-premium w-full p-4 rounded-2xl text-lg shadow-[0_10px_20px_rgba(250,204,21,0.2)] flex justify-center items-center gap-2">
-                <span>Login Securely</span> <i class="fa fa-arrow-right"></i>
-            </button>
-        </div>
-
-        <!-- ================= STEP 1: LANGUAGE SELECTION ================= -->
-        <div id="screen-language" class="hidden glass-panel p-8 rounded-[35px] text-center transition-all">
-            <h2 class="text-xl font-black text-white mb-6 uppercase tracking-wider border-b border-gray-700 pb-4">Choose Option</h2>
-            
-            <div class="grid grid-cols-2 gap-4 mb-4">
-                <button onclick="openLanguage('ur', 'urdu-font')" class="bg-[#1e293b] hover:bg-slate-700 border border-slate-600 rounded-2xl p-6 transition-all group">
-                    <h3 class="text-2xl text-yellow-400 font-bold urdu-font mb-1">اردو</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 group-hover:text-white">Urdu</p>
-                </button>
-                <button onclick="openLanguage('ro', 'eng-font')" class="bg-[#1e293b] hover:bg-slate-700 border border-slate-600 rounded-2xl p-6 transition-all group">
-                    <h3 class="text-lg text-yellow-400 font-black eng-font mb-2 mt-1">Roman</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 group-hover:text-white">English Urdu</p>
-                </button>
-                <button onclick="openLanguage('hi', 'hindi-font')" class="bg-[#1e293b] hover:bg-slate-700 border border-slate-600 rounded-2xl p-6 transition-all group">
-                    <h3 class="text-2xl text-yellow-400 font-bold hindi-font mb-1">हिंदी</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 group-hover:text-white">Hindi</p>
-                </button>
-                <button onclick="openLanguage('en', 'eng-font')" class="bg-[#1e293b] hover:bg-slate-700 border border-slate-600 rounded-2xl p-6 transition-all group">
-                    <h3 class="text-xl text-yellow-400 font-bold eng-font mb-2">English</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 group-hover:text-white">English</p>
-                </button>
-            </div>
-            
-            <div class="grid grid-cols-1 gap-4">
-                <button onclick="openLanguage('te', 'telugu-font')" class="bg-[#1e293b] hover:bg-slate-700 border border-slate-600 rounded-2xl p-4 transition-all group">
-                    <h3 class="text-xl text-yellow-400 font-bold telugu-font mb-1">తెలుగు</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-gray-400 group-hover:text-white">Telugu</p>
-                </button>
-                <button onclick="openEditScreen('', 'eng-font')" class="bg-gradient-to-r from-yellow-600 to-amber-700 hover:from-yellow-500 hover:to-amber-600 border border-yellow-500 rounded-2xl p-4 transition-all group shadow-lg">
-                    <h3 class="text-lg text-black font-black eng-font mb-1"><i class="fa fa-pen-nib mr-2"></i> Custom</h3>
-                    <p class="text-[10px] uppercase tracking-widest text-black/80 font-bold">Apni Shayari Likhein</p>
-                </button>
-            </div>
-
-            <!-- Q LERE CAROUSEL -->
-            <div class="mt-8 pt-6 pb-2 border-t border-gray-700/50">
-                <h2 class="text-lg font-black text-yellow-400 mb-4 uppercase tracking-[0.25em]">Q Lere</h2>
-                <div class="w-full rounded-[24px] overflow-hidden border border-yellow-500/30 shadow-[0_0_20px_rgba(250,204,21,0.1)] bg-[#05070a] p-2 relative">
-                    <img id="q-lere-carousel" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVswNP7Up7i3oQgyZeuVJq3aw0bjohkIwbuA1N5F9H3jNeVJ8f4UfZ7EaZqHjnykFBwVjcsGELNIrJ7i1okjSA7ODRZq56RWpX7-6fdTNIT4FoUzqTMh-LNi76Aoc6KYNJY8JjFXS7to8lhBPaIvASalyd87ABVrioinYDozV64LYjeMl7eYqXeibyXt2c/s1600/file_000000009570820ab0e8c6362b4b6abd.png" 
-                    alt="Professional Image" class="w-full h-auto object-contain rounded-xl transition-opacity duration-500 fade-img">
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= STEP 2: SHAYARI LIST ================= -->
-        <div id="screen-list" class="hidden glass-panel p-6 rounded-[35px] transition-all flex flex-col h-[75vh]">
-            <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-4">
-                <button onclick="switchScreen('screen-language')" class="text-gray-400 hover:text-white"><i class="fa fa-arrow-left text-lg"></i></button>
-                <h2 class="text-sm font-black text-yellow-400 uppercase tracking-widest">Select Quote</h2>
-                <div class="w-4"></div>
-            </div>
-            <div id="shayari-container" class="overflow-y-auto pr-2 space-y-4 flex-grow pb-4"></div>
-        </div>
-
-        <!-- ================= STEP 3: EDIT & UPLOAD ================= -->
-        <div id="screen-edit" class="hidden glass-panel p-8 rounded-[35px] transition-all">
-            <button onclick="switchScreen('screen-language')" class="text-gray-400 hover:text-yellow-400 mb-6"><i class="fa fa-arrow-left mr-1"></i> Back</button>
-            
-            <label class="block text-[10px] font-bold text-yellow-400 uppercase tracking-widest mb-2 pl-2"><i class="fa fa-edit"></i> Edit Your Shayari</label>
-            <div class="bg-black/50 p-4 rounded-2xl mb-6 border border-white/10 focus-within:border-yellow-400 transition-colors">
-                <textarea id="preview-text" oninput="detectUrduFont(this)" rows="4" class="w-full bg-transparent text-center text-white text-lg font-bold outline-none resize-none" placeholder="Yahan apni shayari type karein..."></textarea>
-            </div>
-
-            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 pl-2">Select Frame Style</label>
-            <div class="flex justify-between items-center bg-black/30 p-3 rounded-2xl mb-6 border border-white/5">
-                <button onclick="selectFrame(1)" class="w-8 h-8 rounded-full bg-black border-2 border-yellow-400 ring-2 ring-transparent focus:ring-white transition-all shadow-lg"></button>
-                <button onclick="selectFrame(2)" class="w-8 h-8 rounded-full bg-red-900 border-2 border-gray-300 ring-2 ring-transparent focus:ring-white transition-all shadow-lg"></button>
-                <button onclick="selectFrame(3)" class="w-8 h-8 rounded-full bg-emerald-900 border-2 border-yellow-300 ring-2 ring-transparent focus:ring-white transition-all shadow-lg"></button>
-                <button onclick="selectFrame(4)" class="w-8 h-8 rounded-full bg-blue-900 border-2 border-cyan-400 ring-2 ring-transparent focus:ring-white transition-all shadow-lg"></button>
-                <button onclick="selectFrame(5)" class="w-8 h-8 rounded-full bg-white border-2 border-gray-800 ring-2 ring-transparent focus:ring-gray-400 transition-all shadow-lg"></button>
-            </div>
-
-            <div class="space-y-5">
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 pl-2">Display Name</label>
-                    <input type="text" id="userName" placeholder="Your Name" class="w-full bg-slate-900 border border-slate-700 rounded-2xl p-4 text-white focus:border-yellow-400 outline-none transition-all font-bold">
-                </div>
-                
-                <div>
-                    <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 pl-2">Profile Photo (Max 5MB)</label>
-                    <input type="file" id="userImage" accept="image/*" class="w-full bg-slate-900 border border-slate-700 rounded-2xl p-3 text-white text-sm file:mr-4 file:py-2.5 file:px-5 file:rounded-xl file:border-0 file:text-xs file:font-black file:bg-yellow-400 file:text-black hover:file:bg-yellow-500 cursor-pointer">
-                </div>
-
-                <button id="btn-generate" onclick="checkProAndGenerate()" class="btn-premium w-full p-4 rounded-2xl text-sm shadow-[0_10px_20px_rgba(250,204,21,0.2)] mt-2 flex justify-center items-center">
-                    <i class="fa fa-gem mr-2"></i> Generate Image (Pro)
-                </button>
-                
-                <p id="loading-msg" class="hidden text-center text-yellow-400 text-xs font-bold uppercase tracking-widest animate-pulse mt-4">
-                    <i class="fa fa-circle-notch fa-spin text-lg mb-2 block"></i> Uploading & Designing...
-                </p>
-            </div>
-        </div>
-
-        <!-- ================= STEP 4: RECHARGE PAGE (FIXED FOR ALL BROWSERS) ================= -->
-        <div id="screen-recharge" class="hidden glass-panel p-6 rounded-[35px] text-center transition-all w-full relative border-t-[3px] border-yellow-400">
-            
-            <div class="flex items-center justify-between mb-4">
-                <button onclick="switchScreen('screen-edit')" class="text-gray-400 hover:text-white flex items-center text-sm font-bold transition-colors">
-                    <i class="fa fa-arrow-left mr-2"></i> Back
-                </button>
-                <span class="bg-yellow-400/20 text-yellow-400 text-[10px] px-3 py-1 rounded-full uppercase tracking-widest font-black border border-yellow-400/30">Pro Version</span>
-            </div>
-            
-            <h2 class="text-3xl font-black text-white mb-2 uppercase tracking-widest leading-tight">
-                Unlock <span class="text-yellow-400">Pro</span>
-            </h2>
-            <p class="text-xs text-gray-300 mb-6 px-2 leading-relaxed">
-                Pay just <strong class="text-yellow-400 text-lg">₹9</strong> for lifetime access to generate unlimited premium HD shayari images in 4 languages!
-            </p>
-
-            <button onclick="startRazorpayPayment()" class="pay-btn-animate bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-white font-black text-lg uppercase tracking-widest w-full py-4 rounded-2xl shadow-[0_10px_25px_rgba(16,185,129,0.3)] transition-all flex justify-center items-center gap-3 transform active:scale-95 border border-green-400/30 mb-2 relative z-10">
-                <i class="fa fa-lock text-xl"></i> Pay ₹9 Now
-            </button>
-            <p id="browser-msg" class="text-[10px] text-gray-500 mb-8 uppercase tracking-[0.15em] font-bold">
-                <i class="fa fa-shield-alt mr-1"></i> 100% Secure Payment via Razorpay
-            </p>
-
-            <!-- PREMIUM EXAMPLES LABEL -->
-            <div class="flex items-center justify-center gap-2 mb-6">
-                <div class="h-[1px] w-10 bg-gray-600"></div>
-                <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em] font-bold">Premium Examples</span>
-                <div class="h-[1px] w-10 bg-gray-600"></div>
-            </div>
-            
-            <!-- 4 Example Images FULL WIDTH 1 by 1 Style -->
-            <div class="flex flex-col gap-6 pb-4">
-                <div class="w-full rounded-[24px] overflow-hidden border border-yellow-500/30 shadow-[0_0_20px_rgba(250,204,21,0.1)] bg-[#05070a] p-2 relative">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVswNP7Up7i3oQgyZeuVJq3aw0bjohkIwbuA1N5F9H3jNeVJ8f4UfZ7EaZqHjnykFBwVjcsGELNIrJ7i1okjSA7ODRZq56RWpX7-6fdTNIT4FoUzqTMh-LNi76Aoc6KYNJY8JjFXS7to8lhBPaIvASalyd87ABVrioinYDozV64LYjeMl7eYqXeibyXt2c/s1600/file_000000009570820ab0e8c6362b4b6abd.png" class="w-full h-auto object-contain rounded-xl">
-                </div>
-                <div class="w-full rounded-[24px] overflow-hidden border border-yellow-500/30 shadow-[0_0_20px_rgba(250,204,21,0.1)] bg-[#05070a] p-2 relative">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzqkzR_9IBAtWL5TPsjYgsjGbsp8sOt0PsYHtokmcm_2Y8kMyVLWmRILoWCPkjPIyL9CJHUQTKYEAiEQzlFE4ZwTiskoyj_Rwzsblgoz2GIZoRZ54tUT2SO2OUvuHHnkv-sUxnECdv_MZd0T9CRYG3ZffA2syKZ_MbbMQfYTKVLMKDdrhN1Zut4QDBye7N/s1600/file_000000001ab0820ab6950ce32cf27059.png" class="w-full h-auto object-contain rounded-xl">
-                </div>
-                <div class="w-full rounded-[24px] overflow-hidden border border-yellow-500/30 shadow-[0_0_20px_rgba(250,204,21,0.1)] bg-[#05070a] p-2 relative">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizbqfOwPjFqNfWXJMnc6Uuhqm9Pcsa8q62P2uHwFiOd97YiX5Gq5YokXDq2gU9wsMc8hdC5RZq2kLsdWyq38l-ol0LM6oPgCxhNMGW-eCK3RInW7XgNXYAspYALHvqIwHHrP_5K6nZh6o7DRAzPViEdzBnxgbQoHqtT58EAYDjgXUK2PzCgGhHE_sZqhrC/s1600/file_000000001df8820aa36c1744947ccb16.png" class="w-full h-auto object-contain rounded-xl">
-                </div>
-                <div class="w-full rounded-[24px] overflow-hidden border border-yellow-500/30 shadow-[0_0_20px_rgba(250,204,21,0.1)] bg-[#05070a] p-2 relative">
-                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjK7B1gmssB6WzUrd0LZe76uLz6yG6oySVEvXG2melE6zAFQraA_ED8-2dmmY5KXE2DusCKP4rMrAYc9L3oUFW9g8P5ylRtjGkipOQsplWpMx-nqzJcVNzbxapl3UGr10OGSPl3kIhpOV0zbtECOoTh-9ouCE5mj9hXWLGpmbjunNY98wDxED6ZG5I97u2K/s1600/file_00000000be90820abcf5cb4538928c47.png" class="w-full h-auto object-contain rounded-xl">
-                </div>
-            </div>
-        </div>
-
-        <!-- ================= STEP 5: FINAL CARD & DOWNLOAD ================= -->
-        <div id="screen-result" class="hidden flex flex-col items-center">
-            <button onclick="switchScreen('screen-edit')" class="text-gray-400 hover:text-white self-start mb-4 bg-slate-800 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest">
-                <i class="fa fa-edit mr-1"></i> Edit Card
-            </button>
-
-            <div id="final-card" class="frame-1 w-[350px] min-h-[400px] rounded-[30px] p-8 flex flex-col items-center justify-center border-2 overflow-hidden">
-                <i class="quote-icon fa fa-quote-right text-4xl absolute top-6 right-6 transition-colors"></i>
-                <i class="quote-icon fa fa-quote-left text-4xl absolute bottom-6 left-6 transition-colors"></i>
-
-                <div class="profile-ring w-24 h-24 rounded-full border-[3px] overflow-hidden mb-6 z-10 bg-black transition-colors">
-                    <img id="final-img" src="" alt="Profile" crossorigin="anonymous" class="w-full h-full object-cover">
-                </div>
-
-                <div class="z-10 mb-6 w-full px-2">
-                    <p id="final-quote" class="text-color text-2xl text-center font-bold drop-shadow-lg leading-relaxed transition-colors"></p>
-                </div>
-
-                <div class="name-badge z-10 px-6 py-2 rounded-full border-[1.5px] font-black text-sm uppercase tracking-widest drop-shadow-md mt-auto transition-colors">
-                    <span id="final-name"></span>
-                </div>
-            </div>
-
-            <button id="btn-download" onclick="downloadImage()" class="w-[350px] bg-green-500 hover:bg-green-600 text-black font-black text-sm uppercase tracking-widest py-4 rounded-2xl mt-6 shadow-[0_10px_20px_rgba(34,197,94,0.3)] transition-all flex justify-center items-center gap-2">
-                <i class="fa fa-download text-lg"></i> Download HD Image
-            </button>
-            <p class="text-[10px] text-gray-500 uppercase tracking-widest mt-3 font-bold"><i class="fa fa-check-circle text-green-500"></i> Saves directly to Gallery</p>
-        </div>
-
-    </div>
-
-    <!-- JAVASCRIPT LOGIC -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script>
-        const API_KEY = "6f7882229284a70277e4644fee61ba11";
-        let currentFontClass = '';
-        let currentFrame = 1;
+        firebase.initializeApp({databaseURL: "https://cab-hyd-default-rtdb.firebaseio.com"});
+        const db = firebase.database();
 
-        // Custom Modal and Toast Logic
-        function showToast(msg, isSuccess = false) {
-            const toast = document.getElementById('custom-toast');
-            toast.className = `fixed top-4 left-1/2 transform -translate-x-1/2 px-6 py-3 rounded-full shadow-2xl z-[150] font-bold text-sm transition-all ${isSuccess ? 'bg-green-500' : 'bg-red-500'}`;
-            document.getElementById('toast-msg').innerText = msg;
-            toast.classList.remove('hidden');
-            setTimeout(() => toast.classList.add('hidden'), 3500);
+        function nFormat(num) {
+            if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+            return num;
         }
 
-        function showModal(title, content, onConfirm = null) {
-            document.getElementById('modal-title').innerText = title;
-            document.getElementById('modal-content').innerText = content;
-            const actions = document.getElementById('modal-actions');
-            if (onConfirm) {
-                actions.innerHTML = `
-                    <button onclick="closeModal()" class="w-1/2 bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 rounded-xl transition-all">Cancel</button>
-                    <button onclick="${onConfirm}" class="w-1/2 bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-xl transition-all">Confirm</button>
-                `;
-            } else {
-                actions.innerHTML = `
-                    <button onclick="closeModal()" class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-xl transition-all">OK</button>
-                `;
-            }
-            document.getElementById('custom-modal').classList.remove('hidden');
-        }
-
-        function closeModal() {
-            document.getElementById('custom-modal').classList.add('hidden');
-        }
-
-        const welcomeAudio = new Audio('welcome_voice.mp3');
-        const rechargeAudio = new Audio('recharge_voice.mp3');
-
-        // Strong Auto-Login from URL & State Management
-        window.onload = async () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const action = urlParams.get('action');
-            const urlPhone = urlParams.get('phone');
-            const urlName = urlParams.get('name');
-
-            let phoneToUse = localStorage.getItem('userPhone');
-
-            if(urlPhone) {
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('userPhone', urlPhone);
-                if(urlName) localStorage.setItem('userName', decodeURIComponent(urlName));
-                phoneToUse = urlPhone;
-                // Clean URL to prevent loop
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-
-            if(localStorage.getItem('isLoggedIn') === 'true' && phoneToUse) {
-                document.getElementById('top-nav').classList.remove('hidden');
-                document.getElementById('userName').value = localStorage.getItem('userName') || '';
-                
-                // If action is pay, strictly open Recharge Page (Browser Sync Fix)
-                if (action === 'pay') {
-                    switchScreen('screen-recharge');
-                    setTimeout(() => {
-                        triggerNativeRazorpay(); 
-                    }, 800);
-                } else {
-                    switchScreen('screen-language');
-                }
-                
-                // Firebase Background Sync
-                if(window.firebaseDb) {
-                    try {
-                        const dbRef = window.firebaseRef(window.firebaseDb);
-                        const snapshot = await window.firebaseGet(window.firebaseChild(dbRef, `users/${phoneToUse}`));
-                        if (snapshot.exists() && snapshot.val().isPro === true) {
-                            localStorage.setItem('isProUser', 'true');
-                        }
-                    } catch(e) { console.log(e); }
-                    
-                    // Continuous listener
-                    const userRef = window.firebaseChild(window.firebaseRef(window.firebaseDb), `users/${phoneToUse}`);
-                    window.firebaseOnValue(userRef, (snapshot) => {
-                        if (snapshot.exists() && snapshot.val().isPro === true) {
-                            if(localStorage.getItem('isProUser') !== 'true') {
-                                localStorage.setItem('isProUser', 'true');
-                                if (!document.getElementById('screen-recharge').classList.contains('hidden')) {
-                                    showModal("Success! 🎉", "Payment Successful! Pro unlocked for your number.");
-                                    processCard();
-                                }
-                            }
-                        }
-                    });
-                }
-            } else {
-                switchScreen('screen-login');
-            }
-        };
-
-        async function loginUser() {
-            const name = document.getElementById('login-name').value.trim();
-            const phone = document.getElementById('login-phone').value.trim();
-            const pass = document.getElementById('login-pass').value.trim();
-            const btn = document.getElementById('login-btn');
-
-            if(!name) return showToast("Please enter your name!");
-            if(phone.length !== 10 || isNaN(phone)) return showToast("Please enter a valid 10-digit mobile number!");
-            if(!pass) return showToast("Please enter password!");
-
-            if(phone === '9999999999' && pass !== '6655') {
-                return showToast("Demo Password is 6655");
-            }
-
-            btn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Checking Account...';
-
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('userName', name);
-            localStorage.setItem('userPhone', phone);
-            document.getElementById('userName').value = name;
-
-            try {
-                if(window.firebaseDb) {
-                    const dbRef = window.firebaseRef(window.firebaseDb);
-                    const snapshot = await window.firebaseGet(window.firebaseChild(dbRef, `users/${phone}`));
-                    
-                    if (snapshot.exists()) {
-                        if(snapshot.val().isPro === true) {
-                            localStorage.setItem('isProUser', 'true');
-                        } else {
-                            localStorage.setItem('isProUser', 'false');
-                            window.firebaseSet(window.firebaseRef(window.firebaseDb, 'users/' + phone), {
-                                ...snapshot.val(),
-                                lastLogin: new Date().toISOString()
-                            });
-                        }
-                    } else {
-                        localStorage.setItem('isProUser', 'false');
-                        window.firebaseSet(window.firebaseRef(window.firebaseDb, 'users/' + phone), {
-                            name: name,
-                            isPro: false,
-                            lastLogin: new Date().toISOString()
-                        });
-                    }
-                }
-            } catch(e) {
-                console.error("Firebase connection error", e);
-            }
-            
-            btn.innerHTML = '<span>Login Securely</span> <i class="fa fa-arrow-right"></i>';
-            welcomeAudio.play().catch(e => console.log("Audio play blocked"));
-            document.getElementById('top-nav').classList.remove('hidden');
-            switchScreen('screen-language');
-        }
-
-        function toggleMenu() {
-            document.getElementById('dropdown-menu').classList.toggle('active');
-        }
-
-        document.addEventListener('click', function(event) {
-            const nav = document.getElementById('top-nav');
-            if (nav && !nav.contains(event.target)) {
-                document.getElementById('dropdown-menu').classList.remove('active');
+        db.ref('site_settings/sponsors').on('value', s => {
+            const data = s.val(); 
+            const sArea = document.getElementById('sponsorArea');
+            sArea.innerHTML = "";
+            for(let id in data) {
+                sArea.innerHTML += `<a href="${data[id].link}" class="sponsor-card" target="_blank"><img src="${data[id].img}" style="width:100%; display:block;"></a>`;
             }
         });
 
-        function showPolicy() {
-            showModal("Privacy Policy", "1. We respect your privacy.\n2. No data is shared with third parties.\n3. Your photos are processed securely.");
-            toggleMenu();
-        }
-
-        function confirmLogout() {
-            showModal("Logout", "Are you sure you want to logout of your account?", "executeLogout()");
-            toggleMenu();
-        }
-
-        function executeLogout() {
-            closeModal();
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('userName');
-            localStorage.removeItem('userPhone');
-            localStorage.removeItem('isProUser');
-            sessionStorage.removeItem('intentTriggered');
-            document.getElementById('top-nav').classList.add('hidden');
-            document.getElementById('login-name').value = '';
-            document.getElementById('login-phone').value = '';
-            document.getElementById('login-pass').value = '';
-            switchScreen('screen-login');
-        }
-
-        const qLereImages = [
-            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjVswNP7Up7i3oQgyZeuVJq3aw0bjohkIwbuA1N5F9H3jNeVJ8f4UfZ7EaZqHjnykFBwVjcsGELNIrJ7i1okjSA7ODRZq56RWpX7-6fdTNIT4FoUzqTMh-LNi76Aoc6KYNJY8JjFXS7to8lhBPaIvASalyd87ABVrioinYDozV64LYjeMl7eYqXeibyXt2c/s1600/file_000000009570820ab0e8c6362b4b6abd.png",
-            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjzqkzR_9IBAtWL5TPsjYgsjGbsp8sOt0PsYHtokmcm_2Y8kMyVLWmRILoWCPkjPIyL9CJHUQTKYEAiEQzlFE4ZwTiskoyj_Rwzsblgoz2GIZoRZ54tUT2SO2OUvuHHnkv-sUxnECdv_MZd0T9CRYG3ZffA2syKZ_MbbMQfYTKVLMKDdrhN1Zut4QDBye7N/s1600/file_000000001ab0820ab6950ce32cf27059.png",
-            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEizbqfOwPjFqNfWXJMnc6Uuhqm9Pcsa8q62P2uHwFiOd97YiX5Gq5YokXDq2gU9wsMc8hdC5RZq2kLsdWyq38l-ol0LM6oPgCxhNMGW-eCK3RInW7XgNXYAspYALHvqIwHHrP_5K6nZh6o7DRAzPViEdzBnxgbQoHqtT58EAYDjgXUK2PzCgGhHE_sZqhrC/s1600/file_000000001df8820aa36c1744947ccb16.png",
-            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjK7B1gmssB6WzUrd0LZe76uLz6yG6oySVEvXG2melE6zAFQraA_ED8-2dmmY5KXE2DusCKP4rMrAYc9L3oUFW9g8P5ylRtjGkipOQsplWpMx-nqzJcVNzbxapl3UGr10OGSPl3kIhpOV0zbtECOoTh-9ouCE5mj9hXWLGpmbjunNY98wDxED6ZG5I97u2K/s1600/file_00000000be90820abcf5cb4538928c47.png"
-        ];
-        let currentImgIndex = 0;
-        setInterval(() => {
-            currentImgIndex = (currentImgIndex + 1) % qLereImages.length;
-            document.getElementById('q-lere-carousel').src = qLereImages[currentImgIndex];
-        }, 3000);
-
-        const dbQuotes = {
-            ur: ["ضمیر مرتا ہے احساس کی خاموشی سے\nیہ وہ وفات ہے جس کی خبر نہیں ہوتی", "عزتیں، شہرتیں، چاہتیں، الفتیں\nکوئی بھی چیز دنیا میں رہتی نہیں", "ہم نے سینے سے لگایا دل نہ اپنا بن سکا\nمسکرا کر تم نے دیکھا دل تمہارا ہو گیا", "وقت کے فیصلے کبھی غلط نہیں ہوتے\nبس ثابت ہونے میں تھوڑا وقت لگتا ہے", "جسے سچا پیار مل جائے\nاسے دنیا کی کوئی اور چیز نہیں چاہیے", "منزلیں چاہے کتنی ہی اونچی کیوں نہ ہوں\nراستے ہمیشہ پیروں کے نیچے ہوتے ہیں"],
-            ro: ["Zameer marta hai ehsaas ki khamoshi se\nYeh wo wafaat hai jiski khabar nahi hoti", "Waqt ke faisle kabhi galat nahi hote\nBas sabit hone mein thoda waqt lagta hai", "Hum ne seene se lagaya dil na apna ban saka\nMuskura kar tum ne dekha dil tumhara ho gaya", "Manzilein chahe kitni hi oonchi kyun na hon\nRaaste hamesha pairon ke neeche hote hain", "Izzatein, shohratein, chaahatein, ulfatein\nKoi bhi cheez duniya mein rehti nahi", "Jise sacha pyaar mil jaye\nUse duniya ki koi aur cheez nahi chahiye"],
-            hi: ["वक्त और समझ दोनों एक साथ खुशनसीबों को ही मिलते हैं।", "जो मंजिलों को पाने की चाहत रखते हैं, वो समंदरों पर भी पत्थरों के पुल बना देते हैं।", "खामोशी से भी नेक काम होते हैं, मैंने देखा है पेड़ों को छाँव देते हुए।", "सफलता की राह में गलतियां, केवल एक पड़ाव हैं।", "सच्चाई छुप नहीं सकती बनावट के उसूलों से, खुशबू आ नहीं सकती कागज़ के फूलों से।", "मुश्किलें वो चीजें हैं जो हमें तब दिखती हैं जब हम लक्ष्य से नज़र हटा लेते हैं।"],
-            en: ["Success is not final, failure is not fatal: It is the courage to continue that counts.", "The only way to do great work is to love what you do.", "Don't watch the clock; do what it does. Keep going.", "The future belongs to those who believe in the beauty of their dreams.", "Your time is limited, so don't waste it living someone else's life.", "It always seems impossible until it is done."],
-            te: ["గెలుపు కోసం చేసే పోరాటం ఎప్పుడూ వృథా కాదు.", "కష్టాలు మనల్ని బలవంతులుగా చేసేందుకే వస్తాయి.", "నమ్మకం ఉన్నచోట విజయం తప్పక వరిస్తుంది.", "మంచి మనసుకి ఎప్పుడూ మంచే జరుగుతుంది.", "నీ ప్రయత్నం నిజాయితీగా ఉంటే, అదృష్టం నీ వెంటే ఉంటుంది.", "సమయం ఎవరి కోసం ఆగదు, దాన్ని సద్వినియోగం చేసుకో."]
-        };
-
-        function switchScreen(screenId) {
-            ['screen-login', 'screen-language', 'screen-list', 'screen-edit', 'screen-recharge', 'screen-result'].forEach(id => {
-                document.getElementById(id).classList.add('hidden');
-            });
-            document.getElementById(screenId).classList.remove('hidden');
-            window.scrollTo(0, 0); 
-        }
-
-        function detectUrduFont(textarea) {
-            const text = textarea.value;
-            const isUrdu = /[\u0600-\u06FF]/.test(text);
-            if(isUrdu) {
-                textarea.classList.add('urdu-font');
-                textarea.classList.remove('eng-font', 'hindi-font', 'telugu-font');
-                currentFontClass = 'urdu-font';
-            } else if (currentFontClass === 'urdu-font' && !isUrdu && text.length > 0) {
-                textarea.classList.remove('urdu-font');
-                textarea.classList.add('eng-font');
-                currentFontClass = 'eng-font';
-            }
-        }
-
-        function selectFrame(frameNumber) {
-            currentFrame = frameNumber;
-            const card = document.getElementById('final-card');
-            card.className = card.className.replace(/frame-\d/g, '');
-            card.classList.add(`frame-${frameNumber}`);
-        }
-
-        function openLanguage(langKey, fontClass) {
-            currentFontClass = fontClass;
-            let baseArray = dbQuotes[langKey];
-            let expandedArray = [];
-            
-            while(expandedArray.length < 500) { expandedArray = expandedArray.concat(baseArray); }
-            expandedArray = expandedArray.slice(0, 500);
-
-            for (let i = expandedArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [expandedArray[i], expandedArray[j]] = [expandedArray[j], expandedArray[i]];
-            }
-
-            const container = document.getElementById('shayari-container');
-            container.innerHTML = ''; 
-            
-            expandedArray.forEach((text, index) => {
-                let displayHtml = text.replace(/\n/g, '<br>');
-                let rawText = text.replace(/'/g, "\\'").replace(/"/g, '&quot;');
-                let card = document.createElement('div');
-                card.className = "bg-slate-800/80 hover:bg-slate-700 border border-slate-600 rounded-2xl p-5 cursor-pointer transition-transform hover:scale-[1.02] border-l-4 border-l-yellow-400";
-                card.onclick = () => openEditScreen(rawText, fontClass);
-                card.innerHTML = `<div class="flex justify-between items-start gap-4"><span class="text-gray-500 font-bold text-xs mt-1">#${index + 1}</span><p class="${fontClass} text-white text-lg w-full ${langKey === 'ur' ? 'text-right' : 'text-left'}">${displayHtml}</p></div>`;
-                container.appendChild(card);
-            });
-            switchScreen('screen-list');
-        }
-
-        function openEditScreen(text, fontClass) {
-            if(fontClass) currentFontClass = fontClass;
-            const preview = document.getElementById('preview-text');
-            preview.className = `w-full bg-transparent text-center text-white text-lg font-bold outline-none resize-none`;
-            preview.classList.add(currentFontClass);
-            preview.value = text;
-            detectUrduFont(preview); 
-            switchScreen('screen-edit');
-        }
-
-        function checkProAndGenerate() {
-            const shayariInput = document.getElementById('preview-text').value.trim();
-            const nameInput = document.getElementById('userName').value.trim();
-            const imageInput = document.getElementById('userImage');
-            
-            if (!shayariInput) return showToast("Shayari likhna zaroori hai!");
-            if (!nameInput) return showToast("Naam likhna zaroori hai!");
-            if (imageInput.files.length === 0) return showToast("Profile photo upload karein!");
-
-            if(localStorage.getItem('isProUser') === 'true') {
-                processCard(); 
-            } else {
-                switchScreen('screen-recharge'); 
-                rechargeAudio.play().catch(e => console.log("Audio play blocked"));
-            }
-        }
-
-        function startRazorpayPayment() {
-            rechargeAudio.pause();
-            const phone = localStorage.getItem('userPhone');
-            const userName = localStorage.getItem('userName') || '';
-
-            // 1. DEMO NUMBER BYPASS LOGIC (Bina Razorpay khule success hoga)
-            if(phone === '9999999999') {
-                localStorage.setItem('isProUser', 'true');
-                if(window.firebaseDb) {
-                    window.firebaseSet(window.firebaseRef(window.firebaseDb, 'users/' + phone), {
-                        isPro: true,
-                        paymentId: 'DEMO_BYPASS_' + Date.now(),
-                        name: userName,
-                        timestamp: new Date().toISOString()
-                    });
-                }
-                showModal("Success! 🎉", "Demo Payment Successful! Pro unlocked.");
-                processCard(); 
-                return;
-            }
-
-            // 2. ANTI-HANG & SECURE REDIRECT LOGIC FOR APK WEBVIEWS
-            const isApp = navigator.userAgent.includes('wv') || navigator.userAgent.includes('Median') || /Android.*Version\/[0-9].[0-9]/.test(navigator.userAgent);
-            
-            // Session Storage lock so it never loops
-            if (isApp && !sessionStorage.getItem('intentTriggered')) {
-                sessionStorage.setItem('intentTriggered', 'true');
-                document.getElementById('browser-msg').innerHTML = '<i class="fa fa-spinner fa-spin mr-1"></i> Opening Secure Browser...';
-                
-                const currentWebsiteUrl = window.location.origin + window.location.pathname;
-                const autoLoginLink = currentWebsiteUrl + "?phone=" + phone + "&name=" + encodeURIComponent(userName) + "&action=pay";
-                const cleanUrl = autoLoginLink.replace(/^https?:\/\//, '');
-                const scheme = autoLoginLink.startsWith('http://') ? 'http' : 'https';
-                const chromeIntent = "intent://" + cleanUrl + "#Intent;scheme=" + scheme + ";package=com.android.chrome;action=android.intent.action.VIEW;S.android.support.customtabs.extra.SESSION=true;end;";
-                
-                // Direct redirect without try-catch to avoid infinite reload loop
-                window.location.href = chromeIntent;
-                
-                // Fallback to normal URL if intent completely fails
-                setTimeout(() => {
-                    window.location.href = autoLoginLink;
-                }, 1500);
-                return;
-            }
-
-            // 3. DEFAULT RAZORPAY
-            triggerNativeRazorpay();
-        }
-
-        function triggerNativeRazorpay() {
-            const phone = localStorage.getItem('userPhone');
-            const userName = localStorage.getItem('userName') || '';
-
-            var options = {
-                "key": "rzp_live_T5PWVVwFz9BoeH",
-                "amount": "900", 
-                "currency": "INR",
-                "name": "Zigo Studio Pro",
-                "description": "Unlock Pro Image Generation",
-                "image": "https://www.transparenttextures.com/patterns/cubes.png",
-                "prefill": { 
-                    "name": userName,
-                    "contact": phone || "" 
-                },
-                "handler": function (response) {
-                    localStorage.setItem('isProUser', 'true');
+        db.ref('articles').on('value', snap => {
+            const container = document.getElementById('dynamicNews'); 
+            container.innerHTML = "";
+            const data = snap.val(); 
+            let arr = [];
+            for(let id in data) arr.push({ id, ...data[id] });
+            arr.reverse().forEach(item => {
+                let featuredTag = item.isFeatured ? `<div class="badge-featured">🔥 FEATURED</div>` : '';
+                container.innerHTML += `
+                <a href="article.html?id=${item.id}" style="text-decoration:none;" class="news-item">
+                  <div style="cursor:pointer; border-radius:16px; overflow:hidden; position:relative;
+                              box-shadow:0 8px 22px rgba(0,0,0,0.18);
+                              background:linear-gradient(135deg,#ffffff,#f0f9fa);
+                              margin-bottom:22px; transition:0.3s;"
+                       onmouseover="this.style.transform='scale(1.02)'"
+                       onmouseout="this.style.transform='scale(1)'">
                     
-                    if(phone && window.firebaseDb) {
-                        window.firebaseSet(window.firebaseRef(window.firebaseDb, 'users/' + phone), {
-                            isPro: true,
-                            paymentId: response.razorpay_payment_id,
-                            name: userName,
-                            timestamp: new Date().toISOString()
-                        });
-                    }
-
-                    showModal("Success!", "Payment Successful! Pro unlocked for your number.");
-                    processCard(); 
-                },
-                "theme": { "color": "#10b981" }
-            };
-            var rzp = new Razorpay(options);
-            rzp.on('payment.failed', function (response){
-                showToast("Payment Failed! Please try again.");
-                sessionStorage.removeItem('intentTriggered'); // Allow re-try
+                    ${featuredTag}
+                    <img src="${item.img}" alt="${item.title}"
+                         style="width:100%; height:200px; object-fit:cover; display:block; border-radius:16px 16px 0 0;">
+                    <div style="padding:16px;">
+                      <h3 style="margin:0 0 10px; font-size:18px; font-weight:bold; color:#0b5f66; font-family:'Poppins', sans-serif;">
+                        ${item.title}
+                      </h3>
+                      <p style="margin:0 0 12px; font-size:14px; color:#444; line-height:1.5;">
+                        ${item.shortDesc || ''}
+                      </p>
+                      <div style="display:flex; justify-content:space-between; font-size:11px; color:#777;">
+                        <span>👁️ ${nFormat(item.views || 0)} Views</span>
+                        <span>🕒 ${item.date}</span>
+                        <span>✍️ By ᗰᑌᔕTᗩᑫEEᗰ HYD</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>`;
             });
-            rzp.open();
-        }
+        });
 
-        async function processCard() {
-            switchScreen('screen-edit'); 
-            
-            const shayariInput = document.getElementById('preview-text').value.trim();
-            const nameInput = document.getElementById('userName').value.trim();
-            const imageInput = document.getElementById('userImage');
-            
-            const formattedShayari = shayariInput.replace(/\n/g, '<br>');
-            const file = imageInput.files[0];
-            
-            document.getElementById('btn-generate').classList.add('hidden');
-            document.getElementById('loading-msg').classList.remove('hidden');
-
-            try {
-                const formData = new FormData();
-                formData.append('image', file);
-
-                const response = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: 'POST', body: formData });
-                const data = await response.json();
-
-                if (data.success) {
-                    document.getElementById('final-img').src = data.data.url;
-                    const quoteEl = document.getElementById('final-quote');
-                    quoteEl.className = `text-color text-center font-bold drop-shadow-lg leading-relaxed transition-colors ${currentFontClass} ${currentFontClass === 'urdu-font' ? 'text-3xl' : 'text-2xl'}`;
-                    quoteEl.innerHTML = formattedShayari;
-                    document.getElementById('final-name').innerText = nameInput;
-
-                    document.getElementById('final-img').onload = () => {
-                        document.getElementById('btn-generate').classList.remove('hidden');
-                        document.getElementById('loading-msg').classList.add('hidden');
-                        switchScreen('screen-result');
-                    };
-                } else {
-                    showToast("Upload failed. Image size may be too large.");
-                    document.getElementById('btn-generate').classList.remove('hidden');
-                    document.getElementById('loading-msg').classList.add('hidden');
-                }
-            } catch (err) {
-                showToast("Network Error! Please try again.");
-                document.getElementById('btn-generate').classList.remove('hidden');
-                document.getElementById('loading-msg').classList.add('hidden');
-            }
-        }
-
-        function downloadImage() {
-            const btn = document.getElementById('btn-download');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fa fa-spinner fa-spin text-lg"></i> Generating HQ Image...';
-            
-            const cardElement = document.getElementById('final-card');
-            html2canvas(cardElement, {
-                useCORS: true, allowTaint: false, scale: 3, backgroundColor: null 
-            }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `Zigo_Quote_${Date.now()}.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                link.click();
-                showToast("Downloaded Successfully!", true);
-                setTimeout(() => btn.innerHTML = originalText, 3000);
-            }).catch(err => {
-                showToast("Failed to download image. Please try again.");
-                btn.innerHTML = originalText;
-            });
+        function filterNews() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            document.querySelectorAll('.news-item').forEach(c => c.style.display = c.innerText.toLowerCase().includes(input) ? "block" : "none");
         }
     </script>
 </body>
