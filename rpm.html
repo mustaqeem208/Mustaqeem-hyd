@@ -2,11 +2,11 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>YouTube RPM Kaise Badhayein - Professional Creator Guide</title>
     <meta name="description" content="YouTube RPM aur earnings boost karne ke verified actionable tips: High CPM niches, Tier-1 traffic targeting, aur mid-roll ad strategy.">
 
-    <!-- Google AdSense Script -->
+    <!-- Google AdSense Script (Ek hi baar head me kaafi hai) -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
      crossorigin="anonymous"></script>
 
@@ -21,7 +21,6 @@
             --card-border: #1f2937;
             --text-main: #94a3b8;
             --text-heading: #f8fafc;
-            --emerald: #10b981;
         }
 
         * {
@@ -34,8 +33,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            line-height: 1.75;
-            padding: 0 16px;
+            line-height: 1.7;
+            padding: 0 12px;
             overflow-x: hidden;
         }
 
@@ -52,25 +51,30 @@
 
         .container {
             max-width: 860px;
-            margin: 30px auto;
+            margin: 20px auto;
             background: var(--card-bg);
-            padding: 20px;
-            border-radius: 18px;
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+            padding: 16px;
+            border-radius: 14px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45);
             border: 1px solid var(--card-border);
             animation: fadeIn 0.8s ease-out forwards;
         }
 
         @media (min-width: 768px) {
+            body {
+                padding: 0 16px;
+            }
             .container {
-                padding: 40px;
+                margin: 40px auto;
+                padding: 38px;
+                border-radius: 18px;
             }
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(16px);
             }
             to {
                 opacity: 1;
@@ -80,8 +84,8 @@
 
         .reveal-card {
             opacity: 0;
-            transform: translateY(24px);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .reveal-card.visible {
@@ -91,15 +95,15 @@
 
         header {
             border-bottom: 1px solid var(--card-border);
-            padding-bottom: 20px;
-            margin-bottom: 24px;
+            padding-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .tag-wrapper {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
         .tag {
@@ -108,17 +112,16 @@
             background: rgba(239, 68, 68, 0.12);
             color: var(--yt-red);
             font-weight: 700;
-            font-size: 0.82rem;
-            padding: 4px 12px;
+            font-size: 0.78rem;
+            padding: 4px 10px;
             border-radius: 999px;
             border: 1px solid rgba(239, 68, 68, 0.3);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
         }
 
         .pulse-dot {
-            width: 8px;
-            height: 8px;
+            width: 7px;
+            height: 7px;
             background-color: var(--yt-red);
             border-radius: 50%;
             display: inline-block;
@@ -134,33 +137,39 @@
 
         h1 {
             color: var(--text-heading);
-            font-size: 1.85rem;
+            font-size: 1.5rem;
             line-height: 1.35;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             font-weight: 800;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 1.95rem;
+            }
         }
 
         h2 {
             color: var(--text-heading);
-            font-size: 1.3rem;
-            margin: 24px 0 14px 0;
+            font-size: 1.2rem;
+            margin: 20px 0 12px 0;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         h2::before {
             content: '';
             display: inline-block;
             width: 4px;
-            height: 20px;
+            height: 18px;
             background: var(--accent);
             border-radius: 4px;
         }
 
         p {
-            margin-bottom: 16px;
-            font-size: 1rem;
+            margin-bottom: 14px;
+            font-size: 0.98rem;
         }
 
         strong {
@@ -171,41 +180,57 @@
             background: #1e293b;
             border: 1px solid #334155;
             border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
-            transition: transform 0.3s ease, border-color 0.3s ease;
+            padding: 16px;
+            margin: 18px 0;
         }
 
-        .feature-box:hover {
-            transform: translateY(-3px);
-            border-color: #3b82f6;
+        @media (min-width: 768px) {
+            .feature-box {
+                padding: 20px;
+            }
         }
 
         ul, ol {
-            margin: 12px 0 18px 24px;
+            margin: 10px 0 16px 20px;
         }
 
         li {
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
-        /* Fixed Ad Unit Styling: No Blank Boxes */
+        /* --- AD CONTAINERS & RESPONSIVE FIXES --- */
         .ad-unit-wrapper {
             margin: 24px auto;
             text-align: center;
             width: 100%;
             max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             overflow: hidden;
             clear: both;
         }
 
         .ad-label {
             display: block;
-            font-size: 0.68rem;
+            font-size: 0.65rem;
             color: #64748b;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
+        }
+
+        /* Fixed 728x90 ad ko mobile par overflow hone se rokne ke liye */
+        .ad-slot-header {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .ad-slot-header ins.adsbygoogle {
+            max-width: 100% !important;
         }
 
         ins.adsbygoogle {
@@ -220,108 +245,121 @@
         .tip-callout {
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.05));
             border-left: 4px solid var(--accent);
-            padding: 16px 20px;
-            margin: 20px 0;
+            padding: 14px 16px;
+            margin: 18px 0;
             border-radius: 0 10px 10px 0;
         }
 
         /* App Promotion Card */
         .app-promo-card {
-            margin-top: 36px;
+            margin-top: 32px;
             background: linear-gradient(145deg, #1e1b4b, #0f172a);
             border: 1px solid rgba(99, 102, 241, 0.35);
             color: #ffffff;
-            padding: 24px;
-            border-radius: 16px;
+            padding: 20px;
+            border-radius: 14px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             align-items: center;
-            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.4);
         }
 
-        @media (min-width: 680px) {
+        @media (min-width: 640px) {
             .app-promo-card {
                 flex-direction: row;
                 text-align: left;
+                padding: 24px;
             }
         }
 
         .app-mockup {
-            width: 130px;
+            width: 110px;
             flex-shrink: 0;
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5);
             border: 2px solid #334155;
+        }
+
+        @media (min-width: 640px) {
+            .app-mockup {
+                width: 130px;
+            }
         }
 
         .app-mockup img {
             width: 100%;
+            height: auto;
             display: block;
-            object-fit: cover;
         }
 
         .app-info {
             flex: 1;
+            text-align: center;
+        }
+
+        @media (min-width: 640px) {
+            .app-info {
+                text-align: left;
+            }
         }
 
         .app-badge {
             display: inline-block;
             background: rgba(16, 185, 129, 0.2);
             color: #34d399;
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
-            padding: 3px 10px;
+            padding: 2px 8px;
             border-radius: 20px;
             border: 1px solid rgba(16, 185, 129, 0.4);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .app-info h3 {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             color: #ffffff;
             margin-bottom: 6px;
         }
 
         .app-info p {
             color: #cbd5e1;
-            font-size: 0.95rem;
-            margin-bottom: 16px;
+            font-size: 0.9rem;
+            margin-bottom: 14px;
         }
 
         .btn-play {
             background: #00875f;
             color: #ffffff;
             text-decoration: none;
-            padding: 12px 28px;
+            padding: 10px 24px;
             font-weight: 700;
             border-radius: 8px;
             display: inline-flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1rem;
+            gap: 8px;
+            font-size: 0.95rem;
             box-shadow: 0 4px 14px rgba(0, 135, 95, 0.4);
             transition: all 0.25s ease;
         }
 
         .btn-play:hover {
             background: #00a876;
-            transform: translateY(-2px);
         }
 
         .btn-play svg {
-            width: 18px;
-            height: 18px;
+            width: 16px;
+            height: 16px;
             fill: currentColor;
         }
 
         footer {
             text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #475569;
-            margin-top: 36px;
-            padding-top: 18px;
+            margin-top: 30px;
+            padding-top: 16px;
             border-top: 1px solid var(--card-border);
         }
     </style>
@@ -340,17 +378,19 @@
         <p>Agar aapke channel par views to aa rahe hain lekin earnings kam ho rahi hain, to problem views me nahi balke <strong>RPM (Revenue Per Mille)</strong> me hai. Niche di gayi verified strategies se aap apna RPM double kar sakte hain.</p>
     </header>
 
-    <!-- Top Ad Unit -->
+    <!-- Ad Unit 1: Ms (Slot 9832164119) -->
     <div class="ad-unit-wrapper">
         <span class="ad-label">Advertisement</span>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <div class="ad-slot-header">
+            <!-- Ms -->
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
 
     <!-- Section 1 -->
@@ -369,17 +409,21 @@
         <p>8 minute se badi video me aap manual <strong>Mid-Roll Ads</strong> add kar sakte hain. Automatic breaks ke bajaye 2 se 3 natural breaks manually set karein taaki user experience kharab na ho aur revenue boost ho sake.</p>
     </div>
 
-    <!-- Mid Ad Unit -->
+    <!-- Ad Unit 2: Mus11 (Slot 6946908410) Responsive -->
     <div class="ad-unit-wrapper">
         <span class="ad-label">Advertisement</span>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-1874063367142441"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+        <div style="width: 100%;">
+            <!-- Mus11 -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="6946908410"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
     </div>
 
     <!-- Section 3 -->
@@ -401,7 +445,7 @@
         </ul>
     </div>
 
-    <!-- App Promotion Banner -->
+    <!-- App Promotion Banner (MS Shot) -->
     <div class="app-promo-card reveal-card">
         <div class="app-mockup">
             <img src="ms-shot.jpg" alt="MS Shot Neon Jet Shooter Game" loading="lazy">
@@ -440,7 +484,7 @@
             }
         });
     }, {
-        threshold: 0.12
+        threshold: 0.1
     });
 
     document.querySelectorAll('.reveal-card').forEach(el => observer.observe(el));
