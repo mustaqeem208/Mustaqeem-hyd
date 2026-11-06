@@ -52,9 +52,9 @@
 
         .container {
             max-width: 860px;
-            margin: 40px auto;
+            margin: 30px auto;
             background: var(--card-bg);
-            padding: 24px;
+            padding: 20px;
             border-radius: 18px;
             box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
             border: 1px solid var(--card-border);
@@ -63,7 +63,7 @@
 
         @media (min-width: 768px) {
             .container {
-                padding: 44px;
+                padding: 40px;
             }
         }
 
@@ -91,8 +91,8 @@
 
         header {
             border-bottom: 1px solid var(--card-border);
-            padding-bottom: 24px;
-            margin-bottom: 28px;
+            padding-bottom: 20px;
+            margin-bottom: 24px;
         }
 
         .tag-wrapper {
@@ -134,17 +134,16 @@
 
         h1 {
             color: var(--text-heading);
-            font-size: 2rem;
+            font-size: 1.85rem;
             line-height: 1.35;
             margin-bottom: 14px;
             font-weight: 800;
-            letter-spacing: -0.02em;
         }
 
         h2 {
             color: var(--text-heading);
-            font-size: 1.35rem;
-            margin: 28px 0 14px 0;
+            font-size: 1.3rem;
+            margin: 24px 0 14px 0;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -157,12 +156,11 @@
             height: 20px;
             background: var(--accent);
             border-radius: 4px;
-            box-shadow: 0 0 10px var(--accent);
         }
 
         p {
             margin-bottom: 16px;
-            font-size: 1.02rem;
+            font-size: 1rem;
         }
 
         strong {
@@ -175,13 +173,12 @@
             border-radius: 12px;
             padding: 20px;
             margin: 20px 0;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease;
         }
 
         .feature-box:hover {
-            transform: translateY(-4px);
+            transform: translateY(-3px);
             border-color: #3b82f6;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
         }
 
         ul, ol {
@@ -192,52 +189,54 @@
             margin-bottom: 10px;
         }
 
-        /* AdSense Policy Safe Container */
-        .ad-container {
-            margin: 36px 0;
+        /* Fixed Ad Unit Styling: No Blank Boxes */
+        .ad-unit-wrapper {
+            margin: 24px auto;
             text-align: center;
-            background: #0f172a;
-            padding: 16px;
-            border-radius: 12px;
-            border: 1px dashed #334155;
-            transition: border-color 0.3s ease;
-        }
-
-        .ad-container:hover {
-            border-color: #475569;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            clear: both;
         }
 
         .ad-label {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             color: #64748b;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
+        }
+
+        ins.adsbygoogle {
+            background: transparent !important;
+            margin: 0 auto;
+        }
+
+        ins.adsbygoogle[data-ad-status="unfilled"] {
+            display: none !important;
         }
 
         .tip-callout {
             background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.05));
             border-left: 4px solid var(--accent);
             padding: 16px 20px;
-            margin: 24px 0;
+            margin: 20px 0;
             border-radius: 0 10px 10px 0;
         }
 
-        /* App Promotion Card with Preview Image */
+        /* App Promotion Card */
         .app-promo-card {
-            margin-top: 48px;
+            margin-top: 36px;
             background: linear-gradient(145deg, #1e1b4b, #0f172a);
-            border: 1px solid rgba(99, 102, 241, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.35);
             color: #ffffff;
-            padding: 28px;
+            padding: 24px;
             border-radius: 16px;
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
             align-items: center;
-            position: relative;
-            overflow: hidden;
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
         }
 
@@ -245,42 +244,16 @@
             .app-promo-card {
                 flex-direction: row;
                 text-align: left;
-                align-items: center;
             }
         }
 
-        .app-promo-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
-            animation: rotateBg 12s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rotateBg {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Image Mockup Styling */
         .app-mockup {
-            z-index: 1;
+            width: 130px;
             flex-shrink: 0;
-            width: 140px;
-            height: auto;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
             border: 2px solid #334155;
-            transition: transform 0.3s ease;
-        }
-
-        .app-mockup:hover {
-            transform: scale(1.04);
         }
 
         .app-mockup img {
@@ -290,7 +263,6 @@
         }
 
         .app-info {
-            z-index: 1;
             flex: 1;
         }
 
@@ -307,7 +279,7 @@
         }
 
         .app-info h3 {
-            font-size: 1.45rem;
+            font-size: 1.4rem;
             color: #ffffff;
             margin-bottom: 6px;
         }
@@ -336,7 +308,6 @@
         .btn-play:hover {
             background: #00a876;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 135, 95, 0.6);
         }
 
         .btn-play svg {
@@ -349,8 +320,8 @@
             text-align: center;
             font-size: 0.85rem;
             color: #475569;
-            margin-top: 40px;
-            padding-top: 20px;
+            margin-top: 36px;
+            padding-top: 18px;
             border-top: 1px solid var(--card-border);
         }
     </style>
@@ -370,12 +341,11 @@
     </header>
 
     <!-- Top Ad Unit -->
-    <div class="ad-container">
+    <div class="ad-unit-wrapper">
         <span class="ad-label">Advertisement</span>
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="1234567890"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
         <script>
@@ -400,12 +370,11 @@
     </div>
 
     <!-- Mid Ad Unit -->
-    <div class="ad-container">
+    <div class="ad-unit-wrapper">
         <span class="ad-label">Advertisement</span>
         <ins class="adsbygoogle"
              style="display:block"
              data-ad-client="ca-pub-1874063367142441"
-             data-ad-slot="1234567890"
              data-ad-format="auto"
              data-full-width-responsive="true"></ins>
         <script>
@@ -422,7 +391,17 @@
         </div>
     </div>
 
-    <!-- Updated MS Shot App Promotion Banner -->
+    <!-- Section 4 -->
+    <div class="feature-box reveal-card">
+        <h2>4. High Retention Format & Thumbnail Hook</h2>
+        <p>Advertiser unhi videos par sabse mehenge ads place karta hai jinki <strong>Average View Duration (AVD)</strong> 50% se upar ho.</p>
+        <ul>
+            <li>Pehle 15-20 seconds me video ka direct conclusion na dein, balke exact roadmap samjhayein.</li>
+            <li>Chapters aur timestamps zaroor add karein taaki user easily navigate kare aur bounce rate kam rahe.</li>
+        </ul>
+    </div>
+
+    <!-- App Promotion Banner -->
     <div class="app-promo-card reveal-card">
         <div class="app-mockup">
             <img src="ms-shot.jpg" alt="MS Shot Neon Jet Shooter Game" loading="lazy">
