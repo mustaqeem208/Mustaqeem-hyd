@@ -1,0 +1,859 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M H APPS STOR - Mustaqeem Hyd</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans & Roboto -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <!-- Google AdSense Code -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441"
+     crossorigin="anonymous"></script>
+
+    <style>
+        :root {
+            --play-green: #01875f;
+            --play-green-hover: #01704f;
+            --play-light-green: #e6f3ef;
+            --bg-color: #ffffff;
+            --surface-color: #f8f9fa;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --border-color: #e8eaed;
+            --shadow: 0 2px 10px rgba(0,0,0,0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            padding-bottom: 40px;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #01875f, #00b894);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(1, 135, 95, 0.25);
+        }
+
+        .brand-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            color: var(--text-primary);
+        }
+
+        .brand-text span {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--play-green);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: block;
+        }
+
+        .share-store-btn {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 8px 14px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-store-btn:hover {
+            background: var(--play-light-green);
+            color: var(--play-green);
+            border-color: var(--play-green);
+        }
+
+        /* Search Bar */
+        .search-container {
+            max-width: 960px;
+            margin: 16px auto 0;
+            padding: 0 20px;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 10px 18px;
+            gap: 10px;
+            transition: box-shadow 0.2s;
+        }
+
+        .search-box:focus-within {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+            border-color: transparent;
+        }
+
+        .search-box input {
+            border: none;
+            background: transparent;
+            outline: none;
+            width: 100%;
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        /* Category Chips */
+        .chips {
+            max-width: 960px;
+            margin: 16px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+        .chips::-webkit-scrollbar { display: none; }
+
+        .chip {
+            padding: 7px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            cursor: pointer;
+            background: #fff;
+            transition: all 0.15s;
+        }
+
+        .chip.active {
+            background: var(--play-light-green);
+            color: var(--play-green);
+            border-color: transparent;
+            font-weight: 600;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* AdSense Banner Box */
+        .ad-container {
+            margin: 18px 0;
+            padding: 10px;
+            background: var(--surface-color);
+            border: 1px dashed #dadce0;
+            border-radius: 12px;
+            text-align: center;
+            min-height: 95px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .ad-label {
+            font-size: 10px;
+            color: #9aa0a6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        /* Section Title */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 22px 0 14px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .section-header h2 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .verified-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--play-green);
+            font-weight: 600;
+            background: var(--play-light-green);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* App Cards Grid */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 768px) {
+            .apps-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .app-card {
+            background: #fff;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .app-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.09);
+        }
+
+        .app-top {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .app-logo {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            object-fit: cover;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+            background: #f1f3f4;
+        }
+
+        .app-info {
+            flex: 1;
+        }
+
+        .app-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .app-dev {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--play-green);
+            margin-bottom: 6px;
+        }
+
+        .app-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* Play Store Style Stats Bar */
+        .app-stats {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 16px 0;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            border-right: 1px solid var(--border-color);
+        }
+
+        .stat-item:last-child {
+            border-right: none;
+        }
+
+        .stat-val {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+
+        /* Action Buttons (Install + Share) */
+        .app-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .install-btn {
+            flex: 1;
+            background-color: var(--play-green);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 11px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.2s;
+            box-shadow: 0 2px 6px rgba(1, 135, 95, 0.25);
+        }
+
+        .install-btn:hover {
+            background-color: var(--play-green-hover);
+        }
+
+        .share-btn {
+            background-color: var(--play-light-green);
+            color: var(--play-green);
+            border: none;
+            padding: 11px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            background-color: #d2eae2;
+        }
+
+        /* Full Width Ad inside Grid */
+        .grid-ad {
+            grid-column: 1 / -1;
+            margin: 6px 0;
+        }
+
+        /* Toast Notification */
+        #toast {
+            visibility: hidden;
+            min-width: 260px;
+            background-color: #202124;
+            color: #fff;
+            text-align: center;
+            border-radius: 8px;
+            padding: 12px 18px;
+            position: fixed;
+            z-index: 1000;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+        }
+
+        #toast.show {
+            visibility: visible;
+            animation: fadein 0.3s, fadeout 0.3s 2.7s;
+        }
+
+        @keyframes fadein {
+            from {bottom: 0; opacity: 0;}
+            to {bottom: 30px; opacity: 1;}
+        }
+
+        @keyframes fadeout {
+            from {bottom: 30px; opacity: 1;}
+            to {bottom: 0; opacity: 0;}
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header>
+        <div class="brand">
+            <div class="brand-icon">
+                <span class="material-icons-round">shop</span>
+            </div>
+            <div class="brand-text">
+                <h1>M H APPS STOR</h1>
+                <span>MUSTAQEEM HYD</span>
+            </div>
+        </div>
+
+        <button class="share-store-btn" onclick="shareStore()">
+            <span class="material-icons-round" style="font-size: 18px;">share</span>
+            Share Store
+        </button>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+        <div class="search-box">
+            <span class="material-icons-round" style="color: var(--text-secondary);">search</span>
+            <input type="text" id="searchInput" onkeyup="filterApps()" placeholder="Search Zigo, Zivo Food, Quran, Ms Finx, Rishte...">
+        </div>
+    </div>
+
+    <!-- Category Filter Chips -->
+    <div class="chips">
+        <div class="chip active" onclick="filterCategory('all', this)">All Apps (10)</div>
+        <div class="chip" onclick="filterCategory('rides', this)">Cab & Transport</div>
+        <div class="chip" onclick="filterCategory('food', this)">Food</div>
+        <div class="chip" onclick="filterCategory('games', this)">Games</div>
+        <div class="chip" onclick="filterCategory('social', this)">Social & News</div>
+        <div class="chip" onclick="filterCategory('islamic', this)">Islamic</div>
+        <div class="chip" onclick="filterCategory('finance', this)">Finance</div>
+    </div>
+
+    <div class="container">
+
+        <!-- TOP GOOGLE ADSENSE BANNER -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%;"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Section Heading -->
+        <div class="section-header">
+            <h2>Official Apps by Mustaqeem Hyd</h2>
+            <div class="verified-badge">
+                <span class="material-icons-round" style="font-size: 15px;">verified</span>
+                Play Protect Verified
+            </div>
+        </div>
+
+        <!-- Apps List Grid -->
+        <div class="apps-grid" id="appsGrid">
+
+            <!-- 1. ZIGO CAB APP -->
+            <div class="app-card" data-category="rides" data-name="zigo app cab taxi ride booking">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgRKDNzpQNcVONkcqZFhvilVp1K1mG1PkW4937hosZWNg6DMtGfbXf3aJswUPSaYmFxo1y7V_gf-HEqzIVKYXmywA8wdjw-5Oc19fowtVP3Ov4zvY5hwDelTiMLP1aB0l_SU5xcipqjQbre0YJ9L98PMJgo9OqkRC_8_WMsB3sp7CxWO3AutwE1_xFdXqAP/s1600/20251214_071928.png" alt="Zigo App Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Zigo App <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Fast, safe aur affordable cab aur auto booking service Hyderabad aur aapke shehar ke liye.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.9 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 16 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.zigo.cab" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Zigo App', 'https://play.google.com/store/apps/details?id=com.zigo.cab')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 2. ZIGO PARTNER APP -->
+            <div class="app-card" data-category="rides" data-name="zigo partner app driver captain">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEif_3bCuw909NMJfUXl5M27fH9EBNsQlpro3QD4fLoT-um6kLltWWUMamwXogsfqbs1qBAuYi70FwbanEu53F8-S4nVmoCmQ4pTeXgpz4XNstuNWCQAhMVUbZRAnyu-vwn9NTxfZOkDDZ9Mn0_1VooQQPfA7NNpNX4-vBqD4pgvWkz5LhRQFrVMnD157Mzn/s1600/20260918_092045.png" alt="Zigo Partner App Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Zigo Partner App <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Drivers aur vehicle partners ke liye official app. Daily rides accept karein aur apni kamai badhayein.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.8 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 18 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.zigo.partner" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Zigo Partner App', 'https://play.google.com/store/apps/details?id=com.zigo.partner')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 3. ZIVO FOOD -->
+            <div class="app-card" data-category="food" data-name="zivo food delivery restaurant order">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEimSycG7CC6cDGXOOmV3F3tD-O1TSMUEX0yLnXIpQEr5gUTSvBVC3nSfBph5QKjFsfJooGIvxkUMbR7eGHWMo7gutZdYKP23IhAjbY7P3im06h5y7M0Tkmb_w4KLzuu6NQiCUXgQxsbUjf_JkzRTd-VVE0hfO3Q2NHhF67SPORGskAvEQeOvlhcHX8YSHaa/s1600/20260108_134813.png" alt="Zivo Food Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Zivo Food <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Apne pasandeeda restaurants se garma-garam khana order karein superfast doorstep delivery ke saath.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.9 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 14 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.freesekho208" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Zivo Food', 'https://play.google.com/store/apps/details?id=com.freesekho208')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 4. LOAD KAR APP -->
+            <div class="app-card" data-category="rides" data-name="load kar app transport goods delivery">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhPbIAvHn-coZAplXtRl6vJbbBPZOKIw8dMlwfRwgO9D6jPzg-EXj99hqHxCIimEJmlaNFdn_1jrCklR-vfm_k1k49jAg8IsOkQNS_Vx0Fpg5F9t_4MxJYISIBQoA_oRLkzJAVh5AMAQEkGu-rTfinYPXwlmHebbtut-AxmKI9WQiuw51QPwH9P4BotQjEe/s1600/20260930_194757.png" alt="Load Kar App Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Load Kar App <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Samaan shifting, goods transport aur mini-truck booking ab ek click mein. Bharosemand delivery service.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.7 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 15 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.msallrides.hyd" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Load Kar App', 'https://play.google.com/store/apps/details?id=com.msallrides.hyd')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- MIDDLE IN-FEED ADSENSE BANNER -->
+            <div class="ad-container grid-ad">
+                <span class="ad-label">Advertisement</span>
+                <ins class="adsbygoogle"
+                     style="display:block; width:100%;"
+                     data-ad-client="ca-pub-1874063367142441"
+                     data-ad-slot="auto"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+
+            <!-- 5. AL QUR'AN 30 PARA APP -->
+            <div class="app-card" data-category="islamic" data-name="al quran 30 para app islamic tilawat">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg32eg8ydSW2zRPQQiw4yPo6VAZdgtCiChRKhPetFZml90NR0EWiMAjA8wdws_q1zKWeLLkH65YRtf8O5s739q69jF7zkfS7u4Yyz4tEC5MFTP3ZVsv1hwGftF8K9gaHtl8shKmEzxjAJRCwu8TBevH6HZMLYp8xJvfiOjeoSNDQGSVNKYEfZec_9usekGF/s1600/20260329_120402.png" alt="Al Quran 30 Para Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Al Qur'an 30 Para App <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Mukammal 30 Para Qur'an Majeed saaf aur aasan font ke saath kabhi bhi aur kahin bhi tilawat karein.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">5.0 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 22 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.mustaqeemhyd.quran30para" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Al Qur\'an 30 Para App', 'https://play.google.com/store/apps/details?id=com.mustaqeemhyd.quran30para')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 6. MS SHOT GAME -->
+            <div class="app-card" data-category="games" data-name="ms shot game action fun">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEh36jFXZzVfcuwu57i70O7kOJ9je5NYQ6wwI-HpPJJYowUXLLOR8_i_fC5ZKO-UQcZvPAse_y9OyReYaN0IeOglgkpTyx8187ZTPidCYOSXVl0E8UceXdDcK1JiO2bqaj1CLvLoqsa64aluza5mHQb5NHwKpwZhpYGM5F038rgMUFOgOpb68R8SKa0xJIpE/s1600/20250921_144036.png" alt="Ms Shot Game Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Ms Shot Game <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Zabardast action aur target shooting game! High score banayein aur doston ke saath challenge karein.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.8 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 19 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.mustaqeemhyd.msshot" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Ms Shot Game', 'https://play.google.com/store/apps/details?id=com.mustaqeemhyd.msshot')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 7. MS RISHTE APP -->
+            <div class="app-card" data-category="social" data-name="ms rishte app matrimony shadi">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjpDPeb0T2NXuJSA3aayHDNz6q_7vWTnCdInTaCc3i4SWsmsWiadbHfL8wCbeSbq4tE-q5Rqrzcaq2NaB7N6Pol9axO6uJ8dzKa5OSuYnnjNcQ1XUwzryNt0Yg4edhSxKsswVz7shpnr-y-jv0w_UIh6j5KLkqeuTuMdLXmQSdl6rAsayuPurb1G-vU-MmG/s1600/20250601_213645.png" alt="Ms Rishte App Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Ms Rishte App <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Trusted matrimony aur rishte platform. Apne aur apne parivar ke liye behtareen aur verified rishte dhoondhein.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.9 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 12 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">18+</div><div class="stat-lbl">Rated for 18+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.msreshtehyd" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Ms Rishte App', 'https://play.google.com/store/apps/details?id=com.msreshtehyd')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 8. MS FINX -->
+            <div class="app-card" data-category="finance" data-name="ms finx finance business money">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgKGoz5qnBAaxueG0d-RMDmU74WtOMgGON29XMNQB298A-YFPpiLuAfqDZ9JNv4GDfVChViZPHjGYSeQmov6HmG6fkYe3PBVoxfArg5pGS3CK8R0KHMEdGf1QJ28F2wchAn7zuJLyo4eNAXaTnfTKtvHfumD8KUqET9GA3L4tZCi7sg308u6CW8SuM9RRod/s1600/20250824_160614.png" alt="Ms Finx Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Ms Finx <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Smart financial management aur digital hisab-kitab app. Apne business aur daily finance ko aasani se manage karein.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.8 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 14 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.msapps.msfinx" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Ms Finx', 'https://play.google.com/store/apps/details?id=com.msapps.msfinx')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 9. MS POST APP -->
+            <div class="app-card" data-category="social" data-name="ms post app poster status social">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg9-OneqRXJqZz_R9pLea2n_07VK3OMzstlfStAPEwbRii5aA-sZJ_ATeaU0iVsWpTQ4ig7ovemW5NrXglYN-WCFPWJc4zUDVGnnzdNWryTBGScdrlk5tWM5u6-4dhCPnzdAdsuZXueUwlJ-Daldc6rk7IbKsaanbHzx3-mgH16pbXdcF6WkIMX_eAt7oRn/s1600/20241218_122201.png" alt="Ms Post App Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Ms Post App <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Apne naam aur photo ke saath daily greeting posts, festival banners aur status banayein aur share karein.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.7 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 15 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.nucleapp.na_c10605" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Ms Post App', 'https://play.google.com/store/apps/details?id=com.nucleapp.na_c10605')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+            <!-- 10. MS DAILY -->
+            <div class="app-card" data-category="social" data-name="ms daily news updates information">
+                <div>
+                    <div class="app-top">
+                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgS3I8o0xi97tiPl-z2aNy7r0IcIeS4tqrIkUr1mcNsGWogUBwez0rrSWVf7M5iUABFCESUUNtzaNiQ0Bijaf0mwqUJPKWbRiL3ql9Zfxe6hMNJqqqJ1H2YR8J4B3vu7i5QbUPvhUGAx2Y8uECzyGXQTnwGZxOSBdM4V6io2cu_iN5A47_wVu5y7Ya3VHNg/s1600/20251104_113903.png" alt="Ms Daily Logo" class="app-logo">
+                        <div class="app-info">
+                            <div class="app-title">Ms Daily <span class="material-icons-round" style="font-size: 16px; color: var(--play-green);">verified</span></div>
+                            <div class="app-dev">MUSTAQEEM HYD</div>
+                            <p class="app-desc">Har din ki taza khabrein, local Hyderabad updates aur zaroori jankari seedha aapke mobile par.</p>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="stat-item"><div class="stat-val">4.8 <span class="material-icons-round" style="font-size: 13px;">star</span></div><div class="stat-lbl">Reviews</div></div>
+                        <div class="stat-item"><div class="stat-val"><span class="material-icons-round" style="font-size: 15px;">download</span> 11 MB</div><div class="stat-lbl">Size</div></div>
+                        <div class="stat-item"><div class="stat-val">3+</div><div class="stat-lbl">Rated for 3+</div></div>
+                    </div>
+                </div>
+                <div class="app-actions">
+                    <a href="https://play.google.com/store/apps/details?id=com.mustaqeemhyd.msdaily" target="_blank" class="install-btn"><span class="material-icons-round" style="font-size: 18px;">install_mobile</span> Install</a>
+                    <button class="share-btn" onclick="shareApp('Ms Daily', 'https://play.google.com/store/apps/details?id=com.mustaqeemhyd.msdaily')"><span class="material-icons-round" style="font-size: 18px;">share</span> Share</button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- BOTTOM GOOGLE ADSENSE BANNER -->
+        <div class="ad-container" style="margin-top: 28px;">
+            <span class="ad-label">Sponsored</span>
+            <ins class="adsbygoogle"
+                 style="display:block; width:100%;"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="auto"
+                 data-ad-format="rectangle"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>M H APPS STOR</strong> • Developed by <strong>MUSTAQEEM HYD</strong></p>
+        <p style="margin-top: 5px; font-size: 12px;">All 10 official apps redirect directly to Google Play Store for safe download.</p>
+    </footer>
+
+    <!-- Copy Toast Message -->
+    <div id="toast">Link copied to clipboard!</div>
+
+    <script>
+        // Search Filter Function
+        function filterApps() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.app-card');
+            
+            cards.forEach(card => {
+                const name = card.getAttribute('data-name').toLowerCase();
+                const text = card.innerText.toLowerCase();
+                if (name.includes(query) || text.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Category Filter Function
+        function filterCategory(category, element) {
+            document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+
+            const cards = document.querySelectorAll('.app-card');
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Share Individual App with Hosted Website URL + Play Store Link
+        function shareApp(appName, playStoreUrl) {
+            const hostedUrl = window.location.href;
+            const shareText = `📲 *${appName}* download karein *M H APPS STOR (Mustaqeem Hyd)* se!\n\n🌐 Store Website: ${hostedUrl}\n▶️ Direct Play Store: ${playStoreUrl}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: `${appName} - M H APPS STOR`,
+                    text: shareText,
+                    url: hostedUrl
+                }).catch((err) => console.log('Share cancelled', err));
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        // Share Complete Store Website URL
+        function shareStore() {
+            const hostedUrl = window.location.href;
+            const shareText = `🚀 *M H APPS STOR - MUSTAQEEM HYD*\nZigo App, Zivo Food, Al Qur'an 30 Para, Ms Rishte aur hamare sabhi 10 official apps download karein:\n${hostedUrl}`;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: 'M H APPS STOR - Mustaqeem Hyd',
+                    text: shareText,
+                    url: hostedUrl
+                }).catch((err) => console.log('Share cancelled', err));
+            } else {
+                copyToClipboard(shareText);
+            }
+        }
+
+        // Fallback Clipboard Copy for Desktop Browsers
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById("toast");
+                toast.innerText = "App link & Website URL copied! Ab WhatsApp par paste karein.";
+                toast.className = "show";
+                setTimeout(() => { toast.className = toast.className.replace("show", ""); }, 3000);
+            });
+        }
+    </script>
+</body>
+</html>
