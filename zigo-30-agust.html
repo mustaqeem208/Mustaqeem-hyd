@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b1324">
-    <title>Zigo Partner App - India's Top Zero Commission Driver App</title>
-    <meta name="description" content="Join the Zigo Partner App network across India. 0% Commission, highest earnings, and trusted by 5000+ drivers. Download the Zigo Cab driver app today!">
+    <title>Zigo Partner App - Zero Commission Bike, Auto & Cab Driver App</title>
+    <meta name="description" content="Join Zigo Partner App for Bike, Auto, and Cab drivers across India. 0% Commission, highest earnings, and trusted by 5000+ drivers.">
     
-    <!-- Google Fonts for Professional Look -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     
     <!-- Google AdSense Main Script -->
@@ -55,7 +55,25 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
+        }
+
+        .vehicle-badges {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .v-badge {
+            background: rgba(250, 204, 21, 0.12);
+            border: 1px solid rgba(250, 204, 21, 0.35);
+            color: #facc15;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
         }
 
         .hero-section {
@@ -80,7 +98,7 @@
             font-weight: 600;
         }
 
-        /* ================= ANIMATIONS & BUTTON ================= */
+        /* ================= ANIMATIONS & GOOGLE PLAY BUTTON ================= */
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
@@ -101,34 +119,39 @@
         }
 
         @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.4); }
-            70% { box-shadow: 0 0 0 15px rgba(250, 204, 21, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.5); }
+            70% { box-shadow: 0 0 0 16px rgba(250, 204, 21, 0); }
             100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
         }
 
-        /* Shine effect running across the button */
         @keyframes shine {
             0% { left: -100%; }
-            20% { left: 200%; }
+            25% { left: 200%; }
             100% { left: 200%; }
+        }
+
+        @keyframes playIconMotion {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.18) rotate(-6deg); }
+            50% { transform: scale(1.1) rotate(6deg); }
+            75% { transform: scale(1.18) rotate(-3deg); }
         }
 
         .play-btn {
             position: relative;
             overflow: hidden;
             background: linear-gradient(135deg, #facc15, #eab308, #f59e0b);
-            color: #000;
+            color: #0b1324;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 16px 30px;
-            border-radius: 12px;
+            border-radius: 14px;
             font-weight: 800;
-            font-size: 19px;
             width: 100%;
-            max-width: 320px;
-            border: none;
+            max-width: 330px;
+            border: 2px solid #fef08a;
             cursor: pointer;
             animation: pulseGlow 2s infinite;
             transition: transform 0.2s ease, filter 0.2s ease;
@@ -142,31 +165,55 @@
             left: -100%; 
             width: 50%; 
             height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
             transform: skewX(-25deg);
             animation: shine 3s infinite;
         }
 
         .play-btn:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
+            filter: brightness(1.08);
+            transform: translateY(-3px);
         }
 
         .play-btn:active {
             transform: scale(0.95);
         }
 
+        .play-icon-wrapper {
+            background: #0b1324;
+            padding: 8px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 14px;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
         .play-btn svg {
-            width: 26px;
-            height: 26px;
-            margin-right: 12px;
-            z-index: 1; 
+            width: 28px;
+            height: 28px;
+            animation: playIconMotion 2s infinite ease-in-out;
         }
         
-        .play-btn span {
+        .play-btn-text {
             z-index: 1; 
             text-align: left;
-            line-height: 1.2;
+            line-height: 1.15;
+        }
+
+        .play-btn-text small {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.8px;
+            opacity: 0.9;
+        }
+
+        .play-btn-text strong {
+            font-size: 20px;
+            font-weight: 800;
         }
 
         /* ================= ADVERTISEMENT WRAPPER ================= */
@@ -250,6 +297,62 @@
             color: #cbd5e1;
         }
 
+        /* ================= INSTALL GUIDE SECTION ================= */
+        .install-guide {
+            background: linear-gradient(145deg, #131c31, #0f172a);
+            border: 1px solid #334155;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .install-guide h2 {
+            color: #facc15;
+            font-size: 21px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid #1e293b;
+        }
+
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            background: #facc15;
+            color: #0b1324;
+            font-weight: 800;
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            margin-right: 12px;
+            margin-top: 2px;
+        }
+
+        .step-text strong {
+            color: #ffffff;
+            display: block;
+            font-size: 15px;
+        }
+
+        .step-text span {
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
         /* ================= SEO ARTICLE SECTION ================= */
         .article-content {
             background: #0f172a;
@@ -313,6 +416,9 @@
 </head>
 <body>
 
+    <!-- HIDDEN AUTOPLAY VOICE OVER -->
+    <audio id="zigoAudio" src="zigo-voiceover.mp3" autoplay preload="auto"></audio>
+
     <div class="container">
         
         <!-- HEADER -->
@@ -321,6 +427,11 @@
                 <span class="white">ZIGO</span><span class="gold">PARTNER</span>
             </div>
             <div class="tagline">Drive More. Earn More.</div>
+            <div class="vehicle-badges">
+                <span class="v-badge">🏍️ Bike</span>
+                <span class="v-badge">🛺 Auto</span>
+                <span class="v-badge">🚖 Car / Cab</span>
+            </div>
         </header>
 
         <!-- TOP HERO & INSTANT DOWNLOAD SECTION -->
@@ -330,10 +441,18 @@
             <div class="click-pointer">👇 <span>Click Here To Download</span> 👇</div>
             
             <a href="https://play.google.com/store/apps/details?id=com.zigo.partner" class="play-btn">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M4 2.69127C4 1.93067 4.81547 1.44851 5.48192 1.81506L22.4069 11.1238C23.0977 11.5037 23.0977 12.4963 22.4069 12.8762L5.48192 22.1849C4.81546 22.5515 4 22.0693 4 21.3087V2.69127Z"/>
-                </svg>
-                <span>GET IT ON<br>GOOGLE PLAY</span>
+                <div class="play-icon-wrapper">
+                    <svg viewBox="0 0 512 512">
+                        <path fill="#4CAF50" d="M48 59.49v393a14.16 14.16 0 0 0 4.39 10.38L260 255.25 52.39 49.11A14.16 14.16 0 0 0 48 59.49z"/>
+                        <path fill="#2196F3" d="M335.8 179.45L83.4 35.19C70.48 27.8 57.87 35 52.39 49.11L260 255.25z"/>
+                        <path fill="#FFEB3B" d="M454.6 235.14l-118.8-55.69L260 255.25l75.8 75.8 118.8-55.69c18.8-10.74 18.8-29.48 0-40.22z"/>
+                        <path fill="#F44336" d="M52.39 462.89c5.48 14.11 18.09 21.31 31.01 13.92l252.4-144.26L260 255.25z"/>
+                    </svg>
+                </div>
+                <div class="play-btn-text">
+                    <small>GET IT ON</small>
+                    <strong>Google Play</strong>
+                </div>
             </a>
         </div>
 
@@ -349,23 +468,56 @@
             </script>
         </div>
         
-        <!-- NEW TRANSPARENCY NOTICE -->
+        <!-- TRANSPARENCY NOTICE -->
         <div class="notice-box">
             <strong>🚀 National Rollout Phase</strong>
-            We are currently in the Driver Onboarding Phase across all major cities in India. Customer bookings will start in your city soon once the required local driver target is reached.
+            We are currently onboarding Bike, Auto, and Cab drivers across all major cities in India. Customer bookings will start in your city soon once the local driver target is reached.
+        </div>
+
+        <!-- HOW TO INSTALL GUIDE -->
+        <div class="install-guide">
+            <h2>📲 App Install & Join Kaise Karein?</h2>
+            <div class="step-item">
+                <div class="step-num">1</div>
+                <div class="step-text">
+                    <strong>Google Play Button Dabayein</strong>
+                    <span>Upar diye gaye yellow "GET IT ON Google Play" button par click karein.</span>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">2</div>
+                <div class="step-text">
+                    <strong>Zigo Partner App Install Karein</strong>
+                    <span>Play Store khulne par "Install" par tap karein aur app download hone dein.</span>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">3</div>
+                <div class="step-text">
+                    <strong>Apni Gaadi Chunein (Bike / Auto / Car)</strong>
+                    <span>Mobile number se register karein, apni vehicle category select karein aur documents upload karein.</span>
+                </div>
+            </div>
+            <div class="step-item">
+                <div class="step-num">4</div>
+                <div class="step-text">
+                    <strong>0% Commission Kamai Shuru</strong>
+                    <span>Verification ke baad seedha rides lein aur 100% paisa apne paas rakhein.</span>
+                </div>
+            </div>
         </div>
 
         <!-- FEATURE CARDS -->
         <div class="card">
             <div class="card-icon">💰</div>
             <h2>0% Commission</h2>
-            <p>Whatever the rider pays, goes directly into your pocket. <strong>No cuts, no hidden fees!</strong> Keep 100 percent of your hard-earned income.</p>
+            <p>Chahe Bike ho, Auto ho ya Car—rider jo bhi pay karega, seedha aapki jeb mein jayega. <strong>No cuts, no hidden fees!</strong></p>
         </div>
 
         <div class="card">
             <div class="card-icon">⭐</div>
-            <h2>India's Best Network</h2>
-            <p>Proudly designed for drivers across India with a seamless, high-earning booking experience. Drive in your city with pride and respect.</p>
+            <h2>India's Best Multi-Vehicle Network</h2>
+            <p>Proudly designed for Bike, Auto, and Cab drivers across India with a seamless, high-earning booking experience.</p>
         </div>
 
         <!-- MIDDLE AD SENSE SLOT -->
@@ -382,15 +534,15 @@
 
         <!-- SEO ARTICLE FOR ADSENSE COMPLIANCE -->
         <article class="article-content">
-            <h3>Why Join the Zigo Cab Network?</h3>
-            <p>The taxi industry is growing fast, but drivers often struggle with high commission rates taken by aggregators. <strong>Zigo Partner App</strong> changes the game for good. We believe that the driver who owns the car and burns the fuel deserves the full rewards. That is why we operate on a strict Zero Commission model across India.</p>
+            <h3>Why Join the Zigo Partner Network?</h3>
+            <p>Drivers across India often struggle with heavy commission cuts taken by ride-hailing apps. <strong>Zigo Partner App</strong> changes the game for Bike riders, Auto drivers, and Cab owners. We operate on a strict Zero Commission model so you keep 100% of your hard-earned fare.</p>
             
             <h3>Benefits of Driving with Zigo</h3>
             <ul>
-                <li><strong>Direct Payments:</strong> Riders pay you directly via UPI or cash payments. We never hold your earnings in virtual wallets.</li>
-                <li><strong>Flexible Working Hours:</strong> You become your own boss. Login and logout whenever you prefer.</li>
-                <li><strong>Pan-India Expansion:</strong> We are rapidly expanding our customer base across all major Indian cities. Join early to secure your spot.</li>
-                <li><strong>Dedicated Support:</strong> Our support team is building a strong network to understand the routes and challenges of every major city perfectly.</li>
+                <li><strong>All Vehicles Welcome:</strong> Attach your Bike, Auto Rickshaw, or Car/Cab easily.</li>
+                <li><strong>Direct Payments:</strong> Riders pay you directly via UPI or cash. No wallet holds.</li>
+                <li><strong>Flexible Working Hours:</strong> Login and logout whenever you want—be your own boss.</li>
+                <li><strong>Pan-India Expansion:</strong> Join early in your city to secure top priority bookings.</li>
             </ul>
         </article>
 
@@ -405,6 +557,28 @@
         </footer>
 
     </div>
+
+    <!-- SILENT AUTOPLAY SCRIPT (NO BUTTON) -->
+    <script>
+        const zigoAudio = document.getElementById('zigoAudio');
+        let played = false;
+
+        function startVoice() {
+            if (!played) {
+                zigoAudio.play().then(() => {
+                    played = true;
+                }).catch(() => {});
+            }
+        }
+
+        // Page load hote hi koshish karega
+        window.addEventListener('load', startVoice);
+
+        // Agar browser ne block kiya toh pehle touch/scroll/click par turant chalega
+        ['click', 'touchstart', 'scroll'].forEach(evt => {
+            document.addEventListener(evt, startVoice, { once: true });
+        });
+    </script>
 
 </body>
 </html>
