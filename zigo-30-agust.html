@@ -33,14 +33,14 @@
             padding: 20px;
         }
 
-        /* ================= HEADER & HERO ================= */
+        /* ================= HEADER ================= */
         header {
             text-align: center;
-            padding: 30px 0 10px;
+            padding: 25px 0 5px;
         }
 
         .logo-text {
-            font-size: 42px;
+            font-size: 40px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -50,7 +50,7 @@
         .logo-text span.gold { color: #facc15; }
 
         .tagline {
-            font-size: 15px;
+            font-size: 14px;
             color: #94a3b8;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -62,7 +62,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
         }
 
@@ -76,235 +76,83 @@
             font-weight: 600;
         }
 
-        .hero-section {
-            text-align: center;
-            margin-bottom: 25px;
-            padding: 30px 15px;
-            background: radial-gradient(circle at center, #1e293b, #0b1324);
-            border-radius: 20px;
-            border: 1px solid #1e293b;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        .trust-badge {
-            display: inline-block;
-            background: #1e293b;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 13px;
-            color: #facc15;
-            border: 1px solid #334155;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        /* ================= ANIMATIONS & GOOGLE PLAY BUTTON ================= */
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .click-pointer {
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 800;
-            margin: 10px 0 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: bounce 1.2s infinite ease-in-out;
-        }
-
-        .click-pointer span {
-            color: #facc15;
-        }
-
-        @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.5); }
-            70% { box-shadow: 0 0 0 16px rgba(250, 204, 21, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
-        }
-
-        @keyframes shine {
-            0% { left: -100%; }
-            25% { left: 200%; }
-            100% { left: 200%; }
-        }
-
-        @keyframes playIconMotion {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.18) rotate(-6deg); }
-            50% { transform: scale(1.1) rotate(6deg); }
-            75% { transform: scale(1.18) rotate(-3deg); }
-        }
-
-        .play-btn {
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #facc15, #eab308, #f59e0b);
-            color: #0b1324;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 30px;
-            border-radius: 14px;
-            font-weight: 800;
-            width: 100%;
-            max-width: 330px;
-            border: 2px solid #fef08a;
-            cursor: pointer;
-            animation: pulseGlow 2s infinite;
-            transition: transform 0.2s ease, filter 0.2s ease;
-            margin: 0 auto;
-        }
-
-        .play-btn::after {
-            content: '';
-            position: absolute;
-            top: 0; 
-            left: -100%; 
-            width: 50%; 
-            height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
-            transform: skewX(-25deg);
-            animation: shine 3s infinite;
-        }
-
-        .play-btn:hover {
-            filter: brightness(1.08);
-            transform: translateY(-3px);
-        }
-
-        .play-btn:active {
-            transform: scale(0.95);
-        }
-
-        .play-icon-wrapper {
-            background: #0b1324;
-            padding: 8px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 14px;
-            z-index: 1;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
-        .play-btn svg {
-            width: 28px;
-            height: 28px;
-            animation: playIconMotion 2s infinite ease-in-out;
-        }
-        
-        .play-btn-text {
-            z-index: 1; 
-            text-align: left;
-            line-height: 1.15;
-        }
-
-        .play-btn-text small {
-            display: block;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 0.8px;
-            opacity: 0.9;
-        }
-
-        .play-btn-text strong {
-            font-size: 20px;
-            font-weight: 800;
-        }
-
-        /* ================= GOOGLE PLAY STORE EXACT CARD ================= */
+        /* ================= EXACT PLAY STORE APP CARD ================= */
         .playstore-card {
             background: #ffffff;
             color: #202124;
-            border-radius: 22px;
-            padding: 22px 20px;
-            margin: 25px 0;
-            box-shadow: 0 14px 35px rgba(0,0,0,0.45);
-            border: 1px solid #e2e8f0;
-        }
-
-        .ps-topbar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid #f1f5f9;
-            padding-bottom: 12px;
-            margin-bottom: 16px;
-        }
-
-        .ps-brand {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #5f6368;
-        }
-
-        .ps-brand svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        .ps-verified {
-            font-size: 11px;
-            color: #01875f;
-            background: #e6f4ea;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-weight: 600;
+            border-radius: 24px;
+            padding: 24px 20px;
+            margin: 15px 0 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.45);
         }
 
         .ps-app-header {
             display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 18px;
+            align-items: flex-start;
+            gap: 18px;
+            margin-bottom: 20px;
         }
 
         .ps-app-logo {
-            width: 76px;
-            height: 76px;
-            border-radius: 18px;
+            width: 82px;
+            height: 82px;
+            border-radius: 20px;
             object-fit: cover;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            border: 1px solid #f1f5f9;
             flex-shrink: 0;
-            background: #0b1324;
+            background: #ffffff;
         }
 
-        .ps-app-info h3 {
-            font-size: 20px;
+        .ps-app-info {
+            flex: 1;
+        }
+
+        .ps-title-row {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-bottom: 2px;
+        }
+
+        .ps-title-row h1 {
+            font-size: 21px;
             font-weight: 700;
             color: #202124;
             line-height: 1.25;
-            margin-bottom: 3px;
+        }
+
+        .verified-badge-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            display: inline-block;
+            vertical-align: middle;
         }
 
         .ps-dev-name {
-            font-size: 13px;
-            font-weight: 600;
+            font-size: 14px;
+            font-weight: 700;
             color: #01875f;
-            margin-bottom: 3px;
+            letter-spacing: 0.3px;
+            margin-bottom: 6px;
         }
 
-        .ps-ads-tag {
-            font-size: 11px;
+        .ps-short-desc {
+            font-size: 13.5px;
             color: #5f6368;
+            line-height: 1.45;
         }
 
         .ps-stats-row {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            padding: 12px 0;
-            margin-bottom: 18px;
-            border-top: 1px solid #f1f5f9;
-            border-bottom: 1px solid #f1f5f9;
+            padding: 14px 0;
+            margin-bottom: 20px;
+            border-top: 1px solid #e8eaed;
+            border-bottom: 1px solid #e8eaed;
             text-align: center;
         }
 
@@ -324,14 +172,19 @@
         }
 
         .ps-stat-val {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             color: #202124;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .ps-stat-lbl {
-            font-size: 11px;
+            font-size: 12px;
             color: #5f6368;
+            margin-top: 2px;
         }
 
         .ps-action-row {
@@ -340,50 +193,102 @@
             align-items: center;
         }
 
+        /* ================= INSTALL BUTTON ANIMATIONS ================= */
+        @keyframes installBouncePulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 4px 14px rgba(1, 135, 95, 0.4), 0 0 0 0 rgba(1, 135, 95, 0.6);
+            }
+            50% {
+                transform: scale(1.04);
+                box-shadow: 0 8px 22px rgba(1, 135, 95, 0.6), 0 0 0 12px rgba(1, 135, 95, 0);
+            }
+        }
+
+        @keyframes shineSweep {
+            0% { left: -100%; }
+            30% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(3px); }
+        }
+
         .ps-install-btn {
-            flex: 2;
-            background: #01875f;
+            position: relative;
+            overflow: hidden;
+            flex: 2.2;
+            background: linear-gradient(135deg, #01875f, #02a373);
             color: #ffffff;
             text-decoration: none;
             text-align: center;
-            padding: 13px 20px;
-            border-radius: 10px;
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            box-shadow: 0 4px 12px rgba(1, 135, 95, 0.35);
-            transition: background 0.2s ease, transform 0.2s ease;
+            padding: 14px 20px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            animation: installBouncePulse 1.6s infinite ease-in-out;
+            transition: background 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
         }
 
+        .ps-install-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 55%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shineSweep 2.5s infinite;
+        }
+
+        .ps-install-btn svg {
+            animation: iconBounce 1.2s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        .ps-install-btn span {
+            z-index: 1;
+        }
+
         .ps-install-btn:hover {
             background: #016e4d;
-            transform: translateY(-2px);
+        }
+
+        .ps-install-btn:active {
+            transform: scale(0.96);
         }
 
         .ps-share-btn {
             flex: 1;
-            background: #ffffff;
+            background: #e6f4ea;
             color: #01875f;
-            border: 1.5px solid #dadce0;
-            padding: 12px 14px;
-            border-radius: 10px;
-            font-size: 14px;
+            border: 1.5px solid #bce3c8;
+            padding: 14px 16px;
+            border-radius: 12px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 7px;
             transition: all 0.2s ease;
         }
 
         .ps-share-btn:hover {
-            background: #f1f8f5;
-            border-color: #01875f;
+            background: #ceead6;
+        }
+
+        .ps-share-btn:active {
+            transform: scale(0.96);
         }
 
         /* ================= ADVERTISEMENT WRAPPER ================= */
@@ -425,46 +330,6 @@
             display: block;
             margin-bottom: 5px;
             font-size: 16px;
-        }
-
-        /* ================= FEATURE CARDS ================= */
-        .card {
-            background: linear-gradient(145deg, #131c31, #0f172a);
-            border: 1px solid #1e293b;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card-icon {
-            width: 45px;
-            height: 45px;
-            background: rgba(250, 204, 21, 0.1);
-            border: 1px solid rgba(250, 204, 21, 0.3);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: #facc15;
-        }
-
-        .card h2 {
-            font-size: 22px;
-            color: #facc15;
-            margin-bottom: 10px;
-        }
-
-        .card p {
-            font-size: 14px;
-            color: #cbd5e1;
         }
 
         /* ================= INSTALL GUIDE SECTION ================= */
@@ -521,6 +386,46 @@
         .step-text span {
             color: #94a3b8;
             font-size: 13px;
+        }
+
+        /* ================= FEATURE CARDS ================= */
+        .card {
+            background: linear-gradient(145deg, #131c31, #0f172a);
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #facc15;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #facc15;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #cbd5e1;
         }
 
         /* ================= SEO ARTICLE SECTION ================= */
@@ -586,7 +491,7 @@
 </head>
 <body>
 
-    <!-- INSTANT AUTOPLAY VOICE OVER (Bina Click Ke Seedha Open Hone Par Bajega) -->
+    <!-- INSTANT AUTOPLAY VOICE OVER -->
     <audio id="zigoAudio" src="zigo-voiceover.mp3" autoplay preload="auto"></audio>
 
     <div class="container">
@@ -604,70 +509,53 @@
             </div>
         </header>
 
-        <!-- TOP HERO & INSTANT DOWNLOAD SECTION -->
-        <div class="hero-section">
-            <div class="trust-badge">★★★★★ Trusted by 5,000+ Drivers</div>
-            
-            <div class="click-pointer">👇 <span>Click Here To Download</span> 👇</div>
-            
-            <a href="https://play.google.com/store/apps/details?id=com.zigo.partner" class="play-btn">
-                <div class="play-icon-wrapper">
-                    <svg viewBox="0 0 512 512">
-                        <path fill="#4CAF50" d="M48 59.49v393a14.16 14.16 0 0 0 4.39 10.38L260 255.25 52.39 49.11A14.16 14.16 0 0 0 48 59.49z"/>
-                        <path fill="#2196F3" d="M335.8 179.45L83.4 35.19C70.48 27.8 57.87 35 52.39 49.11L260 255.25z"/>
-                        <path fill="#FFEB3B" d="M454.6 235.14l-118.8-55.69L260 255.25l75.8 75.8 118.8-55.69c18.8-10.74 18.8-29.48 0-40.22z"/>
-                        <path fill="#F44336" d="M52.39 462.89c5.48 14.11 18.09 21.31 31.01 13.92l252.4-144.26L260 255.25z"/>
-                    </svg>
-                </div>
-                <div class="play-btn-text">
-                    <small>GET IT ON</small>
-                    <strong>Google Play</strong>
-                </div>
-            </a>
-        </div>
-
-        <!-- EXACT GOOGLE PLAY STORE APP CARD (ADDED BELOW HERO) -->
+        <!-- EXACT GOOGLE PLAY STORE APP CARD -->
         <div class="playstore-card">
-            <div class="ps-topbar">
-                <div class="ps-brand">
-                    <svg viewBox="0 0 512 512">
-                        <path fill="#4CAF50" d="M48 59.49v393a14.16 14.16 0 0 0 4.39 10.38L260 255.25 52.39 49.11A14.16 14.16 0 0 0 48 59.49z"/>
-                        <path fill="#2196F3" d="M335.8 179.45L83.4 35.19C70.48 27.8 57.87 35 52.39 49.11L260 255.25z"/>
-                        <path fill="#FFEB3B" d="M454.6 235.14l-118.8-55.69L260 255.25l75.8 75.8 118.8-55.69c18.8-10.74 18.8-29.48 0-40.22z"/>
-                        <path fill="#F44336" d="M52.39 462.89c5.48 14.11 18.09 21.31 31.01 13.92l252.4-144.26L260 255.25z"/>
-                    </svg>
-                    <span>Google Play</span>
-                </div>
-                <span class="ps-verified">✔ Play Protect Verified</span>
-            </div>
-
             <div class="ps-app-header">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEif_3bCuw909NMJfUXl5M27fH9EBNsQlpro3QD4fLoT-um6kLltWWUMamwXogsfqbs1qBAuYi70FwbanEu53F8-S4nVmoCmQ4pTeXgpz4XNstuNWCQAhMVUbZRAnyu-vwn9NTxfZOkDDZ9Mn0_1VooQQPfA7NNpNX4-vBqD4pgvWkz5LhRQFrVMnD157Mzn/s1600/20260918_092045.png" alt="Zigo Partner App Logo" class="ps-app-logo">
+                
                 <div class="ps-app-info">
-                    <h3>Zigo Partner - Driver App</h3>
-                    <div class="ps-dev-name">Zigo Cab Technologies</div>
-                    <div class="ps-ads-tag">0% Commission • Bike, Auto &amp; Car</div>
+                    <div class="ps-title-row">
+                        <h1>Zigo Partner App</h1>
+                        <!-- Exact Green Scalloped Verified Badge -->
+                        <svg class="verified-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 1.5L14.65 3.16L17.75 2.76L19.16 5.56L21.96 6.97L21.56 10.07L23.22 12.72L21.56 15.37L21.96 18.47L19.16 19.88L17.75 22.68L14.65 22.28L12 23.94L9.35 22.28L6.25 22.68L4.84 19.88L2.04 18.47L2.44 15.37L0.78 12.72L2.44 10.07L2.04 6.97L4.84 5.56L6.25 2.76L9.35 3.16L12 1.5Z" fill="#01875f"/>
+                            <path d="M9.8 16.2L6.5 12.9L7.9 11.5L9.8 13.4L15.6 7.6L17 9L9.8 16.2Z" fill="#ffffff"/>
+                        </svg>
+                    </div>
+                    <div class="ps-dev-name">Zigo Cab Official</div>
+                    <div class="ps-short-desc">Drivers aur vehicle partners ke liye official app. Daily rides accept karein aur apni kamai badhayein.</div>
                 </div>
             </div>
 
             <div class="ps-stats-row">
                 <div class="ps-stat">
-                    <div class="ps-stat-val">4.9 ★</div>
-                    <div class="ps-stat-lbl">Top Rated</div>
+                    <div class="ps-stat-val">4.8 ★</div>
+                    <div class="ps-stat-lbl">Reviews</div>
                 </div>
                 <div class="ps-stat">
-                    <div class="ps-stat-val">0%</div>
-                    <div class="ps-stat-lbl">Commission</div>
+                    <div class="ps-stat-val">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="#202124">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        18 MB
+                    </div>
+                    <div class="ps-stat-lbl">Size</div>
                 </div>
                 <div class="ps-stat">
-                    <div class="ps-stat-val">5K+</div>
-                    <div class="ps-stat-lbl">Drivers</div>
+                    <div class="ps-stat-val">3+</div>
+                    <div class="ps-stat-lbl">Rated for 3+</div>
                 </div>
             </div>
 
             <div class="ps-action-row">
                 <a href="https://play.google.com/store/apps/details?id=com.zigo.partner" class="ps-install-btn">
-                    Install
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                        <path d="M12 8v6"></path>
+                        <path d="M9 11l3 3 3-3"></path>
+                    </svg>
+                    <span>Install</span>
                 </a>
                 <button type="button" onclick="shareZigoApp()" class="ps-share-btn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -706,8 +594,8 @@
             <div class="step-item">
                 <div class="step-num">1</div>
                 <div class="step-text">
-                    <strong>Google Play / Install Button Dabayein</strong>
-                    <span>Upar diye gaye "Install" ya "GET IT ON Google Play" button par click karein.</span>
+                    <strong>Install Button Dabayein</strong>
+                    <span>Upar diye gaye green "Install" button par click karein.</span>
                 </div>
             </div>
             <div class="step-item">
@@ -779,7 +667,7 @@
                 <a href="#">Terms &amp; Conditions</a> | 
                 <a href="#">Contact Us</a>
             </div>
-            BY MUSTAQEEM • ZIGO CAB
+            ZIGO PARTNER • INDIA
         </footer>
 
     </div>
@@ -789,44 +677,49 @@
         const zigoAudio = document.getElementById('zigoAudio');
         zigoAudio.volume = 1.0;
 
-        // Page load hote hi bina click ke voiceover play karne ki koshish
-        function playVoiceImmediately() {
-            const playPromise = zigoAudio.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(() => {
-                    // Agar kisi strict browser ne auto-sound roka ho toh halka sa scroll/touch hote hi bajega
-                    const unlockAudio = () => {
+        function startVoiceNow() {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (AudioCtx) {
+                const ctx = new AudioCtx();
+                if (ctx.state === 'suspended') {
+                    ctx.resume();
+                }
+            }
+
+            const playAttempt = zigoAudio.play();
+            if (playAttempt !== undefined) {
+                playAttempt.catch(() => {
+                    const forcePlay = () => {
                         zigoAudio.play();
-                        ['touchstart', 'touchend', 'scroll', 'mousemove', 'keydown', 'click'].forEach(ev => {
-                            window.removeEventListener(ev, unlockAudio);
+                        ['touchstart', 'touchend', 'scroll', 'mousemove', 'pointerdown', 'keydown', 'click'].forEach(evt => {
+                            window.removeEventListener(evt, forcePlay);
                         });
                     };
-                    ['touchstart', 'touchend', 'scroll', 'mousemove', 'keydown', 'click'].forEach(ev => {
-                        window.addEventListener(ev, unlockAudio, { passive: true });
+                    ['touchstart', 'touchend', 'scroll', 'mousemove', 'pointerdown', 'keydown', 'click'].forEach(evt => {
+                        window.addEventListener(evt, forcePlay, { passive: true });
                     });
                 });
             }
         }
 
-        // DOM ready aur Window load dono par turant trigger
-        document.addEventListener('DOMContentLoaded', playVoiceImmediately);
-        window.addEventListener('load', playVoiceImmediately);
+        startVoiceNow();
+        document.addEventListener('DOMContentLoaded', startVoiceNow);
+        window.addEventListener('load', startVoiceNow);
 
-        // Professional Share Button Function
+        // Share Button Function - Direct Play Store App URL Share with Professional Message
         function shareZigoApp() {
+            const appUrl = "https://play.google.com/store/apps/details?id=com.zigo.partner";
             const shareTitle = "Zigo Partner App - 0% Commission Driver App";
-            const shareText = "🚖 *Zigo Partner App* — India's Top *0% Commission* Driver Network!\n\n🏍️ Bike | 🛺 Auto | 🚖 Car / Cab\n✅ Ride ka 100% paisa seedha aapki jeb mein\n✅ No hidden fees, Direct UPI & Cash payments\n\nAbhi Play Store se download karein aur apni kamai badhayein 👇\nhttps://play.google.com/store/apps/details?id=com.zigo.partner";
-            const pageUrl = window.location.href;
+            const shareMessage = "🚖 *Zigo Partner App* — India's Top *0% Commission* Driver Network!\n\n🏍️ Bike | 🛺 Auto | 🚖 Car / Cab\n✅ Ride ka 100% paisa seedha aapki jeb mein\n✅ No commission cuts, Direct UPI & Cash payments\n\nAbhi Google Play Store se download karein aur apni kamai badhayein 👇\n" + appUrl;
 
             if (navigator.share) {
                 navigator.share({
                     title: shareTitle,
-                    text: shareText,
-                    url: pageUrl
+                    text: shareMessage,
+                    url: appUrl
                 }).catch(() => {});
             } else {
-                // Fallback: Direct WhatsApp Share agar browser mein native share na ho
-                const whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText + "\n\nMore Info: " + pageUrl);
+                const whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(shareMessage);
                 window.open(whatsappUrl, "_blank");
             }
         }
