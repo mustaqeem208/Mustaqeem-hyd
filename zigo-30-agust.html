@@ -30,17 +30,17 @@
         .container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 20px;
+            padding: 18px;
         }
 
         /* ================= HEADER ================= */
         header {
             text-align: center;
-            padding: 25px 0 5px;
+            padding: 20px 0 5px;
         }
 
         .logo-text {
-            font-size: 40px;
+            font-size: 38px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -50,7 +50,7 @@
         .logo-text span.gold { color: #facc15; }
 
         .tagline {
-            font-size: 14px;
+            font-size: 13px;
             color: #94a3b8;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -61,8 +61,8 @@
         .vehicle-badges {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-bottom: 18px;
+            gap: 8px;
+            margin-bottom: 16px;
             flex-wrap: wrap;
         }
 
@@ -72,34 +72,67 @@
             color: #facc15;
             padding: 4px 14px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 600;
         }
 
-        /* ================= EXACT PLAY STORE APP CARD ================= */
+        /* ================= ULTRA-PROFESSIONAL GOOGLE PLAY STORE CARD ================= */
         .playstore-card {
             background: #ffffff;
             color: #202124;
             border-radius: 24px;
-            padding: 24px 20px;
-            margin: 15px 0 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+            padding: 20px;
+            margin: 12px 0 25px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.55);
+            border: 1px solid #e2e8f0;
         }
 
+        /* Top Play Store Header Strip */
+        .ps-top-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 14px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .ps-store-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5f6368;
+        }
+
+        .ps-verified-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #e6f4ea;
+            color: #01875f;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        /* Main App Icon & Info */
         .ps-app-header {
             display: flex;
             align-items: flex-start;
-            gap: 18px;
-            margin-bottom: 20px;
+            gap: 16px;
+            margin-bottom: 18px;
         }
 
         .ps-app-logo {
-            width: 82px;
-            height: 82px;
+            width: 84px;
+            height: 84px;
             border-radius: 20px;
             object-fit: cover;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
-            border: 1px solid #f1f5f9;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+            border: 1px solid #e8eaed;
             flex-shrink: 0;
             background: #ffffff;
         }
@@ -111,7 +144,7 @@
         .ps-title-row {
             display: flex;
             align-items: center;
-            gap: 7px;
+            gap: 6px;
             flex-wrap: wrap;
             margin-bottom: 2px;
         }
@@ -127,30 +160,28 @@
             width: 20px;
             height: 20px;
             flex-shrink: 0;
-            display: inline-block;
-            vertical-align: middle;
         }
 
         .ps-dev-name {
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 600;
             color: #01875f;
-            letter-spacing: 0.3px;
+            margin-bottom: 4px;
+        }
+
+        .ps-sub-meta {
+            font-size: 12px;
+            color: #5f6368;
             margin-bottom: 6px;
         }
 
-        .ps-short-desc {
-            font-size: 13.5px;
-            color: #5f6368;
-            line-height: 1.45;
-        }
-
+        /* Stats Row (Rating, Size, Downloads) */
         .ps-stats-row {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: center;
-            padding: 14px 0;
-            margin-bottom: 20px;
+            padding: 12px 0;
+            margin-bottom: 16px;
             border-top: 1px solid #e8eaed;
             border-bottom: 1px solid #e8eaed;
             text-align: center;
@@ -172,7 +203,7 @@
         }
 
         .ps-stat-val {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             color: #202124;
             display: flex;
@@ -182,25 +213,44 @@
         }
 
         .ps-stat-lbl {
-            font-size: 12px;
+            font-size: 11px;
             color: #5f6368;
             margin-top: 2px;
         }
 
+        /* Category Chips */
+        .ps-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .ps-chip {
+            border: 1px solid #dadce0;
+            color: #3c4043;
+            font-size: 11.5px;
+            font-weight: 500;
+            padding: 4px 12px;
+            border-radius: 16px;
+            background: #f8f9fa;
+        }
+
+        /* ================= INSTALL & SHARE BUTTONS ================= */
         .ps-action-row {
             display: flex;
             gap: 12px;
             align-items: center;
+            margin-bottom: 16px;
         }
 
-        /* ================= INSTALL BUTTON ANIMATIONS ================= */
         @keyframes installBouncePulse {
             0%, 100% {
                 transform: scale(1);
-                box-shadow: 0 4px 14px rgba(1, 135, 95, 0.4), 0 0 0 0 rgba(1, 135, 95, 0.6);
+                box-shadow: 0 4px 14px rgba(1, 135, 95, 0.4), 0 0 0 0 rgba(1, 135, 95, 0.65);
             }
             50% {
-                transform: scale(1.04);
+                transform: scale(1.03);
                 box-shadow: 0 8px 22px rgba(1, 135, 95, 0.6), 0 0 0 12px rgba(1, 135, 95, 0);
             }
         }
@@ -219,7 +269,7 @@
         .ps-install-btn {
             position: relative;
             overflow: hidden;
-            flex: 2.2;
+            flex: 2.3;
             background: linear-gradient(135deg, #01875f, #02a373);
             color: #ffffff;
             text-decoration: none;
@@ -229,8 +279,7 @@
             font-size: 16px;
             font-weight: 700;
             letter-spacing: 0.4px;
-            animation: installBouncePulse 1.6s infinite ease-in-out;
-            transition: background 0.2s ease;
+            animation: installBouncePulse 1.5s infinite ease-in-out;
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -244,22 +293,18 @@
             left: -100%;
             width: 55%;
             height: 100%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%);
             transform: skewX(-25deg);
-            animation: shineSweep 2.5s infinite;
+            animation: shineSweep 2.4s infinite;
         }
 
         .ps-install-btn svg {
-            animation: iconBounce 1.2s infinite ease-in-out;
+            animation: iconBounce 1.1s infinite ease-in-out;
             z-index: 1;
         }
 
         .ps-install-btn span {
             z-index: 1;
-        }
-
-        .ps-install-btn:hover {
-            background: #016e4d;
         }
 
         .ps-install-btn:active {
@@ -271,15 +316,15 @@
             background: #e6f4ea;
             color: #01875f;
             border: 1.5px solid #bce3c8;
-            padding: 14px 16px;
+            padding: 14px 14px;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 7px;
+            gap: 6px;
             transition: all 0.2s ease;
         }
 
@@ -289,6 +334,25 @@
 
         .ps-share-btn:active {
             transform: scale(0.96);
+        }
+
+        /* Data Safety Box inside Play Card */
+        .ps-safety-box {
+            background: #f8f9fa;
+            border: 1px solid #e8eaed;
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        .ps-safety-box strong {
+            color: #202124;
+            display: block;
+            font-size: 12.5px;
         }
 
         /* ================= ADVERTISEMENT WRAPPER ================= */
@@ -491,8 +555,8 @@
 </head>
 <body>
 
-    <!-- INSTANT AUTOPLAY VOICE OVER -->
-    <audio id="zigoAudio" src="zigo-voiceover.mp3" autoplay preload="auto"></audio>
+    <!-- INSTANT VOICE OVER AUDIO -->
+    <audio id="zigoAudio" src="zigo-voiceover.mp3" preload="auto" playsinline></audio>
 
     <div class="container">
         
@@ -509,8 +573,29 @@
             </div>
         </header>
 
-        <!-- EXACT GOOGLE PLAY STORE APP CARD -->
+        <!-- ULTRA-PROFESSIONAL GOOGLE PLAY STORE APP CARD -->
         <div class="playstore-card">
+            
+            <!-- Top Store Header -->
+            <div class="ps-top-strip">
+                <div class="ps-store-logo">
+                    <svg width="20" height="20" viewBox="0 0 512 512">
+                        <path fill="#4CAF50" d="M48 59.49v393a14.16 14.16 0 0 0 4.39 10.38L260 255.25 52.39 49.11A14.16 14.16 0 0 0 48 59.49z"/>
+                        <path fill="#2196F3" d="M335.8 179.45L83.4 35.19C70.48 27.8 57.87 35 52.39 49.11L260 255.25z"/>
+                        <path fill="#FFEB3B" d="M454.6 235.14l-118.8-55.69L260 255.25l75.8 75.8 118.8-55.69c18.8-10.74 18.8-29.48 0-40.22z"/>
+                        <path fill="#F44336" d="M52.39 462.89c5.48 14.11 18.09 21.31 31.01 13.92l252.4-144.26L260 255.25z"/>
+                    </svg>
+                    <span>Google Play</span>
+                </div>
+                <div class="ps-verified-pill">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#01875f">
+                        <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+                    </svg>
+                    Play Protect Verified
+                </div>
+            </div>
+
+            <!-- App Logo & Title -->
             <div class="ps-app-header">
                 <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEif_3bCuw909NMJfUXl5M27fH9EBNsQlpro3QD4fLoT-um6kLltWWUMamwXogsfqbs1qBAuYi70FwbanEu53F8-S4nVmoCmQ4pTeXgpz4XNstuNWCQAhMVUbZRAnyu-vwn9NTxfZOkDDZ9Mn0_1VooQQPfA7NNpNX4-vBqD4pgvWkz5LhRQFrVMnD157Mzn/s1600/20260918_092045.png" alt="Zigo Partner App Logo" class="ps-app-logo">
                 
@@ -518,29 +603,34 @@
                     <div class="ps-title-row">
                         <h1>Zigo Partner App</h1>
                         <!-- Exact Green Scalloped Verified Badge -->
-                        <svg class="verified-badge-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="verified-badge-icon" viewBox="0 0 24 24" fill="none">
                             <path d="M12 1.5L14.65 3.16L17.75 2.76L19.16 5.56L21.96 6.97L21.56 10.07L23.22 12.72L21.56 15.37L21.96 18.47L19.16 19.88L17.75 22.68L14.65 22.28L12 23.94L9.35 22.28L6.25 22.68L4.84 19.88L2.04 18.47L2.44 15.37L0.78 12.72L2.44 10.07L2.04 6.97L4.84 5.56L6.25 2.76L9.35 3.16L12 1.5Z" fill="#01875f"/>
                             <path d="M9.8 16.2L6.5 12.9L7.9 11.5L9.8 13.4L15.6 7.6L17 9L9.8 16.2Z" fill="#ffffff"/>
                         </svg>
                     </div>
                     <div class="ps-dev-name">Zigo Cab Official</div>
-                    <div class="ps-short-desc">Drivers aur vehicle partners ke liye official app. Daily rides accept karein aur apni kamai badhayein.</div>
+                    <div class="ps-sub-meta">0% Commission • Instant Payouts</div>
                 </div>
             </div>
 
+            <!-- Stats Row -->
             <div class="ps-stats-row">
                 <div class="ps-stat">
                     <div class="ps-stat-val">4.8 ★</div>
-                    <div class="ps-stat-lbl">Reviews</div>
+                    <div class="ps-stat-lbl">1K+ reviews</div>
                 </div>
                 <div class="ps-stat">
                     <div class="ps-stat-val">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="#202124">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#202124">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                         </svg>
                         18 MB
                     </div>
-                    <div class="ps-stat-lbl">Size</div>
+                    <div class="ps-stat-lbl">App size</div>
+                </div>
+                <div class="ps-stat">
+                    <div class="ps-stat-val">5K+</div>
+                    <div class="ps-stat-lbl">Downloads</div>
                 </div>
                 <div class="ps-stat">
                     <div class="ps-stat-val">3+</div>
@@ -548,9 +638,17 @@
                 </div>
             </div>
 
+            <!-- Category Chips -->
+            <div class="ps-chips">
+                <span class="ps-chip">#1 Zero Commission App</span>
+                <span class="ps-chip">Bike • Auto • Cab</span>
+                <span class="ps-chip">Direct UPI &amp; Cash</span>
+            </div>
+
+            <!-- Install & Share Action Row -->
             <div class="ps-action-row">
                 <a href="https://play.google.com/store/apps/details?id=com.zigo.partner" class="ps-install-btn">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
                         <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
                         <path d="M12 8v6"></path>
                         <path d="M9 11l3 3 3-3"></path>
@@ -568,6 +666,18 @@
                     Share
                 </button>
             </div>
+
+            <!-- Data Safety Footer inside Card -->
+            <div class="ps-safety-box">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="#01875f" style="flex-shrink:0;">
+                    <path d="M12 2L4 5v6.09c0 5.05 3.41 9.76 8 10.91 4.59-1.15 8-5.86 8-10.91V5l-8-3zm-1.06 13.54L7.4 12l1.41-1.41 2.12 2.12 4.24-4.24 1.41 1.41-5.64 5.66z"/>
+                </svg>
+                <div>
+                    <strong>100% Safe &amp; Secure Driver Onboarding</strong>
+                    No data shared with third parties • Encrypted document verification
+                </div>
+            </div>
+
         </div>
 
         <!-- TOP AD SENSE SLOT -->
@@ -672,39 +782,79 @@
 
     </div>
 
-    <!-- INSTANT AUTOPLAY & SHARE SCRIPT -->
+    <!-- ULTRA-FAST 1-SECOND VOICE OVER ENGINE (MP3 + AI SPEECH FALLBACK) -->
     <script>
         const zigoAudio = document.getElementById('zigoAudio');
         zigoAudio.volume = 1.0;
+        let voiceStarted = false;
 
-        function startVoiceNow() {
+        // Inbuilt Hindi Voice Fallback (agar MP3 file missing ho ya browser block kare)
+        function playFallbackTTS() {
+            if ('speechSynthesis' in window && !voiceStarted) {
+                window.speechSynthesis.cancel();
+                const msg = new SpeechSynthesisUtterance(
+                    "Namaskar Driver Bhaiyon! Chahe aap Bike, Auto, ya Car chalate hon, ab Zigo Partner App par paayein Zero Percent Commission! Ride ka poora paisa seedha aapki jeb mein. Abhi Install button par click karein aur apni kamai badhayein!"
+                );
+                msg.lang = 'hi-IN';
+                msg.rate = 1.02;
+                msg.pitch = 1.0;
+                window.speechSynthesis.speak(msg);
+                voiceStarted = true;
+            }
+        }
+
+        function triggerZigoVoice() {
+            if (voiceStarted) return;
+
+            // AudioContext unlock
             const AudioCtx = window.AudioContext || window.webkitAudioContext;
             if (AudioCtx) {
                 const ctx = new AudioCtx();
-                if (ctx.state === 'suspended') {
-                    ctx.resume();
-                }
+                if (ctx.state === 'suspended') ctx.resume();
             }
 
-            const playAttempt = zigoAudio.play();
-            if (playAttempt !== undefined) {
-                playAttempt.catch(() => {
-                    const forcePlay = () => {
-                        zigoAudio.play();
-                        ['touchstart', 'touchend', 'scroll', 'mousemove', 'pointerdown', 'keydown', 'click'].forEach(evt => {
-                            window.removeEventListener(evt, forcePlay);
-                        });
-                    };
-                    ['touchstart', 'touchend', 'scroll', 'mousemove', 'pointerdown', 'keydown', 'click'].forEach(evt => {
-                        window.addEventListener(evt, forcePlay, { passive: true });
-                    });
+            // Pehle MP3 file chalane ki koshish
+            const p = zigoAudio.play();
+            if (p !== undefined) {
+                p.then(() => {
+                    voiceStarted = true;
+                }).catch(() => {
+                    // Agar MP3 fail ho ya file na mile toh fallback check
+                    if (zigoAudio.error) {
+                        playFallbackTTS();
+                    }
                 });
             }
         }
 
-        startVoiceNow();
-        document.addEventListener('DOMContentLoaded', startVoiceNow);
-        window.addEventListener('load', startVoiceNow);
+        // Agar MP3 file folder mein nahi mili toh turant AI Hindi Voice bolne lagega
+        zigoAudio.addEventListener('error', playFallbackTTS);
+
+        // Page load hote hi har 200ms par 1 second tak instant try
+        triggerZigoVoice();
+        let bootInterval = setInterval(() => {
+            if (voiceStarted) {
+                clearInterval(bootInterval);
+            } else {
+                triggerZigoVoice();
+            }
+        }, 200);
+        setTimeout(() => clearInterval(bootInterval), 3000);
+
+        // User ke kisi bhi micro-interaction (touch, scroll, move, click) par 0.1s mein start
+        ['touchstart', 'touchend', 'scroll', 'mousemove', 'pointerdown', 'keydown', 'click'].forEach(evt => {
+            window.addEventListener(evt, () => {
+                if (!voiceStarted) {
+                    triggerZigoVoice();
+                    // Agar MP3 nahi chala toh fallback TTS chala dein
+                    setTimeout(() => {
+                        if (!voiceStarted && zigoAudio.paused) {
+                            playFallbackTTS();
+                        }
+                    }, 300);
+                }
+            }, { passive: true });
+        });
 
         // Share Button Function - Direct Play Store App URL Share with Professional Message
         function shareZigoApp() {
