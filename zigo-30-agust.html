@@ -8,7 +8,7 @@
     <meta name="description" content="Join Zigo Partner App for Bike, Auto, and Cab drivers across India. 0% Commission, highest earnings, and trusted by 5000+ drivers.">
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Google AdSense Main Script -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
@@ -78,7 +78,7 @@
 
         .hero-section {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding: 30px 15px;
             background: radial-gradient(circle at center, #1e293b, #0b1324);
             border-radius: 20px;
@@ -214,6 +214,176 @@
         .play-btn-text strong {
             font-size: 20px;
             font-weight: 800;
+        }
+
+        /* ================= GOOGLE PLAY STORE EXACT CARD ================= */
+        .playstore-card {
+            background: #ffffff;
+            color: #202124;
+            border-radius: 22px;
+            padding: 22px 20px;
+            margin: 25px 0;
+            box-shadow: 0 14px 35px rgba(0,0,0,0.45);
+            border: 1px solid #e2e8f0;
+        }
+
+        .ps-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .ps-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #5f6368;
+        }
+
+        .ps-brand svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .ps-verified {
+            font-size: 11px;
+            color: #01875f;
+            background: #e6f4ea;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 600;
+        }
+
+        .ps-app-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .ps-app-logo {
+            width: 76px;
+            height: 76px;
+            border-radius: 18px;
+            object-fit: cover;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 1px solid #e2e8f0;
+            flex-shrink: 0;
+            background: #0b1324;
+        }
+
+        .ps-app-info h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #202124;
+            line-height: 1.25;
+            margin-bottom: 3px;
+        }
+
+        .ps-dev-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: #01875f;
+            margin-bottom: 3px;
+        }
+
+        .ps-ads-tag {
+            font-size: 11px;
+            color: #5f6368;
+        }
+
+        .ps-stats-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 12px 0;
+            margin-bottom: 18px;
+            border-top: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f1f5f9;
+            text-align: center;
+        }
+
+        .ps-stat {
+            flex: 1;
+            position: relative;
+        }
+
+        .ps-stat:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 15%;
+            height: 70%;
+            width: 1px;
+            background: #dadce0;
+        }
+
+        .ps-stat-val {
+            font-size: 14px;
+            font-weight: 700;
+            color: #202124;
+        }
+
+        .ps-stat-lbl {
+            font-size: 11px;
+            color: #5f6368;
+        }
+
+        .ps-action-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .ps-install-btn {
+            flex: 2;
+            background: #01875f;
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+            padding: 13px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 12px rgba(1, 135, 95, 0.35);
+            transition: background 0.2s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .ps-install-btn:hover {
+            background: #016e4d;
+            transform: translateY(-2px);
+        }
+
+        .ps-share-btn {
+            flex: 1;
+            background: #ffffff;
+            color: #01875f;
+            border: 1.5px solid #dadce0;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .ps-share-btn:hover {
+            background: #f1f8f5;
+            border-color: #01875f;
         }
 
         /* ================= ADVERTISEMENT WRAPPER ================= */
@@ -416,7 +586,7 @@
 </head>
 <body>
 
-    <!-- HIDDEN AUTOPLAY VOICE OVER -->
+    <!-- INSTANT AUTOPLAY VOICE OVER (Bina Click Ke Seedha Open Hone Par Bajega) -->
     <audio id="zigoAudio" src="zigo-voiceover.mp3" autoplay preload="auto"></audio>
 
     <div class="container">
@@ -456,6 +626,62 @@
             </a>
         </div>
 
+        <!-- EXACT GOOGLE PLAY STORE APP CARD (ADDED BELOW HERO) -->
+        <div class="playstore-card">
+            <div class="ps-topbar">
+                <div class="ps-brand">
+                    <svg viewBox="0 0 512 512">
+                        <path fill="#4CAF50" d="M48 59.49v393a14.16 14.16 0 0 0 4.39 10.38L260 255.25 52.39 49.11A14.16 14.16 0 0 0 48 59.49z"/>
+                        <path fill="#2196F3" d="M335.8 179.45L83.4 35.19C70.48 27.8 57.87 35 52.39 49.11L260 255.25z"/>
+                        <path fill="#FFEB3B" d="M454.6 235.14l-118.8-55.69L260 255.25l75.8 75.8 118.8-55.69c18.8-10.74 18.8-29.48 0-40.22z"/>
+                        <path fill="#F44336" d="M52.39 462.89c5.48 14.11 18.09 21.31 31.01 13.92l252.4-144.26L260 255.25z"/>
+                    </svg>
+                    <span>Google Play</span>
+                </div>
+                <span class="ps-verified">✔ Play Protect Verified</span>
+            </div>
+
+            <div class="ps-app-header">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEif_3bCuw909NMJfUXl5M27fH9EBNsQlpro3QD4fLoT-um6kLltWWUMamwXogsfqbs1qBAuYi70FwbanEu53F8-S4nVmoCmQ4pTeXgpz4XNstuNWCQAhMVUbZRAnyu-vwn9NTxfZOkDDZ9Mn0_1VooQQPfA7NNpNX4-vBqD4pgvWkz5LhRQFrVMnD157Mzn/s1600/20260918_092045.png" alt="Zigo Partner App Logo" class="ps-app-logo">
+                <div class="ps-app-info">
+                    <h3>Zigo Partner - Driver App</h3>
+                    <div class="ps-dev-name">Zigo Cab Technologies</div>
+                    <div class="ps-ads-tag">0% Commission • Bike, Auto &amp; Car</div>
+                </div>
+            </div>
+
+            <div class="ps-stats-row">
+                <div class="ps-stat">
+                    <div class="ps-stat-val">4.9 ★</div>
+                    <div class="ps-stat-lbl">Top Rated</div>
+                </div>
+                <div class="ps-stat">
+                    <div class="ps-stat-val">0%</div>
+                    <div class="ps-stat-lbl">Commission</div>
+                </div>
+                <div class="ps-stat">
+                    <div class="ps-stat-val">5K+</div>
+                    <div class="ps-stat-lbl">Drivers</div>
+                </div>
+            </div>
+
+            <div class="ps-action-row">
+                <a href="https://play.google.com/store/apps/details?id=com.zigo.partner" class="ps-install-btn">
+                    Install
+                </a>
+                <button type="button" onclick="shareZigoApp()" class="ps-share-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="18" cy="5" r="3"></circle>
+                        <circle cx="6" cy="12" r="3"></circle>
+                        <circle cx="18" cy="19" r="3"></circle>
+                        <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                        <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                    </svg>
+                    Share
+                </button>
+            </div>
+        </div>
+
         <!-- TOP AD SENSE SLOT -->
         <div class="ad-container">
             <span class="ad-label">Advertisement</span>
@@ -476,12 +702,12 @@
 
         <!-- HOW TO INSTALL GUIDE -->
         <div class="install-guide">
-            <h2>📲 App Install & Join Kaise Karein?</h2>
+            <h2>📲 App Install &amp; Join Kaise Karein?</h2>
             <div class="step-item">
                 <div class="step-num">1</div>
                 <div class="step-text">
-                    <strong>Google Play Button Dabayein</strong>
-                    <span>Upar diye gaye yellow "GET IT ON Google Play" button par click karein.</span>
+                    <strong>Google Play / Install Button Dabayein</strong>
+                    <span>Upar diye gaye "Install" ya "GET IT ON Google Play" button par click karein.</span>
                 </div>
             </div>
             <div class="step-item">
@@ -550,7 +776,7 @@
         <footer>
             <div class="footer-links">
                 <a href="#">Privacy Policy</a> | 
-                <a href="#">Terms & Conditions</a> | 
+                <a href="#">Terms &amp; Conditions</a> | 
                 <a href="#">Contact Us</a>
             </div>
             BY MUSTAQEEM • ZIGO CAB
@@ -558,26 +784,52 @@
 
     </div>
 
-    <!-- SILENT AUTOPLAY SCRIPT (NO BUTTON) -->
+    <!-- INSTANT AUTOPLAY & SHARE SCRIPT -->
     <script>
         const zigoAudio = document.getElementById('zigoAudio');
-        let played = false;
+        zigoAudio.volume = 1.0;
 
-        function startVoice() {
-            if (!played) {
-                zigoAudio.play().then(() => {
-                    played = true;
-                }).catch(() => {});
+        // Page load hote hi bina click ke voiceover play karne ki koshish
+        function playVoiceImmediately() {
+            const playPromise = zigoAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    // Agar kisi strict browser ne auto-sound roka ho toh halka sa scroll/touch hote hi bajega
+                    const unlockAudio = () => {
+                        zigoAudio.play();
+                        ['touchstart', 'touchend', 'scroll', 'mousemove', 'keydown', 'click'].forEach(ev => {
+                            window.removeEventListener(ev, unlockAudio);
+                        });
+                    };
+                    ['touchstart', 'touchend', 'scroll', 'mousemove', 'keydown', 'click'].forEach(ev => {
+                        window.addEventListener(ev, unlockAudio, { passive: true });
+                    });
+                });
             }
         }
 
-        // Page load hote hi koshish karega
-        window.addEventListener('load', startVoice);
+        // DOM ready aur Window load dono par turant trigger
+        document.addEventListener('DOMContentLoaded', playVoiceImmediately);
+        window.addEventListener('load', playVoiceImmediately);
 
-        // Agar browser ne block kiya toh pehle touch/scroll/click par turant chalega
-        ['click', 'touchstart', 'scroll'].forEach(evt => {
-            document.addEventListener(evt, startVoice, { once: true });
-        });
+        // Professional Share Button Function
+        function shareZigoApp() {
+            const shareTitle = "Zigo Partner App - 0% Commission Driver App";
+            const shareText = "🚖 *Zigo Partner App* — India's Top *0% Commission* Driver Network!\n\n🏍️ Bike | 🛺 Auto | 🚖 Car / Cab\n✅ Ride ka 100% paisa seedha aapki jeb mein\n✅ No hidden fees, Direct UPI & Cash payments\n\nAbhi Play Store se download karein aur apni kamai badhayein 👇\nhttps://play.google.com/store/apps/details?id=com.zigo.partner";
+            const pageUrl = window.location.href;
+
+            if (navigator.share) {
+                navigator.share({
+                    title: shareTitle,
+                    text: shareText,
+                    url: pageUrl
+                }).catch(() => {});
+            } else {
+                // Fallback: Direct WhatsApp Share agar browser mein native share na ho
+                const whatsappUrl = "https://api.whatsapp.com/send?text=" + encodeURIComponent(shareText + "\n\nMore Info: " + pageUrl);
+                window.open(whatsappUrl, "_blank");
+            }
+        }
     </script>
 
 </body>
