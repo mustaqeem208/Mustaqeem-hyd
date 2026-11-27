@@ -1,0 +1,438 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1324">
+    <title>MS QR Generator - Free Custom QR Code Maker Online</title>
+    <meta name="description" content="Create instant, high-quality custom QR codes for links, UPI payments, Wi-Fi, and business cards with MS QR Generator. 100% Free & Fast!">
+    
+    <!-- Google Fonts for Professional Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Google AdSense Main Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0b1324;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ================= HEADER & HERO ================= */
+        header {
+            text-align: center;
+            padding: 30px 0 10px;
+        }
+
+        .logo-text {
+            font-size: 42px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span.white { color: #ffffff; }
+        .logo-text span.gold { color: #facc15; }
+
+        .tagline {
+            font-size: 15px;
+            color: #94a3b8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 35px 15px;
+            background: radial-gradient(circle at center, #1e293b, #0b1324);
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .trust-badge {
+            display: inline-block;
+            background: #1e293b;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #facc15;
+            border: 1px solid #334155;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* ================= ANIMATIONS & BUTTON ================= */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .click-pointer {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            margin: 10px 0 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: bounce 1.2s infinite ease-in-out;
+        }
+
+        .click-pointer span {
+            color: #facc15;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.5); }
+            70% { box-shadow: 0 0 0 18px rgba(250, 204, 21, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            25% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .qr-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #facc15, #eab308, #f59e0b);
+            color: #000000;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 30px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 19px;
+            width: 100%;
+            max-width: 340px;
+            border: none;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            margin: 0 auto;
+        }
+
+        .qr-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; 
+            left: -100%; 
+            width: 50%; 
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 2.8s infinite;
+        }
+
+        .qr-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .qr-btn:active {
+            transform: scale(0.95);
+        }
+
+        .qr-btn svg {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            z-index: 1; 
+        }
+        
+        .qr-btn span {
+            z-index: 1; 
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .qr-btn small {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            opacity: 0.85;
+            letter-spacing: 0.5px;
+        }
+
+        /* ================= ADVERTISEMENT WRAPPER ================= */
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            background: #131c31;
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow: hidden;
+            border: 1px dashed #334155;
+            min-height: 105px; 
+        }
+
+        .ad-label {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* ================= NOTICE BOX ================= */
+        .notice-box {
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .notice-box strong {
+            color: #facc15;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        /* ================= FEATURE CARDS ================= */
+        .card {
+            background: linear-gradient(145deg, #131c31, #0f172a);
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #facc15;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #facc15;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        /* ================= SEO ARTICLE SECTION ================= */
+        .article-content {
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 10px;
+            border: 1px solid #1e293b;
+        }
+
+        .article-content h3 {
+            color: #facc15;
+            font-size: 20px;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .article-content h3:first-child { margin-top: 0; }
+        
+        .article-content p {
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .article-content ul {
+            margin-left: 20px;
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 20px;
+            border-top: 1px solid #1e293b;
+            font-size: 12px;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            color: #facc15;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <div class="logo-text">
+                <span class="white">MS</span><span class="gold">QR</span>
+            </div>
+            <div class="tagline">Create. Customize. Scan Instantly.</div>
+        </header>
+
+        <!-- TOP HERO & ANIMATED BUTTON SECTION -->
+        <div class="hero-section">
+            <div class="trust-badge">⚡ 100% Free & Instant QR Code Tool</div>
+            
+            <div class="click-pointer">👇 <span>Click Below To Create QR</span> 👇</div>
+            
+            <a href="https://msqr.netlify.app/" target="_blank" rel="noopener noreferrer" class="qr-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 0h2v2h-2v-2zm3 3h3v2h-3v-2zm-3 3h2v2h-2v-2zm3 0h3v2h-3v-2zm-3-3h2v2h-2v-2z"/>
+                </svg>
+                <span>
+                    <small>LAUNCH WEB APP</small>
+                    OPEN MS QR TOOL
+                </span>
+            </a>
+        </div>
+
+        <!-- TOP RESPONSIVE ADSENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- HIGHLIGHT NOTICE BOX -->
+        <div class="notice-box">
+            <strong>🚀 No Sign-Up Required — Lifetime Free</strong>
+            Generate unlimited high-resolution QR codes directly in your browser. Your QR codes never expire and contain zero watermarks.
+        </div>
+
+        <!-- FEATURE CARDS -->
+        <div class="card">
+            <div class="card-icon">⚡</div>
+            <h2>Instant Generation</h2>
+            <p>Convert any website URL, UPI payment ID, WhatsApp link, or plain text into a scannable QR code in <strong>less than 1 second</strong>.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎨</div>
+            <h2>HD Download & High Compatibility</h2>
+            <p>Download crisp, print-ready QR codes that scan effortlessly on all Android, iOS, and payment scanner apps across India.</p>
+        </div>
+
+        <!-- MIDDLE RESPONSIVE ADSENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- SEO ARTICLE FOR ADSENSE COMPLIANCE -->
+        <article class="article-content">
+            <h3>Why Use MS QR Generator?</h3>
+            <p>Many online QR tools lock downloads behind paid subscriptions or make your QR codes expire after a few days. <strong>MS QR</strong> is built to give individuals, shopkeepers, and businesses a clean, fast, and completely free way to create permanent QR codes without any hidden charges.</p>
+            
+            <h3>Best Ways to Use MS QR</h3>
+            <ul>
+                <li><strong>Business & Shop Owners:</strong> Create quick scan codes for your digital menu, Google reviews, or social media pages.</li>
+                <li><strong>Website & App Links:</strong> Share long URLs easily on posters, visiting cards, and flyers.</li>
+                <li><strong>Privacy First:</strong> Everything runs smoothly without asking for your personal email or phone number.</li>
+                <li><strong>Mobile & Desktop Ready:</strong> Works seamlessly on any smartphone or computer browser.</li>
+            </ul>
+        </article>
+
+        <!-- BOTTOM RESPONSIVE ADSENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms & Conditions</a> | 
+                <a href="#">Contact Us</a>
+            </div>
+            BY MUSTAQEEM • MS QR
+        </footer>
+
+    </div>
+
+</body>
+</html>
