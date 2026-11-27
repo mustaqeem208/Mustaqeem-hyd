@@ -1,11 +1,11 @@
-<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0b1324">
-    <title>MS QR Generator - Free Custom QR Code Maker Online</title>
-    <meta name="description" content="Create instant, high-quality custom QR codes for links, UPI payments, Wi-Fi, and business cards with MS QR Generator. 100% Free & Fast!">
+    <title>MS QR Generator - Custom UPI QR Code Maker Online</title>
+    <meta name="description" content="Create instant, high-quality custom UPI QR codes with center logo and business branding using MS QR Generator. Fast, secure & HD download!">
     
     <!-- Google Fonts for Professional Look -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
@@ -292,11 +292,104 @@
             margin-bottom: 8px;
         }
 
+        /* ================= FULL-SIZE ORIGINAL RATIO IMAGE SHOWCASE ================= */
+        @keyframes showcaseGlow {
+            0%, 100% { border-color: rgba(250, 204, 21, 0.35); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+            50% { border-color: rgba(168, 85, 247, 0.7); box-shadow: 0 12px 30px rgba(168, 85, 247, 0.25); }
+        }
+
+        @keyframes smoothSlideFade {
+            0% { opacity: 0; transform: scale(0.97) translateY(6px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .bottom-showcase-wrapper {
+            margin-top: 25px;
+            width: 100%;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 1.5px solid rgba(250, 204, 21, 0.35);
+            background: rgba(15, 23, 42, 0.85);
+            animation: showcaseGlow 3.5s infinite ease-in-out;
+        }
+
+        .showcase-slider {
+            position: relative;
+            width: 100%;
+        }
+
+        .showcase-slide {
+            display: none;
+            width: 100%;
+            animation: smoothSlideFade 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .showcase-slide.active {
+            display: block;
+        }
+
+        /* Full size original ratio — koi cutting ya cropping nahi */
+        .showcase-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .showcase-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 5;
+            background: rgba(2, 6, 23, 0.82);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(250, 204, 21, 0.5);
+            color: #facc15;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .showcase-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            display: flex;
+            gap: 6px;
+            background: rgba(2, 6, 23, 0.72);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .showcase-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            transition: all 0.35s ease;
+            cursor: pointer;
+        }
+
+        .showcase-dot.active {
+            width: 20px;
+            border-radius: 10px;
+            background: #facc15;
+            box-shadow: 0 0 8px #facc15;
+        }
+
         /* ================= FOOTER ================= */
         footer {
             text-align: center;
             padding: 30px 0;
-            margin-top: 20px;
+            margin-top: 25px;
             border-top: 1px solid #1e293b;
             font-size: 12px;
             color: #64748b;
@@ -332,7 +425,7 @@
 
         <!-- TOP HERO & ANIMATED BUTTON SECTION -->
         <div class="hero-section">
-            <div class="trust-badge">⚡ 100% Free & Instant QR Code Tool</div>
+            <div class="trust-badge">⚡ VIP Pro UPI QR Code Generator</div>
             
             <div class="click-pointer">👇 <span>Click Below To Create QR</span> 👇</div>
             
@@ -363,21 +456,21 @@
         
         <!-- HIGHLIGHT NOTICE BOX -->
         <div class="notice-box">
-            <strong>🚀 No Sign-Up Required — Lifetime Free</strong>
-            Generate unlimited high-resolution QR codes directly in your browser. Your QR codes never expire and contain zero watermarks.
+            <strong>🚀 Professional Merchant Card & Custom Logo</strong>
+            Generate high-resolution branded UPI QR codes with your own shop photo or logo in the center. Ready for print & digital sharing!
         </div>
 
         <!-- FEATURE CARDS -->
         <div class="card">
             <div class="card-icon">⚡</div>
-            <h2>Instant Generation</h2>
-            <p>Convert any website URL, UPI payment ID, WhatsApp link, or plain text into a scannable QR code in <strong>less than 1 second</strong>.</p>
+            <h2>Instant UPI QR Generation</h2>
+            <p>Convert any UPI ID, shop name, or fixed payment amount into a scannable VIP merchant QR card in <strong>less than 1 second</strong>.</p>
         </div>
 
         <div class="card">
             <div class="card-icon">🎨</div>
-            <h2>HD Download & High Compatibility</h2>
-            <p>Download crisp, print-ready QR codes that scan effortlessly on all Android, iOS, and payment scanner apps across India.</p>
+            <h2>Center Logo & HD Card Download</h2>
+            <p>Upload your business logo or photo and download a crisp, print-ready gateway card compatible with PhonePe, GPay, Paytm, and BHIM.</p>
         </div>
 
         <!-- MIDDLE RESPONSIVE ADSENSE SLOT -->
@@ -397,16 +490,33 @@
         <!-- SEO ARTICLE FOR ADSENSE COMPLIANCE -->
         <article class="article-content">
             <h3>Why Use MS QR Generator?</h3>
-            <p>Many online QR tools lock downloads behind paid subscriptions or make your QR codes expire after a few days. <strong>MS QR</strong> is built to give individuals, shopkeepers, and businesses a clean, fast, and completely free way to create permanent QR codes without any hidden charges.</p>
+            <p>Standard black-and-white QR codes look plain and fail to build trust with customers. <strong>MS QR</strong> transforms your regular UPI ID into a sleek, gold-bordered merchant payment standee with your own brand logo right in the center.</p>
             
             <h3>Best Ways to Use MS QR</h3>
             <ul>
-                <li><strong>Business & Shop Owners:</strong> Create quick scan codes for your digital menu, Google reviews, or social media pages.</li>
-                <li><strong>Website & App Links:</strong> Share long URLs easily on posters, visiting cards, and flyers.</li>
-                <li><strong>Privacy First:</strong> Everything runs smoothly without asking for your personal email or phone number.</li>
-                <li><strong>Mobile & Desktop Ready:</strong> Works seamlessly on any smartphone or computer browser.</li>
+                <li><strong>Shops & Retail Counters:</strong> Print your HD merchant gateway card and place it at your billing desk for instant UPI payments.</li>
+                <li><strong>Custom Center Logo:</strong> Automatically crops and frames your shop logo or profile photo inside a golden ring.</li>
+                <li><strong>All UPI Apps Supported:</strong> Works seamlessly with Google Pay, PhonePe, Paytm, Amazon Pay, and all banking UPI apps.</li>
+                <li><strong>Instant HD Export:</strong> Download ultra-clear PNG cards without any blurriness when printed.</li>
             </ul>
         </article>
+
+        <!-- NECHE FULL-SIZE EXAMPLE IMAGE SHOWCASE (ORIGINAL ASPECT RATIO, NO CROP) -->
+        <div class="bottom-showcase-wrapper">
+            <div class="showcase-badge">✨ VIP QR Preview</div>
+            <div class="showcase-slider" id="showcaseSlider">
+                <div class="showcase-slide active">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEikZ3rQxkb65dK50GESm0xzLDtHic1KphHmUbwr0AuVf02JKUVrl1NX8FoeHH6M8NwfxCJx1HlNtOK_HGaJ6Ok9FNFO8OJVLGcmBNVyGB6R-ra0Howkeq-7-ZUSQQ09r8HlJqW3BytaMO2Y-oqmtOxSwHp5jGjonz9Wht4uCbMqWBaoKQvtff1kj-_vaXd1/s1600/20261112_163506.jpg" alt="QR Preview 1">
+                </div>
+                <div class="showcase-slide">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhCi9lhK74IrkOvSIs0YdyhpKyqBH913G3KcSfI9WgV3aXITy84h7BC_Tmbx8K9jFQieOzmdnYKWeeHAWiKlcrLkEe-SXSHYaFZb18xzZu95hbj4sgZOaut2NZJdQFbea24fqiH7UrMgQO3-dR1keccIncuONySKlbbGm1x29k0w0tFXAv8jGz5UsI3d_tv/s1600/Screenshot_20261119_153045.jpg" alt="QR Preview 2">
+                </div>
+            </div>
+            <div class="showcase-dots">
+                <span class="showcase-dot active" onclick="goToSlide(0)"></span>
+                <span class="showcase-dot" onclick="goToSlide(1)"></span>
+            </div>
+        </div>
 
         <!-- BOTTOM RESPONSIVE ADSENSE SLOT -->
         <div class="ad-container">
@@ -434,5 +544,26 @@
 
     </div>
 
+    <script>
+        // --- BOTTOM IMAGE SLIDER (3.5 SECONDS AUTO-CHANGE) ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".showcase-slide");
+        const dots = document.querySelectorAll(".showcase-dot");
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove("active");
+            dots[currentSlide].classList.remove("active");
+            currentSlide = index;
+            slides[currentSlide].classList.add("active");
+            dots[currentSlide].classList.add("active");
+        }
+
+        setInterval(() => {
+            const nextSlide = (currentSlide + 1) % slides.length;
+            goToSlide(nextSlide);
+        }, 3500);
+    </script>
+
 </body>
 </html>
+
