@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1324">
+    <title>MS Madad Foundation - Social Welfare, Charity & Community Support</title>
+    <meta name="description" content="Join MS Madad Foundation to support education, healthcare, food drives, and emergency relief for families in need. Transparent & direct community help.">
+    
+    <!-- Google Fonts for Professional Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Google AdSense Main Script -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1874063367142441" crossorigin="anonymous"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0b1324;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* ================= HEADER & HERO ================= */
+        header {
+            text-align: center;
+            padding: 30px 0 10px;
+        }
+
+        .logo-text {
+            font-size: 40px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span.white { color: #ffffff; }
+        .logo-text span.gold { color: #facc15; }
+
+        .tagline {
+            font-size: 14px;
+            color: #94a3b8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 35px 15px;
+            background: radial-gradient(circle at center, #1e293b, #0b1324);
+            border-radius: 20px;
+            border: 1px solid #1e293b;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .trust-badge {
+            display: inline-block;
+            background: #1e293b;
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #facc15;
+            border: 1px solid #334155;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* ================= ANIMATIONS & BUTTON ================= */
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .click-pointer {
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            margin: 10px 0 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: bounce 1.2s infinite ease-in-out;
+        }
+
+        .click-pointer span {
+            color: #facc15;
+        }
+
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0.5); }
+            70% { box-shadow: 0 0 0 18px rgba(250, 204, 21, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(250, 204, 21, 0); }
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            25% { left: 200%; }
+            100% { left: 200%; }
+        }
+
+        .madad-btn {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #facc15, #eab308, #f59e0b);
+            color: #000000;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 30px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 19px;
+            width: 100%;
+            max-width: 340px;
+            border: none;
+            cursor: pointer;
+            animation: pulseGlow 2s infinite;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            margin: 0 auto;
+        }
+
+        .madad-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; 
+            left: -100%; 
+            width: 50%; 
+            height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg);
+            animation: shine 2.8s infinite;
+        }
+
+        .madad-btn:hover {
+            filter: brightness(1.1);
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        .madad-btn:active {
+            transform: scale(0.95);
+        }
+
+        .madad-btn svg {
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            z-index: 1; 
+        }
+        
+        .madad-btn span {
+            z-index: 1; 
+            text-align: left;
+            line-height: 1.2;
+        }
+
+        .madad-btn small {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            opacity: 0.85;
+            letter-spacing: 0.5px;
+        }
+
+        /* ================= ADVERTISEMENT WRAPPER ================= */
+        .ad-container {
+            width: 100%;
+            text-align: center;
+            background: #131c31;
+            padding: 12px 10px;
+            border-radius: 12px;
+            margin: 25px 0;
+            overflow: hidden;
+            border: 1px dashed #334155;
+            min-height: 105px; 
+        }
+
+        .ad-label {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        /* ================= NOTICE BOX ================= */
+        .notice-box {
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.4);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .notice-box strong {
+            color: #facc15;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        /* ================= FEATURE CARDS ================= */
+        .card {
+            background: linear-gradient(145deg, #131c31, #0f172a);
+            border: 1px solid #1e293b;
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid rgba(250, 204, 21, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #facc15;
+        }
+
+        .card h2 {
+            font-size: 22px;
+            color: #facc15;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        /* ================= SEO ARTICLE SECTION ================= */
+        .article-content {
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 10px;
+            border: 1px solid #1e293b;
+        }
+
+        .article-content h3 {
+            color: #facc15;
+            font-size: 20px;
+            margin-bottom: 15px;
+            margin-top: 25px;
+        }
+
+        .article-content h3:first-child { margin-top: 0; }
+        
+        .article-content p {
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .article-content ul {
+            margin-left: 20px;
+            color: #cbd5e1;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        /* ================= FULL-SIZE ORIGINAL RATIO IMAGE SHOWCASE ================= */
+        @keyframes showcaseGlow {
+            0%, 100% { border-color: rgba(250, 204, 21, 0.35); box-shadow: 0 10px 25px rgba(0,0,0,0.4); }
+            50% { border-color: rgba(168, 85, 247, 0.7); box-shadow: 0 12px 30px rgba(168, 85, 247, 0.25); }
+        }
+
+        @keyframes smoothSlideFade {
+            0% { opacity: 0; transform: scale(0.97) translateY(6px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .bottom-showcase-wrapper {
+            margin-top: 25px;
+            width: 100%;
+            max-width: 440px;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            border: 1.5px solid rgba(250, 204, 21, 0.35);
+            background: rgba(15, 23, 42, 0.85);
+            animation: showcaseGlow 3.5s infinite ease-in-out;
+        }
+
+        .showcase-slider {
+            position: relative;
+            width: 100%;
+        }
+
+        .showcase-slide {
+            display: none;
+            width: 100%;
+            animation: smoothSlideFade 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .showcase-slide.active {
+            display: block;
+        }
+
+        /* Full size original ratio — koi cutting ya cropping nahi */
+        .showcase-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .showcase-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            z-index: 5;
+            background: rgba(2, 6, 23, 0.82);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(250, 204, 21, 0.5);
+            color: #facc15;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 5px 12px;
+            border-radius: 20px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+        .showcase-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 5;
+            display: flex;
+            gap: 6px;
+            background: rgba(2, 6, 23, 0.72);
+            padding: 6px 12px;
+            border-radius: 20px;
+        }
+
+        .showcase-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.35);
+            transition: all 0.35s ease;
+            cursor: pointer;
+        }
+
+        .showcase-dot.active {
+            width: 20px;
+            border-radius: 10px;
+            background: #facc15;
+            box-shadow: 0 0 8px #facc15;
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 25px;
+            border-top: 1px solid #1e293b;
+            font-size: 12px;
+            color: #64748b;
+            letter-spacing: 1px;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        .footer-links a:hover {
+            color: #facc15;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- HEADER -->
+        <header>
+            <div class="logo-text">
+                <span class="white">MS</span><span class="gold">MADAD</span>
+            </div>
+            <div class="tagline">Helping Hands. Changing Lives.</div>
+        </header>
+
+        <!-- TOP HERO & ANIMATED BUTTON SECTION -->
+        <div class="hero-section">
+            <div class="trust-badge">🤝 MS Madad Foundation • Social Welfare</div>
+            
+            <div class="click-pointer">👇 <span>Click Below To Support & Explore</span> 👇</div>
+            
+            <a href="https://ms-madad.netlify.app/" target="_blank" rel="noopener noreferrer" class="madad-btn">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                <span>
+                    <small>OFFICIAL CHARITY PORTAL</small>
+                    OPEN MS MADAD
+                </span>
+            </a>
+        </div>
+
+        <!-- TOP RESPONSIVE ADSENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+        
+        <!-- HIGHLIGHT NOTICE BOX -->
+        <div class="notice-box">
+            <strong>💛 Every Contribution Brings Hope & Dignity</strong>
+            Support underprivileged families with education, medical aid, ration kits, and emergency relief through MS Madad Foundation.
+        </div>
+
+        <!-- FEATURE CARDS -->
+        <div class="card">
+            <div class="card-icon">🤲</div>
+            <h2>Direct Grassroots Support</h2>
+            <p>Your contribution goes directly toward essential ration kits, medical emergencies, and educational supplies for needy families with <strong>zero middlemen</strong>.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🛡️</div>
+            <h2>100% Transparent & Verified Aid</h2>
+            <p>Every campaign and relief drive is verified on the ground so donors and volunteers can contribute with complete confidence and peace of mind.</p>
+        </div>
+
+        <!-- MIDDLE RESPONSIVE ADSENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- SEO ARTICLE FOR ADSENSE COMPLIANCE -->
+        <article class="article-content">
+            <h3>About MS Madad Foundation</h3>
+            <p><strong>MS Madad Foundation</strong> is dedicated to uplifting underserved communities through timely humanitarian aid, healthcare support, and educational empowerment. We believe lasting change begins when communities stand together for those in need.</p>
+            
+            <h3>Our Core Welfare Initiatives</h3>
+            <ul>
+                <li><strong>Food & Ration Drives:</strong> Distributing monthly grocery and essential ration kits to daily-wage and low-income households.</li>
+                <li><strong>Medical & Emergency Relief:</strong> Assisting patients with urgent treatments, life-saving medicines, and hospital support.</li>
+                <li><strong>Education & Youth Empowerment:</strong> Providing books, school fees, and learning resources so no child drops out due to financial hardship.</li>
+                <li><strong>Community & Disaster Help:</strong> Rapid on-ground relief during floods, extreme weather, and local crises.</li>
+            </ul>
+        </article>
+
+        <!-- NECHE FULL-SIZE EXAMPLE IMAGE SHOWCASE (ORIGINAL ASPECT RATIO, NO CROP) -->
+        <div class="bottom-showcase-wrapper">
+            <div class="showcase-badge">✨ Foundation Impact</div>
+            <div class="showcase-slider" id="showcaseSlider">
+                <div class="showcase-slide active">
+                    <!-- Niche src mein apni MS Madad Foundation ki 1st photo ka URL dalein -->
+                    <img src="https://placehold.co/800x500/131c31/facc15?text=MS+Madad+Foundation+Drive+1" alt="MS Madad Foundation Activity 1">
+                </div>
+                <div class="showcase-slide">
+                    <!-- Niche src mein apni MS Madad Foundation ki 2nd photo ka URL dalein -->
+                    <img src="https://placehold.co/800x500/131c31/facc15?text=MS+Madad+Foundation+Drive+2" alt="MS Madad Foundation Activity 2">
+                </div>
+            </div>
+            <div class="showcase-dots">
+                <span class="showcase-dot active" onclick="goToSlide(0)"></span>
+                <span class="showcase-dot" onclick="goToSlide(1)"></span>
+            </div>
+        </div>
+
+        <!-- BOTTOM RESPONSIVE ADSENSE SLOT -->
+        <div class="ad-container">
+            <span class="ad-label">Advertisement</span>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-1874063367142441"
+                 data-ad-slot="9832164119"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a> | 
+                <a href="#">Terms & Conditions</a> | 
+                <a href="#">Contact Us</a>
+            </div>
+            BY MUSTAQEEM • MS MADAD FOUNDATION
+        </footer>
+
+    </div>
+
+    <script>
+        // --- BOTTOM IMAGE SLIDER (3.5 SECONDS AUTO-CHANGE) ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".showcase-slide");
+        const dots = document.querySelectorAll(".showcase-dot");
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove("active");
+            dots[currentSlide].classList.remove("active");
+            currentSlide = index;
+            slides[currentSlide].classList.add("active");
+            dots[currentSlide].classList.add("active");
+        }
+
+        setInterval(() => {
+            const nextSlide = (currentSlide + 1) % slides.length;
+            goToSlide(nextSlide);
+        }, 3500);
+    </script>
+
+</body>
+</html>
+
